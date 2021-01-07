@@ -2,7 +2,4 @@
 @import "base/config";
 @import "base/variables";
 @import "base/typography";
-
-.topbar {
-  background: $topbarBG;
-}
+@import "components/menu";
