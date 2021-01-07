@@ -1,20 +1,5 @@
 // bootstrap.scss
-<<<<<<< HEAD
-@import "base/typography.scss";
-@import "base/linearstyle.scss";
-@import "base/config.scss";
-@import "base/variables.scss";
-
-
-.topbar{
-    background:$topbarBG;
-}
-=======
 @import "base/config";
 @import "base/variables";
 @import "base/typography";
-
-.topbar {
-  background: $topbarBG;
-}
->>>>>>> d2d1fea... error fix
+@import "base/linearstyle.css";
