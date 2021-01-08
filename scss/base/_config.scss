@@ -22,17 +22,29 @@ input {
 }
 
 @mixin media-md {
+<<<<<<< HEAD
   @media screen and (max-width: 768px) {
+=======
+  @media screen and (min-width: 768px) {
+>>>>>>> d82f526f181659d76a660c6ccbfffb4f48410abd
     @content;
   }
 }
 @mixin media-lg {
+<<<<<<< HEAD
   @media screen and (max-width: 1024px) {
+=======
+  @media screen and (min-width: 1024px) {
+>>>>>>> d82f526f181659d76a660c6ccbfffb4f48410abd
     @content;
   }
 }
 @mixin media-xl {
+<<<<<<< HEAD
   @media screen and (max-width: 1600px) {
+=======
+  @media screen and (min-width: 1600px) {
+>>>>>>> d82f526f181659d76a660c6ccbfffb4f48410abd
     @content;
   }
 }

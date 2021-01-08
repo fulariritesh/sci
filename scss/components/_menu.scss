@@ -1,11 +1,19 @@
+<<<<<<< HEAD
+=======
+@import "../base/variables";
+
+>>>>>>> d82f526f181659d76a660c6ccbfffb4f48410abd
 .topbar {
   background: $topbar-bg;
   .tb-icon {
     color: $tb-icon-color;
+<<<<<<< HEAD
 
     @include media-md {
       color: pink;
     }
+=======
+>>>>>>> d82f526f181659d76a660c6ccbfffb4f48410abd
   }
   .tb-icon1 {
     color: $tb-icon-color1;
@@ -22,6 +30,7 @@
       color: white;
     }
   }
+<<<<<<< HEAD
   .tb-right {
     display: flex;
     align-content: flex-end;
@@ -51,4 +60,6 @@ nav {
       color: white;
     }
   }
+=======
+>>>>>>> d82f526f181659d76a660c6ccbfffb4f48410abd
 }
