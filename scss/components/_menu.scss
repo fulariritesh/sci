@@ -1,9 +1,11 @@
-@import "../base/variables";
-
 .topbar {
   background: $topbar-bg;
   .tb-icon {
     color: $tb-icon-color;
+
+    @include media-md {
+      color: pink;
+    }
   }
   .tb-icon1 {
     color: $tb-icon-color1;
@@ -17,6 +19,35 @@
     text-decoration: none;
     color: white;
     ::placeholder {
+      color: white;
+    }
+  }
+  .tb-right {
+    display: flex;
+    align-content: flex-end;
+  }
+}
+
+.hide-search-bar {
+  @include media-md {
+    display: none;
+  }
+}
+
+nav {
+  background: $nav-color;
+  text-decoration: none;
+  color: white;
+  a {
+    color: white;
+  }
+  .navbar-btn {
+    .btn-signIn {
+      background: #00a6d0;
+      color: white;
+    }
+    .btn-join {
+      background: #08bb9b;
       color: white;
     }
   }
