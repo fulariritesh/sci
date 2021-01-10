@@ -21,6 +21,12 @@ input {
   }
 }
 
+@mixin media-sm {
+  @media screen and (max-width: 376px) {
+    @content;
+  }
+}
+
 @mixin media-md {
   @media screen and (max-width: 768px) {
     @content;
