@@ -1,11 +1,10 @@
 .topbar {
+  .col {
+    padding: 0;
+  }
   background: $topbar-bg;
   .tb-icon {
     color: $tb-icon-color;
-
-    @include media-md {
-      color: pink;
-    }
   }
   .tb-icon1 {
     color: $tb-icon-color1;
@@ -23,11 +22,34 @@
     }
   }
   .tb-left {
-    padding: 0;
+    flex-direction: row;
+    @include media-md {
+      li {
+        padding-right: 10px;
+      }
+    }
   }
   .tb-right {
-    display: flex;
+    flex-direction: row;
     align-content: flex-end;
+
+    .dropdown-menu {
+      position: absolute;
+      border-radius: 0%;
+      background-color: $tb-search-bg-color;
+    }
+    .dropdown-item {
+      color: white;
+      &:hover {
+        background-color: royalblue;
+      }
+    }
+    @include media-md {
+      font-size: smaller;
+      li {
+        padding-right: 10px;
+      }
+    }
   }
 }
 
@@ -40,14 +62,60 @@
 nav {
   background: $nav-color;
   text-decoration: none;
-  color: white;
+
+  .logo {
+    color: white;
+  }
+
+  .navbar-toggler {
+    color: white;
+    border: 0;
+  }
+
+  .navbar-collapse {
+    @include media-md {
+      height: 100%;
+      width: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 0;
+      list-style: none;
+      background-color: #00415d;
+      overflow-x: hidden;
+      z-index: 1000;
+
+      .nav-item {
+        padding-left: 1.5rem;
+      }
+    }
+  }
+
+  //overlay for mobile menu that did not work
+  .overlay {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    background-color: #ccc;
+    opacity: 0.6;
+    z-index: 990;
+  }
+
   a {
     color: white;
   }
   .navbar-btn {
+    display: flex;
+    align-content: flex-end;
+
     .btn-signIn {
       background: #00a6d0;
       color: white;
+      margin: 0 10px;
     }
     .btn-join {
       background: #08bb9b;
