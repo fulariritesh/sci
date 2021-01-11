@@ -1,13 +1,54 @@
-main {
-  .homepage {
-    padding: 0;
-  }
-}
-
 .banner {
   .banner-btn {
     background: #002f43;
     color: white;
+  }
+}
+
+.gfb {
+  padding-bottom: 50px;
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.profile-block {
+  padding-bottom: 50px;
+  .col {
+    margin: auto;
+  }
+  img {
+    width: 50%;
+  }
+  button {
+    color: white;
+    background-color: #ffbd05;
+  }
+}
+.join-block {
+  padding-bottom: 50px;
+  .col {
+    margin: auto;
+  }
+  img {
+    width: 80%;
+  }
+}
+.category-block {
+  padding-bottom: 50px;
+  .row {
+    padding-top: 15px;
+  }
+  .card {
+    padding-top: 15px;
+    border-radius: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  img {
+    margin: auto;
   }
 }
 
