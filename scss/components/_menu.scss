@@ -1,4 +1,6 @@
 .topbar {
+  height:35px;
+
   .col {
     padding: 0;
   }
@@ -11,12 +13,18 @@
   }
   .tb-text {
     color: white;
+    
+  }
+  .searchBox{
+    height:24px !important;
+    font-size:14px;
   }
   .tb-search-bg {
     background-color: $tb-search-bg-color;
     border: 0;
     text-decoration: none;
     color: white;
+    height:30px;
     ::placeholder {
       color: white;
     }
@@ -42,6 +50,7 @@
       color: white;
       &:hover {
         background-color: royalblue;
+        
       }
     }
     @include media-md {
@@ -81,7 +90,7 @@ nav {
       left: 0;
       padding: 0;
       list-style: none;
-      background-color: #00415d;
+      background-color: $navbar-bg;
       overflow-x: hidden;
       z-index: 1000;
 

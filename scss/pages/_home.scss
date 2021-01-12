@@ -1,7 +1,33 @@
+@import "../base/variable";
+
 .banner {
+  .bannerArea{
+    background-image: url("../images/banner1.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: $bannerHeight;
+  }
+  .banner-info{
+    width:46%;
+    padding-top:15%;
+  }
+  .bannerheading-text{
+    font-size: 3rem;
+    color: $light-color;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #000;
+  }
+  .bannerText{
+    color:$navbar-bg;
+    font-size: 1.5rem;
+    line-height:2.1rem;
+    padding-bottom:3%;
+  }
+  
   .banner-btn {
-    background: #002f43;
-    color: white;
+    background: $navbar-bg !important;
+    color: $light-color;
+    text-transform: uppercase;
   }
 }
 
