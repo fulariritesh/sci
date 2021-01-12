@@ -1,4 +1,4 @@
-@import "../base/variable";
+// @import "../base/variable";
 
 .banner {
   .bannerArea{
@@ -32,22 +32,26 @@
 }
 
 .gfb {
-  padding-bottom: 50px;
-  img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  padding-bottom: 4rem;
+  padding-top: 4rem;
+
+  // img {
+  //   display: block;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  // }
 }
 
 .profile-block {
-  padding-bottom: 50px;
+
+    height:550px;
+
   .col {
     margin: auto;
   }
-  img {
-    width: 50%;
-  }
+  // img {
+  //   width: 50%;
+  // }
   button {
     color: white;
     background-color: #ffbd05;
@@ -85,5 +89,41 @@
   .cta-btn {
     background: #007a6d;
     color: white;
+  }
+}
+
+
+#drop1 {
+  display: block;
+  width: 126px;
+  height: 132px;
+  background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  border-radius: 12% 73% 50% 68% / 60% 60% 40% 40%;
+  position: absolute;
+  z-index: 5;
+  right: 10px;
+  top:0;
+}
+#drop2 {
+  display: block;
+  width: 126px;
+  height: 142px;
+  background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  position: absolute;
+  z-index: 5;
+  left: 95px;
+  bottom:0;
+}
+.imageBlockLeft{
+  z-index: 9;
+  width:430px;
+  height:500px;
+  position:absolute;
+  top:40px;
+  right:60px;
+
+  img{
+    width:100%;
   }
 }

@@ -19,7 +19,8 @@
   </head>
   <body>
     <header>
-      <section class="container topbar navbar navbar-expand-sm">
+      <section class="container-fluid topbar navbar navbar-expand-sm">
+        <div class="container">
         <div class="col">
           <ul class="tb-left navbar-nav">
             <li class="nav-item">
@@ -48,8 +49,8 @@
               ></a>
             </li>
             <li class="nav-item hide-search-bar pl-4 pt-2">
-              <form class="form-control tb-search-bg">
-                <input class="tb-search-bg searchBox" type="" placeholder="search..." />
+              <form class="tb-search-bg px-3">
+                <input class="tb-search-bg searchBox " type="" placeholder="search..." />
                 <i class="tb-icon1 fa fa-search"></i>
               </form>
             </li>
@@ -80,8 +81,11 @@
             </li>
           </ul>
         </div>
+      </div>
       </section>
-      <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid headerbar ">
+        <div class="container">
+      <nav class="navbar navbar-expand-lg px-0">
         <button
           class="navbar-toggler"
           type="button"
@@ -93,7 +97,7 @@
         >
           <span class="fa fa-bars"></span>
         </button>
-        <div class="col logo">
+        <div class="col-4 logo px-0">
           <img src="#" alt="ShowcaseIndia-Logo" />
         </div>
         <div class="collapse navbar-collapse" id="navcollpse">
@@ -133,10 +137,13 @@
         </div>
         <div class="overlay"></div>
       </nav>
+    </div>
+    </div>
     </header>
     <main class="">
       <section class="banner ">
         <div class="container-fluid bannerArea">
+          <div class="container">
           <div class="banner-info">
             <h2 class="bannerheading-text">
               Showcase Your Talent
@@ -146,35 +153,44 @@
               <button type="button" class="btn btn-lg banner-btn">Join now for free</button>
           </div>
         </div>
+        </div>
       </section>
+
       <section class="gfb container-fluid">
-        <h4 class="text-center">Brands that trust us</h4>
+        <div class="container text-center">
+          <h4 class="" >Brands that trust us</h4>
         <img class="img-fluid" src="images/icons.jpg" alt="" />
         <!-- <div class="brand-imgs container text-center">
           <img src="" alt="brand-img" />
           <img src="" alt="brand-img" />
           <img src="" alt="brand-img" />
         </div> -->
+      </div>
       </section>
-      <section class="profile-block container-fluid">
+      <section class="container-fluid gradient-bg profile-block py-4">
+        <div class="container">
         <div class="row">
-          <div class="col">
+          <div class="col-sm-6 blockInfo">
             <h4>Let people discover you</h4>
             <h1>Post profile quickly</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              et, eveniet eligendi a distinctio nulla aliquam perferendis nihil
-              voluptatibus deserunt.
+              Quick and easy sign-up process and an AI system that does the work and matches you with employers in the entertainment industry who are most likely to hire you.
             </p>
-            <button class="btn">CREATE MY PROFILE NOW</button>
+            <button class="btn btn-profile btn-lg">CREATE MY PROFILE NOW</button>
           </div>
-          <div class="col">
-            <img
-              src="images/profile-block.jpg"
+          <div class="col-sm-6">
+            <div id="drop1"></div>
+            <div id="drop2"></div>
+            <div class="imageBlockLeft shadow-sm">
+              <img
+              src="images/profile-block.jpg" class="img-fluid"
               alt="profile pic"
             />
+            </div>
+           
           </div>
         </div>
+      </div>
       </section>
       <section class="join-block row">
         <div class="col">
