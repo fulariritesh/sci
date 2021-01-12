@@ -1,4 +1,31 @@
-section{
-  height:100vh;
-  background-color: #F2FAFD;
+.sign-up {
+  font-family: Poppins-regular;
+  height: 100vh;
+  background-color: $sign-up-bg-color;
+}
+
+.card {
+  .card-body {
+    
+    .btn{
+      color: $light-color;
+    }
+    .btn-fb {
+      background-color: $fb-color;
+    }
+    .btn-gm {
+      background-color: $gm-color;
+    }
+    .btn-em {
+      background-color: $primary-color;
+      margin-bottom: 30px;
+    }
+    
+    .or {
+      position: absolute;
+      left: 50%;
+      width: 30px;
+      background-color: $light-color;
+    }
+  }
 }
