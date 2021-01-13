@@ -1,7 +1,4 @@
 .topbar {
-  height:35px;
-  font-size:14px;
-
   .col {
     padding: 0;
   }
@@ -14,19 +11,12 @@
   }
   .tb-text {
     color: white;
-    
-  }
-  .searchBox{
-    height:24px !important;
-    font-size:14px;
   }
   .tb-search-bg {
     background-color: $tb-search-bg-color;
     border: 0;
     text-decoration: none;
     color: white;
-    height:26px;
-    border-radius: 5px;
     ::placeholder {
       color: white;
     }
@@ -52,7 +42,6 @@
       color: white;
       &:hover {
         background-color: royalblue;
-        
       }
     }
     @include media-md {
@@ -69,9 +58,7 @@
     display: none;
   }
 }
-.headerbar{
-  background: $nav-color;
-}
+
 nav {
   background: $nav-color;
   text-decoration: none;
@@ -94,7 +81,7 @@ nav {
       left: 0;
       padding: 0;
       list-style: none;
-      background-color: $navbar-bg;
+      background-color: #00415d;
       overflow-x: hidden;
       z-index: 1000;
 

@@ -53,6 +53,14 @@ if ( ! function_exists( 'showcase_setup' ) ) :
 				'menu-1' => esc_html__( 'Primary', 'showcase' ),
 			)
 		);
+		function wpse23007_redirect(){
+		  if( is_admin() && !defined('DOING_AJAX') && ( current_user_can('subscriber') || current_user_can('contributor') ) ){
+		    wp_redirect(home_url());
+		    exit;
+		  }
+		}
+		add_action('init','wpse23007_redirect');
+		add_filter( 'show_admin_bar', '__return_false' );
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
@@ -145,7 +153,7 @@ function showcase_scripts() {
 	wp_style_add_data( 'showcase-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'showcase-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -185,3 +193,229 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+// My code here
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Theme Settings',
+		'menu_title'	=> 'Showcase Settings',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+	
+}
+
+// Register Custom Post Type
+function testimonials() {
+
+	$labels = array(
+		'name'                  => _x( 'Testimonials', 'Post Type General Name', 'text_domain' ),
+		'singular_name'         => _x( 'Testimonial', 'Post Type Singular Name', 'text_domain' ),
+		'menu_name'             => __( 'Testimonials', 'text_domain' ),
+		'name_admin_bar'        => __( 'Testimonial', 'text_domain' ),
+		'archives'              => __( 'Item Archives', 'text_domain' ),
+		'attributes'            => __( 'Item Attributes', 'text_domain' ),
+		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
+		'all_items'             => __( 'All Items', 'text_domain' ),
+		'add_new_item'          => __( 'Add New Item', 'text_domain' ),
+		'add_new'               => __( 'Add New', 'text_domain' ),
+		'new_item'              => __( 'New Item', 'text_domain' ),
+		'edit_item'             => __( 'Edit Item', 'text_domain' ),
+		'update_item'           => __( 'Update Item', 'text_domain' ),
+		'view_item'             => __( 'View Item', 'text_domain' ),
+		'view_items'            => __( 'View Items', 'text_domain' ),
+		'search_items'          => __( 'Search Item', 'text_domain' ),
+		'not_found'             => __( 'Not found', 'text_domain' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'text_domain' ),
+		'featured_image'        => __( 'Featured Image', 'text_domain' ),
+		'set_featured_image'    => __( 'Set featured image', 'text_domain' ),
+		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
+		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
+		'insert_into_item'      => __( 'Insert into item', 'text_domain' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'text_domain' ),
+		'items_list'            => __( 'Items list', 'text_domain' ),
+		'items_list_navigation' => __( 'Items list navigation', 'text_domain' ),
+		'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
+	);
+	$args = array(
+		'label'                 => __( 'Testimonial', 'text_domain' ),
+		'description'           => __( 'Post Type Description', 'text_domain' ),
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'editor', 'thumbnail' ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'menu_icon'             => 'dashicons-testimonial',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => true,
+		'exclude_from_search'   => true,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'page',
+	);
+	register_post_type( 'testimonials', $args );
+
+}
+add_action( 'init', 'testimonials', 0 );
+
+add_action('acf/init', 'my_acf_init_block_types');
+function my_acf_init_block_types() {
+
+    // Check function exists.
+    if( function_exists('acf_register_block_type') ) {
+
+        // register a testimonial block.
+        acf_register_block_type(array(
+            'name'              => 'testimonial',
+            'title'             => __('Testimonial'),
+            'description'       => __('A custom testimonial block.'),
+            'render_template'   => 'template-parts/blocks/testimonial/testimonial.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'testimonial', 'quote' ),
+        ));
+
+        acf_register_block_type(array(
+            'name'              => 'brands',
+            'title'             => __('Brands'),
+            'description'       => __('Get found by brands block.'),
+            'render_template'   => 'template-parts/blocks/brands/brands.php',
+            'category'          => 'formatting',
+            'icon'              => 'dashicons-testimonial',
+            'keywords'          => array( 'brands' ),
+        ));
+
+        acf_register_block_type(array(
+            'name'              => 'profile',
+            'title'             => __('Profile'),
+            'description'       => __('Profile block on the home page.'),
+            'render_template'   => 'template-parts/blocks/create_profile/block.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'profile' ),
+        ));
+    }
+}
+
+// Register Custom Post Type
+function jobs() {
+
+	$labels = array(
+		'name'                  => _x( 'Jobs', 'Post Type General Name', 'text_domain' ),
+		'singular_name'         => _x( 'Job', 'Post Type Singular Name', 'text_domain' ),
+		'menu_name'             => __( 'Jobs', 'text_domain' ),
+		'name_admin_bar'        => __( 'Jobs', 'text_domain' ),
+		'archives'              => __( 'Item Archives', 'text_domain' ),
+		'attributes'            => __( 'Item Attributes', 'text_domain' ),
+		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
+		'all_items'             => __( 'All Items', 'text_domain' ),
+		'add_new_item'          => __( 'Add New Item', 'text_domain' ),
+		'add_new'               => __( 'Add New', 'text_domain' ),
+		'new_item'              => __( 'New Item', 'text_domain' ),
+		'edit_item'             => __( 'Edit Item', 'text_domain' ),
+		'update_item'           => __( 'Update Item', 'text_domain' ),
+		'view_item'             => __( 'View Item', 'text_domain' ),
+		'view_items'            => __( 'View Items', 'text_domain' ),
+		'search_items'          => __( 'Search Item', 'text_domain' ),
+		'not_found'             => __( 'Not found', 'text_domain' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'text_domain' ),
+		'featured_image'        => __( 'Featured Image', 'text_domain' ),
+		'set_featured_image'    => __( 'Set featured image', 'text_domain' ),
+		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
+		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
+		'insert_into_item'      => __( 'Insert into item', 'text_domain' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'text_domain' ),
+		'items_list'            => __( 'Items list', 'text_domain' ),
+		'items_list_navigation' => __( 'Items list navigation', 'text_domain' ),
+		'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
+	);
+	$args = array(
+		'label'                 => __( 'Job', 'text_domain' ),
+		'description'           => __( 'Post Type Description', 'text_domain' ),
+		'labels'                => $labels,
+		'supports'              => array( 'title', 'editor' ),
+		'taxonomies'            => array( 'jobs' ),
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'menu_position'         => 5,
+		'menu_icon'             => 'dashicons-clipboard',
+		'show_in_admin_bar'     => true,
+		'show_in_nav_menus'     => true,
+		'can_export'            => true,
+		'has_archive'           => true,
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'page',
+	);
+	register_post_type( 'job', $args );
+
+}
+add_action( 'init', 'jobs', 0 );
+
+// Register Custom Taxonomy
+function profession() {
+
+	$labels = array(
+		'name'                       => _x( 'Job Categories', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Job Category', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Job Categories', 'text_domain' ),
+		'all_items'                  => __( 'All Items', 'text_domain' ),
+		'parent_item'                => __( 'Parent Item', 'text_domain' ),
+		'parent_item_colon'          => __( 'Parent Item:', 'text_domain' ),
+		'new_item_name'              => __( 'New Item Name', 'text_domain' ),
+		'add_new_item'               => __( 'Add New Item', 'text_domain' ),
+		'edit_item'                  => __( 'Edit Item', 'text_domain' ),
+		'update_item'                => __( 'Update Item', 'text_domain' ),
+		'view_item'                  => __( 'View Item', 'text_domain' ),
+		'separate_items_with_commas' => __( 'Separate items with commas', 'text_domain' ),
+		'add_or_remove_items'        => __( 'Add or remove items', 'text_domain' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'text_domain' ),
+		'popular_items'              => __( 'Popular Items', 'text_domain' ),
+		'search_items'               => __( 'Search Items', 'text_domain' ),
+		'not_found'                  => __( 'Not Found', 'text_domain' ),
+		'no_terms'                   => __( 'No items', 'text_domain' ),
+		'items_list'                 => __( 'Items list', 'text_domain' ),
+		'items_list_navigation'      => __( 'Items list navigation', 'text_domain' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+		'show_in_rest'               => true,
+	);
+	register_taxonomy( 'jobs', array( 'job' ), $args );
+
+}
+add_action( 'init', 'profession', 0 );
+
+add_filter( 'authenticate', 'user_lock', 10, 3 );
+function user_lock( $user, $username, $password ){
+    // Make sure a username and password are present for us to work with
+    if($username == '' || $password == '') return;
+
+    $user = get_user_by('login', $username);
+
+	$account_is_deactivated = get_field('is_deactivated', "user_" . $user->ID);
+
+    if (!!$account_is_deactivated) {
+    	$user = new WP_Error( 'denied', __("Your account has been deactivaed because: \n". get_field('message_to_show', "user_" . $user->ID) ) );
+    }else{
+    	return $user;
+    }
+   	
+     // Comment this line if you wish to fall back on WordPress authentication
+     // Useful for times when the external service is offline
+     remove_action('authenticate', 'wp_authenticate_username_password', 20);
+
+     return $user;
+}

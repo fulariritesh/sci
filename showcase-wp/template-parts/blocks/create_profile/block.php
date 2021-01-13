@@ -3,18 +3,6 @@
 
  ?>
 
-
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="" alt="First slide">
-      <div class="content">
-      	
-      </div>
-    </div>
-  </div>
-</div>
-
 <section class="container-fluid gradient-bg profile-block py-4">
 	<div class="container">
 		<div class="row">
