@@ -44,7 +44,7 @@
 
 .profile-block {
 
-    height:550px;
+    height:600px;
 
   .col {
     margin: auto;
@@ -83,42 +83,78 @@
 }
 
 .cta-block {
-  background: #01b4a1;
-  border: 0;
-  border-radius: 0;
+  background: $primary-color;
+  color: $light-color;
   .cta-btn {
-    background: #007a6d;
-    color: white;
+    background: $CTAblock-btnbg;
+    color: $light-color;
+  }
+  p{
+    font-size:20px;
   }
 }
 
 
 #drop1 {
-  display: block;
-  width: 126px;
-  height: 132px;
-  background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  @include droplet($profile-gradient1, $profile-gradient2, $width:126px, $height:132px );
   border-radius: 12% 73% 50% 68% / 60% 60% 40% 40%;
-  position: absolute;
   z-index: 5;
   right: 10px;
   top:0;
 }
 #drop2 {
-  display: block;
-  width: 126px;
-  height: 142px;
-  background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  @include droplet($profile-gradient1, $profile-gradient2, $width:126px, $height:142px );
   border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
-  position: absolute;
   z-index: 5;
   left: 95px;
   bottom:0;
 }
+#drop3 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:95px, $height:66px );
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  z-index: 5;
+  left: 36px;
+  top:-60px;
+}
+#drop4 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:121px, $height:104px );
+  border-radius: 40% 76% 54% 68% / 60% 60% 40% 40%;
+  z-index: 8;
+  right: 49px;
+  bottom: 27px;
+}
+#drop5 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:95px, $height:45px );
+  border-radius: 21% 76% 62% 68% / 60% 76% 40% 40%;
+  z-index: 8;
+  right: 185px;
+  bottom: 4px;
+}
+#drop6 {
+  @include droplet($block3-gradient1, $block3-gradient2, $width:95px, $height:45px );
+  border-radius: 21% 76% 62% 68% / 60% 76% 40% 40%;
+  z-index: 8;
+  right: 185px;
+  bottom: 4px;
+}
+#drop7 {
+  @include droplet($block3-gradient1, $block3-gradient2, $width:121px, $height:104px );
+  border-radius: 40% 76% 54% 68% / 60% 60% 40% 40%;
+  z-index: 8;
+  right: 49px;
+  bottom: 27px;
+}
+#drop8 {
+  @include droplet($block3-gradient1, $block3-gradient2, $width:95px, $height:66px );
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  z-index: 5;
+  left: -22px;
+  top:135px;
+}
 .imageBlockLeft{
   z-index: 9;
-  width:430px;
-  height:500px;
+  width:450px;
+  height:470px;
   position:absolute;
   top:40px;
   right:60px;
@@ -126,4 +162,52 @@
   img{
     width:100%;
   }
+}
+
+
+.artist-block{
+  height:700px;
+  padding-top:6rem;
+  padding-bottom:6rem;
+}
+.influencer-block, .talent-block{
+  height:730px;
+  padding-top:6rem;
+  padding-bottom:6rem;
+}
+.allcategories{
+  background-color: $greyBG;
+}
+
+
+#imageBlock {
+  display: block;
+  width:780px;
+  height: 730px;
+  // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top:0;
+  clip-path: ellipse(39% 35% at 35% 33%);
+}
+
+#imageBlock-influencers {
+  display: block;
+  width:780px;
+  height: 730px;
+  // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  top:0;
+  clip-path: ellipse(42% 35% at 60% 34%);
+}
+
+.imageBlock-simple{
+  display: block;
+  width:780px;
+  height: 730px;
 }
