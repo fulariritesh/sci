@@ -1,6 +1,5 @@
 // bootstrap.scss
 @import "base/variable";
-@import "../showcase-wp/bootstrap/scss/bootstrap.scss";
 @import "base/config";
 @import "base/typography";
 @import "base/linearstyle.css";
@@ -8,3 +7,6 @@
 @import "components/footer";
 @import "components/buttons";
 @import "pages/home";
+@import "../showcase-wp/bootstrap/scss/bootstrap.scss";
+
+
