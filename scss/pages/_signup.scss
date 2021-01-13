@@ -2,32 +2,32 @@
   font-family: Poppins-regular;
   height: 100vh;
   background-color: $sign-up-bg-color;
-}
 
-.card {
-  .card-body {
-    .btn {
-      color: $light-color;
-      @include media-sm {
-        font-size: 15px;
+  .card {
+    .card-body {
+      .btn {
+        color: $light-color;
+        @include media-sm {
+          font-size: 15px;
+        }
       }
-    }
-    .btn-fb {
-      background-color: $fb-color;
-    }
-    .btn-gm {
-      background-color: $gm-color;
-    }
-    .btn-em {
-      background-color: $primary-color;
-    }
+      .btn-fb {
+        background-color: $fb-color;
+      }
+      .btn-gm {
+        background-color: $gm-color;
+      }
+      .btn-em {
+        background-color: $primary-color;
+      }
 
-    .or {
-      position: absolute;
-      left: 50%;
-      width: 30px;
-      margin-top: 2px;
-      background-color: $light-color;
+      .or {
+        position: absolute;
+        left: 50%;
+        width: 30px;
+        margin-top: 2px;
+        background-color: $light-color;
+      }
     }
   }
 }
