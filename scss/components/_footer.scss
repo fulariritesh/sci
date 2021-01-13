@@ -3,6 +3,11 @@
         background:$footerTopBG;
         color:$footerTopColor;
         padding-top: 4rem;
+<<<<<<< HEAD
+=======
+
+      
+>>>>>>> homepage
     }
     .footerBottom{
         background:$footerBottomBG;
@@ -28,3 +33,39 @@
 .footerhr {
     border-top: 1px solid $footerhrcolor;
   }
+
+span { display:block; float:left; height:1px;}
+.line{
+    width:100%;
+}
+.color-1{
+    background:$secondary-color;
+    width:15%;
+}
+.color-2{
+    background:$footerhrcolor;
+    width:75%;
+}
+
+.ourlinks{
+    ul {
+        padding-left : 0 !important;
+        padding-top:10px;   
+         li{
+            list-style:none;
+            line-height: 2.2rem;
+        }
+}
+}
+
+.blockTitle{
+    font-weight: normal;
+}
+.subscribe{
+    padding-top:10px;
+}
+.subscribesmalltext{
+    font-size:13px;
+    color: $footerSmalltext;
+    padding-top:10px;
+}
