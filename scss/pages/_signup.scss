@@ -6,9 +6,11 @@
 
 .card {
   .card-body {
-    
-    .btn{
+    .btn {
       color: $light-color;
+      @include media-sm {
+        font-size: 15px;
+      }
     }
     .btn-fb {
       background-color: $fb-color;
@@ -18,13 +20,13 @@
     }
     .btn-em {
       background-color: $primary-color;
-      margin-bottom: 30px;
     }
-    
+
     .or {
       position: absolute;
       left: 50%;
       width: 30px;
+      margin-top: 2px;
       background-color: $light-color;
     }
   }
