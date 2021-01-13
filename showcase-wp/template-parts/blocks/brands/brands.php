@@ -28,7 +28,7 @@ $brands_count = get_fields()["brand_images"];
             display: none;
         }
     </style>
-<?php endif;?>\
+<?php endif;?>
 <style type="text/css">
         .carousel-inner {
             display: flex;
