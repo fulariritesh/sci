@@ -1,0 +1,213 @@
+// @import "../base/variable";
+
+.banner {
+  .bannerArea{
+    background-image: url("../images/banner1.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: $bannerHeight;
+  }
+  .banner-info{
+    width:46%;
+    padding-top:15%;
+  }
+  .bannerheading-text{
+    font-size: 3rem;
+    color: $light-color;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px #000;
+  }
+  .bannerText{
+    color:$navbar-bg;
+    font-size: 1.5rem;
+    line-height:2.1rem;
+    padding-bottom:3%;
+  }
+  
+  .banner-btn {
+    background: $navbar-bg !important;
+    color: $light-color;
+    text-transform: uppercase;
+  }
+}
+
+.gfb {
+  padding-bottom: 4rem;
+  padding-top: 4rem;
+
+  // img {
+  //   display: block;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  // }
+}
+
+.profile-block {
+
+    height:600px;
+
+  .col {
+    margin: auto;
+  }
+  // img {
+  //   width: 50%;
+  // }
+  button {
+    color: white;
+    background-color: #ffbd05;
+  }
+}
+.join-block {
+  padding-bottom: 50px;
+  .col {
+    margin: auto;
+  }
+  img {
+    width: 80%;
+  }
+}
+.category-block {
+  padding-bottom: 50px;
+  .row {
+    padding-top: 15px;
+  }
+  .card {
+    padding-top: 15px;
+    border-radius: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  img {
+    margin: auto;
+  }
+}
+
+.cta-block {
+  background: $primary-color;
+  color: $light-color;
+  .cta-btn {
+    background: $CTAblock-btnbg;
+    color: $light-color;
+  }
+  p{
+    font-size:20px;
+  }
+}
+
+
+#drop1 {
+  @include droplet($profile-gradient1, $profile-gradient2, $width:126px, $height:132px );
+  border-radius: 12% 73% 50% 68% / 60% 60% 40% 40%;
+  z-index: 5;
+  right: 10px;
+  top:0;
+}
+#drop2 {
+  @include droplet($profile-gradient1, $profile-gradient2, $width:126px, $height:142px );
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  z-index: 5;
+  left: 95px;
+  bottom:0;
+}
+#drop3 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:95px, $height:66px );
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  z-index: 5;
+  left: 36px;
+  top:-60px;
+}
+#drop4 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:121px, $height:104px );
+  border-radius: 40% 76% 54% 68% / 60% 60% 40% 40%;
+  z-index: 8;
+  right: 49px;
+  bottom: 27px;
+}
+#drop5 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:95px, $height:45px );
+  border-radius: 21% 76% 62% 68% / 60% 76% 40% 40%;
+  z-index: 8;
+  right: 185px;
+  bottom: 4px;
+}
+#drop6 {
+  @include droplet($block3-gradient1, $block3-gradient2, $width:95px, $height:45px );
+  border-radius: 21% 76% 62% 68% / 60% 76% 40% 40%;
+  z-index: 8;
+  right: 185px;
+  bottom: 4px;
+}
+#drop7 {
+  @include droplet($block3-gradient1, $block3-gradient2, $width:121px, $height:104px );
+  border-radius: 40% 76% 54% 68% / 60% 60% 40% 40%;
+  z-index: 8;
+  right: 49px;
+  bottom: 27px;
+}
+#drop8 {
+  @include droplet($block3-gradient1, $block3-gradient2, $width:95px, $height:66px );
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  z-index: 5;
+  left: -22px;
+  top:135px;
+}
+.imageBlockLeft{
+  z-index: 9;
+  width:450px;
+  height:470px;
+  position:absolute;
+  top:40px;
+  right:60px;
+
+  img{
+    width:100%;
+  }
+}
+
+
+.artist-block{
+  height:700px;
+  padding-top:6rem;
+  padding-bottom:6rem;
+}
+.influencer-block, .talent-block{
+  height:730px;
+  padding-top:6rem;
+  padding-bottom:6rem;
+}
+.allcategories{
+  background-color: $greyBG;
+}
+
+
+#imageBlock {
+  display: block;
+  width:780px;
+  height: 730px;
+  // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top:0;
+  clip-path: ellipse(39% 35% at 35% 33%);
+}
+
+#imageBlock-influencers {
+  display: block;
+  width:780px;
+  height: 730px;
+  // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  top:0;
+  clip-path: ellipse(42% 35% at 60% 34%);
+}
+
+.imageBlock-simple{
+  display: block;
+  width:780px;
+  height: 730px;
+}
