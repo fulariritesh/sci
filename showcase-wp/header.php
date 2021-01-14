@@ -18,7 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <style type="text/css">
     #banner .carousel-item {
-      height: 500px;
+      height: 660px;
     }
 
     #banner .content {
@@ -29,16 +29,6 @@
     }
   </style>
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-	 <link
-	      rel="stylesheet"
-	      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	      crossorigin="anonymous"
-	    />
-	    <link
-	      rel="stylesheet"
-	      href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css"
-	    />
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/dist/main.css" />
 	<?php wp_head(); ?>

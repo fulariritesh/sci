@@ -663,7 +663,7 @@ input {
   flex-direction: row;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .topbar .tb-left li {
     padding-right: 10px;
   }
@@ -688,7 +688,7 @@ input {
   background-color: royalblue;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   .topbar .tb-right {
     font-size: smaller;
   }
@@ -701,6 +701,14 @@ input {
   .hide-search-bar {
     display: none;
   }
+}
+
+.headerbar {
+  background: #002f43;
+}
+
+.tb-icon {
+  color: white;
 }
 
 nav {
@@ -768,10 +776,23 @@ nav .navbar-btn .btn-join {
   color: white;
 }
 
+.footer {
+  font-size: 14px;
+}
+
 .footer .footerTop {
   background: #002f43;
   color: #fff;
   padding-top: 4rem;
+}
+
+.footer .footerTop a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer .footerTop a:hover {
+  color: #07bb9b;
 }
 
 .footer .footerBottom {
@@ -782,8 +803,10 @@ nav .navbar-btn .btn-join {
   padding-top: 16px;
 }
 
-.footer .footerBottom a {
-  color: white;
+@media screen and (max-width: 768px) {
+  .footer .footerBottom {
+    height: 60px;
+  }
 }
 
 .footer .footerBottom ul li {
@@ -800,48 +823,6 @@ nav .navbar-btn .btn-join {
   padding: 0;
 }
 
-.footer .ourlinks ul {
-  margin: 0;
-  padding: 0;
-  font-size: 1.25rem;
-  font-weight: 300;
-}
-
-.footer .ourlinks ul li {
-  list-style-type: none;
-}
-
-.footer .ourlinks ul li a:visited, .footer .ourlinks ul li a {
-  color: white;
-}
-
-.footer .news-post {
-  display: inline-block;
-  margin-bottom: 20px;
-}
-
-.footer .news-post .image {
-  width: 40%;
-  margin-right: 20px;
-  float: left;
-}
-
-.footer .news-post .title {
-  font-weight: 500;
-  height: 50px;
-  width: 100%;
-}
-
-.footer .news-post .content {
-  width: calc(60% - 20px);
-  margin: 0;
-  float: right;
-  display: flex;
-  flex-direction: row;
-  flex-flow: row wrap;
-  min-height: 93px;
-}
-
 .footerhr {
   border-top: 1px solid #717273;
 }
@@ -854,8 +835,6 @@ span {
 
 .line {
   width: 100%;
-  margin-bottom: 30px;
-  margin-top: 15px;
 }
 
 .color-1 {
@@ -868,18 +847,58 @@ span {
   width: 75%;
 }
 
+.ourlinks ul {
+  padding-left: 0 !important;
+  padding-top: 20px;
+}
+
+.ourlinks ul li {
+  list-style: none;
+  line-height: 2.2rem;
+}
+
 .blockTitle {
   font-weight: normal;
 }
 
 .subscribe {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .subscribesmalltext {
   font-size: 13px;
   color: #7e7e7e;
-  padding-top: 10px;
+  padding-top: 20px;
+}
+
+.socialmedia ul {
+  padding-left: 0px !important;
+}
+
+.socialmedia ul li {
+  list-style: none;
+  display: inline;
+  padding: 20px;
+}
+
+.socialmedia ul li a {
+  font-size: 30px;
+}
+
+.socialmedia ul li:first-child {
+  padding-left: 0px;
+}
+
+hr.new2 {
+  border-top: 1px dashed #7e7e7e;
+}
+
+.img-thumbnail {
+  background-color: transparent;
+  border: none;
+  border-radius: .25rem;
+  max-width: 100%;
+  height: auto;
 }
 
 .btn-profile {
@@ -921,7 +940,7 @@ span {
 .btn-category {
   background: #fff;
   color: #04c382;
-  text-transform: capitalised;
+  text-transform: capitalize;
   border: 1px solid #00a06a;
 }
 
@@ -933,7 +952,7 @@ span {
 .btn-categoryblock3 {
   background: #fff;
   color: #29388e;
-  text-transform: capitalised;
+  text-transform: capitalize;
   border: 1px solid #29388e;
 }
 
@@ -1017,6 +1036,14 @@ span {
   border-radius: 0;
   margin-left: 10px;
   margin-right: 10px;
+  margin-bottom: 15px;
+  width: 18%;
+}
+
+@media screen and (max-width: 576px) {
+  .category-block .card {
+    width: 27.5%;
+  }
 }
 
 .category-block img {
@@ -1192,5 +1219,34 @@ span {
   display: block;
   width: 780px;
   height: 730px;
+}
+
+.newjoinees .newjoineescard {
+  background: #fff;
+}
+
+.newjoinees .newjoineescard .imgdiv {
+  background: #f9f9f9;
+}
+
+.newjoinees .newjoineescard .imgdiv img {
+  border-radius: 50%;
+  width: 90%;
+  background: #fff;
+  margin-top: 2rem;
+}
+
+.newjoinees .newjoineescard .secondaryCircle {
+  background: #00a6d0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 26px;
+  line-height: 3.6rem;
+  text-align: center;
+  position: absolute;
+  right: 215px;
+  top: -24px;
 }
 

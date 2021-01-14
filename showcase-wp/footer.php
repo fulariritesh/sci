@@ -54,14 +54,48 @@
           	</div>
           <?php endforeach ?>
         </div>
-        <div class="col-sm-4">
+        <div class="col-12  col-md-4">
           <h5 class="blockTitle">Subscribe</h5>
           <div class="line"><span class="color-1"></span><span class="color-2"></span></div>
           <div class="subscribe">Subscribe for a newsletter</div>
-          <div class="subscribesmalltext">Want to be notified about new locations? <br/>Just sign up.</div>
+          <div class="subscribesmalltext pb-4">Want to be notified about new locations? <br/>Just sign up.</div>
           <form>
-            <input type="text" name="" class="form-control pt-2" placeholder="Enter your email" />
+            <input type="text" name="" class="form-control" placeholder="Enter your email" />
+            <div class="pt-3 subscribesmalltext">
+            <input type="checkbox" name="" value="agree" class=""> I agree with the <a href="">Privacy Policy</a>
+          </div>
           </form>
+
+          <div class="socialmedia pt-5 text-center text-md-left">
+            <ul class="">
+              <li class="">
+                <a class="" href="#"
+                  ><i class=" fab fa-facebook-f"></i
+                ></a>
+              </li>
+              <li class="">
+                <a class="" href=""
+                  ><i class="fab fa-twitter"></i
+                ></a>
+              </li>
+              <li class="">
+                <a class="" href=""
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </li>
+              <li class="">
+                <a class="" href=""
+                  ><i class="fab fa-youtube"></i
+                ></a>
+              </li>
+              <li class="">
+                <a class="" href=""
+                  ><i class=" fab fa-linkedin"></i
+                ></a>
+              </li>
+             
+            </ul>
+          </div>
         </div>
       </div>
     </div>
