@@ -1,0 +1,23 @@
+@import "../base/variables";
+
+.topbar {
+  background: $topbar-bg;
+  .tb-icon {
+    color: $tb-icon-color;
+  }
+  .tb-icon1 {
+    color: $tb-icon-color1;
+  }
+  .tb-text {
+    color: white;
+  }
+  .tb-search-bg {
+    background-color: $tb-search-bg-color;
+    border: 0;
+    text-decoration: none;
+    color: white;
+    ::placeholder {
+      color: white;
+    }
+  }
+}
