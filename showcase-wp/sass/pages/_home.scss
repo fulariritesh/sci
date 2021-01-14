@@ -76,6 +76,14 @@
     border-radius: 0;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 15px;
+    width: 18%;
+
+    @include  media-xs{
+      width: 27.5%;
+  }
+
+
   }
   img {
     margin: auto;
@@ -210,4 +218,33 @@
   display: block;
   width:780px;
   height: 730px;
+}
+
+.newjoinees{
+  .newjoineescard{
+    background:$newjoineesBG;
+
+    .imgdiv{
+      background:$imagedivbg;
+      img{
+        border-radius: 50%;
+        width:90%;
+        background:$light-color;
+        margin-top:2rem;
+      }
+    }
+    .secondaryCircle{
+      background:$secondary;
+      width: 60px;
+      height: 60px;
+      border-radius: 50px;
+      color: $light-color;
+      font-size: 26px;
+      line-height: 3.6rem;
+      text-align: center;
+      position: absolute;
+      right: 215px;
+      top: -24px;
+    }
+  }
 }

@@ -54,9 +54,16 @@
 }
 
 .hide-search-bar {
-  @include media-md {
+  @include media-sm {
     display: none;
   }
+}
+
+.headerbar {
+  background: $nav-color;
+}
+.tb-icon{
+  color:$tb-icon-color;
 }
 
 nav {
@@ -73,7 +80,7 @@ nav {
   }
 
   .navbar-collapse {
-    @include media-md {
+    @include media-sm {
       height: 100%;
       width: 50%;
       position: fixed;
