@@ -1,6 +1,7 @@
 // bootstrap.scss
 
 @import "base/variable";
+@import "../showcase-wp/bootstrap/scss/bootstrap.scss";
 @import "base/config";
 @import "base/typography";
 @import "base/linearstyle.css";
@@ -13,6 +14,5 @@
 @import "pages/social";
 @import "pages/emailcon";
 @import "pages/welcomemsg";
-@import "../showcase-wp/bootstrap/scss/bootstrap.scss";
 
 

@@ -4,21 +4,10 @@
 
   .card {
     .card-body {
-      // .btn {
-      //   color: $light-color;
-      //   @include media-sm {
-      //     font-size: 15px;
-      //   }
-      // }
-      .btn-fb {
-        background-color: $fb-color;
-
-      }
-      .btn-gm {
-        background-color: $gm-color;
-      }
-      .btn-em {
-        background-color: $primary-color;
+      .btn {
+        @include media-sm {
+          font-size: 15px;
+        }
       }
 
       .or {
