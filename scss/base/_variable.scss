@@ -2,6 +2,26 @@ $primary-color: #07bb9b;
 $secondary-color: #00a6d0;
 $signup-bgcolor:#F2FAFD;
 
+$primary:#07bb9b;
+$secondary:#00a6d0;
+
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    // "success":    $success,
+    // "info":       $info,
+    // "warning":    $warning,
+    // "danger":     $danger,
+    // "light":      $light,
+    // "dark":       $dark
+  ),
+  $theme-colors
+);
+
+
+
 $topbar-bg: #00202d;
 $tb-icon-color: rgb(255, 255, 255);
 $tb-icon-color1: #019fce;
@@ -69,3 +89,6 @@ $gm-color:#EA4335;
 $gm-hoverbg:#B63429;
 $em-color:#07BB9B;
 $em-hoverbg:#035445;
+
+$newjoineesBG:#fff;
+$imagedivbg: #f9f9f9;

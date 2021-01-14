@@ -1,15 +1,31 @@
 .footer{
+    font-size:14px;
+
     .footerTop{
         background:$footerTopBG;
         color:$footerTopColor;
         padding-top: 4rem;
+
+        a{
+            color:$light-color;
+            text-decoration: none;
+            &:hover{
+                color:$primary;
+            }
+        }
+      
     }
     .footerBottom{
         background:$footerBottomBG;
         color:$footerTopColor;
         font-size:13px;
         height:50px;
+        @include  media-sm{
+            height:60px;
+        }
         padding-top: 16px;
+
+     
 
         ul li{
             list-style: none;
@@ -45,7 +61,7 @@ span { display:block; float:left; height:1px;}
 .ourlinks{
     ul {
         padding-left : 0 !important;
-        padding-top:10px;   
+        padding-top:20px;   
          li{
             list-style:none;
             line-height: 2.2rem;
@@ -57,10 +73,42 @@ span { display:block; float:left; height:1px;}
     font-weight: normal;
 }
 .subscribe{
-    padding-top:10px;
+    padding-top:20px;
 }
 .subscribesmalltext{
     font-size:13px;
     color: $footerSmalltext;
-    padding-top:10px;
+    padding-top:20px;
+}
+
+.socialmedia{
+    ul {
+        padding-left: 0px !important;
+        li{
+        list-style: none;
+        display:inline;
+        padding:20px;
+
+        a{
+            font-size:30px;
+        }
+    }
+    li:first-child{
+        padding-left:0px;   
+    }
+}
+}
+
+hr.new2 {
+    border-top: 1px dashed $footerSmalltext;
+  }
+
+
+  .img-thumbnail {
+    // padding: .25rem;
+    background-color: transparent;
+    border: none;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
 }

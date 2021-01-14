@@ -54,7 +54,7 @@
 }
 
 .hide-search-bar {
-  @include media-md {
+  @include media-sm {
     display: none;
   }
 }
@@ -80,7 +80,7 @@ nav {
   }
 
   .navbar-collapse {
-    @include media-md {
+    @include media-sm {
       height: 100%;
       width: 50%;
       position: fixed;
