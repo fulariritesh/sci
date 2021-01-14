@@ -1,12 +1,19 @@
-// bootstrap.scss
+
 @import "base/variable";
 @import "base/config";
 @import "base/typography";
 @import "base/linearstyle.css";
 @import "components/menu";
+@import "components/footer";
+@import "components/buttons";
+@import "pages/home";
 @import "pages/home";
 @import "pages/signup";
 @import "pages/social";
 @import "pages/emailcon";
 @import "pages/welcomemsg";
+
+// bootstrap.scss
 @import "../showcase-wp/bootstrap/scss/bootstrap.scss";
+
+

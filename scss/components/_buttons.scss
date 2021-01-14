@@ -1,0 +1,26 @@
+@mixin buttonstyle($btnBG, $btncolor, $btntexttransform, $btnbordercolor, $btnhoverbg){
+    background:$btnBG;
+    color: $btncolor;
+    text-transform: $btntexttransform;
+    border: 1px solid $btnbordercolor;
+    &:hover{
+        background:$btnhoverbg;
+        color: $btncolor;
+    }
+}
+
+.btn-profile{
+    @include buttonstyle($btn_profileBG, $btn_profilecolor, $btntexttransform:uppercase, $btnbordercolor:$btn_profileborder, $btnhoverbg:$btn_profilehoverbg );
+}
+.btn-primary{
+    @include buttonstyle($btn_primaryBG, $btn_primarycolor, $btntexttransform:uppercase, $btnbordercolor:$btn_primaryborder, $btnhoverbg:$btn_primaryhoverbg );
+}
+.btn-block3{
+    @include buttonstyle($block3-gradient1, $btn_primarycolor, $btntexttransform:uppercase, $btnbordercolor:$block3-gradient2, $btnhoverbg:$block3-gradient2 );
+}
+.btn-category{
+    @include buttonstyle($btn_categoryBG, $btn_categorycolor, $btntexttransform:capitalised, $btnbordercolor:$btn_categoryborder, $btnhoverbg:$btn_categoryhoverbg );
+}
+.btn-categoryblock3{
+    @include buttonstyle($btn_categoryBG, $block3-gradient1, $btntexttransform:capitalised, $btnbordercolor:$block3-gradient1, $btnhoverbg:$block3-gradient2 );
+}

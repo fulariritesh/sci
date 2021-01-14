@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "node-sass -w scss -o css"
   },
   "keywords": [],
   "author": "Parija Malwankar, Amey Volvoikar",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.5.3"
+  },
+  "devDependencies": {
+    "node-sass": "^5.0.0"
   }
 }

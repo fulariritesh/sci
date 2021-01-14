@@ -12,3 +12,5 @@ require("./src/toast.js");
 require("./src/tooltip.js");
 require("./src/util.js");
 require("./src/tools/sanitizer.js");
+require("../../js/scripts.js");
+

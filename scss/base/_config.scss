@@ -5,14 +5,29 @@
 }
 
 body {
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
+  color:$basefont-color;
 }
 
 input {
   border: 0;
   outline: 0;
 }
+
+.gradient-bg{
+  background-image: linear-gradient($gradientbg1, $gradientbg2, $gradientbg2, $gradientbg1);
+}
+
+.blockInfo{
+  padding-top:6.5rem;
+p{
+  font-size: 1.5rem;
+  font-weight: normal;
+  line-height: 2.5rem;
+}
+}
+
 
 @mixin transition-ease {
   transition: all 0.5s ease-in-out;
@@ -46,4 +61,15 @@ input {
   @media screen and (max-width: 1600px) {
     @content;
   }
+}
+
+@mixin droplet($gradientColor1, $gradientColor2,  $width, $height){
+  display: block;
+  width: $width;
+  height: $height;
+  background-image: linear-gradient($gradientColor1, $gradientColor2);
+  position: absolute;
+}
+.clear{
+  clear: both;
 }
