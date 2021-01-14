@@ -1,6 +1,26 @@
 $primary-color: #07bb9b;
 $secondary-color: #00a6d0;
 
+$primary:#07bb9b;
+$secondary:#00a6d0;
+
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    // "success":    $success,
+    // "info":       $info,
+    // "warning":    $warning,
+    // "danger":     $danger,
+    // "light":      $light,
+    // "dark":       $dark
+  ),
+  $theme-colors
+);
+
+
+
 $topbar-bg: #00202d;
 $tb-icon-color: rgb(255, 255, 255);
 $tb-icon-color1: #019fce;
@@ -61,3 +81,6 @@ $footerTopColor:#fff;
 $footerBottomBG:#002231;
 $footerhrcolor:#717273;
 $footerSmalltext:#7e7e7e;
+
+$newjoineesBG:#fff;
+$imagedivbg: #f9f9f9;
