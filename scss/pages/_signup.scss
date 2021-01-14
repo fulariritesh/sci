@@ -9,13 +9,19 @@
           font-size: 15px;
         }
       }
-
       .or {
         position: absolute;
         left: 50%;
         width: 30px;
         margin-top: 2px;
         background-color: $light-color;
+      }
+      a{
+        color: $secondary;
+      }
+      .um-field-error{
+        background: $light-color;
+        color: $warning;
       }
     }
   }

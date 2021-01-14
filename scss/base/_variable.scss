@@ -4,6 +4,7 @@ $signup-bgcolor:#F2FAFD;
 
 $primary:#07bb9b;
 $secondary:#00a6d0;
+$warning:#EA4335;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -12,7 +13,7 @@ $theme-colors: map-merge(
     "secondary":  $secondary,
     // "success":    $success,
     // "info":       $info,
-    // "warning":    $warning,
+     "warning":    $warning,
     // "danger":     $danger,
     // "light":      $light,
     // "dark":       $dark
@@ -83,6 +84,7 @@ $footerBottomBG:#002231;
 $footerhrcolor:#717273;
 $footerSmalltext:#7e7e7e;
 
+// Signup page
 $fb-color:#4267B2;
 $fb-hoverbg:#2F497E;
 $gm-color:#EA4335;
