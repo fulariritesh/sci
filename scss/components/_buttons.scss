@@ -24,12 +24,18 @@
 .btn-categoryblock3{
     @include buttonstyle($btn_categoryBG, $block3-gradient1, $btntexttransform:capitalize, $btnbordercolor:$block3-gradient1, $btnhoverbg:$block3-gradient2 );
 }
+.btn-signup-gen{
+    @include buttonstyle($btn_signupgen-color, $light-color, $btntexttransform:capitalize, $btnbordercolor:$btn_signupgen-hoverbg, $btnhoverbg:$btn_signupgen-hoverbg );
+}
 .btn-signup-fb{
-    @include buttonstyle($fb-color, $light-color, $btntexttransform:capitalize, $btnbordercolor:$fb-hoverbg, $btnhoverbg:$fb-hoverbg );
+    @include buttonstyle($btn_fb-color, $light-color, $btntexttransform:capitalize, $btnbordercolor:$btn_fb-hoverbg, $btnhoverbg:$btn_fb-hoverbg );
 }
 .btn-signup-gm{
-    @include buttonstyle($gm-color, $light-color, $btntexttransform:capitalize, $btnbordercolor:$gm-hoverbg, $btnhoverbg:$gm-hoverbg );
+    @include buttonstyle($btn_gm-color, $light-color, $btntexttransform:capitalize, $btnbordercolor:$btn_gm-hoverbg, $btnhoverbg:$btn_gm-hoverbg );
 }
 .btn-signup-em{
-    @include buttonstyle($em-color, $light-color, $btntexttransform:capitalize, $btnbordercolor:$em-hoverbg, $btnhoverbg:$em-hoverbg );
+    @include buttonstyle($btn_em-color, $light-color, $btntexttransform:capitalize, $btnbordercolor:$btn_em-hoverbg, $btnhoverbg:$btn_em-hoverbg );
+}
+.btn-social-skp{
+    @include buttonstyle($btn_socialskip-colorbg, $btn_socialskip-color, $btntexttransform:capitalize, $btnbordercolor:$btn_socialskip-colorbg, $btnhoverbg:$btn_socialskip-hoverbg );
 }

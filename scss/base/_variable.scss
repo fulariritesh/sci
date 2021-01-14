@@ -32,6 +32,7 @@ $nav-color: #002f43;
 $navbar-bg:#00415d;
 
 $basefont-color:#444;
+$basefont-light-color:#6A6A6A;
 $bannerHeight:660px;
 
 $light-color:#fff;
@@ -85,12 +86,19 @@ $footerhrcolor:#717273;
 $footerSmalltext:#7e7e7e;
 
 // Signup page
-$fb-color:#4267B2;
-$fb-hoverbg:#2F497E;
-$gm-color:#EA4335;
-$gm-hoverbg:#B63429;
-$em-color:#07BB9B;
-$em-hoverbg:#035445;
+$btn_signupgen-color:#28388D;
+$btn_signupgen-hoverbg:#19235A;
+$btn_fb-color:#4267B2;
+$btn_fb-hoverbg:#2F497E;
+$btn_gm-color:#EA4335;
+$btn_gm-hoverbg:#B63429;
+$btn_em-color:#07BB9B;
+$btn_em-hoverbg:#035445;
+
+//Social Links and websites
+$btn_socialskip-colorbg:#ffff;
+$btn_socialskip-color:#28388D;
+$btn_socialskip-hoverbg:#fff;
 
 $newjoineesBG:#fff;
 $imagedivbg: #f9f9f9;

@@ -1,12 +1,13 @@
 .sign-up {
   font-family: Poppins-regular;
+  color: $basefont-color;
   background-color: $signup-bgcolor;
 
   .card {
     .card-body {
       .btn {
         @include media-xs {
-          font-size: 15px;
+          font-size: 1rem;
         }
       }
       .or {
@@ -16,10 +17,10 @@
         margin-top: 2px;
         background-color: $light-color;
       }
-      a{
+      a {
         color: $secondary;
       }
-      .um-field-error{
+      .um-field-error {
         background: $light-color;
         color: $warning;
       }
