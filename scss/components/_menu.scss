@@ -59,6 +59,13 @@
   }
 }
 
+.headerbar {
+  background: $nav-color;
+}
+.tb-icon{
+  color:$tb-icon-color;
+}
+
 nav {
   background: $nav-color;
   text-decoration: none;
