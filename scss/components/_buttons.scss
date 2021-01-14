@@ -24,3 +24,6 @@
 .btn-categoryblock3{
     @include buttonstyle($btn_categoryBG, $block3-gradient1, $btntexttransform:capitalised, $btnbordercolor:$block3-gradient1, $btnhoverbg:$block3-gradient2 );
 }
+.btn-signup-fb{
+    @include buttonstyle($fb-color, $light-color, $btntexttransform:uppercase, $btnbordercolor:$fb-hoverbg, $btnhoverbg:$fb-hoverbg );
+}

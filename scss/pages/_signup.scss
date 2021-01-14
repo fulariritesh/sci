@@ -1,16 +1,15 @@
 .sign-up {
   font-family: Poppins-regular;
-  height: 100vh;
   background-color: $signup-bgcolor;
 
   .card {
     .card-body {
-      .btn {
-        color: $light-color;
-        @include media-sm {
-          font-size: 15px;
-        }
-      }
+      // .btn {
+      //   color: $light-color;
+      //   @include media-sm {
+      //     font-size: 15px;
+      //   }
+      // }
       .btn-fb {
         background-color: $fb-color;
 
