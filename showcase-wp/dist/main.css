@@ -1032,12 +1032,20 @@ hr.new2 {
 }
 
 .category-block .card {
-  padding-top: 15px;
+  padding: 30px 10px;
   border-radius: 0;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 15px;
-  width: 18%;
+  width: calc(20% - 20px);
+}
+
+.category-block .card .card-title {
+  margin-bottom: 0px;
+}
+
+.category-block .card a {
+  color: black;
 }
 
 @media screen and (max-width: 576px) {
@@ -1047,7 +1055,7 @@ hr.new2 {
 }
 
 .category-block img {
-  margin: auto;
+  margin-bottom: 5px;
 }
 
 .cta-block {

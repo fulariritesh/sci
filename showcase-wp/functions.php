@@ -340,6 +340,16 @@ function my_acf_init_block_types() {
             'icon'              => 'admin-comments',
             'keywords'          => array( 'cta' ),
         ));
+
+        acf_register_block_type(array(
+            'name'              => 'join',
+            'title'             => __('Join for free'),
+            'description'       => __('Join for free block on the home page.'),
+            'render_template'   => 'template-parts/blocks/join/block.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'join' ),
+        ));
     }
 }
 
