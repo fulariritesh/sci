@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/scimain.css" />
+    <title>profile-details</title>
+  </head>
+  <body>
+    <main class="container-fluid"></main>
+    <!-- Pagination -->
+    <ul class="nav jp-nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Get Started</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Details</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-none d-sm-block" href="#">Physical Attributes</a>
+        <a class="nav-link d-block d-sm-none"> Attributes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-none d-sm-block" href="#">Add a headshot</a>
+        <a class="nav-link d-block d-sm-none">Headshot</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Complete</a>
+      </li>
+    </ul>
+    <section class="pr-details d-flex justify-content-center py-5">
+      <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0">
+        <div class="card-header">Enter your details</div>
+        <div class="card-body px-4">
+          <form action="">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="FirstName"
+                  >First name<span class="float-right text-danger pl-1"
+                    >*</span
+                  ></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="FirstName"
+                  required
+                />
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="LastName"
+                  >Last name<span class="float-right text-danger pl-1"
+                    >*</span
+                  ></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="LastName"
+                  required
+                />
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="DOB"
+                >Birth Date<span class="float-right text-danger pl-1"
+                  >*</span
+                ></label
+              >
+              <input type="date" class="form-control" id="DOB" required />
+            </div>
+            <div class="form-group">
+              <div>
+                <label for="Gender"
+                  >Gender<span class="float-right text-danger pl-1"
+                    >*</span
+                  ></label
+                >
+              </div>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option1" checked />
+                  Male
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option2" /> Female
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option3" /> Prefer not
+                  to say
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option3" /> Custom
+                </label>
+              </div>
+              <input type="text" class="form-control mt-3" />
+            </div>
+            <div class="form-group">
+              <label for="Mobile"
+                >Mobile<span class="float-right text-danger pl-1"
+                  >*</span
+                ></label
+              >
+              <input type="text" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="Location"
+                >Location<span class="float-right text-danger pl-1"
+                  >*</span
+                ></label
+              >
+              <select class="form-control" id="">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="https://kit.fontawesome.com/f5515e915e.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
