@@ -44,7 +44,7 @@
 
 .profile-block {
 
-    height:600px;
+    // height:600px;
 
   .col {
     margin: auto;
@@ -68,29 +68,42 @@
 }
 .category-block {
   padding-bottom: 50px;
+  @include  media-xs{
+    h1{
+      font-size:2rem;
+    }
+    h4{
+      font-size:1.2rem;
+    }
+  }
   .row {
     padding-top: 15px;
   }
   .card {
-    padding: 30px 10px;
+    padding-top: 15px;
+    text-transform: uppercase;
     border-radius: 0;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 15px;
-    width: calc(20% - 20px);
-    .card-title {
-      margin-bottom: 0px;
-    }
-    a {
-      color: black;
-      display: flex;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
+    width: 18%;
+    display: block;
+
+    @include  media-lg{
+      width: 17.5%;
+  }
+    @include  media-md{
+      width: 46.5%;
+  }
+    @include  media-sm{
+      width: 46.5%;
+  }
     @include  media-xs{
-      width: 27.5%;
+      width: 47.2%;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      font-size:15px;
   }
 
 
@@ -103,6 +116,14 @@
 .cta-block {
   background: $primary-color;
   color: $light-color;
+  @include media-xs{
+    h1{
+      font-size:2rem;
+    }
+    h4{
+      font-size:1.2rem;
+    }
+  }
   .cta-btn {
     background: $CTAblock-btnbg;
     color: $light-color;
@@ -119,13 +140,62 @@
   z-index: 5;
   right: 10px;
   top:0;
+  @include media-lg{
+    width:100px;
+    height:110px;
+    right:0px;
+    top:0;
+}
+  @include media-md{
+    width:86px;
+    height:97px;
+    right:0px;
+    top:0;
+}
+  @include media-sm{
+    width:86px;
+    height:97px;
+    right:0px;
+    top:0;
+}
+  @include media-xs{
+      width:86px;
+      height:97px;
+      right:0px;
+      top:0;
+  }
 }
 #drop2 {
-  @include droplet($profile-gradient1, $profile-gradient2, $width:126px, $height:142px );
-  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
-  z-index: 5;
-  left: 95px;
-  bottom:0;
+    @include droplet($profile-gradient1, $profile-gradient2, $width:126px, $height:142px );
+    border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+    z-index: 5;
+    left: 95px;
+    bottom:0;
+    @include media-lg{
+      width:100px;
+      height:110px;
+      left:35px;
+      bottom:100px;
+  }
+    @include media-md{
+      width:86px;
+      height:97px;
+      left:-30px;
+      bottom:-45px;
+  }
+  @include media-sm{
+    width:86px;
+    height:97px;
+    left:0px;
+    bottom:0px;
+}
+   @include media-xs{
+      width:86px;
+      height:97px;
+      left:168px;
+      bottom:0px;
+  }
+
 }
 #drop3 {
   @include droplet($artist-gradient1, $artist-gradient2, $width:95px, $height:66px );
@@ -133,6 +203,22 @@
   z-index: 5;
   left: 36px;
   top:-60px;
+  @include media-lg{
+    left: 36px;
+    top:-35px;
+  }
+  @include media-md{
+    left: 36px;
+    top:-35px;
+  }
+  @include media-sm{
+    left: 36px;
+    top:-35px;
+  }
+  @include media-xs{
+    left: 140px;
+    top:0px;
+  }
 }
 #drop4 {
   @include droplet($artist-gradient1, $artist-gradient2, $width:121px, $height:104px );
@@ -140,6 +226,61 @@
   z-index: 8;
   right: 49px;
   bottom: 27px;
+  @include media-lg{
+    width:100px;
+    height:80px;
+    right: 0px;
+    bottom: 300px;
+  }
+  @include media-md{
+    width:100px;
+    height:80px;
+    right: 0px;
+    bottom: 160px;
+  }
+  @include media-sm{
+    width:100px;
+    height:80px;
+    right: 0px;
+    bottom: 160px;
+  }
+  @include media-xs{
+    width:100px;
+    height:80px;
+    right: 0px;
+  bottom: 10px;
+  }
+}
+#drop9 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:121px, $height:104px );
+  border-radius: 40% 76% 54% 68% / 60% 60% 40% 40%;
+  z-index: 8;
+  right: 49px;
+  bottom: 227px;
+  @include media-lg{
+    width: 100px;
+    height: 80px;
+    right: 0px;
+    bottom: 300px;
+  }
+  @include media-md{
+    width:100px;
+    height:80px;
+    right: 0px;
+    bottom: 160px;
+  }
+  @include media-sm{
+    width:100px;
+    height:80px;
+    right: 0px;
+    bottom: 350px;
+  }
+  @include media-xs{
+    width:100px;
+    height:80px;
+    right: 0px;
+    bottom: 10px;
+  }
 }
 #drop5 {
   @include droplet($artist-gradient1, $artist-gradient2, $width:95px, $height:45px );
@@ -147,6 +288,45 @@
   z-index: 8;
   right: 185px;
   bottom: 4px;
+  @include media-lg{
+    right: 130px;
+  bottom: 260px;
+  }
+  @include media-md{
+    right: 130px;
+  bottom: 160px;
+  }
+  @include media-sm{
+    right: 130px;
+  bottom: 160px;
+  }
+  @include media-xs{
+    right: 140px;
+  bottom: 0px;
+  }
+}
+#drop10 {
+  @include droplet($artist-gradient1, $artist-gradient2, $width:95px, $height:45px );
+  border-radius: 21% 76% 62% 68% / 60% 76% 40% 40%;
+  z-index: 8;
+  right: 185px;
+  bottom: 200px;
+  @include media-lg{
+    right: 130px;
+  bottom: 260px;
+  }
+  @include media-md{
+    right: 130px;
+  bottom: 160px;
+  }
+  @include media-sm{
+    right: 130px;
+    bottom: 330px;
+  }
+  @include media-xs{
+    right: 140px;
+  bottom: 0px;
+  }
 }
 #drop6 {
   @include droplet($block3-gradient1, $block3-gradient2, $width:95px, $height:45px );
@@ -154,6 +334,23 @@
   z-index: 8;
   right: 185px;
   bottom: 4px;
+  @include media-lg{
+    right: 160px;
+    bottom: 260px;
+  }
+  @include media-md{
+    right: 160px;
+    bottom: 160px;
+  }
+  @include media-sm{
+    right: 160px;
+    bottom: 160px;
+
+  }
+  @include media-xs{
+    right: 160px;
+    bottom: 35px;
+  }
 }
 #drop7 {
   @include droplet($block3-gradient1, $block3-gradient2, $width:121px, $height:104px );
@@ -161,6 +358,30 @@
   z-index: 8;
   right: 49px;
   bottom: 27px;
+  @include media-lg{
+    width: 84px;
+    height: 61px;
+    right: 49px;
+bottom: 300px;
+  }
+  @include media-md{
+    width: 84px;
+    height: 61px;
+    right: 49px;
+bottom: 200px;
+  }
+  @include media-sm{
+    width: 84px;
+    height: 61px;
+    right: 49px;
+bottom: 200px;
+  }
+  @include media-xs{
+    width: 84px;
+    height: 61px;
+    right: 49px;
+    bottom: 27px;
+  }
 }
 #drop8 {
   @include droplet($block3-gradient1, $block3-gradient2, $width:95px, $height:66px );
@@ -168,6 +389,22 @@
   z-index: 5;
   left: -22px;
   top:135px;
+  @include media-lg{
+    left: 0px;
+    top: 36px;
+  }
+  @include media-md{
+    left: 0px;
+    top: 0px;
+  }
+  @include media-sm{
+    left: 0px;
+    top: 0px;
+  }
+  @include media-xs{
+    left: 100px;
+    top: 0px;
+  }
 }
 .imageBlockLeft{
   z-index: 9;
@@ -180,16 +417,43 @@
   img{
     width:100%;
   }
+  @include media-lg{
+    width:350px;
+    height:366px;
+  }
+  @include media-md{
+    width:300px;
+    height:310px;
+  }
+  @include media-sm{
+    width:250px;
+    height:261px;
+  }
+  @include media-xs{
+    width:250px;
+    height:261px;
+  }
+ 
 }
-
+.profileImage{
+  height:auto;
+  @include media-xs{
+    height:350px;
+  }
+}
 
 .artist-block{
-  height:700px;
+  // height:700px;
   padding-top:6rem;
   padding-bottom:6rem;
+  @include media-xs{
+    padding-top:3rem;
+    padding-bottom:3rem;
+  }
+  
 }
 .influencer-block, .talent-block{
-  height:730px;
+  // height:730px;
   padding-top:6rem;
   padding-bottom:6rem;
 }
@@ -209,6 +473,27 @@
   left: 0;
   top:0;
   clip-path: ellipse(39% 35% at 35% 33%);
+  @include media-lg{
+    width:630px;
+    height: 560px;
+    clip-path: ellipse(39% 35% at 35% 33%);
+  }
+  @include media-md{
+    width:460px;
+    height: 480px;
+    clip-path: ellipse(39% 35% at 35% 33%);
+  }
+  @include media-sm{
+    width:460px;
+    height: 480px;
+    clip-path: ellipse(39% 35% at 35% 33%);
+  }
+  @include media-xs{
+    width:520px;
+    height: 480px;
+    clip-path: ellipse(42% 35% at 60% 34%);
+  }
+ 
 }
 
 #imageBlock-influencers {
@@ -222,6 +507,22 @@
   right: 0;
   top:0;
   clip-path: ellipse(42% 35% at 60% 34%);
+  @include media-lg{
+    width: 560px;
+height: 560px;
+  }
+  @include media-md{
+    width:450px;
+    height: 466px;
+  }
+  @include media-sm{
+    width:450px;
+    height: 420px;
+  }
+  @include media-xs{
+    width:450px;
+    height: 420px;
+  }
 }
 
 .imageBlock-simple{
@@ -231,8 +532,21 @@
 }
 
 .newjoinees{
+
+  margin-bottom:5rem;
+  @include media-xs{
+    h1{
+      font-size:2rem;
+    }
+    h4{
+      font-size:1.2rem;
+    }
+  }
+
   .newjoineescard{
     background:$newjoineesBG;
+    width:97%;
+    
 
     .imgdiv{
       background:$imagedivbg;
@@ -241,6 +555,9 @@
         width:90%;
         background:$light-color;
         margin-top:2rem;
+        @include media-xs{
+          width:50%;
+        }
       }
     }
     .secondaryCircle{
@@ -256,5 +573,23 @@
       right: 215px;
       top: -24px;
     }
+  }
+}
+
+.btn-signIn{
+  span{
+    height:auto;
+  }
+}
+.btnToggle{
+  span{
+  height:auto;
+  }
+}
+
+.imageBlock-simple img{
+  @include media-xs{
+
+
   }
 }

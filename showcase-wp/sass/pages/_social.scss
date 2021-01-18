@@ -1,0 +1,26 @@
+.social-links {
+  font-family: Poppins-regular;
+  color: $basefont-color;
+  background-color: $signup-bgcolor;
+  .card{
+    .card-body{
+
+      .btn {
+        @include media-xs {
+          font-size: 1rem;
+        }
+      }
+      h4{
+        @include media-xs{
+          font-size: 1.25rem;
+        }
+      }
+      .url-eg{
+        color: $basefont-light-color;
+        @include media-xs{
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}

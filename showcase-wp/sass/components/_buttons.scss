@@ -1,26 +1,107 @@
-@mixin buttonstyle($btnBG, $btncolor, $btntexttransform, $btnbordercolor, $btnhoverbg){
-    background:$btnBG;
+@mixin buttonstyle(
+  $btnBG,
+  $btncolor,
+  $btntexttransform,
+  $btnbordercolor,
+  $btnhoverbg
+) {
+  background: $btnBG;
+  color: $btncolor;
+  text-transform: $btntexttransform;
+  border: 1px solid $btnbordercolor;
+  &:hover {
+    background: $btnhoverbg;
     color: $btncolor;
-    text-transform: $btntexttransform;
-    border: 1px solid $btnbordercolor;
-    &:hover{
-        background:$btnhoverbg;
-        color: $btncolor;
-    }
+  }
 }
 
-.btn-profile{
-    @include buttonstyle($btn_profileBG, $btn_profilecolor, $btntexttransform:uppercase, $btnbordercolor:$btn_profileborder, $btnhoverbg:$btn_profilehoverbg );
+.btn-profile {
+  @include buttonstyle(
+    $btn_profileBG,
+    $btn_profilecolor,
+    $btntexttransform: uppercase,
+    $btnbordercolor: $btn_profileborder,
+    $btnhoverbg: $btn_profilehoverbg
+  );
 }
-.btn-primary{
-    @include buttonstyle($btn_primaryBG, $btn_primarycolor, $btntexttransform:uppercase, $btnbordercolor:$btn_primaryborder, $btnhoverbg:$btn_primaryhoverbg );
+.btn-primary {
+  @include buttonstyle(
+    $btn_primaryBG,
+    $btn_primarycolor,
+    $btntexttransform: uppercase,
+    $btnbordercolor: $btn_primaryborder,
+    $btnhoverbg: $btn_primaryhoverbg
+  );
 }
-.btn-block3{
-    @include buttonstyle($block3-gradient1, $btn_primarycolor, $btntexttransform:uppercase, $btnbordercolor:$block3-gradient2, $btnhoverbg:$block3-gradient2 );
+.btn-block3 {
+  @include buttonstyle(
+    $block3-gradient1,
+    $btn_primarycolor,
+    $btntexttransform: uppercase,
+    $btnbordercolor: $block3-gradient2,
+    $btnhoverbg: $block3-gradient2
+  );
 }
-.btn-category{
-    @include buttonstyle($btn_categoryBG, $btn_categorycolor, $btntexttransform:capitalize, $btnbordercolor:$btn_categoryborder, $btnhoverbg:$btn_categoryhoverbg );
+.btn-category {
+  @include buttonstyle(
+    $btn_categoryBG,
+    $btn_categorycolor,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_categoryborder,
+    $btnhoverbg: $btn_categoryhoverbg
+  );
 }
-.btn-categoryblock3{
-    @include buttonstyle($btn_categoryBG, $block3-gradient1, $btntexttransform:capitalize, $btnbordercolor:$block3-gradient1, $btnhoverbg:$block3-gradient2 );
+.btn-categoryblock3 {
+  @include buttonstyle(
+    $btn_categoryBG,
+    $block3-gradient1,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $block3-gradient1,
+    $btnhoverbg: $btn_categoryhoverbg
+  );
+}
+.btn-signup-gen {
+  @include buttonstyle(
+    $btn_signupgen-color,
+    $light-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_signupgen-hoverbg,
+    $btnhoverbg: $btn_signupgen-hoverbg
+  );
+}
+.btn-signup-fb {
+  @include buttonstyle(
+    $btn_fb-color,
+    $light-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_fb-hoverbg,
+    $btnhoverbg: $btn_fb-hoverbg
+  );
+}
+.btn-signup-gm {
+  @include buttonstyle(
+    $btn_gm-color,
+    $light-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_gm-hoverbg,
+    $btnhoverbg: $btn_gm-hoverbg
+  );
+}
+.btn-signup-em {
+  @include buttonstyle(
+    $btn_em-color,
+    $light-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_em-hoverbg,
+    $btnhoverbg: $btn_em-hoverbg
+  );
+}
+.btn-social-skp {
+  @include buttonstyle(
+    $btn_socialskip-colorbg,
+    $btn_socialskip-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_socialskip-colorbg,
+    $btnhoverbg: $btn_socialskip-hoverbg
+  );
 }
