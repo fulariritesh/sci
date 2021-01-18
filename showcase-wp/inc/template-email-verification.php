@@ -10,8 +10,6 @@ if(!$user_email){
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
-
 		<?php
 		while ( have_posts() ) :
 			the_post();
@@ -23,16 +21,33 @@ get_header();
 				comments_template();
 			endif;
 
-		endwhile; // End of the loop.
+        endwhile; 
+        // End of the loop.
         ?>
-        Thank you, Please confirm your email to complete registration.
-        <br>
-        Click on the button in the email we sent to <?php echo $user_email ?> and you'll be on your way.
-        <br>
-        Didnt recieve the email ? check spam folder!
-        <br>
-        <span style="color:blue; cursor: pointer;" id="sci-rve">Send email again</span>or<a href="#" style="color:blue;" >contact administrator</a>
-        
+          
+        <section class="email-con d-flex justify-content-center py-5">
+            <div class="card col-11 col-md-8 col-lg-6 col-xl-4 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="far fa-envelope fa-5x my-4"></i>
+                    <h4 class="ty font-weight-bold">Thank you!</h4>
+                    <h4 class="um py-2">
+                    Please confirm your email to complete your registration
+                    </h4>
+                    <p>
+                    Click the button in the email we sent to <?php echo $user_email; ?> and
+                    you'll be on your way.
+                    </p>
+                    <hr class="my-4" />
+                    <p>Didn't get the email?</p>
+                    <p>
+                    check your spam folder! <br /><a id="sci-rve" href="#">send email again</a> or
+                    <a href="#">contact administrator</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
         <!-- Modal -->
         <div class="modal fade" id="revModal" tabindex="-1" aria-labelledby="revModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -47,13 +62,11 @@ get_header();
             </div>
         </div>
 
-	</main><!-- #main -->
 
 <?php
 get_sidebar();
 get_footer();
 ?>
 <script>
-// var userID = "<?php //echo $_SESSION['user_id']; ?>";
-var userEmail = "<?php echo $_SESSION["user_args"]["submitted"]["user_email"]; ?>";
+    var userEmail = "<?php echo $user_email; ?>";
 </script>
