@@ -3,13 +3,20 @@
 
   .nav-link {
     color: $basefont-color;
-    &:active {
-      border-bottom: 0.188rem solid;
-      border-color: $primary-color;
-    }
+    border-bottom: 0.188rem solid;
+    border-color: $light-color;
+    // &:active {
+    //   border-bottom: 0.188rem solid;
+    //   border-color: $primary-color;
+    // }
+
     @include media-xs {
       padding: 0.625rem;
       font-size: 0.625rem;
     }
+  }
+  .act {
+    border-bottom: 0.188rem solid;
+    border-color: $primary-color;
   }
 }
