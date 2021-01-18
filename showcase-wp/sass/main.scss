@@ -1,6 +1,9 @@
 // bootstrap.scss
+@import "base/variable";
 @import "base/config";
-@import "base/variables";
 @import "base/typography";
 @import "base/linearstyle.css";
 @import "components/menu";
+@import "components/footer";
+@import "components/buttons";
+@import "pages/home";

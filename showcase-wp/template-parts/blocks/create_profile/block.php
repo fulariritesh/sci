@@ -8,12 +8,6 @@
 		<div class="row">
 		  <div class="col-sm-6 blockInfo">
 		  	<?php echo get_field("content"); ?>
-		    <h4>Let people discover you</h4>
-		    <h1>Post profile quickly</h1>
-		    <p>
-		      Quick and easy sign-up process and an AI system that does the work and matches you with employers in the entertainment industry who are most likely to hire you.
-		    </p>
-		    <button class="btn btn-profile btn-lg">CREATE MY PROFILE NOW</button>
 		  </div>
 		  <div class="col-sm-6">
 		    <div id="drop1"></div>

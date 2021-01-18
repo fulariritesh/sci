@@ -50,7 +50,8 @@ if ( ! function_exists( 'showcase_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus(
 			array(
-				'menu-1' => esc_html__( 'Primary', 'showcase' ),
+				'menu-header' => esc_html__( 'Header Menu', 'showcase' ),
+				'menu-footer' => esc_html__( 'Footer Menu', 'showcase' ),
 			)
 		);
 		function wpse23007_redirect(){
@@ -154,12 +155,24 @@ function showcase_scripts() {
 
 	wp_enqueue_script( 'showcase-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
+	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, false );
+	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap-js'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	/* Resend verification email */
+	wp_localize_script(
+		'sci-um-rev',
+		'UM_RAF',
+		array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'um_raf_nonce' ),
+		)
+	);
 }
-add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
+add_action( 'wp_enqueue_scripts', 'showcase_scripts' );ts' );
 
 /**
  * Implement the Custom Header feature.
@@ -298,6 +311,56 @@ function my_acf_init_block_types() {
             'icon'              => 'admin-comments',
             'keywords'          => array( 'profile' ),
         ));
+
+        acf_register_block_type(array(
+            'name'              => 'banner',
+            'title'             => __('Banner'),
+            'description'       => __('Banner block on the home page.'),
+            'render_template'   => 'template-parts/blocks/banner/block.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'banner' ),
+        ));
+
+        acf_register_block_type(array(
+            'name'              => 'zone',
+            'title'             => __('Enter the zone'),
+            'description'       => __('Enter the zone block on the home page.'),
+            'render_template'   => 'template-parts/blocks/zone/block.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'zone' ),
+        ));
+
+        acf_register_block_type(array(
+            'name'              => 'discover',
+            'title'             => __('Discover Talent'),
+            'description'       => __('Discover Talent block on the home page.'),
+            'render_template'   => 'template-parts/blocks/discover/block.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'discover' ),
+        ));
+
+        acf_register_block_type(array(
+            'name'              => 'cta',
+            'title'             => __('Call to action'),
+            'description'       => __('Call to action block on the home page.'),
+            'render_template'   => 'template-parts/blocks/cta/block.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'cta' ),
+        ));
+
+        acf_register_block_type(array(
+            'name'              => 'join',
+            'title'             => __('Join for free'),
+            'description'       => __('Join for free block on the home page.'),
+            'render_template'   => 'template-parts/blocks/join/block.php',
+            'category'          => 'formatting',
+            'icon'              => 'admin-comments',
+            'keywords'          => array( 'join' ),
+        ));
     }
 }
 
@@ -405,7 +468,7 @@ function user_lock( $user, $username, $password ){
 
     $user = get_user_by('login', $username);
 
-	$account_is_deactivated = get_field('is_deactivated', "user_" . $user->ID);
+	$account_is_deactivated = isset($user->ID) ? get_field('is_deactivated', "user_" . $user->ID) : false ;
 
     if (!!$account_is_deactivated) {
     	$user = new WP_Error( 'denied', __("Your account has been deactivaed because: \n". get_field('message_to_show', "user_" . $user->ID) ) );
@@ -419,3 +482,30 @@ function user_lock( $user, $username, $password ){
 
      return $user;
 }
+
+/* UM Register page aka Signup page */
+function sci_um_signup_btn_css(){
+    if (!is_page(106)) {
+        return;
+	}
+	//css for Continue with email button
+    echo '<style type="text/css">';
+	echo '.um input[type=submit].um-button {background: #07bb9b !important;}';
+    echo '</style>';
+}
+add_action('wp_head', 'sci_um_signup_btn_css');
+
+/* Session start */
+function sci_startSession() {
+    if(!session_id()) {
+        session_start();
+    }
+}
+add_action('init', 'sci_startSession', 1);
+
+/* Storing register submitted data in session */ 
+function my_registration_complete( $user_id, $args ) {
+	$_SESSION['user_id'] = $user_id;
+	$_SESSION['user_args'] = $args;
+}
+add_action( 'um_registration_complete', 'my_registration_complete', 10, 2 );
