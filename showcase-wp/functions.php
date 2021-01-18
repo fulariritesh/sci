@@ -172,7 +172,7 @@ function showcase_scripts() {
 		)
 	);
 }
-add_action( 'wp_enqueue_scripts', 'showcase_scripts' );ts' );
+add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
 /**
  * Implement the Custom Header feature.
