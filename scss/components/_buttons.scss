@@ -22,5 +22,5 @@
     @include buttonstyle($btn_categoryBG, $btn_categorycolor, $btntexttransform:capitalize, $btnbordercolor:$btn_categoryborder, $btnhoverbg:$btn_categoryhoverbg );
 }
 .btn-categoryblock3{
-    @include buttonstyle($btn_categoryBG, $block3-gradient1, $btntexttransform:capitalize, $btnbordercolor:$block3-gradient1, $btnhoverbg:$block3-gradient2 );
+    @include buttonstyle($btn_categoryBG, $block3-gradient1, $btntexttransform:capitalize, $btnbordercolor:$block3-gradient1,  $btnhoverbg:$btn_categoryhoverbg );
 }
