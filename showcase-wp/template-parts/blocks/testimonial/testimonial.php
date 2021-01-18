@@ -16,38 +16,32 @@ $testimonials_count = get_fields()['testimonials'];
     <div class="container newjoinees text-center">
         <h4>Our Newest Members Have This To Say</h4>
         <h1>Members Speak</h1>
-        <div id="testimonials_carousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <?php foreach ($testimonials_count as $key => $value) : ?>
-                    <li data-target="#testimonials_carousel" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? "class='active'"  : ""; ?>></li>
-                <?php endforeach; ?>
-            </ol>
-            <?php if (have_rows('testimonials')): ?>    
-                <div class="row">
-                    <div class="carousel-inner">
-                        <?php while (have_rows('testimonials')): the_row(); ?>
-                            <div class="testimonial carousel-item <?php echo get_row_index() == 1 ? 'active' : ''; ?>">
-                                <div class="col-sm-12 newjoineescard shadow-lg">
-                                    <div class="row">
-                                        <div class="col-3 imgdiv">
-                                            <img src="<?php echo get_the_post_thumbnail_url(get_sub_field('testimonial')->ID); ?>" />
-                                        </div>
-                                        <div class="col-9 text-center p-3 pt-5">
-                                            <div class="secondaryCircle">
-                                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                            </div>
-                                            <p><?php echo get_sub_field('testimonial')->post_content; ?></p>
-                                            <p class="text-secondary"><?php echo get_sub_field('testimonial')->post_title; ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endwhile; ?>
-                    </div>
-                </div>
-            <?php else: ?>
-                <h2>Add testimonials here</h2>
-            <?php endif;?>
-        </div>
+		<div class="splide">
+			<div class="splide__track">
+				<ul class="splide__list">
+		            <?php if (have_rows('testimonials')): ?>    
+						<?php while (have_rows('testimonials')): the_row(); ?>
+							<li class="splide__slide">
+						        <div class="col-sm-12 newjoineescard">
+						            <div class="row shadow-sm">
+						                <div class="col-4 imgdiv">
+						                    <img src="<?php echo get_the_post_thumbnail_url(get_sub_field('testimonial')->ID); ?>" />
+						                </div>
+						                <div class="col-8 text-center p-3 pt-5">
+						                    <div class="secondaryCircle">
+						                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+						                    </div>
+						                    <p><?php echo wp_trim_words( get_sub_field('testimonial')->post_content, 20, "..." ); ?></p>
+						                    <p class="text-secondary"><?php echo get_sub_field('testimonial')->post_title; ?></p>
+						                </div>
+						            </div>
+						        </div>
+							</li>
+						<?php endwhile; ?>
+		            <?php endif; ?>
+
+				</ul>
+			</div>
+		</div>
     </div>
 </section>
