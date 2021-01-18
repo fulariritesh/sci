@@ -1,0 +1,22 @@
+.jp-nav {
+  background: $light-color;
+
+  .nav-link {
+    color: $basefont-color;
+    border-bottom: 0.188rem solid;
+    border-color: $light-color;
+    // &:active {
+    //   border-bottom: 0.188rem solid;
+    //   border-color: $primary-color;
+    // }
+
+    @include media-xs {
+      padding: 0.625rem;
+      font-size: 0.625rem;
+    }
+  }
+  .act {
+    border-bottom: 0.188rem solid;
+    border-color: $primary-color;
+  }
+}
