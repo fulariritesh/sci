@@ -20,7 +20,7 @@
   <body>
     <header>
       <section class="container-fluid topbar navbar navbar-expand-sm">
-        <div class="container">
+        <div class="container px-0">
         <div class="col">
           <ul class="tb-left navbar-nav">
             <li class="nav-item">
@@ -84,10 +84,12 @@
       </div>
       </section>
       <div class="container-fluid headerbar ">
-        <div class="container">
+        <div class="container px-0">
       <nav class="navbar navbar-expand-lg px-0">
-        <button
-          class="navbar-toggler"
+       
+        <div class="col-4 logo px-0">
+          <button
+          class="navbar-toggler pl-0 btnToggle"
           type="button"
           data-toggle="collapse"
           data-target="#navcollpse"
@@ -97,8 +99,7 @@
         >
           <span class="fa fa-bars"></span>
         </button>
-        <div class="col-4 logo px-0">
-          <img src="#" alt="ShowcaseIndia-Logo" />
+          <img src="/images/footer-logo.png" class="img-fluid" alt="ShowcaseIndia-Logo" />
         </div>
         <div class="collapse navbar-collapse" id="navcollpse">
           <ul class="navbar-nav justify-content-md-center">
@@ -122,10 +123,13 @@
             aria-expanded="false"
             aria-label="Sign in button"
           >
-            Log in
+            <span>Log in</span> <span class="d-md-none pl-1"> / Sign up</span> 
+
+           
+
           </button>
           <button
-            class="btn btn-join"
+            class="btn btn-join d-none d-md-block"
             type="button"
             data-toggle="collapse"
             aria-controls=""
@@ -176,9 +180,9 @@
             <p>
               Quick and easy sign-up process and an AI system that does the work and matches you with employers in the entertainment industry who are most likely to hire you.
             </p>
-            <button class="btn btn-profile btn-lg">CREATE MY PROFILE NOW</button>
+            <button class="btn btn-profile btn-md-lg">CREATE MY PROFILE NOW</button>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 profileImage">
             <div id="drop1"></div>
             <div id="drop2"></div>
             <div class="imageBlockLeft shadow-sm">
@@ -196,19 +200,8 @@
         <div class="container">
         <div class="row">
          
-          <div class="col-sm-6">
-            <div id="drop3"></div>
-            <div id="drop4"></div>
-            <div id="drop5"></div>
-            <div  id="imageBlock" class=" shadow-sm">
-              <img
-              src="images/artist.jpg" class="img-fluid"
-              alt="profile pic"
-            />
-            </div>
-           
-          </div>
-          <div class="col-sm-6 blockInfo pt-3">
+       
+          <div class="col-sm-6 blockInfo pt-3 order-sm-6">
             <h4>Enter the zone</h4>
             <h1>Artists and Entertainers</h1>
             <p>
@@ -217,14 +210,26 @@
             <button class="btn btn-primary btn-lg">JOIN US NOW</button>
             <div class="popcategory pt-4">
             <h4>Popular Categories</h4>
-            <button class="btn btn-category btn-md mt-2">Actors</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Musicians</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Film Crew</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Models</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Dancers</button>
-            <button class="btn btn-category btn-md mt-2">Hair and MAUs</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Presenters</button>
+            <button class="btn btn-category btn-md mt-2  mr-2">Actors</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Musicians</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Film Crew</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Models</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Dancers</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Hair and MAUs</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Presenters</button>
           </div>
+          </div>
+          <div class="col-sm-6 profileImage order-sm-1">
+            <div id="drop3"></div>
+            <div id="drop4"></div>
+            <div id="drop5"></div>
+            <div  id="imageBlock" class=" shadow-sm ">
+              <img
+              src="images/artist.jpg" class="img-fluid"
+              alt="profile pic"
+            />
+            </div>
+           
           </div>
         </div>
       </div>
@@ -244,17 +249,17 @@
             <button class="btn btn-block3 btn-lg">JOIN US NOW</button>
             <div class="popcategory pt-4">
               <h4>Popular Categories</h4>
-              <button class="btn btn-categoryblock3 btn-md mt-2">Beauty</button>
-              <button class="btn btn-categoryblock3 btn-md mt-2 ml-2">Fashion</button>
-              <button class="btn btn-categoryblock3 btn-md mt-2 ml-2">Fitness</button>
-              <button class="btn btn-categoryblock3 btn-md mt-2 ml-2">Food</button>
-              <button class="btn btn-categoryblock3 btn-md mt-2 ml-2">Health</button>
-              <button class="btn btn-categoryblock3 btn-md mt-2">Music</button>
-              <button class="btn btn-categoryblock3 btn-md mt-2 ml-2">Gaming</button>
+              <button class="btn btn-categoryblock3 btn-md mt-2 mr-2">Beauty</button>
+              <button class="btn btn-categoryblock3 btn-md mt-2 mr-2">Fashion</button>
+              <button class="btn btn-categoryblock3 btn-md mt-2 mr-2">Fitness</button>
+              <button class="btn btn-categoryblock3 btn-md mt-2 mr-2">Food</button>
+              <button class="btn btn-categoryblock3 btn-md mt-2 mr-2">Health</button>
+              <button class="btn btn-categoryblock3 btn-md mt-2 mr-2">Music</button>
+              <button class="btn btn-categoryblock3 btn-md mt-2 mr-2">Gaming</button>
               <button class="btn btn-categoryblock3 btn-md mt-2">Travel</button>
             </div>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 profileImage">
             <div id="drop8"></div>
             <div id="drop7"></div>
             <div id="drop6"></div>
@@ -274,19 +279,8 @@
         <div class="container">
         <div class="row">
          
-          <div class="col-sm-6">
-            <div id="drop3"></div>
-            <div id="drop4"></div>
-            <div id="drop5"></div>
-            <div  id="imageBlock" class=" shadow-sm">
-              <img
-              src="images/directors.jpg" class="img-fluid"
-              alt="profile pic"
-            />
-            </div>
-           
-          </div>
-          <div class="col-sm-6 blockInfo pt-1">
+         
+          <div class="col-sm-6 blockInfo pt-1 order-sm-6">
             <h4>Enter the zone</h4>
             <h1>Production and Design</h1>
             <p>
@@ -295,13 +289,25 @@
             <button class="btn btn-primary btn-lg">JOIN Showcasindia today</button>
             <div class="popcategory pt-4">
             <h4>Popular Categories</h4>
-            <button class="btn btn-category btn-md mt-2">Producers</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Film Directors</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Camera Crew</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Sound Crew</button>
-            <button class="btn btn-category btn-md mt-2 ">Script Writers</button>
-            <button class="btn btn-category btn-md mt-2 ml-2">Assistance</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Producers</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Film Directors</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Camera Crew</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Sound Crew</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Script Writers</button>
+            <button class="btn btn-category btn-md mt-2 mr-2">Assistance</button>
           </div>
+          </div>
+          <div class="col-sm-6 profileImage order-sm-1">
+            <div id="drop3"></div>
+            <div id="drop9"></div>
+            <div id="drop10"></div>
+            <div  id="imageBlock" class=" shadow-sm">
+              <img
+              src="images/directors.jpg" class="img-fluid"
+              alt="profile pic"
+            />
+            </div>
+           
           </div>
         </div>
       </div>
@@ -321,7 +327,7 @@
             </p>
             <button class="btn btn-block3 btn-lg">DISCOVER TALENT NOW</button>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 profileImage">
             <!-- <div id="drop8"></div>
             <div id="drop7"></div>
             <div id="drop6"></div> -->
@@ -337,17 +343,33 @@
       <section class="container-fluid py-5">
         <div class="container newjoinees text-center">
           <h4>Our Newest Members Have This To Say</h4>
-          <h1>Members Speak</h1>
+          <h1 class="pb-5">Members Speak</h1>
         <div class="row">
-          <div class="col-sm-6 newjoineescard shadow-sm">
-            <div class="secondaryCircle"><i class="fa fa-quote-left" aria-hidden="true"></i>
+          <div class="col-sm-6 col-md-6">
+            <div class="newjoineescard shadow-sm px-3">
+            <div class="secondaryCircle d-none  d-lg-block"><i class="fa fa-quote-left" aria-hidden="true"></i>
             </div>
             <div class="row">
-            <div class="col-3 imgdiv"><img src="images/our joinees1.png" /></div>
-            <div class="col-9 text-center p-3 pt-5">
+            <div class="col-12  col-lg-3 imgdiv"><img src="images/our joinees1.png" /></div>
+            <div class="col-12  col-lg-9 text-center p-3 pt-5">
               <p>Love this place it's actually changed my life and given me a boost. I've been shortlisted for a lot of jobs. I've had a couple of jobs it's amazing</p>
               <p class="text-secondary">Jennifer Fernandes</p>
             </div>
+          </div>
+         </div>
+        </div>
+
+          <div class="col-sm-6 d-none d-sm-block col-md-6">
+            <div class="newjoineescard shadow-sm px-3">
+            <div class="secondaryCircle  d-none d-lg-block"><i class="fa fa-quote-left" aria-hidden="true"></i>
+            </div>
+            <div class="row">
+            <div class="col-12  col-lg-3 imgdiv"><img src="images/our joinees2.jpg" /></div>
+            <div class="col-12  col-lg-9 text-center p-3 pt-5">
+              <p>WOW! just got picked for lead role, Detective Cop, in new short film shooting starts mid November, just keep applying</p>
+              <p class="text-secondary">Jennifer Fernandes</p>
+            </div>
+          </div>
           </div>
           </div>
         </div>
@@ -359,47 +381,47 @@
         <div class="container category-block text-center">
         <h4>Join for free now</h4>
         <h1>Your Talent. Your Showcase</h1>
-        <div class="row">
+        <div class="row justify-content-center">
           <div class=" card text-center">
             <img src="images/actors.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Actors</div>
+            <div class="card-title text-sm-uppercase">Actors</div>
           </div>
           <div class=" card text-center">
             <img src="images/musicians.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Musicians</div>
+            <div class="card-title text-sm-uppercase">Musicians</div>
           </div>
           <div class=" card text-center">
             <img src="images/film-crew.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Film crew</div>
+            <div class="card-title text-sm-uppercase">Film crew</div>
           </div>
           <div class=" card text-center">
             <img src="images/photographers.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Photographers</div>
+            <div class="card-title text-sm-uppercase">Photographers</div>
           </div>
           <div class=" card text-center">
             <img src="images/influencers.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Influencers</div>
+            <div class="card-title text-sm-uppercase">Influencers</div>
           </div>
       
           <div class=" card text-center">
             <img src="images/dancers.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Dancers</div>
+            <div class="card-title text-sm-uppercase">Dancers</div>
           </div>
           <div class=" card text-center">
             <img src="images/hair.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Hair, MUAs, Designers</div>
+            <div class="card-title text-sm-uppercase">Hair, MUAs, Designers</div>
           </div>
           <div class=" card text-center">
             <img src="images/enter.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Entertainers</div>
+            <div class="card-title text-sm-uppercase">Entertainers</div>
           </div>
           <div class=" card text-center">
             <img src="images/models.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Models</div>
+            <div class="card-title text-sm-uppercase">Models</div>
           </div>
-          <div class=" card text-center d-none">
+          <div class=" card text-center ">
             <img src="images/presenter.png" alt="" class="img-fluid" />
-            <div class="card-title text-uppercase">Presenters</div>
+            <div class="card-title text-sm-uppercase">Presenters</div>
           </div>
         </div>
       </div>
@@ -426,7 +448,7 @@
         </div>
       </div>
       <div class="row pt-3">
-        <div class="col-12  col-md-4 ourlinks"> 
+        <div class="col-12 col-md-4 ourlinks"> 
           <h5 class="blockTitle">Our Links</h5>
           <div class="line"><span class="color-1"></span><span class="color-2"></span></div>
           <ul class="text-center text-md-left">
@@ -439,7 +461,7 @@
             <li class="d-inline d-md-block px-3 px-md-0"><a href="">Contact Us</a></li>
           </ul>
         </div>
-        <div class="col-sm-4 d-none d-md-block">
+        <div class="col-12 d-none col-md-4  d-md-block">
           <h5 class="blockTitle">Our Latest News</h5>
           <div class="line"><span class="color-1"></span><span class="color-2"></span></div>
           <div class="clear"></div>
@@ -475,7 +497,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12  col-md-4">
+        <div class="col-12 col-md-4">
           <h5 class="blockTitle">Subscribe</h5>
           <div class="line"><span class="color-1"></span><span class="color-2"></span></div>
           <div class="subscribe">Subscribe for a newsletter</div>
@@ -490,9 +512,7 @@
           <div class="socialmedia pt-5 text-center text-md-left">
             <ul class="">
               <li class="">
-                <a class="" href="#"
-                  ><i class=" fab fa-facebook-f"></i
-                ></a>
+                <a class="" href="#"><i class=" fab fa-facebook-f"></i></a>
               </li>
               <li class="">
                 <a class="" href=""
@@ -517,22 +537,21 @@
              
             </ul>
           </div>
-        </div>
-      
+        </div>      
       </div>
     </div>
   </div>
     <div class="container-fluid footerBottom">
       <div class="container">
         <div class="row">
-          <div class="col-12 col-sm-6 text-left text-sm-right order-sm-6">
+          <div class="col-12 col-sm-8 text-left text-sm-right order-sm-6">
             <ul class="pl-0 mb-0">
               <li>Terms and conditions</li>
               <li>Privacy policy</li>
               <li>Sitemap</li>
             </ul>
           </div>
-          <div class="col-12 col-sm-6 float-right order-sm-1">© Showcaseindia 2021</div>
+          <div class="col-12 col-sm-4 float-right order-sm-1">© Showcaseindia 2021</div>
         
         </div>
       </div>

@@ -97,15 +97,6 @@ span { display:block; float:left; height:1px;}
         padding-left:0px;   
     }
 }
-@include media-xs{
-    ul{
-    li{
-        padding:15px;
-        a{
-            font-size:20px;
-        }
-    }}
-}
 }
 
 hr.new2 {
