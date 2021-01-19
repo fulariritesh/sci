@@ -71,7 +71,7 @@
     $btn_signupgen-color,
     $light-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_signupgen-hoverbg,
+    $btnbordercolor: $btn_signupgen-color,
     $btnhoverbg: $btn_signupgen-hoverbg,
     $btnhovercolor: $light-color
   );
@@ -81,7 +81,7 @@
     $btn_fb-color,
     $light-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_fb-hoverbg,
+    $btnbordercolor: $btn_fb-color,
     $btnhoverbg: $btn_fb-hoverbg,
     $btnhovercolor: $light-color
   );
@@ -91,7 +91,7 @@
     $btn_gm-color,
     $light-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_gm-hoverbg,
+    $btnbordercolor: $btn_gm-color,
     $btnhoverbg: $btn_gm-hoverbg,
     $btnhovercolor: $light-color
   );
@@ -101,7 +101,7 @@
     $btn_em-color,
     $light-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_em-hoverbg,
+    $btnbordercolor: $btn_em-color,
     $btnhoverbg: $btn_em-hoverbg,
     $btnhovercolor: $light-color
   );
@@ -124,5 +124,25 @@
     $btnbordercolor: $btn_details-gend-color,
     $btnhoverbg: $btn_details-gend-hoverbg,
     $btnhovercolor: $light-color
+  );
+}
+.btn-details-bck {
+  @include buttonstyle(
+    $btn_details-bck-bg,
+    $btn_details-bck-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-bck-bg,
+    $btnhoverbg: $btn_details-bck-hoverbg,
+    $btnhovercolor: $btn_details-bck-color
+  );
+}
+.btn-details-nxt {
+  @include buttonstyle(
+    $btn_details-nxt-bg,
+    $btn_details-nxt-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-nxt-bg,
+    $btnhoverbg: $btn_details-nxt-hoverbg,
+    $btnhovercolor: $btn_details-nxt-color
   );
 }
