@@ -9,7 +9,18 @@ body {
   font-size: 16px;
   color:$basefont-color;
 }
+a{
+  color:$basefont-color;
+  &:hover{
+    color:$basefont-color;
+    text-decoration: none;
+  }
+}
 
+
+.bodyBG{
+  background:$bodyBG;
+}
 input {
   border: 0;
   outline: 0;

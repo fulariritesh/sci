@@ -1,6 +1,7 @@
 $primary-color: #07bb9b;
 $secondary-color: #00a6d0;
-$signup-bgcolor:#F2FAFD;
+$bodyBG:#F2FAFD; 
+$signup-bgcolor:$bodyBG;
 
 $primary:#07bb9b;
 $secondary:#00a6d0;
@@ -102,3 +103,5 @@ $btn_socialskip-hoverbg:#fff;
 
 $newjoineesBG:#fff;
 $imagedivbg: #f9f9f9;
+
+$category-smalltext:#7e7e7e;
