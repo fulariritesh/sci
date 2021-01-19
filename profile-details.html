@@ -53,6 +53,7 @@
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">error msg</div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="LastName"
@@ -67,6 +68,7 @@
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">error msg</div>
               </div>
             </div>
             <div class="form-group">
@@ -76,6 +78,8 @@
                 ></label
               >
               <input type="date" class="form-control" id="DOB" required />
+              <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">error msg</div>
             </div>
             <div class="form-group">
               <div>
@@ -86,18 +90,18 @@
                 >
               </div>
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary">
+                <label class="btn btn-details-gend">
                   <input type="radio" name="options" id="option1" checked />
                   Male
                 </label>
-                <label class="btn btn-secondary">
+                <label class="btn btn-details-gend">
                   <input type="radio" name="options" id="option2" /> Female
                 </label>
-                <label class="btn btn-secondary">
+                <label class="btn btn-details-gend">
                   <input type="radio" name="options" id="option3" /> Prefer not
                   to say
                 </label>
-                <label class="btn btn-secondary">
+                <label class="btn btn-details-gend">
                   <input type="radio" name="options" id="option3" /> Custom
                 </label>
               </div>
@@ -110,6 +114,8 @@
                 ></label
               >
               <input type="text" class="form-control" required />
+              <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">error msg</div>
             </div>
             <div class="form-group">
               <label for="Location"
@@ -125,6 +131,7 @@
                 <option>5</option>
               </select>
             </div>
+            
           </form>
         </div>
       </div>
