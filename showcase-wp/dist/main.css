@@ -1008,7 +1008,7 @@ hr.new2 {
 
 .btn-category:hover {
   background: #f1fafc;
-  color: #04c382;
+  color: #fff;
 }
 
 .btn-categoryblock3 {
@@ -1020,7 +1020,7 @@ hr.new2 {
 
 .btn-categoryblock3:hover {
   background: #f1fafc;
-  color: #29388e;
+  color: #fff;
 }
 
 .btn-signup-gen {
@@ -1080,7 +1080,19 @@ hr.new2 {
 
 .btn-social-skp:hover {
   background: #fff;
-  color: #28388D;
+  color: #fff;
+}
+
+.btn-details-gend {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #444;
+}
+
+.btn-details-gend:hover {
+  background: #07bb9b;
+  color: #fff;
 }
 
 .jp-nav {
