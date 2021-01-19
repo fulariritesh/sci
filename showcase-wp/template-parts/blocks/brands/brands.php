@@ -18,7 +18,7 @@ const brands_images = <?php echo count($brands_count); ?>;
 <?php if (have_rows('brand_images')): ?>    
 <section class="gfb container-fluid text-center">
     <h4>Brands that trust us</h4>
-    <div class="splide slider_brands">
+    <div class="splide slider_brands container">
         <div class="splide__track">
             <ul class="splide__list">
                 <?php while (have_rows('brand_images')): the_row(); ?>
