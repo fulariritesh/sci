@@ -16,7 +16,7 @@ $content = get_field('content');
 		    <div id="drop4"></div>
 		    <div id="drop5"></div>
 		    <div  id="imageBlock" class=" shadow-sm">
-		      <img src="<?php echo $image; ?> " class="img-fluid"/>
+		      <img src="<?php echo $image; ?>" class="img-fluid" loading="lazy"/>
 		    </div>
 		  </div>
 		  <div class="col-sm-6 blockInfo pt-1">
