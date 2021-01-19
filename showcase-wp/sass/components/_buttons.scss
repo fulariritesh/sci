@@ -116,13 +116,13 @@
     $btnhovercolor: $light-color
   );
 }
-.btn-details-gend {
+.btn-details-gen {
   @include buttonstyle(
-    $btn_details-gend-bg,
-    $btn_details-gend-color,
+    $btn_details-gen-bg,
+    $btn_details-gen-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_details-gend-color,
-    $btnhoverbg: $btn_details-gend-hoverbg,
+    $btnbordercolor: $btn_details-gen-color,
+    $btnhoverbg: $btn_details-gen-hoverbg,
     $btnhovercolor: $light-color
   );
 }
