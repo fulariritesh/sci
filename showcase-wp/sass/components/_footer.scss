@@ -30,6 +30,14 @@
         ul li{
             list-style: none;
             display:inline; 
+            a{
+                color:$light-color;
+                text-decoration: none;
+                &:hover{
+                    color:$light-color;
+                    text-decoration: none;
+                }
+            }
         }
         li:nth-child(n+2):before {
             content: "|";
@@ -45,9 +53,11 @@
     border-top: 1px solid $footerhrcolor;
   }
 
-span { display:block; float:left; height:1px;}
+
+
 .line{
     width:100%;
+    span { display:block; float:left; height:1px;}
 }
 .color-1{
     background:$secondary-color;
