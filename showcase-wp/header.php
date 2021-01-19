@@ -30,7 +30,6 @@
   </style>
 	<link rel="profile" href="https://gmpg.org/xfn/11">
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/dist/main.css" />
 	<?php wp_head(); ?>
 </head>
 

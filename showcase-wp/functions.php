@@ -150,11 +150,12 @@ add_action( 'widgets_init', 'showcase_widgets_init' );
  */
 function showcase_scripts() {
 	wp_enqueue_style( 'showcase-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . "/dist/bootstrap.css", array() );
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . "/dist/bootstrap.css", array() );
+	wp_enqueue_style( 'showcase', get_template_directory_uri() . "/dist/main.css", array(), _S_VERSION );
 	wp_style_add_data( 'showcase-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'showcase-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, false );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
