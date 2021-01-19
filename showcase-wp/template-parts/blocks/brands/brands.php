@@ -12,33 +12,24 @@
 <?php 
 $brands_count = get_fields()["brand_images"];
 ?>
+<script type="text/javascript">
+const brands_images = <?php echo count($brands_count); ?>;
+</script>
 <?php if (have_rows('brand_images')): ?>    
-<div class="brands-container">
-<?php if (is_admin()) : ?>
-    <style type="text/css">
-        .carousel-inner {
-            display: flex;
-        }
-        #brands_carousel img {
-            max-width: 150px;
-            display: inline-block;
-            margin-right: 10px;
-        }
-        [href="#brands_carousel"]{
-            display: none;
-        }
-    </style>
-<?php endif;?>
-<?php while (have_rows('brand_images')): the_row(); ?>
-    <div class="brands <?php #echo get_row_index() == 1 ? 'active' : ''; ?>">
-        <div class="d-block w-100">
-            <div class="image text-center">
-                <img src="<?php echo get_sub_field('image'); ?>">
-            </div>
+<section class="gfb container-fluid text-center">
+    <h4>Brands that trust us</h4>
+    <div class="splide slider_brands">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <?php while (have_rows('brand_images')): the_row(); ?>
+                <li class="splide__slide">
+                    <img class="img-fluid" src="<?php echo get_sub_field('image'); ?>" alt="">
+                </li>
+                <?php endwhile; ?>
+            </ul>
         </div>
-    </div>  
-<?php endwhile; ?>
-</div> 
+    </div>
+</section>
 <?php else: ?>
     <h2>Add brands here</h2>
 <?php endif;?>

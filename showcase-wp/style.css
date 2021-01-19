@@ -58,7 +58,9 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 --------------------------------------------- */
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-
+.gfb h4 {
+	margin-bottom: 1em;
+}
 .splide__slide {
 	margin-right: 2rem;
 }
@@ -76,6 +78,9 @@ ul.splide__pagination {
 }
 .newjoineescard .row {
 	border: 1px solid #e8e8e8;
+}
+.newjoineescard .box-shadow {
+	box-shadow: 2px 0px 10px 1px #e8e8e8;
 }
 .newjoineescard p:not([class]){
 	min-height: 100px;	
