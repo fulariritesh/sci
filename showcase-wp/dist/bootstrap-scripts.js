@@ -13952,7 +13952,7 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 $(document).ready(function () {
-  new (_splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default())('.splide', {
+  new (_splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default())('.slider_testimonials', {
     perPage: 2,
     arrows: false,
     padding: {
@@ -13963,6 +13963,25 @@ $(document).ready(function () {
     breakpoints: {
       768: {
         perPage: 1
+      }
+    }
+  }).mount();
+  new (_splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default())('.slider_brands', {
+    type: "loop",
+    perPage: 10,
+    arrows: false,
+    pagination: false,
+    padding: {
+      left: 0,
+      right: 0
+    },
+    trimSpace: true,
+    breakpoints: {
+      990: {
+        perPage: 4
+      },
+      768: {
+        perPage: 2
       }
     }
   }).mount();
