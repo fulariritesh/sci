@@ -10751,7 +10751,7 @@ hr.new2 {
 
 .btn-category:hover {
   background: #f1fafc;
-  color: #04c382;
+  color: #fff;
 }
 
 .btn-categoryblock3 {
@@ -10763,14 +10763,14 @@ hr.new2 {
 
 .btn-categoryblock3:hover {
   background: #f1fafc;
-  color: #29388e;
+  color: #fff;
 }
 
 .btn-signup-gen {
   background: #28388D;
   color: #fff;
   text-transform: capitalize;
-  border: 1px solid #19235A;
+  border: 1px solid #28388D;
 }
 
 .btn-signup-gen:hover {
@@ -10782,7 +10782,7 @@ hr.new2 {
   background: #4267B2;
   color: #fff;
   text-transform: capitalize;
-  border: 1px solid #2F497E;
+  border: 1px solid #4267B2;
 }
 
 .btn-signup-fb:hover {
@@ -10794,7 +10794,7 @@ hr.new2 {
   background: #EA4335;
   color: #fff;
   text-transform: capitalize;
-  border: 1px solid #B63429;
+  border: 1px solid #EA4335;
 }
 
 .btn-signup-gm:hover {
@@ -10806,7 +10806,7 @@ hr.new2 {
   background: #07BB9B;
   color: #fff;
   text-transform: capitalize;
-  border: 1px solid #035445;
+  border: 1px solid #07BB9B;
 }
 
 .btn-signup-em:hover {
@@ -10823,7 +10823,43 @@ hr.new2 {
 
 .btn-social-skp:hover {
   background: #fff;
-  color: #28388D;
+  color: #fff;
+}
+
+.btn-details-gend {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #444;
+}
+
+.btn-details-gend:hover {
+  background: #07bb9b;
+  color: #fff;
+}
+
+.btn-details-bck {
+  background: #CCCCCC;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #CCCCCC;
+}
+
+.btn-details-bck:hover {
+  background: #F2F2F2;
+  color: #444;
+}
+
+.btn-details-nxt {
+  background: #28388D;
+  color: #ffff;
+  text-transform: capitalize;
+  border: 1px solid #28388D;
+}
+
+.btn-details-nxt:hover {
+  background: #19235A;
+  color: #ffff;
 }
 
 .jp-nav {
