@@ -56,7 +56,6 @@ input {
     @content;
   }
 }
-
 @mixin droplet($gradientColor1, $gradientColor2,  $width, $height){
   display: block;
   width: $width;

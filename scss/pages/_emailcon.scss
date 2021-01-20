@@ -1,0 +1,22 @@
+.email-con {
+  font-family: Poppins-regular;
+  color: $basefont-color;
+  background-color: $signup-bgcolor;
+
+  .card {
+    .card-body {
+      a {
+        color: $secondary;
+      }
+      .ty {
+        color: $basefont-color;
+      }
+      .um {
+        color: $primary-color;
+        @include media-xs {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+}

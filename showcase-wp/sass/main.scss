@@ -1,4 +1,3 @@
-// bootstrap.scss
 @import "base/variable";
 @import "base/config";
 @import "base/typography";
@@ -6,5 +5,11 @@
 @import "components/menu";
 @import "components/footer";
 @import "components/buttons";
+@import "components/joinpages-nav";
 @import "pages/home";
+@import "pages/signup";
+@import "pages/social";
+@import "pages/emailcon";
+@import "pages/welcomemsg";
+@import "pages/profile-details";
 @import "../node_modules/@splidejs/splide/dist/css/splide.min.css"
