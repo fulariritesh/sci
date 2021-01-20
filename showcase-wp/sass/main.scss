@@ -1,6 +1,6 @@
 @import 'base/variable';
+@import '../bootstrap/scss/bootstrap.scss';
 @import 'base/config';
-@import '../bootstrap/scss/bootstrap';
 @import 'base/typography';
 @import 'base/linearstyle.css';
 @import 'components/menu';
@@ -15,3 +15,4 @@
 @import 'pages/welcomemsg';
 @import 'pages/profile-details';
 @import 'pages/findtalent';
+@import 'components/category';
