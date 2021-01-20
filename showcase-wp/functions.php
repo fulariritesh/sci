@@ -179,12 +179,6 @@ function add_stylesheet_attributes( $html, $handle ) {
     if ( 'wp-block-library' === $handle ) {
         $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
     }
-    if ( 'showcase' === $handle ) {
-        $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
-    }
-    if ( 'bootstrap' === $handle ) {
-        $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
-    }
     return $html;
 }
 add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
