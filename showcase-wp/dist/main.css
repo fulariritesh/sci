@@ -10823,7 +10823,7 @@ hr.new2 {
 
 .btn-social-skp:hover {
   background: #fff;
-  color: #fff;
+  color: #28388d;
 }
 
 .btn-details-gen {
@@ -10870,6 +10870,18 @@ hr.new2 {
 }
 
 .btn-lgin:hover {
+  background: #035445;
+  color: #fff;
+}
+
+.btn-rp {
+  background: #07bb9b;
+  color: #fff;
+  text-transform: capitalize;
+  border: 1px solid #07bb9b;
+}
+
+.btn-rp:hover {
   background: #035445;
   color: #fff;
 }

@@ -113,7 +113,7 @@
     $btntexttransform: capitalize,
     $btnbordercolor: $btn_socialskip-colorbg,
     $btnhoverbg: $btn_socialskip-hoverbg,
-    $btnhovercolor: $light-color
+    $btnhovercolor: $btn_socialskip-color
   );
 }
 .btn-details-gen {
@@ -154,6 +154,16 @@
     $btntexttransform: capitalize,
     $btnbordercolor: $btn_lgin-color,
     $btnhoverbg: $btn_lgin-hoverbg,
+    $btnhovercolor: $light-color
+  );
+}
+.btn-rp {
+  @include buttonstyle(
+    $btn_rp-color,
+    $light-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_rp-color,
+    $btnhoverbg: $btn_rp-hoverbg,
     $btnhovercolor: $light-color
   );
 }
