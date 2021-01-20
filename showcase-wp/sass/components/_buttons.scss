@@ -146,3 +146,14 @@
     $btnhovercolor: $btn_details-nxt-color
   );
 }
+
+.btn-lgin {
+  @include buttonstyle(
+    $btn_lgin-color,
+    $light-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_lgin-color,
+    $btnhoverbg: $btn_lgin-hoverbg,
+    $btnhovercolor: $light-color
+  );
+}

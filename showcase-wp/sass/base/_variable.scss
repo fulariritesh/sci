@@ -1,28 +1,26 @@
 $primary-color: #07bb9b;
 $secondary-color: #00a6d0;
-$bodyBG:#F2FAFD; 
-$signup-bgcolor:$bodyBG;
+$bodyBG: #f2fafd;
+$signup-bgcolor: $bodyBG;
 
-$primary:#07bb9b;
-$secondary:#00a6d0;
-$warning:#EA4335;
+$primary: #07bb9b;
+$secondary: #00a6d0;
+$warning: #ea4335;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    "primary":    $primary,
-    "secondary":  $secondary,
+    "primary": $primary,
+    "secondary": $secondary,
     // "success":    $success,
     // "info":       $info,
-     "warning":    $warning,
+    "warning": $warning,
     // "danger":     $danger,
     // "light":      $light,
-    // "dark":       $dark
+    // "dark":       $dark,
   ),
   $theme-colors
 );
-
-
 
 $topbar-bg: #00202d;
 $tb-icon-color: rgb(255, 255, 255);
@@ -30,91 +28,93 @@ $tb-icon-color1: #019fce;
 $tb-search-bg-color: #00384f;
 
 $nav-color: #002f43;
-$navbar-bg:#00415d;
+$navbar-bg: #00415d;
 
-$basefont-color:#444;
-$basefont-light-color:#6A6A6A;
-$bannerHeight:660px;
+$basefont-color: #444;
+$basefont-light-color: #6a6a6a;
+$bannerHeight: 660px;
 
-$light-color:#fff;
+$light-color: #fff;
 
-$container-width:1366px;
+$container-width: 1366px;
 
 $container-max-widths: (
   md: 720px,
   lg: 960px,
-  xl: 1300px
-) ;
+  xl: 1300px,
+);
 
-$gradientbg1:#fff;
-$gradientbg2:#f1fafc;
+$gradientbg1: #fff;
+$gradientbg2: #f1fafc;
 $profile-gradient1: #ffbd05;
 $profile-gradient2: #e18003;
-$artist-gradient1:#04c382;
-$artist-gradient2:#008e5e;
-$block3-gradient1:#29388e;
-$block3-gradient2:#192568;
+$artist-gradient1: #04c382;
+$artist-gradient2: #008e5e;
+$block3-gradient1: #29388e;
+$block3-gradient2: #192568;
 
+$btn_profileBG: #ffbd05;
+$btn_profilecolor: #fff;
+$btn_profilehoverbg: #f3b507;
+$btn_profileborder: #e4a800;
 
-$btn_profileBG:#ffbd05;
-$btn_profilecolor:#fff;
-$btn_profilehoverbg:#f3b507;
-$btn_profileborder:#e4a800;
+$btn_primaryBG: #04c382;
+$btn_primarycolor: #fff;
+$btn_primaryhoverbg: #0bb87d;
+$btn_primaryborder: #00a06a;
 
-$btn_primaryBG:#04c382;
-$btn_primarycolor:#fff;
-$btn_primaryhoverbg:#0bb87d;
-$btn_primaryborder:#00a06a;
+$btn_block3BG: #29388e;
+$btn_block3color: #fff;
+$btn_block3hoverbg: #192568;
+$btn_block3border: #192568;
 
-$btn_block3BG:#29388e;
-$btn_block3color:#fff;
-$btn_block3hoverbg:#192568;
-$btn_block3border:#192568;
+$btn_categoryBG: #fff;
+$btn_categorycolor: #04c382;
+$btn_categoryhoverbg: #f1fafc;
+$btn_categoryborder: #00a06a;
 
-$btn_categoryBG:#fff;
-$btn_categorycolor:#04c382;
-$btn_categoryhoverbg:#f1fafc;
-$btn_categoryborder:#00a06a;
-
-$greyBG:#fcfcfc;
+$greyBG: #fcfcfc;
 
 $CTAblock-btnbg: #007a6d;
 
-$footerTopBG:#002f43;
-$footerTopColor:#fff;
-$footerBottomBG:#002231;
-$footerhrcolor:#717273;
-$footerSmalltext:#7e7e7e;
+$footerTopBG: #002f43;
+$footerTopColor: #fff;
+$footerBottomBG: #002231;
+$footerhrcolor: #717273;
+$footerSmalltext: #7e7e7e;
 
 // Signup page
-$btn_signupgen-color:#28388D;
-$btn_signupgen-hoverbg:#19235A;
-$btn_fb-color:#4267B2;
-$btn_fb-hoverbg:#2F497E;
-$btn_gm-color:#EA4335;
-$btn_gm-hoverbg:#B63429;
-$btn_em-color:#07BB9B;
-$btn_em-hoverbg:#035445;
+$btn_signupgen-color: #28388d;
+$btn_signupgen-hoverbg: #19235a;
+$btn_fb-color: #4267b2;
+$btn_fb-hoverbg: #2f497e;
+$btn_gm-color: #ea4335;
+$btn_gm-hoverbg: #b63429;
+$btn_em-color: #07bb9b;
+$btn_em-hoverbg: #035445;
+
+//login btn
+$btn_lgin-color: #07bb9b;
+$btn_lgin-hoverbg: #035445;
 
 //Social Links and websites
-$btn_socialskip-colorbg:#ffff;
-$btn_socialskip-color:#28388D;
-$btn_socialskip-hoverbg:#fff;
+$btn_socialskip-colorbg: #ffff;
+$btn_socialskip-color: #28388d;
+$btn_socialskip-hoverbg: #fff;
 
-$newjoineesBG:#fff;
+$newjoineesBG: #fff;
 $imagedivbg: #f9f9f9;
 
-$category-smalltext:#7e7e7e;
-//personal details 
-$btn_details-gen-bg:#ffff;
-$btn_details-gen-color:#444;
-$btn_details-gen-hoverbg:#07bb9b;
+$category-smalltext: #7e7e7e;
+//personal details
+$btn_details-gen-bg: #ffff;
+$btn_details-gen-color: #444;
+$btn_details-gen-hoverbg: #07bb9b;
 
-$btn_details-bck-bg:#CCCCCC;
-$btn_details-bck-color:#444;
-$btn_details-bck-hoverbg:#F2F2F2;
+$btn_details-bck-bg: #cccccc;
+$btn_details-bck-color: #444;
+$btn_details-bck-hoverbg: #f2f2f2;
 
-$btn_details-nxt-bg:#28388D;
-$btn_details-nxt-color:#ffff;
-$btn_details-nxt-hoverbg:#19235A;
-
+$btn_details-nxt-bg: #28388d;
+$btn_details-nxt-color: #ffff;
+$btn_details-nxt-hoverbg: #19235a;
