@@ -1,4 +1,5 @@
 @import "base/variable";
+@import "../bootstrap/scss/bootstrap.scss";
 @import "base/config";
 @import "base/typography";
 @import "base/linearstyle.css";
@@ -8,8 +9,10 @@
 @import "components/joinpages-nav";
 @import "pages/home";
 @import "pages/signup";
+@import "pages/login";
 @import "pages/social";
 @import "pages/emailcon";
 @import "pages/welcomemsg";
 @import "pages/profile-details";
-@import "../node_modules/@splidejs/splide/dist/css/splide.min.css"
+@import "pages/findtalent";
+@import "../node_modules/@splidejs/splide/dist/css/splide.min.css";

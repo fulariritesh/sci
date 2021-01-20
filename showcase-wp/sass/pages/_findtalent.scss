@@ -1,0 +1,35 @@
+.findtalent-tabs{
+        li a{
+            border-bottom:2px solid $light-color;
+            color:$basefont-color;
+        }
+        li a.select{
+                border-bottom:2px solid $primary-color;
+                color:$primary-color;
+        }
+}
+.scibreadcrumb{
+    background-color: none;
+    li a{
+        color:$basefont-color;
+    }
+}
+.category-search{
+    background-color: $light-color;
+    font-size:14px;
+    .cat-num{
+        color:$category-smalltext;
+        font-size: 12px;
+    }
+}
+
+.searchFilters{
+    background-color: $light-color;
+
+          @include media-md{
+            display: block;
+            height: auto !important;
+            visibility: visible;
+          }
+    
+}
