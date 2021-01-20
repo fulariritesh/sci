@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <main class="container-fluid p-0">
+      <section class="login d-flex justify-content-center py-5">
+        <div class="card col-11 col-md-8 col-lg-6 col-xl-4 shadow-sm">
+          <div class="card-body">
+            <h4 class="text-center font-weight-bold py-4">Welcome back!</h4>
+            <button class="btn btn-signup-fb btn-block btn-lg">
+              Sign In with Facebook
+            </button>
+            <button class="btn btn-signup-gm btn-block btn-lg">
+              Sign In with Gmail
+            </button>
+            <div class="py-4">
+              <div class="or text-center">or</div>
+              <hr class="" />
+            </div>
+            <form>
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Email"
+                  aria-describedby="emailHelp"
+                />
+                <div class="invalid-feedback">error msg</div>
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                />
+                <div class="invalid-feedback">error msg</div>
+              </div>
+              <div class="form-group form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="exampleCheck1"
+                />
+                <label class="form-check-label" for="exampleCheck1"
+                  >Remember me
+                </label>
+              </div>
+              <button type="submit" class="btn btn-lgin btn-block btn-lg">
+                Login
+              </button>
+            </form>
+            <p class="mt-4 float-left"><a href="#">Forgot password?</a></p>
+            <p class="mt-4 float-right">
+              Not a member? <a href="#">Sign In</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
