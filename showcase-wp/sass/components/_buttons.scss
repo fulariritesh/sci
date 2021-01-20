@@ -22,7 +22,8 @@
     $btn_profilecolor,
     $btntexttransform: uppercase,
     $btnbordercolor: $btn_profileborder,
-    $btnhoverbg: $btn_profilehoverbg
+    $btnhoverbg: $btn_profilehoverbg,
+    $btnhovercolor: $light-color
   );
 }
 .btn-primary {
@@ -31,7 +32,8 @@
     $btn_primarycolor,
     $btntexttransform: uppercase,
     $btnbordercolor: $btn_primaryborder,
-    $btnhoverbg: $btn_primaryhoverbg
+    $btnhoverbg: $btn_primaryhoverbg,
+    $btnhovercolor: $light-color
   );
 }
 .btn-block3 {
@@ -40,7 +42,8 @@
     $btn_primarycolor,
     $btntexttransform: uppercase,
     $btnbordercolor: $block3-gradient2,
-    $btnhoverbg: $block3-gradient2
+    $btnhoverbg: $block3-gradient2,
+    $btnhovercolor: $light-color
   );
 }
 .btn-category {
@@ -49,7 +52,8 @@
     $btn_categorycolor,
     $btntexttransform: capitalize,
     $btnbordercolor: $btn_categoryborder,
-    $btnhoverbg: $btn_categoryhoverbg
+    $btnhoverbg: $btn_categoryhoverbg,
+    $btnhovercolor: $light-color
   );
 }
 .btn-categoryblock3 {
@@ -58,7 +62,8 @@
     $block3-gradient1,
     $btntexttransform: capitalize,
     $btnbordercolor: $block3-gradient1,
-    $btnhoverbg: $btn_categoryhoverbg
+    $btnhoverbg: $btn_categoryhoverbg,
+    $btnhovercolor: $light-color
   );
 }
 .btn-signup-gen {
