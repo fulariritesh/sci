@@ -158,9 +158,21 @@ function showcase_scripts() {
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
+	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap-js'), _S_VERSION, true );
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	/* Resend verification email */
+	wp_localize_script(
+		'sci-um-rev',
+		'UM_RAF',
+		array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'um_raf_nonce' ),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
@@ -493,3 +505,37 @@ function hook_header(){
 	echo '</style>';
 }
 add_action('wp_head','hook_header');
+
+/* Session start */
+function sci_startSession() {
+    if(!session_id()) {
+        session_start();
+    }
+}
+add_action('init', 'sci_startSession', 1);
+
+/* Storing register submitted data in session */ 
+function my_registration_complete( $user_id, $args ) {
+	$_SESSION['user_id'] = $user_id;
+	$_SESSION['user_args'] = $args;
+
+	if(isset($_SESSION['user_social_links']['instagram'])){
+		add_user_meta( $user_id, 'sci_social_links_instagram', $_SESSION['user_social_links']['instagram']);
+		unset($_SESSION['user_social_links']['instagram']);
+	}
+	if(isset($_SESSION['user_social_links']['facebook'])){
+		add_user_meta( $user_id, 'sci_social_links_facebook', $_SESSION['user_social_links']['facebook']);
+		unset($_SESSION['user_social_links']['facebook']);
+	}
+	if(isset($_SESSION['user_social_links']['twitter'])){
+		add_user_meta( $user_id, 'sci_social_links_twitter', $_SESSION['user_social_links']['twitter']);
+		unset($_SESSION['user_social_links']['twitter']);
+	}
+	if(isset($_SESSION['user_social_links']['youtube'])){
+		add_user_meta( $user_id, 'sci_social_links_youtube', $_SESSION['user_social_links']['youtube']);
+		unset($_SESSION['user_social_links']['youtube']);
+	}
+
+
+}
+add_action( 'um_registration_complete', 'my_registration_complete', 10, 2 );

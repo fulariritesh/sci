@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
-    <title>Profile-details</title>
-  </head>
-  <body>
-    <main class="container-fluid"></main>
+<?php
+/* Template Name: Profile details Page */
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+}
+
+get_header();
+
+?>
+
     <!-- Pagination -->
     <ul class="nav jp-nav justify-content-center">
       <li class="nav-item">
@@ -84,15 +85,15 @@
                 >
               </div>
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-details-gen">
+                <label class="btn btn-details-gend">
                   <input type="radio" name="options" id="option1" checked />
                   Male
                 </label>
-                <label class="btn btn-details-gen">
+                <label class="btn btn-details-gend">
                   <input type="radio" name="options" id="option2" />Female</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Prefer not to say</label>
-                <label class="btn btn-details-gen">
+                <label class="btn btn-details-gend">
+                  <input type="radio" name="options" id="option3" checked />Prefer not to say</label>
+                <label class="btn btn-details-gend">
                   <input type="radio" name="options" id="option3" />Custom</label>
               </div>
               <input type="text" class="form-control mt-3" />
@@ -128,20 +129,8 @@
       </div>
     </section>
 
-    <script
-      src="https://kit.fontawesome.com/f5515e915e.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+
+<?php
+get_sidebar();
+get_footer();
+?>
