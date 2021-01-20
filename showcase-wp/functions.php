@@ -149,6 +149,7 @@ add_action( 'widgets_init', 'showcase_widgets_init' );
  * Enqueue scripts and styles.
  */
 function showcase_scripts() {
+	wp_enqueue_style( 'critical', get_template_directory_uri() . "/dist/critical.css", array() );
 	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . "/dist/bootstrap.css", array() );
 	wp_enqueue_style( 'showcase', get_template_directory_uri() . "/dist/main.css", array(), _S_VERSION );
 	wp_enqueue_style( 'showcase-style', get_stylesheet_uri(), array(), _S_VERSION );
@@ -181,6 +182,9 @@ function add_stylesheet_attributes( $html, $handle ) {
         $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
     }
     if ( 'showcase' === $handle ) {
+        $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
+    }
+    if ( 'bootstrap' === $handle ) {
         $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
     }
     return $html;
