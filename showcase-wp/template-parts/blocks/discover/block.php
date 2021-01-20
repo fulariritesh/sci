@@ -9,7 +9,7 @@
           </div>
           <div class="col-sm-6">
             <div  id="imageBlock-simple" class="">
-              <img src="<?php echo get_field('image'); ?>" class="img-fluid"  alt="influencer pic"  />
+              <img src="<?php echo get_field('image'); ?>" class="img-fluid"  alt="influencer pic" loading="lazy" />
             </div>
            
           </div>

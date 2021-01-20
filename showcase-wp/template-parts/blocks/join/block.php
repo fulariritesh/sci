@@ -6,7 +6,7 @@
 		<?php while (have_rows('icons')): the_row(); ?>
 		    <div class="card text-center">
 		    	<a href="<?php echo get_sub_field('link'); ?>">
-		      		<img src="<?php echo get_sub_field('image'); ?>" alt="" class="img-fluid" />				    		
+		      		<img src="<?php echo get_sub_field('image'); ?>" alt="" class="img-fluid" loading="lazy"/>				    		
 	      			<div class="card-title text-uppercase"><?php echo get_sub_field('title'); ?></div>
 		    	</a>
 		    </div>		      		
