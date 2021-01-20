@@ -31,5 +31,36 @@
             height: auto !important;
             visibility: visible;
           }
+    .searchparam{
+        // border:1px solid $border;
+    }
     
+}
+
+.noResults{
+    background:$light-color;
+}
+.resultlisting{
+
+    a{
+        padding-left:5px;
+        padding-right:5px;
+        margin-bottom:8px;
+    }
+    .card{
+        
+        .card-body{
+            padding:0.8rem;
+            padding-bottom: 0.3rem;
+            h5{
+                margin-bottom:0.5rem;
+            }
+            p{
+                margin-bottom:0.5rem;
+            }
+            h5{
+                font-size:1.1rem
+            }
+        }
+    }
 }

@@ -1,0 +1,42 @@
+@mixin categorystyle($catBackground, $catcolor){
+  background: $catBackground;
+  color: $catcolor;
+  font-weight: normal;
+  margin-right:5px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.c-actors{
+  @include categorystyle($cat-actorBG, $cat-actorColor);
+}
+.c-musicians{
+  @include categorystyle($cat-musiciansBG, $cat-musiciansColor);
+}
+.c-filmcrew{
+  @include categorystyle($cat-filmcrewBG, $cat-filmcrewColor);
+}
+.c-photographers{
+  @include categorystyle($cat-photoBG, $cat-photoColor);
+}
+.c-influencers{
+  @include categorystyle($cat-influencerBG, $cat-influencerColor);
+}
+.c-hair{
+  @include categorystyle($cat-hairBG, $cat-hairColor);
+}
+.c-entertainers{
+  @include categorystyle($cat-entertainersBG, $cat-entertainersColor);
+}
+.c-models{
+  @include categorystyle($cat-modelsBG, $cat-modelsColor);
+}
+.c-presenters{
+  @include categorystyle($cat-presentersBG, $cat-presentersColor);
+}
+.c-dancers{
+  @include categorystyle($cat-dancersBG, $cat-dancersColor);
+}
+.c-more{
+  @include categorystyle($cat-moreBG, $cat-moreColor);
+  margin-left:5px;
+}
