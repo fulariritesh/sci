@@ -149,13 +149,14 @@ add_action( 'widgets_init', 'showcase_widgets_init' );
  * Enqueue scripts and styles.
  */
 function showcase_scripts() {
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . "/dist/bootstrap.css", array() );
+	wp_enqueue_style( 'showcase', get_template_directory_uri() . "/dist/main.css", array(), _S_VERSION );
 	wp_enqueue_style( 'showcase-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . "/dist/bootstrap.css", array() );
-	wp_style_add_data( 'showcase-style', 'rtl', 'replace' );
+  wp_style_add_data( 'showcase-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'showcase-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
-	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, false );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
+	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
 	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap-js'), _S_VERSION, true );
 
@@ -175,6 +176,16 @@ function showcase_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
+function add_stylesheet_attributes( $html, $handle ) {
+    if ( 'wp-block-library' === $handle ) {
+        $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
+    }
+    if ( 'showcase' === $handle ) {
+        $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
+    }
+    return $html;
+}
+add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
 /**
  * Implement the Custom Header feature.
  */

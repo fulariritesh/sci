@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 	new Splide( '.slider_brands', {
 		type: "loop",
-		perPage: 10,
+		perPage: 8,
 		arrows: false,
 		pagination: false,
 		padding: {
