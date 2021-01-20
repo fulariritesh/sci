@@ -3,7 +3,8 @@
   $btncolor,
   $btntexttransform,
   $btnbordercolor,
-  $btnhoverbg
+  $btnhoverbg,
+  $btnhovercolor
 ) {
   background: $btnBG;
   color: $btncolor;
@@ -11,7 +12,7 @@
   border: 1px solid $btnbordercolor;
   &:hover {
     background: $btnhoverbg;
-    color: $btncolor;
+    color: $btnhovercolor;
   }
 }
 
