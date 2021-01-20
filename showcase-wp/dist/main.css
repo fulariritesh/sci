@@ -535,106 +535,6 @@
 	content: "\e8a9";
 }
 
-* main {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  color: #444;
-}
-
-a {
-  color: #444;
-}
-
-a:hover {
-  color: #444;
-  text-decoration: none;
-}
-
-.bodyBG {
-  background: #f2fafd;
-}
-
-input {
-  border: 0;
-  outline: 0;
-}
-
-.gradient-bg {
-  background-image: linear-gradient(#fff, #f1fafc, #f1fafc, #fff);
-}
-
-.clear {
-  clear: both;
-}
-
-.blockInfo {
-  padding-top: 6.5rem;
-  padding-bottom: 7.5rem;
-}
-
-.blockInfo p {
-  font-size: 1.5rem;
-  font-weight: normal;
-  line-height: 2.5rem;
-}
-
-@media screen and (max-width: 576px) {
-  .blockInfo {
-    padding-top: 2.5rem;
-    padding-bottom: 0rem;
-  }
-  .blockInfo h1 {
-    font-size: 1.8rem;
-  }
-  .blockInfo h4 {
-    font-size: 1.1rem;
-  }
-  .blockInfo p {
-    font-size: 1.1rem;
-    line-height: 1.7rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .blockInfo {
-    padding-top: 2.5rem;
-    padding-bottom: 0rem;
-  }
-  .blockInfo h1 {
-    font-size: 2rem;
-  }
-  .blockInfo h4 {
-    font-size: 1.2rem;
-  }
-  .blockInfo p {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .blockInfo {
-    padding-top: 2.5rem;
-    padding-bottom: 0rem;
-  }
-  .blockInfo h1 {
-    font-size: 2rem;
-  }
-  .blockInfo h4 {
-    font-size: 1.2rem;
-  }
-  .blockInfo p {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-  }
-}
-
 /*!
  * Bootstrap v4.5.3 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
@@ -691,7 +591,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Poppins", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -6440,7 +6340,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6553,7 +6453,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Poppins", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10362,8 +10262,6 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
   color: #444;
 }
 
@@ -10457,7 +10355,7 @@ input {
 
 @font-face {
   font-family: 'Poppins-ExtraLight';
-  src: url(../../font/Poppins-ExtraLight.ttf) format("truetype");
+  src: url("../font/Poppins-ExtraLight.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
