@@ -507,5 +507,24 @@ add_action('init', 'sci_startSession', 1);
 function my_registration_complete( $user_id, $args ) {
 	$_SESSION['user_id'] = $user_id;
 	$_SESSION['user_args'] = $args;
+
+	if(isset($_SESSION['user_social_links']['instagram'])){
+		add_user_meta( $user_id, 'sci_social_links_instagram', $_SESSION['user_social_links']['instagram']);
+		unset($_SESSION['user_social_links']['instagram']);
+	}
+	if(isset($_SESSION['user_social_links']['facebook'])){
+		add_user_meta( $user_id, 'sci_social_links_facebook', $_SESSION['user_social_links']['facebook']);
+		unset($_SESSION['user_social_links']['facebook']);
+	}
+	if(isset($_SESSION['user_social_links']['twitter'])){
+		add_user_meta( $user_id, 'sci_social_links_twitter', $_SESSION['user_social_links']['twitter']);
+		unset($_SESSION['user_social_links']['twitter']);
+	}
+	if(isset($_SESSION['user_social_links']['youtube'])){
+		add_user_meta( $user_id, 'sci_social_links_youtube', $_SESSION['user_social_links']['youtube']);
+		unset($_SESSION['user_social_links']['youtube']);
+	}
+
+
 }
 add_action( 'um_registration_complete', 'my_registration_complete', 10, 2 );
