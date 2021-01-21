@@ -38,11 +38,11 @@
         <div class="card-body px-4">
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, optio.</p>
           <form action="">
-            
               <div class="form-group">
                 <label for="formControlRange">Height (cm)</label>
-                <input type="range" class="form-control-range" id="formControlRange"> 
-              </div>
+                <input type="range" class="form-control-range" id="formControlRange" min="0" max="100" value="40" onchange="updateHeightInput(this.value);">
+                <output id="HeightInput">0</output>
+                </div>
               <div class="form-group">
                 <label for="formControlRange">Weight (kg)</label>
                 <input type="range" class="form-control-range" id="formControlRange">
@@ -101,7 +101,6 @@
         </div>
       </div>
     </section>
-
     <script
       src="https://kit.fontawesome.com/f5515e915e.js"
       crossorigin="anonymous"
