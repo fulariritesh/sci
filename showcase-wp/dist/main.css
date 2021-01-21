@@ -10643,6 +10643,7 @@ nav .navbar-btn .btn-join {
 .ourlinks ul {
   padding-left: 0 !important;
   padding-top: 20px;
+  margin: 0;
 }
 
 .ourlinks ul li {
@@ -10701,6 +10702,10 @@ hr.new2 {
   border-radius: .25rem;
   max-width: 100%;
   height: auto;
+}
+
+.copyright a {
+  color: #fff;
 }
 
 .btn-profile {
@@ -11597,7 +11602,7 @@ hr.new2 {
 
 #imageBlock-influencers {
   display: block;
-  width: 780px;
+  width: 705px;
   height: 730px;
   border-radius: 40% 61% 50% 68% / 60% 60% 40% 40%;
   position: absolute;
