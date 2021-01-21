@@ -1,12 +1,39 @@
 <?php
 /* Template Name: Profile details Page */
-
+if (!is_user_logged_in() ) {
+  wp_redirect(home_url()); exit;
+} 
+$error = NULL;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if(isset($_POST['submit'])){
+		if(!(empty($_POST['firstname']) || empty($_POST['lastname']) || empty($_POST['dob']) || empty($_POST['gender'])  || empty($_POST['mobile']) || empty($_POST['location']) )){
+			$error = true;
+		}else{
+			$firstname = $_POST['firstname'];
+			$lastname = $_POST['lastname'];
+			$dob = $_POST['dob'];
+			$gender = $_POST['gender'];
+			$mobile = $_POST['mobile'];
+			$location = $_POST['location'];
 
+			$user_id = get_current_user_id();
+			$userdata = array(
+				'ID'                    => $user_id,    //(int) User ID. If supplied, the user will be updated.
+				//'user_nicename'         => '',   //(string) The URL-friendly user name.
+				//'user_url'              => '',   //(string) The user URL.
+				'display_name'          => $firstname,   //(string) The user's display name. Default is the user's username.
+				'nickname'              => $firstname,   //(string) The user's nickname. Default is the user's username.
+				'first_name'            => $firstname,   //(string) The user's first name. For new users, will be used to build the first part of the user's display name if $display_name is not specified.
+				'last_name'             => $lastname,   //(string) The user's last name. For new users, will be used to build the second part of the user's display name if $display_name is not specified.				
+			);
+			$userid = wp_insert_user( $userdata );	
+			add_user_meta( $user_id, '', );
+		}
+		
+	}
 }
 
 get_header();
-
 ?>
 
     <!-- Pagination -->
@@ -33,7 +60,7 @@ get_header();
       <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0">
         <div class="card-header">Enter your details</div>
         <div class="card-body px-4">
-          <form action="">
+          <form action="" method="post">
             <div class="form-row">
               <div class="col-md-6 mb-3">
                 <label for="FirstName"
@@ -44,7 +71,8 @@ get_header();
                 <input
                   type="text"
                   class="form-control"
-                  id="FirstName"
+				  id="firstname"
+				  name="firstname"
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
@@ -59,7 +87,8 @@ get_header();
                 <input
                   type="text"
                   class="form-control"
-                  id="LastName"
+				  id="lastname"
+				  name="lastname"
                   required
                 />
                 <div class="valid-feedback">Looks good!</div>
@@ -72,7 +101,7 @@ get_header();
                   >*</span
                 ></label
               >
-              <input type="date" class="form-control" id="DOB" required />
+              <input type="date" class="form-control" id=dob name="dob" required />
               <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">error msg</div>
             </div>
@@ -86,17 +115,17 @@ get_header();
               </div>
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-details-gend">
-                  <input type="radio" name="options" id="option1" checked />
+                <input type="radio" name="gender" id="gender1"/>
                   Male
                 </label>
                 <label class="btn btn-details-gend">
-                  <input type="radio" name="options" id="option2" />Female</label>
+                  <input type="radio" name="gender" id="gender2" />Female</label>
                 <label class="btn btn-details-gend">
-                  <input type="radio" name="options" id="option3" checked />Prefer not to say</label>
+                  <input type="radio" name="gender" id="gender3" checked />Prefer not to say</label>
                 <label class="btn btn-details-gend">
-                  <input type="radio" name="options" id="option3" />Custom</label>
+                  <input type="radio" name="gender" id="gender3" />Custom</label>
               </div>
-              <input type="text" class="form-control mt-3" />
+              <input type="text" id="cgender" name="cgender" class="form-control mt-3" />
             </div>
             <div class="form-group">
               <label for="Mobile"
@@ -104,7 +133,7 @@ get_header();
                   >*</span
                 ></label
               >
-              <input type="text" class="form-control" required />
+              <input type="text" class="form-control" id="mobile" name="mobile" required />
               <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">error msg</div>
             </div>
@@ -114,7 +143,7 @@ get_header();
                   >*</span
                 ></label
               >
-              <select class="form-control" id="">
+              <select class="form-control" id="location" name="location">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>

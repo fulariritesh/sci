@@ -1,25 +1,12 @@
 <?php
 /* Template Name: Welcome Page */
 
+if (!is_user_logged_in() ) {
+  wp_redirect(home_url()); exit;
+} 
 get_header();
 ?>
-
-		<?php
-		while ( have_posts() ) :
-			the_post();
-
-			get_template_part( 'template-parts/content', 'page' );
-
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
-
-        endwhile; 
-        // End of the loop.
-        ?>
-       
-        
+              
     <!-- Pagination -->
     <ul class="nav jp-nav justify-content-center">
         <li class="nav-item">
@@ -54,11 +41,6 @@ get_header();
           </div>
         </div>
       </section>
-
-
-       
-
-
 <?php
 get_sidebar();
 get_footer();

@@ -7,7 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(isset($_POST['submit'])){
         if($_POST['submit'] == 'save'){
-            //$_SESSION['s'] = 'SAVED';
             if(!empty($_POST["instagram"])){
                 $ig_url = $_POST["instagram"];
                 if (!preg_match("/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im",$ig_url)) {
@@ -46,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
         }else{
-            //$_SESSION['s'] = 'SKIPPED';
             unset($_SESSION['user_social_links']['instagram']);
             unset($_SESSION['user_social_links']['facebook']);
             unset($_SESSION['user_social_links']['twitter']);
@@ -63,22 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 get_header();
 
 ?>
-
-    <?php
-    while ( have_posts() ) :
-        the_post();
-
-        get_template_part( 'template-parts/content', 'page' );
-
-        // If comments are open or we have at least one comment, load up the comment template.
-        if ( comments_open() || get_comments_number() ) :
-            comments_template();
-        endif;
-
-    endwhile; 
-    // End of the loop.
-    ?>
-
     <section class="social-links d-flex justify-content-center py-5">
     <div class="card col-11 col-md-10 col-lg-8 col-xl-6 px-md-5">
         <div class="card-body">

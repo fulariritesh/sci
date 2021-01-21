@@ -502,6 +502,8 @@ function hook_header(){
 	echo '<style type="text/css">';
 	echo '#main-header{ text-align: center; }';
 	echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
+	echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
+	echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
 	echo '</style>';
 }
 add_action('wp_head','hook_header');
