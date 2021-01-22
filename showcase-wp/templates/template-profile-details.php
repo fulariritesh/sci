@@ -107,9 +107,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$success_mob = update_user_meta( $user_id, 'sci_user_mobile', $mobile);
 				$success_loc = update_user_meta( $user_id, 'sci_user_location', $location);
 
+				$profile_detail_complete = update_user_meta( $user_id, 'sci_user_profile_detail_complete', true);
+
 				// if($success_dob && $success_gen && $success_mob && $success_loc){
 				// }
-				wp_redirect( get_page_link( $physical_attributes )); exit;
+				wp_redirect( get_page_link( $physical_attributes_page )); exit;
 			}
 			
 		}
@@ -119,28 +121,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 get_header();
 
- 
+include('join-pagination.php');
 ?>
-	<!-- Pagination -->
-	<ul class="nav jp-nav justify-content-center">
-		<li class="nav-item">
-		<a class="nav-link" href="<?php echo get_page_link($welcome_page); ?>">Get Started</a>
-		</li>
-		<li class="nav-item act">
-		<a class="nav-link" href="<?php echo get_page_link($profile_details_page); ?>">Details</a>
-		</li>
-		<li class="nav-item">
-		<a class="nav-link d-none d-sm-block" href="physical-attributes.html">Physical Attributes</a>
-		<a class="nav-link d-block d-sm-none"> Attributes</a>
-		</li>
-		<li class="nav-item">
-		<a class="nav-link d-none d-sm-block" href="#">Add a headshot</a>
-		<a class="nav-link d-block d-sm-none">Headshot</a>
-		</li>
-		<li class="nav-item">
-		<a class="nav-link" href="#">Complete</a>
-		</li>
-	</ul>
+
     <section class="pr-details d-flex justify-content-center py-5">
       <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0">
         <div class="card-header">Enter your details</div>
@@ -155,10 +138,10 @@ get_header();
                 >
                 <input
                   type="text"
-                  class="form-control <?php echo isset($fn_er) ? "is-invalid" : ""; ?>"
+                  class="form-control <?php echo ($fn_er) ? "is-invalid" : ""; ?>"
 				  id="firstname" 
 				  name="firstname"
-				  value="<?php $fn = get_user_meta( $user_id, 'first_name', true);  echo isset($fn) ?  $fn : ""; ?>"
+				  value="<?php $fn = get_user_meta( $user_id, 'first_name', true);  echo ($fn) ?  $fn : ""; ?>"
                   required
                 />
                 <div class="invalid-feedback">Please enter a valid first name</div>
@@ -171,10 +154,10 @@ get_header();
                 >
                 <input
                   type="text"
-                  class="form-control <?php echo isset($ln_er) ? "is-invalid" : ""; ?>"
+                  class="form-control <?php echo ($ln_er) ? "is-invalid" : ""; ?>"
 				  id="lastname"
 				  name="lastname"
-				  value="<?php $ln = get_user_meta( $user_id, 'last_name', true);  echo isset($ln) ?  $ln : ""; ?>"
+				  value="<?php $ln = get_user_meta( $user_id, 'last_name', true);  echo ($ln) ?  $ln : ""; ?>"
                   required
                 />
                 <div class="invalid-feedback">Please enter a valid last name</div>
@@ -187,10 +170,10 @@ get_header();
                 ></label
               >
 			  <input type="date" 
-			  class="form-control <?php echo isset($dob_er) ? "is-invalid" : ""; ?>" 
+			  class="form-control <?php echo ($dob_er) ? "is-invalid" : ""; ?>" 
 			  id=dob 
 			  name="dob" 
-			  value="<?php $d = get_user_meta( $user_id, 'sci_user_dob', true);  echo isset($d) ?  $d : ""; ?>"
+			  value="<?php $d = get_user_meta( $user_id, 'sci_user_dob', true);  echo ($d) ?  $d : ""; ?>"
 			  required />
                 <div class="invalid-feedback">Please enter a valid date</div>
             </div>
@@ -217,8 +200,8 @@ get_header();
 			  placeholder="Enter custom gender" 
 			  id="custom_gender" 
 			  name="custom_gender" 
-			  value="<?php $cg = get_user_meta( $user_id, 'sci_user_gender', true);  echo isset($cg) ?  $cg : ""; ?>"
-			  class="form-control <?php echo isset($gen_er) ? "is-invalid" : ""; ?> mt-3 d-none"/>
+			  value="<?php $cg = get_user_meta( $user_id, 'sci_user_gender', true);  echo ($cg) ?  $cg : ""; ?>"
+			  class="form-control <?php echo ($gen_er) ? "is-invalid" : ""; ?> mt-3 d-none"/>
 			  <div class="invalid-feedback">Please enter a valid custom gender</div>
 			</div>
             </div>
@@ -229,10 +212,10 @@ get_header();
                 ></label
               >
 			  <input type="text" 
-			  class="form-control <?php echo isset($mob_er) ? "is-invalid" : ""; ?>" 
+			  class="form-control <?php echo ($mob_er) ? "is-invalid" : ""; ?>" 
 			  id="mobile" 
 			  name="mobile" 
-			  value="<?php $m = get_user_meta( $user_id, 'sci_user_mobile', true);  echo isset($m) ?  $m : ""; ?>"
+			  value="<?php $m = get_user_meta( $user_id, 'sci_user_mobile', true);  echo ($m) ?  $m : ""; ?>"
 			  required />
                 <div class="invalid-feedback">Please enter a valid mobile number</div>
             </div>
@@ -242,7 +225,7 @@ get_header();
                   >*</span
                 ></label
               >
-              <select class="form-control <?php echo isset($loc_er) ? "is-invalid" : ""; ?>" id="location" name="location">
+              <select class="form-control <?php echo ($loc_er) ? "is-invalid" : ""; ?>" id="location" name="location">
 			  	<?php 
 					$locationf = get_field_object($location_field);
 					$l = get_user_meta( $user_id, 'sci_user_location', true);

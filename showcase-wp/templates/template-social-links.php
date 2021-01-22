@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if(!( isset($ig_error) || isset($fb_error) || isset($tw_error) || isset($yt_error) )){
+    if(!( $ig_error || $fb_error || $tw_error || $yt_error )){
         wp_redirect( get_page_link(  $signup_page )); exit;
     }
 
@@ -82,8 +82,8 @@ get_header();
             <input
                 id="instagram"
                 name="instagram"
-                value="<?php echo isset($_SESSION['user_social_links']['instagram'])?$_SESSION['user_social_links']['instagram']:""; ?>"
-                class="form-control <?php echo isset($ig_error) ? "is-invalid" : ""; ?>"
+                value="<?php echo ($_SESSION['user_social_links']['instagram']) ? $_SESSION['user_social_links']['instagram'] : ""; ?>"
+                class="form-control <?php echo ($ig_error) ? "is-invalid" : ""; ?>"
                 type="text"
                 placeholder="Username"
             />
@@ -99,8 +99,8 @@ get_header();
             <input
                 id="facebook"
                 name="facebook"
-                value="<?php echo isset($_SESSION['user_social_links']['facebook'])?$_SESSION['user_social_links']['facebook']:""; ?>"
-                class="form-control <?php echo isset($fb_error) ? "is-invalid" : ""; ?>"
+                value="<?php echo ($_SESSION['user_social_links']['facebook']) ? $_SESSION['user_social_links']['facebook'] : ""; ?>"
+                class="form-control <?php echo ($fb_error) ? "is-invalid" : ""; ?>"
                 type="text"
                 placeholder="Profile or page url"
             />
@@ -116,8 +116,8 @@ get_header();
             <input
                 id="twitter"
                 name="twitter"
-                value="<?php echo isset($_SESSION['user_social_links']['twitter'])?$_SESSION['user_social_links']['twitter']:""; ?>"
-                class="form-control <?php echo isset($tw_error) ? "is-invalid" : ""; ?>"
+                value="<?php echo ($_SESSION['user_social_links']['twitter']) ? $_SESSION['user_social_links']['twitter'] : ""; ?>"
+                class="form-control <?php echo ($tw_error) ? "is-invalid" : ""; ?>"
                 type="text"
                 placeholder="Username"
             />
@@ -133,8 +133,8 @@ get_header();
             <input
                 id="youtube"
                 name="youtube"
-                value="<?php echo isset($_SESSION['user_social_links']['youtube']) ? $_SESSION['user_social_links']['youtube'] : ""; ?>"
-                class="form-control <?php echo isset($yt_error) ? "is-invalid" : ""; ?>"
+                value="<?php echo ($_SESSION['user_social_links']['youtube']) ? $_SESSION['user_social_links']['youtube'] : ""; ?>"
+                class="form-control <?php echo ($yt_error) ? "is-invalid" : ""; ?>"
                 type="text"
                 placeholder="Channel or user url"
             />
