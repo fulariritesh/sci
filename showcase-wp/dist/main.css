@@ -11956,7 +11956,7 @@ hr.new2 {
   }
   .pr-details .btn-group .btn {
     border-radius: 0.3rem !important;
-    margin-bottom: 0.3rem;
+    margin: 0 0.3rem 0.3rem;
   }
 }
 

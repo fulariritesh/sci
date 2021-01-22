@@ -7,6 +7,8 @@ if (!is_user_logged_in() ) {
   wp_redirect(home_url()); exit;
 } 
 
+$user_id = get_current_user_id();
+
 $fn_er = $ln_er = $dob_er = $gen_er = $mob_er = $loc_er = NULL;
 $firstname = $lastname = $dob = $gender = $mobile = $location = NULL;
 
@@ -18,12 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$fn_er = true;
 		}else{
 			$firstname = sanitize_text_field( $_POST['firstname']);
+			if (!preg_match("/^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,\d\-]{2,20}$/",$firstname)) {
+				$fn_er = true;
+			}
 		}
 
 		if(empty($_POST['lastname'])){
 			$ln_er = true;
 		}else{
 			$lastname = sanitize_text_field( $_POST['lastname']);
+			if (!preg_match("/^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,\d\-]{2,20}$/",$lastname)) {
+				$ln_er = true;
+			}
 		}
 
 		if(empty($_POST['dob'])){
@@ -83,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		if(!($fn_er || $ln_er || $dob_er || $gen_er || $mob_er || $loc_er)){
       	
-			$user_id = get_current_user_id();
+			
 			$userdata = array(
 				'ID'                    => $user_id,    //(int) User ID. If supplied, the user will be updated.
 				'display_name'          => $firstname,   //(string) The user's display name. Default is the user's username.
@@ -148,8 +156,9 @@ get_header();
                 <input
                   type="text"
                   class="form-control <?php echo isset($fn_er) ? "is-invalid" : ""; ?>"
-				  id="firstname"
+				  id="firstname" 
 				  name="firstname"
+				  value="<?php $fn = get_user_meta( $user_id, 'first_name', true);  echo isset($fn) ?  $fn : ""; ?>"
                   required
                 />
                 <div class="invalid-feedback">Please enter a valid first name</div>
@@ -165,6 +174,7 @@ get_header();
                   class="form-control <?php echo isset($ln_er) ? "is-invalid" : ""; ?>"
 				  id="lastname"
 				  name="lastname"
+				  value="<?php $ln = get_user_meta( $user_id, 'last_name', true);  echo isset($ln) ?  $ln : ""; ?>"
                   required
                 />
                 <div class="invalid-feedback">Please enter a valid last name</div>
@@ -176,7 +186,12 @@ get_header();
                   >*</span
                 ></label
               >
-              <input type="date" class="form-control <?php echo isset($dob_er) ? "is-invalid" : ""; ?>" id=dob name="dob" required />
+			  <input type="date" 
+			  class="form-control <?php echo isset($dob_er) ? "is-invalid" : ""; ?>" 
+			  id=dob 
+			  name="dob" 
+			  value="<?php $d = get_user_meta( $user_id, 'sci_user_dob', true);  echo isset($d) ?  $d : ""; ?>"
+			  required />
                 <div class="invalid-feedback">Please enter a valid date</div>
             </div>
             <div class="form-group">
@@ -190,17 +205,19 @@ get_header();
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
 			  	<?php 
 					$genderf = get_field_object($gender_field);
-					foreach($genderf['choices'] as $genvalue => $genlabel){		
-						echo '<label class="btn btn-details-gend">';
-						echo '<input type="radio" name="gender" value="'.$genvalue.'" />'.$genlabel.'</label>';		
+					$g = get_user_meta( $user_id, 'sci_user_gender', true);
+					foreach($genderf['choices'] as $genvalue => $genlabel){	
+						echo '<label class="btn btn-details-gen">';	
+						echo '<input type="radio" name="gender" value="'.$genvalue.'" '.(($g == $genvalue ) ? "checked":"").' />'.$genlabel.'</label>';		
 					}
 				?>
               </div>
 			  <div id="custom_gender_wrapper" class="form-group">
 			  <input type="text" 
-			  placeholder="enter custom gender" 
+			  placeholder="Enter custom gender" 
 			  id="custom_gender" 
 			  name="custom_gender" 
+			  value="<?php $cg = get_user_meta( $user_id, 'sci_user_gender', true);  echo isset($cg) ?  $cg : ""; ?>"
 			  class="form-control <?php echo isset($gen_er) ? "is-invalid" : ""; ?> mt-3 d-none"/>
 			  <div class="invalid-feedback">Please enter a valid custom gender</div>
 			</div>
@@ -211,7 +228,12 @@ get_header();
                   >*</span
                 ></label
               >
-              <input type="text" class="form-control <?php echo isset($mob_er) ? "is-invalid" : ""; ?>" id="mobile" name="mobile" required />
+			  <input type="text" 
+			  class="form-control <?php echo isset($mob_er) ? "is-invalid" : ""; ?>" 
+			  id="mobile" 
+			  name="mobile" 
+			  value="<?php $m = get_user_meta( $user_id, 'sci_user_mobile', true);  echo isset($m) ?  $m : ""; ?>"
+			  required />
                 <div class="invalid-feedback">Please enter a valid mobile number</div>
             </div>
             <div class="form-group">
@@ -223,16 +245,19 @@ get_header();
               <select class="form-control <?php echo isset($loc_er) ? "is-invalid" : ""; ?>" id="location" name="location">
 			  	<?php 
 					$locationf = get_field_object($location_field);
+					$l = get_user_meta( $user_id, 'sci_user_location', true);
 					foreach($locationf['choices'] as $locvalue => $loclabel){		
-						echo '<option value="'.$locvalue.'">'.$loclabel.'</option>';		
+						echo '<option class="dropdown-item" value="'.$locvalue.'" '.(($l==$locvalue)?'selected="selected"':"").'>'.$loclabel.'</option>';		
 					}
 				?>
 			  </select>
 			  <div class="invalid-feedback">Please enter a valid location</div>
-            </div>
-            <a href="<?php echo get_page_link($welcome_page); ?>" class="btn btn-lg btn-details-bck px-5">Back</a>
-            <button type="submit" name="submit" value="submit" class="btn btn-lg btn-details-nxt float-right px-5">Next</button>
-          </form>
+			</div>
+			<div class="d-flex justify-content-between">
+            	<a href="<?php echo get_page_link($welcome_page); ?>" class="btn btn-lg btn-xs btn-details-bck px-md-5">Back</a>
+            	<button type="submit" name="submit" value="submit" class="btn btn-lg btn-xs btn-details-nxt px-md-5 d-flex justify-content-end">Next</button>
+				</div>
+		</form>
         </div>
       </div>
     </section>
