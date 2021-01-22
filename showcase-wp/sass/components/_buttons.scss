@@ -113,7 +113,7 @@
     $btntexttransform: capitalize,
     $btnbordercolor: $btn_socialskip-colorbg,
     $btnhoverbg: $btn_socialskip-hoverbg,
-    $btnhovercolor: $light-color
+    $btnhovercolor: $btn_socialskip-color
   );
 }
 .btn-details-gen {
@@ -125,6 +125,10 @@
     $btnhoverbg: $btn_details-gen-hoverbg,
     $btnhovercolor: $light-color
   );
+}
+.btn-details-gen.active {
+  background: $btn_details-gen-hoverbg;
+  color: $light-color;
 }
 .btn-details-bck {
   @include buttonstyle(
@@ -156,4 +160,31 @@
     $btnhoverbg: $btn_lgin-hoverbg,
     $btnhovercolor: $light-color
   );
+}
+.btn-rp {
+  @include buttonstyle(
+    $btn_rp-color,
+    $light-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_rp-color,
+    $btnhoverbg: $btn_rp-hoverbg,
+    $btnhovercolor: $light-color
+  );
+}
+
+.btn-pa-skp {
+  @include buttonstyle(
+    $btn_socialskip-colorbg,
+    $btn_socialskip-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_socialskip-colorbg,
+    $btnhoverbg: $btn_socialskip-hoverbg,
+    $btnhovercolor: $btn_socialskip-color
+  );
+}
+
+.btn-xs {
+  @include media-xs {
+    font-size: 1rem;
+  }
 }
