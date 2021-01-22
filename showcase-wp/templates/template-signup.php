@@ -2,6 +2,7 @@
 /* Template Name: Signup Page */
 
 get_header();
+include('page_ids.php'); 
 ?>
              
 	<section class="sign-up d-flex justify-content-center py-5">
@@ -24,7 +25,7 @@ get_header();
 			<?php echo do_shortcode('[ultimatemember form_id="8"]'); ?>
 
 			<p class="text-center mt-4">
-				Already a member? <a href="<?php echo get_page_link( 21 ); ?>">Sign In</a>
+				Already a member? <a href="<?php echo get_page_link($signin_page); ?>">Sign In</a>
 			</p>
 			</div>
 		</div>

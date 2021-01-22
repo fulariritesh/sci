@@ -1,5 +1,6 @@
 <?php
 /* Template Name: Social Links Page */
+include('page_ids.php');
 
 $ig_error = $fb_error = $tw_error = $yt_error = NULL;
 
@@ -8,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['submit'])){
         if($_POST['submit'] == 'save'){
             if(!empty($_POST["instagram"])){
-                $ig_url = $_POST["instagram"];
+                $ig_url = sanitize_text_field($_POST["instagram"]);
                 if (!preg_match("/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im",$ig_url)) {
                     unset($_SESSION['user_social_links']['instagram']);
                     $ig_error = true;
@@ -18,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             if(!empty($_POST["facebook"])){
-                $fb_url = $_POST["facebook"];
+                $fb_url = sanitize_text_field($_POST["facebook"]);
                 if (!preg_match("/(?:http:\/\/)?(?:www\.)?facebook\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/",$fb_url)) {
                     unset($_SESSION['user_social_links']['facebook']);
                     $fb_error = true;
@@ -27,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             if(!empty($_POST["twitter"])){
-                $tw_url = $_POST["twitter"];
+                $tw_url = sanitize_text_field($_POST["twitter"]);
                 if (!preg_match("/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/",$tw_url)) {
                     unset($_SESSION['user_social_links']['twitter']);
                     $tw_error = true;
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             if(!empty($_POST["youtube"])){
-                $yt_url = $_POST["youtube"];
+                $yt_url = sanitize_text_field($_POST["youtube"]);
                 if (!preg_match("/((http|https):\/\/)?(www\.)?youtube\.com\/(channel|user)\/[a-zA-Z0-9\-]+/",$yt_url)) {
                     unset($_SESSION['user_social_links']['youtube']);
                     $yt_error = true;
@@ -53,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(!( isset($ig_error) || isset($fb_error) || isset($tw_error) || isset($yt_error) )){
-        wp_redirect( get_page_link( 6 )); exit;
+        wp_redirect( get_page_link(  $signup_page )); exit;
     }
 
 } 
@@ -142,9 +143,6 @@ get_header();
             <button type="submit" value="save" name="submit" class="btn btn-signup-gen btn-block btn-lg">
             Save
             </button>
-            <!-- <a href="<?php echo get_page_link(6) ?>" class="btn btn-social-skp btn-block btn-lg">
-            Skip for now
-            </a> -->
             <button type="submit" value="skip" name="submit" class="btn btn-social-skp btn-block btn-lg">
             Skip for now
             </button>
