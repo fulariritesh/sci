@@ -10907,7 +10907,6 @@ hr.new2 {
 
 .banner .banner-info {
   width: 46%;
-  padding-top: 15%;
 }
 
 .banner .bannerheading-text {
@@ -11864,8 +11863,48 @@ hr.new2 {
   }
 }
 
+.searchFilters .searchparam.collapse:not(.show) {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .searchFilters .searchparam.collapse:not(.show) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .searchFilters .searchparam.collapse:not(.show) {
+    display: none;
+  }
+}
+
 .noResults {
   background: #fff;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@media screen and (max-width: 768px) {
+  .noResults {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .noResults {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  .noResults h4 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .noResults h6 {
+    font-size: .8rem;
+    font-weight: normal;
+  }
 }
 
 .resultlisting a {
