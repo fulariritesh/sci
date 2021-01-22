@@ -7,7 +7,6 @@
     <title>Physical-attributes</title>
   </head>
   <body>
-    <main class="container-fluid"></main>
     <!-- Pagination -->
     <ul class="nav jp-nav justify-content-center">
       <li class="nav-item">
@@ -32,85 +31,87 @@
         <a class="nav-link" href="complete-join.html">Complete</a>
       </li>
     </ul>
-    <section class="pr-details d-flex justify-content-center py-5">
-      <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0">
-        <div class="card-header">Physical-attributes</div>
-        <div class="card-body px-4">
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, optio.</p>
-          <form action="">
+    <section class="pr-details container-fluid py-5">
+      <div class="row">
+        <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm mx-auto p-0">
+          <div class="card-header">Physical-attributes</div>
+          <div class="card-body px-4">
+            <p>The more complete this is, the better the chance of being scouted by someone casting a specific look.</p>
+            <form action="">
+                <div class="form-group">
+                  <div class="d-flex justify-content-between">
+                    <label for="formControlRange">Height (cm): </label>
+                    <input class="disp-val" id="HeightInput" oninput="updateHeightInput(this.value);"></input>
+                  </div>
+                  <input type="range" id="HeightOutput" class="form-control-range slider" min="0" max="100" oninput="updateHeightInput(this.value);">
+                  </div>
+                <div class="form-group">
+                  <div class="d-flex justify-content-between">
+                    <label for="formControlRange">Weight (kg): </label>
+                    <input class="disp-val" id="WeightInput" oninput="updateWeightInput(this.value);"></input>
+                  </div>
+                  <input type="range" id="WeightOutput" class="form-control-range" min="0" max="100" oninput="updateWeightInput(this.value);">
+                  </div>
               <div class="form-group">
-                <div class="d-flex justify-content-between">
-                  <label for="formControlRange">Height (cm): </label>
-                  <input class="disp-val" id="HeightInput" oninput="updateHeightInput(this.value);"></input>
+                <div>
+                  <label for="Gender"
+                    >Eye color:</label
+                  >
                 </div>
-                <input type="range" id="HeightOutput" class="form-control-range slider" min="0" max="100" oninput="updateHeightInput(this.value);">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option1" checked />Black</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option2" />Brown</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Blue</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Green</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Grey</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Hazel<label>
+                </div>
                 </div>
               <div class="form-group">
-                <div class="d-flex justify-content-between">
-                  <label for="formControlRange">Weight (kg): </label>
-                  <input class="disp-val" id="WeightInput" oninput="updateWeightInput(this.value);"></input>
+                <div>
+                  <label for="Gender"
+                    >Skin color:</label
+                  >
                 </div>
-                <input type="range" id="WeightOutput" class="form-control-range" min="0" max="100" oninput="updateWeightInput(this.value);">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option1" checked />
+                    Pale
+                  </label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option2" />Fair</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Medium</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Olive</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Brown</label>
+                  <label class="btn btn-details-gen">
+                    <input type="radio" name="options" id="option3" />Black<label>
                 </div>
-            <div class="form-group">
-              <div>
-                <label for="Gender"
-                  >Eye color:</label
-                >
-              </div>
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option1" checked />Black</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option2" />Brown</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Blue</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Green</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Grey</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Hazel<label>
-              </div>
-              </div>
-            <div class="form-group">
-              <div>
-                <label for="Gender"
-                  >Skin color:</label
-                >
-              </div>
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option1" checked />
-                  Pale
-                </label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option2" />Fair</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Medium</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Olive</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Brown</label>
-                <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Black<label>
-              </div>
-              </div>
-              <div class="form-group">
-                <div class="d-flex justify-content-between">
-                  <label for="formControlRange">Chest (cm): </label>
-                  <input class="disp-val" id="ChestInput" oninput="updateChestInput(this.value);"></input>
                 </div>
-                <input type="range" id="ChestOutput" class="form-control-range" min="0" max="100" oninput="updateChestInput(this.value);">
-                </div>
-            <div class="d-flex justify-content-between py-3">
-              <a type="" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
-            <button type="submit" class="btn btn-lg btn-details-nxt float-right btn-xs px-md-5">Next</button>
-            </div>
-            <div class="d-flex justify-content-center">
-              <a class="btn btn-pa-skp btn-xs" href="#">Skip for now</a>
-            </div>
-          </form>
+                <div class="form-group">
+                  <div class="d-flex justify-content-between">
+                    <label for="formControlRange">Chest (cm): </label>
+                    <input class="disp-val" id="ChestInput" oninput="updateChestInput(this.value);"></input>
+                  </div>
+                  <input type="range" id="ChestOutput" class="form-control-range" min="0" max="100" oninput="updateChestInput(this.value);">
+                  </div>
+              <div class="d-flex justify-content-between py-3">
+                <a type="" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
+              <button type="submit" class="btn btn-lg btn-details-nxt btn-xs px-md-5">Next</button>
+              </div>
+              <div class="d-flex justify-content-center">
+                <a class="btn btn-pa-skp btn-xs" href="#">Skip for now</a>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </section>

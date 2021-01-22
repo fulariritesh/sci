@@ -6,6 +6,7 @@ $signup-bgcolor: $bodyBG;
 $primary: #07bb9b;
 $secondary: #00a6d0;
 $warning: #ea4335;
+$dark: #1e1e1e;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -17,7 +18,7 @@ $theme-colors: map-merge(
     "warning": $warning,
     // "danger":     $danger,
     // "light":      $light,
-    // "dark":       $dark,,,
+    "dark": $dark,
   ),
   $theme-colors
 );
@@ -123,13 +124,25 @@ $btn_details-nxt-bg: #28388d;
 $btn_details-nxt-color: #ffff;
 $btn_details-nxt-hoverbg: #19235a;
 
+$btn_details-cpt-bg: #28388d;
+$btn_details-cpt-color: #ffff;
+$btn_details-cpt-hoverbg: #19235a;
+
+$btn_details-mypr-bg: #28388d;
+$btn_details-mypr-color: #ffff;
+$btn_details-mypr-hoverbg: #19235a;
+
+// Profile com bar
+$prcombr-bg: #e5e5e5;
+$prcombr-bg-col: #ffc706;
+
 $cat-actorBG: #a7dcbe;
 $cat-actorColor: #444;
 $cat-musiciansBG: #f8a0b3;
 $cat-musiciansColor: #444;
 $cat-filmcrewBG: #fcd9e7;
 $cat-filmcrewColor: #444;
-$cat-photoBG: #B9E9F4;
+$cat-photoBG: #b9e9f4;
 $cat-photoColor: #444;
 $cat-influencerBG: #b796c5;
 $cat-influencerColor: #444;
@@ -144,7 +157,7 @@ $cat-presentersColor: #444;
 $cat-dancersBG: #f5f7b0;
 $cat-dancersColor: #444;
 $cat-moreBG: #797979;
-$cat-moreColor: #fff;			
+$cat-moreColor: #fff;
 
-$font-family-base:  "Poppins", sans-serif;
+$font-family-base: "Poppins", sans-serif;
 $font-size-base: 1rem;
