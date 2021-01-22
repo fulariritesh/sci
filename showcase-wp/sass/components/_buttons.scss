@@ -11,7 +11,7 @@
   text-transform: $btntexttransform;
   border: 1px solid $btnbordercolor;
   &:hover {
-    background: $btnhoverbg; 
+    background: $btnhoverbg;
     color: $btnhovercolor;
   }
 }
@@ -66,7 +66,7 @@
     $btnhovercolor: $light-color
   );
 }
-.btn-signup-gen  {
+.btn-signup-gen {
   @include buttonstyle(
     $btn_signupgen-color,
     $light-color,
@@ -126,8 +126,8 @@
     $btnhovercolor: $light-color
   );
 }
-.btn-details-gen.active{
-  background:$btn_details-gen-hoverbg;
+.btn-details-gen.active {
+  background: $btn_details-gen-hoverbg;
   color: $light-color;
 }
 .btn-details-bck {
@@ -170,4 +170,21 @@
     $btnhoverbg: $btn_rp-hoverbg,
     $btnhovercolor: $light-color
   );
+}
+
+.btn-pa-skp {
+  @include buttonstyle(
+    $btn_socialskip-colorbg,
+    $btn_socialskip-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_socialskip-colorbg,
+    $btnhoverbg: $btn_socialskip-hoverbg,
+    $btnhovercolor: $btn_socialskip-color
+  );
+}
+
+.btn-xs {
+  @include media-xs {
+    font-size: 1rem;
+  }
 }

@@ -3,11 +3,6 @@
 
   .card {
     .card-body {
-      .btn {
-        @include media-xs {
-          font-size: 1rem;
-        }
-      }
       .or {
         position: absolute;
         left: 50%;

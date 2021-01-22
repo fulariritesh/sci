@@ -2,11 +2,6 @@
   background-color: $signup-bgcolor;
   .card {
     .card-body {
-      .btn {
-        @include media-xs {
-          font-size: 1rem;
-        }
-      }
       h4 {
         @include media-xs {
           font-size: 1.25rem;

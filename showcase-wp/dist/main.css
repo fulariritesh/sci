@@ -10894,6 +10894,24 @@ hr.new2 {
   color: #fff;
 }
 
+.btn-pa-skp {
+  background: #ffff;
+  color: #28388d;
+  text-transform: capitalize;
+  border: 1px solid #ffff;
+}
+
+.btn-pa-skp:hover {
+  background: #fff;
+  color: #28388d;
+}
+
+@media screen and (max-width: 576px) {
+  .btn-xs {
+    font-size: 1rem;
+  }
+}
+
 .jp-nav {
   background: #fff;
 }
@@ -11844,12 +11862,6 @@ hr.new2 {
   background-color: #f2fafd;
 }
 
-@media screen and (max-width: 576px) {
-  .sign-up .card .card-body .btn {
-    font-size: 1rem;
-  }
-}
-
 .sign-up .card .card-body .or {
   position: absolute;
   left: 50%;
@@ -11871,12 +11883,6 @@ hr.new2 {
   background-color: #f2fafd;
 }
 
-@media screen and (max-width: 576px) {
-  .login .card .card-body .btn {
-    font-size: 1rem;
-  }
-}
-
 .login .card .card-body .or {
   position: absolute;
   left: 50%;
@@ -11896,12 +11902,6 @@ hr.new2 {
 
 .social-links {
   background-color: #f2fafd;
-}
-
-@media screen and (max-width: 576px) {
-  .social-links .card .card-body .btn {
-    font-size: 1rem;
-  }
 }
 
 @media screen and (max-width: 576px) {
@@ -11948,6 +11948,16 @@ hr.new2 {
 
 .pr-details {
   background-color: #f2fafd;
+}
+
+@media screen and (max-width: 768px) {
+  .pr-details .btn-group {
+    display: block;
+  }
+  .pr-details .btn-group .btn {
+    border-radius: 0.3rem !important;
+    margin-bottom: 0.3rem;
+  }
 }
 
 .pr-details .disp-val {

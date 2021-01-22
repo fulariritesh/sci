@@ -39,16 +39,16 @@
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, optio.</p>
           <form action="">
               <div class="form-group">
-                <div class="row">
-                  <div class="col-10"><label for="formControlRange">Height (cm): </label></div>
-                  <div class="col-2"><input class="disp-val" id="HeightInput" oninput="updateHeightInput(this.value);"></input></div>
+                <div class="d-flex justify-content-between">
+                  <label for="formControlRange">Height (cm): </label>
+                  <input class="disp-val" id="HeightInput" oninput="updateHeightInput(this.value);"></input>
                 </div>
                 <input type="range" id="HeightOutput" class="form-control-range slider" min="0" max="100" oninput="updateHeightInput(this.value);">
                 </div>
               <div class="form-group">
-                <div class="row">
-                  <div class="col-10"><label for="formControlRange">Weight (kg): </label></div>
-                  <div class="col-2"><input class="disp-val" id="WeightInput" oninput="updateWeightInput(this.value);"></input></div>
+                <div class="d-flex justify-content-between">
+                  <label for="formControlRange">Weight (kg): </label>
+                  <input class="disp-val" id="WeightInput" oninput="updateWeightInput(this.value);"></input>
                 </div>
                 <input type="range" id="WeightOutput" class="form-control-range" min="0" max="100" oninput="updateWeightInput(this.value);">
                 </div>
@@ -97,14 +97,19 @@
               </div>
               </div>
               <div class="form-group">
-                <div class="row">
-                  <div class="col-10"><label for="formControlRange">Chest (cm): </label></div>
-                  <div class="col-2"><input class="disp-val" id="ChestInput" oninput="updateChestInput(this.value);"></input></div>
+                <div class="d-flex justify-content-between">
+                  <label for="formControlRange">Chest (cm): </label>
+                  <input class="disp-val" id="ChestInput" oninput="updateChestInput(this.value);"></input>
                 </div>
                 <input type="range" id="ChestOutput" class="form-control-range" min="0" max="100" oninput="updateChestInput(this.value);">
                 </div>
-            <button type="" class="btn btn-lg btn-details-bck px-5">Back</button>
-            <button type="submit" class="btn btn-lg btn-details-nxt float-right px-5">Next</button>
+            <div class="d-flex justify-content-between py-3">
+              <a type="" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
+            <button type="submit" class="btn btn-lg btn-details-nxt float-right btn-xs px-md-5">Next</button>
+            </div>
+            <div class="d-flex justify-content-center">
+              <a class="btn btn-pa-skp btn-xs" href="#">Skip for now</a>
+            </div>
           </form>
         </div>
       </div>
