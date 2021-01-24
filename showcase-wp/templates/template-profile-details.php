@@ -63,6 +63,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						$gen_er = true;
 					}else{
 						$custom_gender = sanitize_text_field( $_POST['custom_gender']);
+						// checks for number and special characters | min:1 max:20 | Multilang kept in mind
+						if (!preg_match("/^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,\d\-]{1,20}$/",$custom_gender)) {
+							$gen_er = true;
+						}
 						$gender = $custom_gender;
 					}
 				}else{
