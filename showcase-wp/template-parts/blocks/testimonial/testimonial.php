@@ -12,7 +12,7 @@
 <?php 
 $testimonials_count = get_fields()['testimonials'];
 ?>
-<section class="container-fluid py-5">
+<section class="container-fluid talent-block">
     <div class="container newjoinees text-center">
         <h4>Our Newest Members Have This To Say</h4>
         <h1>Members Speak</h1>

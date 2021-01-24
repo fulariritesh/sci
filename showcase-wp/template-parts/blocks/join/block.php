@@ -1,4 +1,4 @@
-<section class="container-fluid pt-5 allcategories">
+<section class="container-fluid talent-block allcategories">
 	<div class="container category-block text-center">
 		<?php the_field("title"); ?>
 	<?php if (have_rows('icons')): ?>    
