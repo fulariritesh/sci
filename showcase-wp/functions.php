@@ -492,7 +492,7 @@ function user_lock( $user, $username, $password ){
 }
 
 function hook_header(){
-	if (!is_page('register')) {
+	if (!is_page('signup')) {
 		return;
 	}
 	echo '<style type="text/css">';
