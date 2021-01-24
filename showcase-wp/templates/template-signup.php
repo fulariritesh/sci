@@ -30,6 +30,7 @@ include('page_ids.php');
 			</div>
 		</div>
 	</section>
+
 <?php
 get_sidebar();
 get_footer();
