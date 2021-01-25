@@ -17,7 +17,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <style type="text/css">
-    #banner .carousel-item {
+    /* #banner .carousel-item {
       height: 660px;
     }
 
@@ -26,7 +26,7 @@
       display: flex;
       align-items: center;
       color: white;
-    }
+    } */
   </style>
 	<link rel="profile" href="https://gmpg.org/xfn/11">
     <script src="https://unpkg.com/feather-icons"></script>
@@ -36,7 +36,6 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'showcase' ); ?></a>
     <header>
       <section class="container-fluid topbar navbar navbar-expand-sm">
         <div class="container">
@@ -132,26 +131,20 @@
               ?>
             </div>
             <div class="navbar-btn">
-              <button
+              <a
+				 href="/login"
                 class="btn btn-signIn"
                 type="button"
-                data-toggle="collapse"
-                aria-controls=""
-                aria-expanded="false"
-                aria-label="Sign in button"
               >
                 Log in
-              </button>
-              <button
+              </a>
+              <a
+				 href="/register"
                 class="btn btn-join"
                 type="button"
-                data-toggle="collapse"
-                aria-controls=""
-                aria-expanded="false"
-                aria-label="Join button"
               >
                Sign up
-              </button>
+              </a>
             </div>
             <div class="overlay"></div>
           </nav>

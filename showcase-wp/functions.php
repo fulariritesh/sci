@@ -157,7 +157,7 @@ function showcase_scripts() {
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
-	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap-js'), _S_VERSION, true );
+	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -206,6 +206,11 @@ require get_template_directory() . '/inc/template-functions.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Add Discover Talent PHP functions.
+ */
+require get_template_directory() . '/inc/functions-discover-talent.php';
 
 /**
  * Load Jetpack compatibility file.
@@ -492,12 +497,14 @@ function user_lock( $user, $username, $password ){
 }
 
 function hook_header(){
-	if (!is_page('register')) {
+	if (!is_page('signup')) {
 		return;
 	}
 	echo '<style type="text/css">';
 	echo '#main-header{ text-align: center; }';
 	echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
+	echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
+	echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
 	echo '</style>';
 }
 add_action('wp_head','hook_header');
@@ -516,19 +523,19 @@ function my_registration_complete( $user_id, $args ) {
 	$_SESSION['user_args'] = $args;
 
 	if(isset($_SESSION['user_social_links']['instagram'])){
-		add_user_meta( $user_id, 'sci_social_links_instagram', $_SESSION['user_social_links']['instagram']);
+		update_user_meta( $user_id, 'sci_user_social_links_instagram', $_SESSION['user_social_links']['instagram']);
 		unset($_SESSION['user_social_links']['instagram']);
 	}
 	if(isset($_SESSION['user_social_links']['facebook'])){
-		add_user_meta( $user_id, 'sci_social_links_facebook', $_SESSION['user_social_links']['facebook']);
+		update_user_meta( $user_id, 'sci_user_social_links_facebook', $_SESSION['user_social_links']['facebook']);
 		unset($_SESSION['user_social_links']['facebook']);
 	}
 	if(isset($_SESSION['user_social_links']['twitter'])){
-		add_user_meta( $user_id, 'sci_social_links_twitter', $_SESSION['user_social_links']['twitter']);
+		update_user_meta( $user_id, 'sci_user_social_links_twitter', $_SESSION['user_social_links']['twitter']);
 		unset($_SESSION['user_social_links']['twitter']);
 	}
 	if(isset($_SESSION['user_social_links']['youtube'])){
-		add_user_meta( $user_id, 'sci_social_links_youtube', $_SESSION['user_social_links']['youtube']);
+		update_user_meta( $user_id, 'sci_user_social_links_youtube', $_SESSION['user_social_links']['youtube']);
 		unset($_SESSION['user_social_links']['youtube']);
 	}
 

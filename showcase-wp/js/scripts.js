@@ -45,4 +45,13 @@ $(document).ready(function(){
 	  interval: 2000
 	})
 
+	/* Profile details page - dynamically show custom gender text field */
+	$("input[type='radio']").on('click', function (e){
+		var genvalue = $("input[name='gender']:checked").val();
+		if(genvalue === 'custom'){
+			$('#custom_gender').removeClass('d-none');
+		}else{
+			$('#custom_gender').addClass('d-none');
+		}
+	});
 })

@@ -45,8 +45,6 @@ input {
   }
 }
 
-
-
 @mixin media-xs {
   @media screen and (max-width: 576px) {
     @content;

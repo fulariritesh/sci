@@ -34,21 +34,22 @@
         </div>
         <div class="col-sm-4">
           <h5 class="blockTitle">Our Latest News</h5>
-          <div class="line">
+          <div class="line pb-2">
           	<span class="color-1"></span>
           	<span class="color-2"></span>
           </div>
+			<div class="clear"></div>
           <?php foreach (wp_get_recent_posts(["numberposts" => 3], "OBJECT") as $index => $post): ?>
-          	<div class="news-post post-<?php echo $post->ID; ?>">
-          		<div class="image">
+          	<div class="row news-post post-<?php echo $post->ID; ?> pt-3">
+          		<div class="col-sm-3 image">
           			<img src="<?php echo get_the_post_thumbnail_url($post->ID); ?>">
           		</div>
-          		<div class="content">
-					<div class="title">	
+          		<div class="col-sm-8 content">
+					<div class="title postTitle">	
 	          			<?php echo $post->post_title; ?>
 	          		</div>
-	          		<div class="date">
-	          			<?php echo $post->post_date; ?>
+	          		<div class="date subscribesmalltext pt-2">
+	          			<i class="far fa-calendar-alt"></i> <?php echo $post->post_date; ?>
 	          		</div>
           		</div>
           	</div>

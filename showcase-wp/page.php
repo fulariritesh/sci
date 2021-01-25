@@ -15,7 +15,7 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main <?php if (!is_front_page()) {echo 'container';} ?>">
+	<main id="primary" class="site-main <?php if (!is_front_page()) {echo 'container pb-5 pt-5';} ?>">
 
 		<?php
 		while ( have_posts() ) :
