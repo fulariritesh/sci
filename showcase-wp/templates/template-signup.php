@@ -22,7 +22,12 @@ include('page_ids.php');
 				<hr class="" />
 			</div>
 			
-			<?php echo do_shortcode('[ultimatemember form_id="8"]'); ?>
+			<?php 
+				echo do_shortcode('[ultimatemember form_id="329"]'); 
+
+				/*Dev*/ 
+				//echo do_shortcode('[ultimatemember form_id="8"]');
+			?>
 
 			<p class="text-center mt-4">
 				Already a member? <a href="<?php echo get_page_link($signin_page); ?>">Sign In</a>
