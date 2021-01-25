@@ -1,4 +1,16 @@
 .pr-details {
-  font-family: Poppins-regular;
   background-color: $signup-bgcolor;
+  .btn-group {
+    @include media-sm {
+      display: block;
+      .btn {
+        border-radius: 0.3rem !important;
+        margin: 0 0.3rem 0.3rem;
+      }
+    }
+  }
+  .disp-val {
+    border-bottom: 1px solid;
+    width: 3rem;
+  }
 }

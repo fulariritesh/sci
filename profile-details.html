@@ -13,19 +13,27 @@
       <li class="nav-item">
         <a class="nav-link" href="welcome-msg.html">Get Started</a>
       </li>
-      <li class="nav-item act">
-        <a class="nav-link" href="profile-details.html">Details</a>
+      <li class="nav-item">
+        <a class="nav-link act" href="profile-details.html">Details</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link d-none d-sm-block" href="physical-attributes.html">Physical Attributes</a>
-        <a class="nav-link d-block d-sm-none"> Attributes</a>
+        <a class="nav-link d-none d-sm-block" href="physical-attributes.html"
+          >Physical Attributes</a
+        >
+        <a class="nav-link d-block d-sm-none" href="physical-attributes.html">
+          Attributes</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link d-none d-sm-block" href="#">Add a headshot</a>
-        <a class="nav-link d-block d-sm-none">Headshot</a>
+        <a class="nav-link d-none d-sm-block" href="add-headshot.html"
+          >Add a headshot</a
+        >
+        <a class="nav-link d-block d-sm-none" href="add-headshot.html"
+          >Headshot</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Complete</a>
+        <a class="nav-link" href="complete-join.html">Complete</a>
       </li>
     </ul>
     <section class="pr-details d-flex justify-content-center py-5">
@@ -73,7 +81,7 @@
               >
               <input type="date" class="form-control" id="DOB" required />
               <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">error msg</div>
+              <div class="invalid-feedback">error msg</div>
             </div>
             <div class="form-group">
               <div>
@@ -89,13 +97,28 @@
                   Male
                 </label>
                 <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option2" />Female</label>
+                  <input
+                    type="radio"
+                    name="options"
+                    id="option2"
+                  />Female</label
+                >
                 <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Prefer not to say</label>
+                  <input type="radio" name="options" id="option3" />Prefer not
+                  to say</label
+                >
                 <label class="btn btn-details-gen">
-                  <input type="radio" name="options" id="option3" />Custom</label>
+                  <input
+                    type="radio"
+                    name="options"
+                    id="option3"
+                  />Custom</label
+                >
               </div>
-              <input type="text" class="form-control mt-3" />
+              <div class="form-group">
+                <input type="text" class="form-control mt-3" />
+                <div class="invalid-feedback">error msg</div>
+              </div>
             </div>
             <div class="form-group">
               <label for="Mobile"
@@ -105,7 +128,7 @@
               >
               <input type="text" class="form-control" required />
               <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">error msg</div>
+              <div class="invalid-feedback">error msg</div>
             </div>
             <div class="form-group">
               <label for="Location"
@@ -121,8 +144,16 @@
                 <option>5</option>
               </select>
             </div>
-            <button type="" class="btn btn-lg btn-details-bck px-5">Back</button>
-            <button type="submit" class="btn btn-lg btn-details-nxt float-right px-5">Next</button>
+
+            <div class="d-flex justify-content-between">
+              <a class="btn btn-lg btn-xs btn-details-bck px-md-5"> Back </a>
+              <button
+                type="submit"
+                class="btn btn-lg btn-xs btn-details-nxt px-md-5 d-flex justify-content-end"
+              >
+                Next
+              </button>
+            </div>
           </form>
         </div>
       </div>
