@@ -208,6 +208,11 @@ require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
+ * Add Discover Talent PHP functions.
+ */
+require get_template_directory() . '/inc/functions-discover-talent.php';
+
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
