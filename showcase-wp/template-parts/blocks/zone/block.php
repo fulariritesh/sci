@@ -11,15 +11,7 @@ $content = get_field('content');
 <section class="container-fluid gradient-bg artist-block ">
         <div class="container">
                 <div class="row">
-                  <div class="col-sm-6 profileImage">
-                    <div id="drop3"></div>
-                    <div id="drop4"></div>
-                    <div id="drop5"></div>
-                    <div  id="imageBlock" class=" shadow-sm">
-                      <img src="<?php echo $image; ?> " class="img-fluid"/>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 blockInfo pt-1">
+                  <div class="col-sm-6 blockInfo pt-3 order-sm-6">
                     <h4>Enter the zone</h4>
                     <?php echo $content; ?>
                         <?php if (have_rows('popular_categories')): ?>
@@ -30,6 +22,14 @@ $content = get_field('content');
                         <?php endwhile; ?>
                     </div>
                         <?php endif;?>
+                  </div>
+				  <div class="col-sm-6 profileImage order-sm-1">
+                    <div id="drop3"></div>
+                    <div id="drop4"></div>
+                    <div id="drop5"></div>
+                    <div  id="imageBlock" class=" shadow-sm">
+                      <img src="<?php echo $image; ?> " class="img-fluid"/>
+                    </div>
                   </div>
                 </div>
         </div>
@@ -61,4 +61,5 @@ $content = get_field('content');
                 </div>
         </div>
 </section>
+
 <?php endif; ?>

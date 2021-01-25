@@ -46,7 +46,7 @@
     "map": false
   },
   "scripts": {
-    "build": "npx mix",
+    "build": "npx mix --production",
     "watch": "node-sass sass/ -o ./dist --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
     "compile:css": "node-sass sass/ -o ./dist && stylelint ./dist/main.css --fix || true && stylelint ./dist/main.css --fix",
     "compile:rtl": "rtlcss style.css style-rtl.css",

@@ -13952,39 +13952,46 @@ __webpack_require__.r(__webpack_exports__);
 /* provided dependency */ var $ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 $(document).ready(function () {
-  new (_splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default())('.slider_testimonials', {
-    perPage: 2,
-    arrows: false,
-    padding: {
-      left: 0,
-      right: '2rem'
-    },
-    trimSpace: false,
-    breakpoints: {
-      768: {
-        perPage: 1
-      }
-    }
-  }).mount();
-  new (_splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default())('.slider_brands', {
-    type: "loop",
-    perPage: 8,
-    arrows: false,
-    pagination: false,
-    padding: {
-      left: 0,
-      right: 0
-    },
-    trimSpace: true,
-    breakpoints: {
-      990: {
-        perPage: 4
+  // Check if element exists
+  if (!!$('.slider_testimonials').length) {
+    new (_splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default())('.slider_testimonials', {
+      perPage: 2,
+      arrows: false,
+      padding: {
+        left: 0,
+        right: '2rem'
       },
-      768: {
-        perPage: 2
+      trimSpace: false,
+      breakpoints: {
+        768: {
+          perPage: 1
+        }
       }
-    }
-  }).mount();
+    }).mount();
+  }
+
+  if (!!$('.slider_brands').length) {
+    new (_splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default())('.slider_brands', {
+      type: "loop",
+      perPage: 8,
+      arrows: false,
+      pagination: false,
+      padding: {
+        left: 0,
+        right: 0
+      },
+      trimSpace: true,
+      breakpoints: {
+        990: {
+          perPage: 4
+        },
+        768: {
+          perPage: 2
+        }
+      }
+    }).mount();
+  }
+
   $('.brands_carousel').carousel({
     interval: 2000
   });
@@ -24886,19 +24893,6 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
-/***/ }),
-
-/***/ "./bootstrap/scss/bootstrap.scss":
-/*!***************************************!*\
-  !*** ./bootstrap/scss/bootstrap.scss ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
 /***/ })
 
 /******/ 	});
@@ -24986,8 +24980,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		
 /******/ 		var deferredModules = [
 /******/ 			["./bootstrap/js/index.js"],
-/******/ 			["./sass/main.scss"],
-/******/ 			["./bootstrap/scss/bootstrap.scss"]
+/******/ 			["./sass/main.scss"]
 /******/ 		];
 /******/ 		// no chunk on demand loading
 /******/ 		
