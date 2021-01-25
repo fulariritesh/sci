@@ -28,7 +28,7 @@ if($allUsersWithProfession){
                         <img class="card-img-top" src=<?php echo get_field('sci_user_headshot', 'user_' . $user->ID) ?> alt="Card image cap">
                         <div class="card-body">
                         <h5 class="card-title"><?php echo $user->display_name ?></h5>
-                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?php echo get_user_meta($user->ID, 'sci_user_location',true) ?></p>
+                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?php echo get_field('sci_user_location', 'user_' . $user->ID) ?></p>
                             <p>
                                 <?php
                                     $termIds = get_user_meta($user->ID, 'profession',true);
