@@ -31,14 +31,42 @@
             height: auto !important;
             visibility: visible;
           }
-    .searchparam{
-        // border:1px solid $border;
+   
+        .searchparam.collapse:not(.show) {
+            display: block ;
+        
+        @include media-sm{
+            display: none; 
+        }
+        @include media-xs{
+            display: none; 
+        }
     }
-    
-}
+}   
+
 
 .noResults{
     background:$light-color;
+    margin-right: -15px;
+    margin-left: -15px;
+
+    @include media-sm{ 
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    @include media-xs{ 
+        margin-right: 0px;
+        margin-left: 0px;
+        h4{
+            font-size:1rem;
+            margin-bottom: 0.3rem;
+        }
+        h6{
+            font-size: .8rem;
+            font-weight:normal;
+        }
+    }
 }
 .resultlisting{
 

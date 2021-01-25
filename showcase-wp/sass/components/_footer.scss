@@ -72,6 +72,7 @@
     ul {
         padding-left : 0 !important;
         padding-top:20px;   
+        margin: 0;
          li{
             list-style:none;
             line-height: 2.2rem;
@@ -130,4 +131,7 @@ hr.new2 {
     border-radius: .25rem;
     max-width: 100%;
     height: auto;
+}
+.copyright a {
+    color:$light-color;
 }

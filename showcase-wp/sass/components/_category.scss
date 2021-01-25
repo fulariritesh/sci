@@ -6,34 +6,34 @@
   padding-left: 8px;
   padding-right: 8px;
 }
-.c-actors{
+.c-actors, .c-actor{
   @include categorystyle($cat-actorBG, $cat-actorColor);
 }
-.c-musicians{
+.c-musicians, .c-musician{
   @include categorystyle($cat-musiciansBG, $cat-musiciansColor);
 }
 .c-filmcrew{
   @include categorystyle($cat-filmcrewBG, $cat-filmcrewColor);
 }
-.c-photographers{
+.c-photographers, .c-photographer{
   @include categorystyle($cat-photoBG, $cat-photoColor);
 }
-.c-influencers{
+.c-influencers, .c-influencer{
   @include categorystyle($cat-influencerBG, $cat-influencerColor);
 }
-.c-hair{
+.c-hairs, .c-hair{
   @include categorystyle($cat-hairBG, $cat-hairColor);
 }
-.c-entertainers{
+.c-entertainers, .c-entertainer{
   @include categorystyle($cat-entertainersBG, $cat-entertainersColor);
 }
-.c-models{
+.c-models, .c-model{
   @include categorystyle($cat-modelsBG, $cat-modelsColor);
 }
-.c-presenters{
+.c-presenters, .c-presenter{
   @include categorystyle($cat-presentersBG, $cat-presentersColor);
 }
-.c-dancers{
+.c-dancers, .c-dancer{
   @include categorystyle($cat-dancersBG, $cat-dancersColor);
 }
 .c-more{
