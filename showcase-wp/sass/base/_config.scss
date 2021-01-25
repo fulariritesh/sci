@@ -130,3 +130,10 @@ p{
     }
   }
 }
+
+//tiny txt for tiny screens
+.xs-txt{
+  @include media-xs {
+    font-size: 0.75rem;
+  }
+}

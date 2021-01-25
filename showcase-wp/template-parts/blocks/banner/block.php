@@ -7,20 +7,12 @@
     </ol>
   	<div class="carousel-inner">
 	    <?php while (have_rows('slides')): the_row(); ?>
-	    <div class="carousel-item <?php echo get_row_index() == 1 ? 'active' : ''; ?>" style="background: url(<?php echo get_sub_field('image'); ?>) no-repeat center;">
-	      <div class="content container">
-	      	<?php echo get_sub_field('content'); ?>
-	      </div>
+	    <div class="carousel-item <?php echo get_row_index() == 1 ? 'active' : ''; ?> banner" style="background: url(<?php echo get_sub_field('image'); ?>) no-repeat center; background-size: cover;">
+	      	<div class="carousel-content container">
+				<?php echo get_sub_field('content'); ?>
+			</div>
 	    </div>
 	    <?php endwhile; ?>
-	      <a class="carousel-control-prev" href="#banner" role="button" data-slide="prev">
-		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		    <span class="sr-only">Previous</span>
-		  </a>
-		  <a class="carousel-control-next" href="#banner" role="button" data-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		    <span class="sr-only">Next</span>
-		  </a>
 	</div>
 </div>
 <?php else: ?>

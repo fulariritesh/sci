@@ -17,15 +17,19 @@
         <a class="nav-link" href="profile-details.html">Details</a>
       </li>
       <li class="nav-item act">
-        <a class="nav-link d-none d-sm-block" href="physical-attributes.html">Physical Attributes</a>
-        <a class="nav-link d-block d-sm-none"> Attributes</a>
+        <a class="nav-link d-none d-sm-block" href="physical-attributes.html"
+          >Physical Attributes</a
+        >
+        <a class="nav-link d-block d-sm-none" href="physical-attributes.html"> Attributes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link d-none d-sm-block" href="#">Add a headshot</a>
-        <a class="nav-link d-block d-sm-none">Headshot</a>
+        <a class="nav-link d-none d-sm-block" href="add-headshot.html"
+          >Add a headshot</a
+        >
+        <a class="nav-link d-block d-sm-none" href="add-headshot.html">Headshot</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Complete</a>
+        <a class="nav-link" href="complete-join.html">Complete</a>
       </li>
     </ul>
     <section class="pr-details d-flex justify-content-center py-5">
@@ -34,19 +38,24 @@
         <div class="card-body px-4">
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, optio.</p>
           <form action="">
-            
               <div class="form-group">
-                <label for="formControlRange">Height (cm)</label>
-                <input type="range" class="form-control-range" id="formControlRange"> 
-              </div>
+                <div class="d-flex justify-content-between">
+                  <label for="formControlRange">Height (cm): </label>
+                  <input class="disp-val" id="HeightInput" oninput="updateHeightInput(this.value);"></input>
+                </div>
+                <input type="range" id="HeightOutput" class="form-control-range slider" min="0" max="100" oninput="updateHeightInput(this.value);">
+                </div>
               <div class="form-group">
-                <label for="formControlRange">Weight (kg)</label>
-                <input type="range" class="form-control-range" id="formControlRange">
-              </div>
+                <div class="d-flex justify-content-between">
+                  <label for="formControlRange">Weight (kg): </label>
+                  <input class="disp-val" id="WeightInput" oninput="updateWeightInput(this.value);"></input>
+                </div>
+                <input type="range" id="WeightOutput" class="form-control-range" min="0" max="100" oninput="updateWeightInput(this.value);">
+                </div>
             <div class="form-group">
               <div>
                 <label for="Gender"
-                  >Eye color</label
+                  >Eye color:</label
                 >
               </div>
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -67,7 +76,7 @@
             <div class="form-group">
               <div>
                 <label for="Gender"
-                  >Skin color</label
+                  >Skin color:</label
                 >
               </div>
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -88,16 +97,23 @@
               </div>
               </div>
               <div class="form-group">
-                <label for="formControlRange">Chest (cm)</label>
-                <input type="range" class="form-control-range" id="formControlRange">
-              </div>
-            <button type="" class="btn btn-lg btn-details-bck px-5">Back</button>
-            <button type="submit" class="btn btn-lg btn-details-nxt float-right px-5">Next</button>
+                <div class="d-flex justify-content-between">
+                  <label for="formControlRange">Chest (cm): </label>
+                  <input class="disp-val" id="ChestInput" oninput="updateChestInput(this.value);"></input>
+                </div>
+                <input type="range" id="ChestOutput" class="form-control-range" min="0" max="100" oninput="updateChestInput(this.value);">
+                </div>
+            <div class="d-flex justify-content-between py-3">
+              <a type="" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
+            <button type="submit" class="btn btn-lg btn-details-nxt float-right btn-xs px-md-5">Next</button>
+            </div>
+            <div class="d-flex justify-content-center">
+              <a class="btn btn-pa-skp btn-xs" href="#">Skip for now</a>
+            </div>
           </form>
         </div>
       </div>
     </section>
-
     <script
       src="https://kit.fontawesome.com/f5515e915e.js"
       crossorigin="anonymous"
@@ -113,5 +129,22 @@
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function updateHeightInput(heightVal){
+        var hv = heightVal;
+        document.getElementById("HeightOutput").value = hv;
+        document.getElementById("HeightInput").value = hv;
+      }
+      function updateWeightInput(weightVal){
+        var wv = weightVal;
+        document.getElementById("WeightOutput").value = wv;
+        document.getElementById("WeightInput").value = wv;
+      }
+      function updateChestInput(chestVal){
+        var cv = chestVal;
+        document.getElementById("ChestOutput").value = cv;
+        document.getElementById("ChestInput").value = cv;
+      }
+    </script>
   </body>
 </html>
