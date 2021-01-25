@@ -25,10 +25,10 @@ if($allUsersWithProfession){
 
                 <a href=<?php echo "/wordpress/profile/" . $user->ID ?> class="col-6 col-sm-4 col-md-3 col-lg-2">
                     <div class="card h-100">
-                        <img class="card-img-top" src=<?php echo get_the_guid( get_user_meta($user->ID, 'sci_user_avatar',true) ) ?> alt="Card image cap">
+                        <img class="card-img-top" src=<?php echo get_field('sci_user_headshot', 'user_' . $user->ID) ?> alt="Card image cap">
                         <div class="card-body">
                         <h5 class="card-title"><?php echo $user->display_name ?></h5>
-                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?php echo get_user_meta($user->ID, 'location',true) ?></p>
+                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> <?php echo get_user_meta($user->ID, 'sci_user_location',true) ?></p>
                             <p>
                                 <?php
                                     $termIds = get_user_meta($user->ID, 'profession',true);
