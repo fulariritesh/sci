@@ -1,3 +1,11 @@
 .pr-details {
   background-color: $signup-bgcolor;
+  .accordion-toggle:after {
+    font-family: "FontAwesome";
+    content: "";
+    float: right;
+  }
+  .accordion-opened .accordion-toggle:after {
+    content: "\f00c";
+  }
 }
