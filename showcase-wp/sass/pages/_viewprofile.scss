@@ -1,0 +1,67 @@
+.blockBG{
+    background:$light-color;
+}
+.profile-personaldetails{
+    h5{
+        font-weight:normal;
+    }
+    .selectedcategories {
+        .badge{
+            font-size:1.1rem;
+        }
+    }
+  
+      
+  
+}
+
+.navbarcolors{
+    background:$light-color !important;
+   }
+.profilevideos, .audioblock, .physicalattribs{
+    h5{
+        font-weight:normal;
+        margin-bottom:0px;
+    }
+    h6{
+        font-weight:normal;
+        color:$viewprofileGreycolor;
+    }
+}
+
+.physicalfeatures{
+    .card {
+        padding-top: 15px;
+        text-transform: uppercase;
+        border-radius: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        width: 18%;
+        display: block;
+    
+        @include  media-lg{
+          width: 17.5%;
+      }
+        @include  media-md{
+          width: 46.5%;
+      }
+        @include  media-sm{
+          width: 46.5%;
+      }
+        @include  media-xs{
+          width: 47.2%;
+          margin-left: 5px;
+          margin-right: 5px;
+          margin-bottom: 10px;
+          font-size:15px;
+      }
+}
+}
+
+.circlediv{
+    width:80px;
+    border-radius: 50%;
+    background:red;
+    position: absolute;
+}
