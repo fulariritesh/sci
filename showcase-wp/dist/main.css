@@ -11112,6 +11112,25 @@ hr.new2 {
   color: #fff;
 }
 
+.btn-details-cat-subcat {
+  background: #f4f2f3;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #444;
+  border: 0;
+  border-radius: 1rem;
+}
+
+.btn-details-cat-subcat:hover {
+  background: #07bb9b;
+  color: #fff;
+}
+
+.btn-details-cat-subcat.active {
+  background: #07bb9b;
+  color: #fff;
+}
+
 .btn-details-bck {
   background: #cccccc;
   color: #444;
@@ -12286,6 +12305,21 @@ hr.new2 {
   background: #e5e5e5;
 }
 
+.cat-subcat {
+  background-color: #f2fafd;
+}
+
+.cat-subcat .card {
+  border: 1px solid #dbdbdb !important;
+  border-radius: 0 !important;
+}
+
+@media screen and (min-width: 992px) {
+  .cat-subcat .accordion {
+    padding: 0 5rem 2.5rem;
+  }
+}
+
 .findtalent-tabs li a {
   border-bottom: 2px solid #fff;
   color: #444;
@@ -12604,5 +12638,45 @@ hr.new2 {
   border-radius: 50%;
   background: red;
   position: absolute;
+}
+
+.icon::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cat-subcat .accordion .card .card-header.collapsed:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f078";
+  padding-top: 0.7rem;
+  float: right;
+}
+
+.cat-subcat .accordion .card .card-header:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00c";
+  padding-top: 0.7rem;
+  float: right;
+}
+
+.cat-subcat .accordion .card .btn-details-cat-subcat::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f067";
+  padding-right: 0.5rem;
+  float: left;
+}
+
+.cat-subcat .accordion .card .btn-details-cat-subcat.active::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00c";
+  padding-right: 0.5rem;
+  float: left;
 }
 

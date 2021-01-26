@@ -32,3 +32,17 @@
     background: $prcombr-bg;
   }
 }
+
+//Category Sub category
+.cat-subcat {
+  background-color: $signup-bgcolor;
+  .card {
+    border: 1px solid $accordian-br-color !important;
+    border-radius: 0 !important;
+  }
+  .accordion {
+    @include media-md-min {
+      padding: 0 5rem 2.5rem;
+    }
+  }
+}

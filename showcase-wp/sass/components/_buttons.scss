@@ -130,6 +130,23 @@
   background: $btn_details-gen-hoverbg;
   color: $light-color;
 }
+
+.btn-details-cat-subcat {
+  @include buttonstyle(
+    $btn_details-cat-subcat-bg,
+    $btn_details-cat-subcat-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-cat-subcat-color,
+    $btnhoverbg: $btn_details-cat-subcat-hoverbg,
+    $btnhovercolor: $light-color
+  );
+  border: 0;
+  border-radius: 1rem;
+}
+.btn-details-cat-subcat.active {
+  background: $btn_details-cat-subcat-hoverbg;
+  color: $light-color;
+}
 .btn-details-bck {
   @include buttonstyle(
     $btn_details-bck-bg,
