@@ -146,16 +146,12 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
     
 
 
-    // $meta_query = array( 'relation' => 'AND' );
+    $meta_queries = array( 'relation' => 'OR' );
 
-    // foreach ( $categoryIds as $key => $value ) {
-    //     $meta_query[] = array( 'key' => $key, 'value' => $value );
-    // }
-
-    // return array(
-    //     'post_type'  => array( 'post', 'custom' ),
-    //     'meta_query' => $meta_query,
-    // );
+    foreach ( $categoryIds as $category ) {
+        $meta_query = array( 'key' => 'profession', 'value' => sprintf(':"%s";', $category) , 'compare' => 'LIKE');
+        array_push($meta_queries, $meta_query);
+    }
 
     $args = array(
         'role'          => 'subscriber',
@@ -166,16 +162,12 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
         'fields'        => array( 'ID','display_name' ),
         'meta_query'     => [
           'relation' => 'AND',
-          [
+          array(
               'key'     => 'profession',
               'value'   => array(''),
               'compare' => 'NOT IN',
-          ],
-          [
-              'key'     => 'profession',
-              'value'   =>  sprintf(':"%s";', $categoryId),
-              'compare' => 'LIKE',
-          ],
+          ),
+          $meta_queries
       ],
     );
     $userList = get_users($args);
@@ -203,8 +195,7 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
 
         $user->href = "/wordpress/profile/" . $user->ID;
         $user->headshot = get_field('sci_user_headshot', 'user_' . $user->ID);
-        $user->location = get_field('sci_user_location', 'user_' . $user->ID);    
-        $user->ids = $categoryIds;    
+        $user->location = get_field('sci_user_location', 'user_' . $user->ID);  
     }
     
     $data = new stdClass();
@@ -218,16 +209,12 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
             'fields'        => array( 'ID','display_name' ),
             'meta_query'     => [
               'relation' => 'AND',
-              [
+              array(
                   'key'     => 'profession',
                   'value'   => array(''),
                   'compare' => 'NOT IN',
-              ],
-              [
-                  'key'     => 'profession',
-                  'value'   => sprintf(':"%s";', $categoryId),
-                  'compare' => 'LIKE',
-              ],
+              ),
+              $meta_queries
           ],
         );
 
@@ -248,6 +235,28 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
             $category->id = $key;
             $category->name = $value;
             $category->image = get_field('sci_category_image', 'jobs_' . $key);
+            
+            $args = array(
+              'role'          => 'subscriber',
+              'orderby'       => 'user_registered',
+              'order'         => 'DESC',
+              'fields'        => array( 'ID','display_name' ),
+              'meta_query'     => [
+                'relation' => 'AND',
+                [
+                    'key'     => 'profession',
+                    'value'   => array(''),
+                    'compare' => 'NOT IN',
+                ],
+                [
+                    'key'     => 'profession',
+                    'value'   => sprintf(':"%s";', $key),
+                    'compare' => 'LIKE',
+                ],
+            ],
+          );
+          $category->count = count(get_users($args));
+
             array_push($subcategories, $category);
         }
 

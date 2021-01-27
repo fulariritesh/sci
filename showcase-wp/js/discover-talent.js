@@ -3,15 +3,17 @@ jQuery(function($) {
     let pageNumber = 1;
     let pageSize = 6;
     let totalMatchingProfiles = 0;
-    let category;
+    let category = [];
+    let displayingCategory = true;
+    let mainCategory;
 
     $("#FT-subcategories").hide();
 
     $("#FT-allcategories").on('click','.actorCategory',function(){
         pageNumber = 1;
-        category = $(this).attr("id");
+        category.push($(this).attr("id"));
         
-        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+category, function(response){    
+        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+category[0], function(response){    
         console.log(response);    
         $('.displayList').empty();
             totalMatchingProfiles = response.totalCount;
@@ -26,14 +28,31 @@ jQuery(function($) {
 
     $("#FT-subcategories").on('click','.actorSubCategory',function(){
         pageNumber = 1;
-        if(true){
-            category = '';
-        }
-        category = category + $(this).attr("id") + ',';
-        category = category.replace(/,\s*$/, "");
         
-        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+category, function(response){    
-        console.log(response);    
+        $(this).find('.row.shadow-sm').toggleClass('selected-subcategory');
+        
+        if(displayingCategory){
+            mainCategory = category[0];
+            category = [];
+            displayingCategory = false;
+        }
+
+        if($(this).find('.row.shadow-sm').hasClass('selected-subcategory')){
+            category.push($(this).attr("id"));
+        }else{
+            category.splice( $.inArray($(this).attr("id"), category), 1 );
+        }
+
+        let categoryList;
+        if(jQuery.isEmptyObject(category)){
+            category[0] = mainCategory;
+            categoryList = mainCategory;
+            displayingCategory = true;
+        }else{
+            categoryList = category.join();
+        }
+        
+        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+categoryList, function(response){     
         $('.displayList').empty();
             totalMatchingProfiles = response.totalCount;
             $('.totalCount').text(totalMatchingProfiles);   
@@ -46,7 +65,8 @@ jQuery(function($) {
         $("#FT-allcategories").show();
         $("#FT-subcategories").hide();
         pageNumber = 1;
-        category = '';
+        category = [];
+        displayingCategory = true;
         AllCategoryListing();
     });
     
@@ -59,7 +79,7 @@ jQuery(function($) {
         if(!category){
             query = 'http://localhost:8080/wordpress/wp-json/sci/v1/talent-data?pageNumber='+(++pageNumber)+'&pageSize='+pageSize;
         }else{
-            query = 'http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+(++pageNumber)+'&pageSize='+pageSize+'&category='+category;
+            query = 'http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+(++pageNumber)+'&pageSize='+pageSize+'&category='+category.join();
         }
 
         $.get(query, function(response){
@@ -113,7 +133,7 @@ jQuery(function($) {
               <div class="col-4 py-2"><img src="`+subcategory.image+`" alt="`+subcategory.name+` Category" class="img-fluid" /></div>
               <div class="col-8 py-2 px-0 pt-4">
                 <span class="text-uppercase">`+subcategory.name+`</span>
-                <span class="cat-num"> (8)</span>
+                <span class="cat-num"> (`+subcategory.count+`)</span>
               </div>
             </div>
           </a>
