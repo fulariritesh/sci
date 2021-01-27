@@ -142,6 +142,9 @@
   );
   border: 0;
   border-radius: 1rem;
+  @include media-sm {
+    font-size: 0.7rem !important;
+  }
 }
 .btn-details-cat-subcat.active {
   background: $btn_details-cat-subcat-hoverbg;

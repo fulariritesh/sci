@@ -79,12 +79,13 @@
   }
   .card-header.selected {
     background: $primary-color;
-    color: white;
+    color: $light-color;
     .icon {
       fill: $header-activeicon-color;
     }
   }
   .accordion {
+    background: $light-color;
     @include media-md-min {
       padding: 0 5rem 2.5rem;
     }
