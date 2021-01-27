@@ -18,7 +18,7 @@
 .navbarcolors{
     background:$light-color !important;
    }
-.profilevideos, .audioblock, .physicalattribs{
+.profilevideos, .audioblock, .physicalattribs, .experienceblock, .emptyblock, .cat-block{
     h5{
         font-weight:normal;
         margin-bottom:0px;
@@ -32,12 +32,13 @@
 .physicalfeatures{
     .card {
         padding-top: 15px;
-        text-transform: uppercase;
+        padding-bottom: 10px;
+        // text-transform: uppercase;
         border-radius: 0;
-        margin-left: 10px;
-        margin-right: 10px;
+        // margin-left: 10px;
+        margin-right: 15px;
         margin-bottom: 15px;
-        width: 18%;
+        width: 18.8%;
         display: block;
     
         @include  media-lg{
@@ -57,11 +58,102 @@
           font-size:15px;
       }
 }
+.card-title{
+    margin-bottom: 0;
+    font-size: 13px;
+padding-top:10px;
+padding-left:15px;
+    span{
+        display: block;
+        font-weight: bold;
+    }
+}
 }
 
-.circlediv{
-    width:80px;
-    border-radius: 50%;
-    background:red;
-    position: absolute;
+.hr-text {
+    height: 13px;
+    border-bottom: 1px solid $viewprofile-hrborder;
+    width: 100%;
+    margin-top: 0px;
+    .credit-title {
+        background:$light-color; 
+     }
+}
+.experienceblock, .cat-block{
+    ul {
+        padding-top:20px;
+        li{
+            margin-bottom:20px;
+        }
+    }
+}
+
+.categorybadge{
+    background:$categorybadgeBG;
+    border: 1px solid $categorybadgeBorder;
+    font-weight: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius:8px;
+}
+.specialisedbadge{
+    background:$specialisedbadgeBG;
+    border: 1px solid $specialisedbadgeBorder;
+    font-weight: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size:15px;
+    border-radius:8px;
+    margin-right: 5px;
+    i{
+        padding-right:5px;
+    }
+}
+.languagedbadge{
+    background:$languagebadgeBG;
+    border: 1px solid $languagebadgeBorder;
+    font-weight: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size:15px;
+    border-radius:8px;
+    margin-right: 5px;
+    i{
+        padding-right:5px;
+    }
+}
+.experiencedbadge{
+    background:$experiencebadgeBG;
+    border: 1px solid $experiencebadgeBorder;
+    font-weight: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size:15px;
+    border-radius:8px;
+    margin-right: 5px;
+    i{
+        padding-right:5px;
+    }
+}
+.cat-block {
+    p{
+        margin-bottom: 0;
+    }
+}
+.profilenavigation{
+    .navbar{
+        overflow: hidden;
+        z-index: 999;
+    }
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+      
+      .sticky + .content {
+        padding-top: 60px;
+      }
 }

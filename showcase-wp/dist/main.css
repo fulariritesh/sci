@@ -12288,8 +12288,6 @@ hr.new2 {
 
 .noResults {
   background: #fff;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 
 @media screen and (max-width: 768px) {
@@ -12335,6 +12333,11 @@ hr.new2 {
 
 .resultlisting .card .card-body h5 {
   font-size: 1.1rem;
+}
+
+.selected-subcategory {
+  border: 1px solid #07bb9b;
+  background: #fcfafa;
 }
 
 .c-actors, .c-actor {
@@ -12478,6 +12481,224 @@ hr.new2 {
   }
 }
 
+.sprite {
+  background: url("../../images/physicalattribs-sprite.png") no-repeat top left;
+  width: 24px;
+  height: 24px;
+}
+
+.sprite.chest {
+  background-position: 0 0;
+}
+
+.sprite.chest-c {
+  background-position: -34px 0;
+}
+
+.sprite.ethnicity {
+  background-position: -68px 0;
+}
+
+.sprite.ethnicity-c {
+  background-position: -102px 0;
+}
+
+.sprite.eyecolor {
+  background-position: -136px 0;
+}
+
+.sprite.eyecolor-c {
+  background-position: -170px 0;
+}
+
+.sprite.hair {
+  background-position: -204px 0;
+}
+
+.sprite.hair-c {
+  background-position: -238px 0;
+}
+
+.sprite.hair-dye {
+  background-position: -272px 0;
+}
+
+.sprite.hair-dye-c {
+  background-position: -306px 0;
+}
+
+.sprite.hair-length {
+  background-position: -340px 0;
+}
+
+.sprite.hair-length-c {
+  background-position: -374px 0;
+}
+
+.sprite.height {
+  background-position: -408px 0;
+}
+
+.sprite.height-c {
+  background-position: -442px 0;
+}
+
+.sprite.skincolor {
+  background-position: -476px 0;
+}
+
+.sprite.skincolor-c {
+  background-position: -510px 0;
+}
+
+.sprite.waist {
+  background-position: -544px 0;
+}
+
+.sprite.waist-c {
+  background-position: -578px 0;
+}
+
+.sprite.weight {
+  background-position: -612px 0;
+}
+
+.sprite.weight-c {
+  background-position: -646px 0;
+}
+
+.pa-height {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #d3e5fc;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-weight {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fdebd2;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-ethnicity {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fce0e1;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-chest {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #dbf6d7;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-skincolor {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #e0d8fb;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-waist {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ede5ff;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-eyecolor {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #dbf6d7;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-haircolor {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #d3e5fc;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-hairlength {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fdebd2;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-hairtype {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fce0e1;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
+.pa-notset {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #efefef;
+  padding-left: 8px;
+  padding-top: 8px;
+}
+
 .blockBG {
   background: #fff;
 }
@@ -12494,24 +12715,23 @@ hr.new2 {
   background: #fff !important;
 }
 
-.profilevideos h5, .audioblock h5, .physicalattribs h5 {
+.profilevideos h5, .audioblock h5, .physicalattribs h5, .experienceblock h5, .emptyblock h5, .cat-block h5 {
   font-weight: normal;
   margin-bottom: 0px;
 }
 
-.profilevideos h6, .audioblock h6, .physicalattribs h6 {
+.profilevideos h6, .audioblock h6, .physicalattribs h6, .experienceblock h6, .emptyblock h6, .cat-block h6 {
   font-weight: normal;
   color: #9c9c9c;
 }
 
 .physicalfeatures .card {
   padding-top: 15px;
-  text-transform: uppercase;
+  padding-bottom: 10px;
   border-radius: 0;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 15px;
   margin-bottom: 15px;
-  width: 18%;
+  width: 18.8%;
   display: block;
 }
 
@@ -12543,10 +12763,109 @@ hr.new2 {
   }
 }
 
-.circlediv {
-  width: 80px;
-  border-radius: 50%;
-  background: red;
-  position: absolute;
+.physicalfeatures .card-title {
+  margin-bottom: 0;
+  font-size: 13px;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.physicalfeatures .card-title span {
+  display: block;
+  font-weight: bold;
+}
+
+.hr-text {
+  height: 13px;
+  border-bottom: 1px solid #c3c3c3;
+  width: 100%;
+  margin-top: 0px;
+}
+
+.hr-text .credit-title {
+  background: #fff;
+}
+
+.experienceblock ul, .cat-block ul {
+  padding-top: 20px;
+}
+
+.experienceblock ul li, .cat-block ul li {
+  margin-bottom: 20px;
+}
+
+.categorybadge {
+  background: #d1ecf1;
+  border: 1px solid #86dcec;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.specialisedbadge {
+  background: #f8d7da;
+  border: 1px solid #e8c1c4;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.specialisedbadge i {
+  padding-right: 5px;
+}
+
+.languagedbadge {
+  background: #d4edda;
+  border: 1px solid #a9f0ba;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.languagedbadge i {
+  padding-right: 5px;
+}
+
+.experiencedbadge {
+  background: #d1ecf1;
+  border: 1px solid #86dcec;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.experiencedbadge i {
+  padding-right: 5px;
+}
+
+.cat-block p {
+  margin-bottom: 0;
+}
+
+.profilenavigation .navbar {
+  overflow: hidden;
+  z-index: 999;
+}
+
+.profilenavigation .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.profilenavigation .sticky + .content {
+  padding-top: 60px;
 }
 

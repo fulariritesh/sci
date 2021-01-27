@@ -1,11 +1,67 @@
-.sprite { background: url('physical-sprite.png') no-repeat top left; width: 32px; height: 32px;  } 
+.sprite { background: url('../../images/physicalattribs-sprite.png') no-repeat top left; width: 24px; height: 24px;  } 
 .sprite.chest { background-position: 0 0; } 
-.sprite.ethnicity { background-position: -42px 0; } 
-.sprite.eyecolor { background-position: -84px 0; } 
-.sprite.hair { background-position: -126px 0; } 
-.sprite.hair-dye { background-position: -168px 0; } 
-.sprite.hairs { background-position: -210px 0; } 
-.sprite.height { background-position: -252px 0; } 
-.sprite.skincolor { background-position: -294px 0; } 
-.sprite.waist { background-position: -336px 0; } 
-.sprite.weight { background-position: -378px 0; } 
+.sprite.chest-c { background-position: -34px 0; } 
+.sprite.ethnicity { background-position: -68px 0; } 
+.sprite.ethnicity-c { background-position: -102px 0; } 
+.sprite.eyecolor { background-position: -136px 0; } 
+.sprite.eyecolor-c { background-position: -170px 0; } 
+.sprite.hair { background-position: -204px 0; } 
+.sprite.hair-c { background-position: -238px 0; } 
+.sprite.hair-dye { background-position: -272px 0; } 
+.sprite.hair-dye-c { background-position: -306px 0; } 
+.sprite.hair-length { background-position: -340px 0; } 
+.sprite.hair-length-c { background-position: -374px 0; } 
+.sprite.height { background-position: -408px 0; } 
+.sprite.height-c { background-position: -442px 0; } 
+.sprite.skincolor { background-position: -476px 0; } 
+.sprite.skincolor-c { background-position: -510px 0; } 
+.sprite.waist { background-position: -544px 0; } 
+.sprite.waist-c { background-position: -578px 0; } 
+.sprite.weight { background-position: -612px 0; } 
+.sprite.weight-c { background-position: -646px 0; } 
+
+@mixin P-circle($P-attributeBG){
+    width:40px;
+    height:40px;
+    border-radius: 50%;   
+    position: absolute;
+    top:10px;
+    right:10px;
+    background:$P-attributeBG;
+    padding-left:8px;
+    padding-top:8px;
+}
+
+.pa-height{
+    @include P-circle($p-height);
+}
+.pa-weight{
+    @include P-circle($p-weight);
+}
+.pa-ethnicity{
+    @include P-circle($p-ethnicity);
+}
+.pa-chest{
+    @include P-circle($p-chest);
+}
+.pa-skincolor{
+    @include P-circle($p-skincolor);
+}
+.pa-waist{
+    @include P-circle($p-waist);
+}
+.pa-eyecolor{
+    @include P-circle($p-eyecolor);
+}
+.pa-haircolor{
+    @include P-circle($p-haircolor);
+}
+.pa-hairlength{
+    @include P-circle($p-hairlength);
+}
+.pa-hairtype{
+    @include P-circle($p-hairtype);
+}
+.pa-notset{
+    @include P-circle($p-notset);
+}
