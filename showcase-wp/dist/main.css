@@ -11155,6 +11155,18 @@ hr.new2 {
   color: #ffff;
 }
 
+.btn-details-fileup {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #28388d;
+}
+
+.btn-details-fileup:hover {
+  background: #28388d;
+  color: #ffff;
+}
+
 .btn-lgin {
   background: #07bb9b;
   color: #fff;
@@ -11198,14 +11210,26 @@ hr.new2 {
 }
 
 .btn-details-cptr {
-  background: #28388d;
-  color: #ffff;
+  background: #ffff;
+  color: #444;
   text-transform: capitalize;
   border: 1px solid #28388d;
 }
 
 .btn-details-cptr:hover {
-  background: #19235a;
+  background: #28388d;
+  color: #ffff;
+}
+
+.btn-custom-file-upload {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #28388d;
+}
+
+.btn-custom-file-upload:hover {
+  background: #28388d;
   color: #ffff;
 }
 
@@ -11214,6 +11238,7 @@ hr.new2 {
   color: #ffff;
   text-transform: capitalize;
   border: 1px solid #28388d;
+  border-radius: 0;
 }
 
 .btn-details-uphs:hover {
@@ -12280,6 +12305,14 @@ hr.new2 {
   }
 }
 
+.pr-details .or {
+  position: absolute;
+  left: 50%;
+  width: 30px;
+  margin-top: 2px;
+  background-color: #fff;
+}
+
 .pr-details .disp-val {
   border-bottom: 1px solid;
   width: 3rem;
@@ -12287,8 +12320,36 @@ hr.new2 {
 
 .pr-details #videoElement {
   width: 100%;
+  display: none;
+}
+
+.pr-details .img-preview {
+  width: 100%;
+  min-height: 200px;
   height: 100%;
-  background: #1e1e1e;
+  border: 1px dashed grey;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pr-details .img-preview .img-preview-img {
+  display: none;
+  width: 100%;
+}
+
+.pr-details input[type="file"] {
+  display: none;
+}
+
+.pr-details .custom-file-upload {
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  cursor: pointer;
 }
 
 .pr-details .pr-com {
@@ -12314,10 +12375,25 @@ hr.new2 {
   border-radius: 0 !important;
 }
 
+.cat-subcat .card-header.selected {
+  background: #07bb9b;
+  color: white;
+}
+
+.cat-subcat .card-header.selected .icon {
+  fill: #ffff;
+}
+
 @media screen and (min-width: 992px) {
   .cat-subcat .accordion {
     padding: 0 5rem 2.5rem;
   }
+}
+
+.cat-subcat .icon {
+  width: 3rem;
+  height: 3rem;
+  fill: #07bb9b;
 }
 
 .findtalent-tabs li a {
@@ -12427,7 +12503,8 @@ hr.new2 {
   font-size: 1.1rem;
 }
 
-.c-actors, .c-actor {
+.c-actors,
+.c-actor {
   background: #a7dcbe;
   color: #444;
   font-weight: normal;
@@ -12436,7 +12513,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-musicians, .c-musician {
+.c-musicians,
+.c-musician {
   background: #f8a0b3;
   color: #444;
   font-weight: normal;
@@ -12454,7 +12532,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-photographers, .c-photographer {
+.c-photographers,
+.c-photographer {
   background: #b9e9f4;
   color: #444;
   font-weight: normal;
@@ -12463,7 +12542,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-influencers, .c-influencer {
+.c-influencers,
+.c-influencer {
   background: #b796c5;
   color: #444;
   font-weight: normal;
@@ -12472,7 +12552,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-hairs, .c-hair {
+.c-hairs,
+.c-hair {
   background: #c2bdeb;
   color: #444;
   font-weight: normal;
@@ -12481,7 +12562,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-entertainers, .c-entertainer {
+.c-entertainers,
+.c-entertainer {
   background: #c2bdeb;
   color: #444;
   font-weight: normal;
@@ -12490,7 +12572,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-models, .c-model {
+.c-models,
+.c-model {
   background: #fcd9e7;
   color: #444;
   font-weight: normal;
@@ -12499,7 +12582,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-presenters, .c-presenter {
+.c-presenters,
+.c-presenter {
   background: #a5f6a7;
   color: #444;
   font-weight: normal;
@@ -12508,7 +12592,8 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-dancers, .c-dancer {
+.c-dancers,
+.c-dancer {
   background: #f5f7b0;
   color: #444;
   font-weight: normal;
@@ -12525,6 +12610,92 @@ hr.new2 {
   padding-left: 8px;
   padding-right: 8px;
   margin-left: 5px;
+}
+
+.sprite {
+  background: url("/images/CategoryIcons.png") no-repeat top left;
+  width: 48px;
+  height: 48px;
+}
+
+.sprite.actors {
+  background-position: 0 0;
+}
+
+.sprite.actors-w {
+  background-position: -58px 0;
+}
+
+.sprite.dancers {
+  background-position: -116px 0;
+}
+
+.sprite.dancers-w {
+  background-position: -174px 0;
+}
+
+.sprite.entertainment {
+  background-position: -232px 0;
+}
+
+.sprite.entertainment-w {
+  background-position: -290px 0;
+}
+
+.sprite.film-crew {
+  background-position: -348px 0;
+}
+
+.sprite.film-crew-w {
+  background-position: -406px 0;
+}
+
+.sprite.hair {
+  background-position: -464px 0;
+}
+
+.sprite.hair-w {
+  background-position: -522px 0;
+}
+
+.sprite.influencers {
+  background-position: -580px 0;
+}
+
+.sprite.influencers-w {
+  background-position: -638px 0;
+}
+
+.sprite.models {
+  background-position: -696px 0;
+}
+
+.sprite.models-w {
+  background-position: -754px 0;
+}
+
+.sprite.musicians {
+  background-position: -812px 0;
+}
+
+.sprite.musicians-w {
+  background-position: -870px 0;
+}
+
+.sprite.photographers {
+  background-position: -928px 0;
+}
+
+.sprite.photographers-w {
+  background-position: -986px 0;
+}
+
+.sprite.presenter {
+  background-position: -1044px 0;
+}
+
+.sprite.presenter-w {
+  background-position: -1102px 0;
 }
 
 .photogrid {
@@ -12652,6 +12823,7 @@ hr.new2 {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f078";
+  color: #07bb9b;
   padding-top: 0.7rem;
   float: right;
 }
@@ -12659,6 +12831,7 @@ hr.new2 {
 .cat-subcat .accordion .card .card-header:after {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
+  color: #ffff;
   content: "\f00c";
   padding-top: 0.7rem;
   float: right;

@@ -9,6 +9,13 @@
       }
     }
   }
+  .or {
+    position: absolute;
+    left: 50%;
+    width: 30px;
+    margin-top: 2px;
+    background-color: $light-color;
+  }
   .disp-val {
     border-bottom: 1px solid;
     width: 3rem;
@@ -16,8 +23,38 @@
 
   #videoElement {
     width: 100%;
+    display: none;
+  }
+
+  .img-preview {
+    width: 100%;
+    min-height: 200px;
     height: 100%;
-    background: $dark;
+    border: 1px dashed grey;
+    margin-bottom: 2rem;
+
+    //default-txt
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .img-preview-img {
+      display: none;
+      width: 100%;
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    cursor: pointer;
   }
 
   .pr-com {
@@ -40,9 +77,21 @@
     border: 1px solid $accordian-br-color !important;
     border-radius: 0 !important;
   }
+  .card-header.selected {
+    background: $primary-color;
+    color: white;
+    .icon {
+      fill: $header-activeicon-color;
+    }
+  }
   .accordion {
     @include media-md-min {
       padding: 0 5rem 2.5rem;
     }
+  }
+  .icon {
+    width: 3rem;
+    height: 3rem;
+    fill: $header-icon-color;
   }
 }

@@ -29,7 +29,12 @@
               aria-controls="collapseOne"
             >
               <div class="col-3 pl-md-5">
-                <img src="./images/actors.png" alt="Actors Category" />
+                <div class="sprite actors"></div>
+                <div class="sprite actors-w d-none"></div>
+                <!-- <svg class="icon">
+                  <use xlink:href="images/category-icons.svg#actor" />
+                </svg> -->
+                <!-- <img src="./images/actors.png" alt="Actors Category" /> -->
               </div>
               <div class="col-7 col-md-8">
                 <p class="text-uppercase my-2 pt-1">Actor</p>
@@ -68,7 +73,10 @@
               aria-controls="collapseTwo"
             >
               <div class="col-3 pl-md-5">
-                <img src="./images/models.png" alt="Actors Category" />
+                <svg class="icon">
+                  <use xlink:href="images/category-icons.svg#model" />
+                </svg>
+                <!-- <img src="./images/models.png" alt="Actors Category" /> -->
               </div>
               <div class="col-7 col-md-8">
                 <p class="text-uppercase my-2 pt-1">Models</p>
@@ -107,7 +115,10 @@
               aria-controls="collapseThree"
             >
               <div class="col-3 pl-md-5">
-                <img src="./images/musicians.png" alt="Actors Category" />
+                <svg class="icon">
+                  <use xlink:href="images/category-icons.svg#musicians" />
+                </svg>
+                <!-- <img src="./images/musicians.png" alt="Actors Category" /> -->
               </div>
               <div class="col-7 col-md-8">
                 <p class="text-uppercase my-2 pt-1">Musician</p>
@@ -146,7 +157,10 @@
               aria-controls="collapseFour"
             >
               <div class="col-3 pl-md-5">
-                <img src="./images/dancers.png" alt="Actors Category" />
+                <svg class="icon">
+                  <use xlink:href="images/category-icons.svg#dancers" />
+                </svg>
+                <!-- <img src="./images/dancers.png" alt="Actors Category" /> -->
               </div>
               <div class="col-7 col-md-8">
                 <p class="text-uppercase my-2 pt-1">Dancers</p>
@@ -185,7 +199,10 @@
               aria-controls="collapseFive"
             >
               <div class="col-3 pl-md-5">
-                <img src="./images/hair.png" alt="Actors Category" />
+                <svg class="icon">
+                  <use xlink:href="images/category-icons.svg#hair" />
+                </svg>
+                <!-- <img src="./images/hair.png" alt="Actors Category" /> -->
               </div>
               <div class="col-7 col-md-8">
                 <p class="text-uppercase my-2 pt-1">Hair, MUAs, Designers</p>
@@ -230,5 +247,12 @@
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
+    <script>
+      jQuery(document).ready(function () {
+        jQuery("accordion").click(function () {
+          console.log("Hi");
+        });
+      });
+    </script>
   </body>
 </html>
