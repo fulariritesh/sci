@@ -12,9 +12,9 @@ jQuery(function($) {
     $("#FT-allcategories").on('click','.actorCategory',function(){
         pageNumber = 1;
         category.push($(this).attr("id"));
+        $('#subcategory-type').text($(this).data("singular-name"));
         
-        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+category[0], function(response){    
-        console.log(response);    
+        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+category[0], function(response){       
         $('.displayList').empty();
             totalMatchingProfiles = response.totalCount;
             $('.totalCount').text(totalMatchingProfiles);   
@@ -69,11 +69,7 @@ jQuery(function($) {
         displayingCategory = true;
         AllCategoryListing();
     });
-    
 
-    
-
-    
     $('.resultlisting').on('click','.loadMore button',function(){
         let query;
         if(!category){
@@ -81,7 +77,6 @@ jQuery(function($) {
         }else{
             query = 'http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+(++pageNumber)+'&pageSize='+pageSize+'&category='+category.join();
         }
-
         $.get(query, function(response){
             UpdateList(response.userList[0]);            
         });
@@ -109,7 +104,7 @@ jQuery(function($) {
         $('.category-blocks').empty();
         categories.forEach(category => {
             let listHtml = `<div class="col-6 col-lg-3 mb-2  px-0">
-            <a href="#" class="actorCategory" id="`+category.id+`">
+            <a href="#" class="actorCategory" id="`+category.id+`" data-singular-name="`+category.singularName+`">
             <div class="row mx-1 shadow-sm ">
               <div class="col-4 py-2"><img src="`+category.image+`" alt="`+category.name+` Category" class="img-fluid" /></div>
               <div class="col-8 py-2 px-0">

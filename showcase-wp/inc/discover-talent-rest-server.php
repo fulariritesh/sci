@@ -50,7 +50,7 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
     $userList = get_users($args);
  
     if( empty( $userList ) ){
-    return null;
+      return null;
     }
  
 
@@ -104,6 +104,7 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
             $category->id = $key;
             $category->name = $value;
             $category->image = get_field('sci_category_image', 'jobs_' . $key);
+            $category->singularName = get_term_meta( $key, 'category_name_singular', true );
 
             $args = array(
               'role'          => 'subscriber',
@@ -144,8 +145,6 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
     $limit = (int)$pageSize;
     $offset = ($pageNumber -1) * $pageSize; 
     
-
-
     $meta_queries = array( 'relation' => 'OR' );
 
     foreach ( $categoryIds as $category ) {

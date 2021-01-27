@@ -37,7 +37,7 @@ Template Name: Discover Talent
           </div>
           </div>
           <div class="FT-subcategories" id="FT-subcategories">
-            <h5 class="text-uppercase">Actor</h5>
+            <h5 class="text-uppercase" id="subcategory-type"></h5>
             <div class="row m-0 sub-category-blocks">
            
             </div>
