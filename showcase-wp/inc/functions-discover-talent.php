@@ -13,9 +13,4 @@ add_action( 'wp_enqueue_scripts', 'discover_talent_scripts' );
  */
 require get_template_directory() . '/inc/discover-talent-rest-server.php';
 
-function sci_replace_repeater_field( $where ) {
-    $where = str_replace( "meta_key = 'repeaterkey_$", "meta_key LIKE 'repeaterkey_%", $where );
-    return $where;
-}
-add_filter( 'posts_where', 'sci_replace_repeater_field' );
 ?>
