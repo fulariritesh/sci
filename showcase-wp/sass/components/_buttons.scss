@@ -130,6 +130,24 @@
   background: $btn_details-gen-hoverbg;
   color: $light-color;
 }
+
+.btn-details-cat-subcat {
+  @include buttonstyle(
+    $btn_details-cat-subcat-bg,
+    $btn_details-cat-subcat-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-cat-subcat-color,
+    $btnhoverbg: $btn_details-cat-subcat-hoverbg,
+    $btnhovercolor: $light-color
+  );
+  border: 0;
+  border-radius: 1rem;
+}
+.btn-details-cat-subcat.active {
+  background: $btn_details-cat-subcat-hoverbg;
+  color: $light-color;
+}
+
 .btn-details-bck {
   @include buttonstyle(
     $btn_details-bck-bg,
@@ -148,6 +166,17 @@
     $btnbordercolor: $btn_details-nxt-bg,
     $btnhoverbg: $btn_details-nxt-hoverbg,
     $btnhovercolor: $btn_details-nxt-color
+  );
+}
+
+.btn-details-fileup {
+  @include buttonstyle(
+    $btn_details-fileup-bg,
+    $btn_details-fileup-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-fileup-hoverbg,
+    $btnhoverbg: $btn_details-fileup-hoverbg,
+    $btnhovercolor: $btn_details-fileup-bg
   );
 }
 
@@ -198,13 +227,24 @@
     $btn_details-cpt-bg,
     $btn_details-cpt-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_details-cpt-bg,
+    $btnbordercolor: $btn_details-cpt-hoverbg,
     $btnhoverbg: $btn_details-cpt-hoverbg,
-    $btnhovercolor: $btn_details-cpt-color
+    $btnhovercolor: $btn_details-cpt-bg
   );
 }
 
-//Upload Headshot btn
+.btn-custom-file-upload {
+  @include buttonstyle(
+    $btn_details-brw-bg,
+    $btn_details-brw-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-brw-hoverbg,
+    $btnhoverbg: $btn_details-brw-hoverbg,
+    $btnhovercolor: $btn_details-brw-bg
+  );
+}
+
+//Upload Headshot control btns
 .btn-details-uphs {
   @include buttonstyle(
     $btn_details-uphs-bg,
@@ -214,6 +254,7 @@
     $btnhoverbg: $btn_details-uphs-hoverbg,
     $btnhovercolor: $btn_details-uphs-color
   );
+  border-radius: 0;
 }
 .btn-details-my-pr {
   @include buttonstyle(

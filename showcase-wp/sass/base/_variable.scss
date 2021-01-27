@@ -125,9 +125,17 @@ $btn_details-nxt-bg: #28388d;
 $btn_details-nxt-color: #ffff;
 $btn_details-nxt-hoverbg: #19235a;
 
-$btn_details-cpt-bg: #28388d;
-$btn_details-cpt-color: #ffff;
-$btn_details-cpt-hoverbg: #19235a;
+$btn_details-fileup-bg: #ffff;
+$btn_details-fileup-color: #444;
+$btn_details-fileup-hoverbg: #28388d;
+
+$btn_details-cpt-bg: #ffff;
+$btn_details-cpt-color: #444;
+$btn_details-cpt-hoverbg: #28388d;
+
+$btn_details-brw-bg: #ffff;
+$btn_details-brw-color: #444;
+$btn_details-brw-hoverbg: #28388d;
 
 $btn_details-uphs-bg: #28388d;
 $btn_details-uphs-color: #ffff;
@@ -168,3 +176,13 @@ $font-family-base: "Poppins", sans-serif;
 $font-size-base: 1rem;
 
 $viewprofileGreycolor: #9c9c9c;
+
+// category sub category accordion
+$accordian-br-color: #dbdbdb;
+
+$btn_details-cat-subcat-bg: #f4f2f3;
+$btn_details-cat-subcat-color: #444;
+$btn_details-cat-subcat-hoverbg: #07bb9b;
+
+$header-icon-color: #07bb9b;
+$header-activeicon-color: #ffff;
