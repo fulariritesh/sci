@@ -175,8 +175,6 @@ $cat-moreColor: #fff;
 $font-family-base: "Poppins", sans-serif;
 $font-size-base: 1rem;
 
-$viewprofileGreycolor: #9c9c9c;
-
 // category sub category accordion
 $accordian-br-color: #dbdbdb;
 
@@ -189,3 +187,31 @@ $header-activeicon-color: #ffff;
 
 //Popups!
 $popup-bg-color: #f7f7f7;
+$selectedsubcategorycolor: $primary-color;
+$selectedsubcategorybg: #fcfafa;
+
+$viewprofileGreycolor: #9c9c9c;
+
+//Physical Attributes color codes
+$p-height: #d3e5fc;
+$p-weight: #fdebd2;
+$p-ethnicity: #fce0e1;
+$p-chest: #dbf6d7;
+$p-skincolor: #e0d8fb;
+$p-waist: #ede5ff;
+$p-eyecolor: #dbf6d7;
+$p-haircolor: #d3e5fc;
+$p-hairlength: #fdebd2;
+$p-hairtype: #fce0e1;
+$p-notset: #efefef;
+
+//View profile page variables
+$viewprofile-hrborder: #c3c3c3;
+$categorybadgeBG: #d1ecf1;
+$categorybadgeBorder: #86dcec;
+$experiencebadgeBG: #d1ecf1;
+$experiencebadgeBorder: #86dcec;
+$specialisedbadgeBG: #f8d7da;
+$specialisedbadgeBorder: #e8c1c4;
+$languagebadgeBG: #d4edda;
+$languagebadgeBorder: #a9f0ba;
