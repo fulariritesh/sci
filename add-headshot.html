@@ -7,7 +7,6 @@
     <title>Add a Headshot</title>
   </head>
   <body>
-    <main class="container-fluid"></main>
     <!-- Pagination -->
     <ul class="nav jp-nav justify-content-center">
       <li class="nav-item">
@@ -36,15 +35,35 @@
         <a class="nav-link" href="complete-join.html">Complete</a>
       </li>
     </ul>
-    <section class="pr-details d-flex justify-content-center py-5">
-      <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0">
-        <div class="card-header">Add a Headshot</div>
-        <div class="card-body px-4">
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi,
-            optio.
-          </p>
-          <div class="card">img</div>
+    <section class="pr-details container-fluid py-5">
+      <div class="row">
+        <div
+          class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0 mx-auto"
+        >
+          <div class="card-header">Add a Headshot</div>
+          <div class="card-body px-4">
+            <p>
+              Make sure you're looking straight on, use good lighting & a plain
+              background, skip the filter, effects, hats & sunsine.
+            </p>
+            <div class="disp-cam">
+              <video autoplay="true" id="videoElement"></video>
+              <canvas class="d-none"></canvas>
+            </div>
+            <div class="d-flex justify-content-center py-3">
+              <button class="btn btn-lg btn-details-cptr px-md-5 btn-xs">
+                Capture
+              </button>
+            </div>
+            <div class="d-flex justify-content-between py-3">
+              <a class="btn btn-lg btn-details-bck btn-xs px-md-5" href=""
+                >Back</a
+              >
+              <button class="btn btn-lg btn-details-nxt btn-xs px-md-5">
+                Save
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -64,5 +83,19 @@
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
+    <script>
+      var video = document.querySelector("#videoElement");
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (err0r) {
+            console.log("Something went wrong!");
+          });
+      }
+    </script>
   </body>
 </html>
