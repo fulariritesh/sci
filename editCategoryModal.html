@@ -3,19 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Category Modal</title>
     <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
-    <title>category-subcategory</title>
   </head>
   <body>
-    <section class="cat-subcat container-fluid py-5">
-      <div class="row">
+    <button></button>
+    <section class="container-fluid edit-cat">
+      <div class="row pt-3 editCat-head">
+        <div class="col-4">
+          <h4>ShowcaseIndia</h4>
+          <!-- <img src="" alt=""> -->
+        </div>
+        <div class="col-7">
+          <h4>Manage Categoriess</h4>
+        </div>
+        <div class="col-1"><button>Close</button></div>
+      </div>
+      <div class="row editCat-body">
         <div
-          class="accordion col-11 col-md-8 col-xl-6 shadow-sm mx-auto"
+          class="accordion col-11 col-md-8 col-xl-6 shadow-sm mx-auto my-5 pt-5"
           id="accordion"
         >
-          <h4 class="text-center font-weight-bold py-4">
-            Select your main skills and specialised skills
-          </h4>
           <!-- One card -->
           <div class="accordion-group mb-3 card">
             <div
@@ -29,7 +37,7 @@
             >
               <div class="col-3 pl-md-5">
                 <!-- <div class="sprite actors"></div>
-                <div class="sprite actors-w d-none"></div> -->
+              <div class="sprite actors-w d-none"></div> -->
                 <svg class="icon">
                   <use xlink:href="images/category-icons.svg#actor" />
                 </svg>

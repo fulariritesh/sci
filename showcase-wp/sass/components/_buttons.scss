@@ -263,7 +263,7 @@
   @include buttonstyle(
     $btn_details-mypr-bg,
     $btn_details-mypr-color,
-    $btntexttransform: capitalize,
+    $btntexttransform: uppercase,
     $btnbordercolor: $btn_details-mypr-bg,
     $btnhoverbg: $btn_details-mypr-hoverbg,
     $btnhovercolor: $btn_details-mypr-color

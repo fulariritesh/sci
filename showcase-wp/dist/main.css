@@ -11255,7 +11255,7 @@ hr.new2 {
 .btn-details-my-pr {
   background: #28388d;
   color: #ffff;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border: 1px solid #28388d;
 }
 
@@ -12334,6 +12334,7 @@ hr.new2 {
   min-height: 200px;
   height: 100%;
   border: 1px dashed grey;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
@@ -12861,5 +12862,44 @@ hr.new2 {
   content: "\f00c";
   padding-right: 0.5rem;
   float: left;
+}
+
+.edit-cat .editCat-head {
+  height: 5rem;
+  background: #fff;
+}
+
+.edit-cat .editCat-body {
+  background-color: #f7f7f7;
+}
+
+.edit-cat .editCat-body .card {
+  border: 1px solid #dbdbdb !important;
+  border-radius: 0 !important;
+}
+
+.edit-cat .editCat-body .card-header.selected {
+  background: #07bb9b;
+  color: #fff;
+}
+
+.edit-cat .editCat-body .card-header.selected .icon {
+  fill: #ffff;
+}
+
+.edit-cat .editCat-body .accordion {
+  background: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  .edit-cat .editCat-body .accordion {
+    padding: 0 5rem 2.5rem;
+  }
+}
+
+.edit-cat .editCat-body .icon {
+  width: 3rem;
+  height: 3rem;
+  fill: #07bb9b;
 }
 
