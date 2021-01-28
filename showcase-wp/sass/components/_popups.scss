@@ -1,31 +1,7 @@
-.edit-cat {
-  .editCat-head {
-    height: 5rem;
-    background: $light-color;
-  }
-  .editCat-body {
-    background-color: $popup-bg-color;
-    .card {
-      border: 1px solid $accordian-br-color !important;
-      border-radius: 0 !important;
-    }
-    .card-header.selected {
-      background: $primary-color;
-      color: $light-color;
-      .icon {
-        fill: $header-activeicon-color;
-      }
-    }
-    .accordion {
-      background: $light-color;
-      @include media-md-min {
-        padding: 0 5rem 2.5rem;
-      }
-    }
-    .icon {
-      width: 3rem;
-      height: 3rem;
-      fill: $header-icon-color;
-    }
-  }
+.modal-header{
+  background: $modal-head-color;
+  border-bottom:0;
+}
+.modal-body{
+  background: $modal-body-color;
 }
