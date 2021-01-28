@@ -11126,6 +11126,12 @@ hr.new2 {
   color: #fff;
 }
 
+@media screen and (max-width: 768px) {
+  .btn-details-cat-subcat {
+    font-size: 0.7rem !important;
+  }
+}
+
 .btn-details-cat-subcat.active {
   background: #07bb9b;
   color: #fff;
@@ -12377,11 +12383,15 @@ hr.new2 {
 
 .cat-subcat .card-header.selected {
   background: #07bb9b;
-  color: white;
+  color: #fff;
 }
 
 .cat-subcat .card-header.selected .icon {
   fill: #ffff;
+}
+
+.cat-subcat .accordion {
+  background: #fff;
 }
 
 @media screen and (min-width: 992px) {
