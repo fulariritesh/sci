@@ -1,25 +1,34 @@
 jQuery(function($) {
-
+    const baseUrl = 'http://localhost:8080/wordpress/wp-json/sci/v1/';
+    const endpoint = 'talent-data';
     let pageNumber = 1;
     let pageSize = 6;
     let totalMatchingProfiles = 0;
-    let category = [];
+    let category = [0];
     let displayingCategory = true;
     let mainCategory;
+    let location = '-1';
+    let gender = '-1';
+    let age = '-1';
+
+    const noSerchResultDiv = $('#no-search-results');
+    noSerchResultDiv.hide();
 
     $("#FT-subcategories").hide();
 
+
     $("#FT-allcategories").on('click','.actorCategory',function(){
         pageNumber = 1;
-        category.push($(this).attr("id"));
+        noSerchResultDiv.hide();
+        category[0] =$(this).attr("id");
         $('#subcategory-type').text($(this).data("singular-name"));
         
-        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+category[0], function(response){       
+        $.get(`${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${category[0]}&location=${location}&gender=${gender}&age=${age}`, function(response){       
         $('.displayList').empty();
             totalMatchingProfiles = response.totalCount;
             $('.totalCount').text(totalMatchingProfiles);   
             UpdateList(response.userList[0]);
-            SubCategoryBlocks(response.subcategories);
+            SubCategoryBlocks(response.categories);
             $("#FT-allcategories").hide();
             $("#FT-subcategories").show();
         });
@@ -28,6 +37,7 @@ jQuery(function($) {
 
     $("#FT-subcategories").on('click','.actorSubCategory',function(){
         pageNumber = 1;
+        noSerchResultDiv.hide();
         
         $(this).find('.row.shadow-sm').toggleClass('selected-subcategory');
         
@@ -52,7 +62,7 @@ jQuery(function($) {
             categoryList = category.join();
         }
         
-        $.get('http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+pageNumber+'&pageSize='+pageSize+'&category='+categoryList, function(response){     
+        $.get(`${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${categoryList}&location=${location}&gender=${gender}&age=${age}`, function(response){     
         $('.displayList').empty();
             totalMatchingProfiles = response.totalCount;
             $('.totalCount').text(totalMatchingProfiles);   
@@ -61,22 +71,47 @@ jQuery(function($) {
 
     });
 
+    $('#advance-search').on('click',function(){
+        pageNumber = 1;
+        noSerchResultDiv.hide();
+        $.get(`${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${category.join()}&location=${location}&gender=${gender}&age=${age}`, function(response){       
+            if(response != 0){
+                $('.displayList').empty();
+                totalMatchingProfiles = response.totalCount;
+                $('.totalCount').text(totalMatchingProfiles);   
+                UpdateList(response.userList[0]);
+            }else{
+                noSerchResultDiv.show();
+            }
+                
+        });
+    });
+
+    $('#loaction').on('change', function(e) {
+        location = this.options[e.target.selectedIndex].value;
+    });
+
+    $('#gender').on('change', function(e) {
+        gender = this.options[e.target.selectedIndex].value;
+    });
+
+    $('#age').on('change',function(e){
+        age = this.options[e.target.selectedIndex].value;
+    })
+
     $("#AllCategories").on('click',function(){
+        noSerchResultDiv.hide();
         $("#FT-allcategories").show();
         $("#FT-subcategories").hide();
         pageNumber = 1;
-        category = [];
+        category = [0];
+        categoryList = '';
         displayingCategory = true;
         AllCategoryListing();
     });
 
     $('.resultlisting').on('click','.loadMore button',function(){
-        let query;
-        if(!category){
-            query = 'http://localhost:8080/wordpress/wp-json/sci/v1/talent-data?pageNumber='+(++pageNumber)+'&pageSize='+pageSize;
-        }else{
-            query = 'http://localhost:8080/wordpress/wp-json/sci/v1/sub-categories-data?pageNumber='+(++pageNumber)+'&pageSize='+pageSize+'&category='+category.join();
-        }
+        query = `${baseUrl}${endpoint}?pageNumber=${++pageNumber}&pageSize=${pageSize}&category=${category.join()}&location=${location}&gender=${gender}&age=${age}`;
         $.get(query, function(response){
             UpdateList(response.userList[0]);            
         });
@@ -88,15 +123,16 @@ jQuery(function($) {
     function AllCategoryListing(){
 
         $.get({
-            url: 'http://localhost:8080/wordpress/wp-json/sci/v1/talent-data?pageNumber='+pageNumber+'&pageSize='+pageSize, 
+            url: `${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&location=${location}&gender=${gender}&age=${age}`, 
             cache: true
           }).then(function(response){
-            UpdateList(response.userList[0]); 
+            
             if(pageNumber == 1){
                 CategoryBlocks(response.categories);
                 totalMatchingProfiles = response.totalCount;
                 $('.totalCount').text(totalMatchingProfiles);
             }
+            UpdateList(response.userList[0]); 
           });
     }
 
@@ -104,12 +140,12 @@ jQuery(function($) {
         $('.category-blocks').empty();
         categories.forEach(category => {
             let listHtml = `<div class="col-6 col-lg-3 mb-2  px-0">
-            <a href="#" class="actorCategory" id="`+category.id+`" data-singular-name="`+category.singularName+`">
+            <a href="#" class="actorCategory" id="${category.id}" data-singular-name="${category.singularName}">
             <div class="row mx-1 shadow-sm ">
-              <div class="col-4 py-2"><img src="`+category.image+`" alt="`+category.name+` Category" class="img-fluid" /></div>
+              <div class="col-4 py-2"><img src="${category.image}" alt="${category.name} Category" class="img-fluid" /></div>
               <div class="col-8 py-2 px-0">
-                <span class="text-uppercase d-block">`+category.name+`</span>
-                <span class="d-block cat-num">(`+category.count+`)</span>
+                <span class="text-uppercase d-block">${category.name}</span>
+                <span class="d-block cat-num">(${category.count})</span>
               </div>
             </div>
           </a>
@@ -123,12 +159,12 @@ jQuery(function($) {
         $('.sub-category-blocks').empty();
         subcategories.forEach(subcategory => {
             let listHtml = `<div class="col-6 col-lg-3 mb-2  px-0">
-            <a href="#" class="actorSubCategory" id="`+subcategory.id+`">
+            <a href="#" class="actorSubCategory" id="${subcategory.id}">
             <div class="row mx-1 shadow-sm ">
-              <div class="col-4 py-2"><img src="`+subcategory.image+`" alt="`+subcategory.name+` Category" class="img-fluid" /></div>
+              <div class="col-4 py-2"><img src="${subcategory.image}" alt="${subcategory.name} Category" class="img-fluid" /></div>
               <div class="col-8 py-2 px-0 pt-4">
-                <span class="text-uppercase">`+subcategory.name+`</span>
-                <span class="cat-num"> (`+subcategory.count+`)</span>
+                <span class="text-uppercase">${subcategory.name}</span>
+                <span class="cat-num"> (${subcategory.count})</span>
               </div>
             </div>
           </a>
@@ -145,12 +181,12 @@ jQuery(function($) {
         
         list.forEach(profile => {
             let isProffessionCountMore = false;
-            let listHtml = `<a href="/wordpress/profile/`+profile.ID+`" class="col-6 col-sm-4 col-md-3 col-lg-2">
+            let listHtml = `<a href="/wordpress/profile/${profile.ID}" class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <div class="card h-100">
-                        <img class="card-img-top" src=`+profile.headshot+` alt="Card image cap">
+                        <img class="card-img-top" src=${profile.headshot} alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">`+profile.display_name+`</h5>
-                            <p class="card-text"><i class="fas fa-map-marker-alt"></i> `+profile.location+`</p>
+                            <h5 class="card-title">${profile.display_name}</h5>
+                            <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${profile.location}</p>
                             <p>`;
 
                 profile.professions.forEach((profession, index) => {
@@ -171,13 +207,13 @@ jQuery(function($) {
                     </a>`;
 
             $('.displayList').append(listHtml);
-
-            if($('.displayList a').length == totalMatchingProfiles){
-                $('.loadMore button').prop('disabled', true);
-            }else{
-                $('.loadMore button').prop('disabled', false);
-            }
         });
+
+        if($('.displayList a').length == totalMatchingProfiles){
+            $('.loadMore button').prop('disabled', true);
+        }else{
+            $('.loadMore button').prop('disabled', false);
+        }
     }
 
     

@@ -4,7 +4,11 @@ Template Name: Discover Talent
 */
 ?>
 
- <?php get_header(); ?>
+ <?php get_header(); 
+ 
+$locationSelected;
+$genderSelected;
+ ?>
  <div class="bodyBG">
 
 
@@ -58,25 +62,55 @@ Template Name: Discover Talent
             <div class=" row well px-3">
               <!-- Collapse Panel -->
               <div class="col-12 col-sm-6 col-md-3 py-3">
-                <select placeholder="Select Location" class="form-control">
-                  <option>Delhi</option>
+                <select placeholder="Select Location" class="form-control" id="loaction">
+                  <option value="-1">Select Location</option>
+                  <?php
+                    $loactions = get_acf_field_settings_from_group("USER: Profile details", 'sci_user_location')['choices'];
+                    
+                    foreach($loactions as $key => $value){
+                      ?>
+                        <option value=<?php echo $key ?>><?php echo $value ?></option>
+                      <?php
+                    }
+                  ?>
                 </select>
               </div>
-              <div class="col-12 col-sm-6 col-md-2 py-3"> <select placeholder="Select Location" class="form-control">
-                  <option>Delhi</option>
+              <div class="col-12 col-sm-6 col-md-2 py-3"> 
+                <select placeholder="Select Gender" class="form-control" id="gender">
+                  <option value="-1">Gender</option>
+                  <?php
+                    $genders = get_acf_field_settings_from_group("USER: Profile details", 'sci_user_gender')['choices'];
+                    
+                    foreach($genders as $key => $value){
+                      ?>
+                        <option value=<?php echo $key ?>><?php echo $value ?></option>
+                      <?php
+                    }
+                  ?>
                 </select></div>
               <div class="col-12 col-sm-6 col-md-2 py-3">
-                <select placeholder="Select Location" class="form-control">
-                  <option>Delhi</option>
+                <select placeholder="Select Location" class="form-control" id="age">
+                  <option value="-1">Age</option>
+                  <?php
+                    $ageGroups = get_acf_field_settings_from_group("SETTINGS: discover talent", 'sci_age_groups')['choices'];
+                    
+                    foreach($ageGroups as $key => $value){
+                      ?>
+                        <option value=<?php echo $key ?>><?php echo $value ?></option>
+                      <?php
+                    }
+                  ?>
                 </select>
               </div>
               <div class="col-12 col-sm-6 col-md-2 py-3">
                 <select placeholder="Select Location" class="form-control">
-                  <option>Delhi</option>
+                  <option value="-1" <?php echo ($selected == "-1")?  'selected="selected"' : '' ?>>Experience</option>
+                  <option value="value1" <?php echo ($selected == "value1")?  'selected="selected"' : '' ?>>A</option>
+                  <option value="value2" <?php echo ($selected == "value2")?  'selected="selected"' : '' ?>>B</option>
                 </select>
               </div>
               <div class="col-12 col-sm-6 col-md-2 py-3">
-                <input type="text" class="form-control" placeholder="Search...">
+                <button class="btn btn-md btn-primary form-control" id="advance-search">Search</button>
               </div>
             </div>
           </div>
@@ -87,7 +121,7 @@ Template Name: Discover Talent
 
   <section class="searchResults my-3">
 
-    <div class="container  ">
+    <div class="container" id="no-search-results">
       <div class="row noResults  p-0 shadow-sm ">
         <div class="col-6 col-sm-6 text-right pt-3"><img src="http://localhost:8080/wordpress/wp-content/uploads/2021/01/noProfilesFound.jpg" alt="No profile found" class="img-fluid" /></div>
         <div class="col-6 col-sm-6 p-3">
@@ -114,3 +148,21 @@ Template Name: Discover Talent
 </div>
     
 <?php get_footer(); ?>
+
+
+<?php
+
+function get_acf_field_settings_from_group($field_group, $field){
+  $raw_field_groups = acf_get_raw_field_groups();
+  foreach ($raw_field_groups as $key => $value) {
+      if ($value["title"] == $field_group) {
+          foreach (acf_get_fields($value['key']) as $key => $value) {
+              if ($value['name'] == $field) {
+                  return $value;
+              }
+          }
+      }
+  }
+}
+
+?>
