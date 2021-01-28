@@ -12703,12 +12703,27 @@ hr.new2 {
   background: #fff;
 }
 
+.profile-personaldetails {
+  padding-top: 10rem;
+}
+
 .profile-personaldetails h5 {
   font-weight: normal;
+  margin-bottom: 1rem;
 }
 
 .profile-personaldetails .selectedcategories .badge {
   font-size: 1.1rem;
+}
+
+@media screen and (max-width: 576px) {
+  .profile-personaldetails {
+    padding-top: 1rem;
+  }
+}
+
+.flexslider {
+  margin-bottom: 0px;
 }
 
 .navbarcolors {
@@ -12857,6 +12872,20 @@ hr.new2 {
 .profilenavigation .navbar {
   overflow: hidden;
   z-index: 999;
+}
+
+@media screen and (max-width: 768px) {
+  .profilenavigation .navbar {
+    overflow: auto;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .profilenavigation .navbar {
+    overflow: auto;
+    white-space: nowrap;
+  }
 }
 
 .profilenavigation .sticky {

@@ -2,17 +2,25 @@
     background:$light-color;
 }
 .profile-personaldetails{
+    padding-top:10rem;
+
     h5{
         font-weight:normal;
+        margin-bottom: 1rem;
     }
     .selectedcategories {
         .badge{
             font-size:1.1rem;
         }
     }
-  
-      
-  
+    
+    @include media-xs{
+        padding-top:1rem;
+    }
+}
+
+.flexslider{
+    margin-bottom:0px;
 }
 
 .navbarcolors{
@@ -146,14 +154,24 @@ padding-left:15px;
     .navbar{
         overflow: hidden;
         z-index: 999;
+        @include media-sm{
+            overflow: auto;
+            white-space: nowrap;
+          }
+        @include media-xs{
+            overflow: auto;
+            white-space: nowrap;
+          }
     }
     .sticky {
         position: fixed;
         top: 0;
+        // left:0;
         width: 100%;
       }
       
       .sticky + .content {
         padding-top: 60px;
       }
+    
 }
