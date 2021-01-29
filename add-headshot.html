@@ -35,31 +35,32 @@
       <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0 mx-auto">
         <div class="card-header">Add a Headshot</div>
         <div class="card-body px-4">
-          <!-- capture-div -->
+          <!-- capture-div info -->
           <div class="capture-div">
             <!-- Info div -->
-            <p class="text-muted m-0 pb-2">1. Pay attention to framing, lighting, and background in your headshot. This
-              is your first impression!</p>
-            <p class="text-muted m-0 pb-2">2. Go easy with the makeup and try to use natural light.</p>
-            <p class="text-muted m-0 pb-2">3. Skip the sunglasses, hats, filters and special effects. This is business!
-            </p>
-            <div class="img-preview">
+            <ul class="text-muted">
+              <li class="pb-2">Pay attention to framing, lighting, and background in your headshot. This
+                is your first impression!</li>
+              <li class="pb-2">Go easy with the makeup and try to use natural light.</li>
+              <li class="pb-2">Skip the sunglasses, hats, filters and special effects. This is business!</li>
+            </ul>
+            <!-- <div class="img-preview">
               <video autoplay="true" id="videoElement"></video>
               <span class="img-preview-default-txtCam">Image preview!</span>
-            </div>
+            </div> -->
             <!-- <div class="disp-cam">
                 <video autoplay="true" id="videoElement"></video>
                 <canvas class="d-none"></canvas>
               </div> -->
             <!-- <div class="d-flex justify-content-around pt-5 pb-3"> -->
-            <a class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
+            <!-- <a class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
               Camera</a>
             <button class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
               Upload from device
-            </button>
+            </button> -->
             <!-- </div> -->
           </div>
-          <!-- upload-div -->
+          <!-- upload-div info -->
           <div class="upload-div">
             <p>
               Crop headshot
@@ -68,29 +69,45 @@
               appear on your profile.
             </p>
             <!-- Img-preview -->
-            <div class="img-preview">
+            <!-- <div class="img-preview">
               <img src="" alt="img-preview" class="img-preview-img">
               <span class="img-preview-default-txt">Image preview!</span>
 
-            </div>
+            </div> -->
+            <!-- <label class="btn btn-custom-file-upload d-flex justify-content-center">
+              <input type="file" name="hsFile" id="hsFile" />
+              Choose file to upload
+            </label> -->
+          </div>
+          <!-- Img preview -->
+          <div class="img-preview">
+            <video autoplay="true" id="videoElement"></video>
+            <img src="" alt="img-preview" class="img-preview-img">
+            <span class="img-preview-default-txt">Image preview!</span>
+          </div>
+          <!-- Upload btn -->
+          <div class="capture-div">
+            <a class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
+              Camera</a>
+            <button class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+              Upload from device
+            </button>
+          </div>
+           <!-- capture btn  -->
+           <div class="upload-div">
             <label class="btn btn-custom-file-upload d-flex justify-content-center">
               <input type="file" name="hsFile" id="hsFile" />
               Choose file to upload
             </label>
-          </div>
-
+           </div>
           <!-- file-edit-btns -->
           <div class="file-edit-btns">
-            <div class="d-flex justify-content-around py-4">
-              <button class="btn btn-details-uphs btn-xs" href=""><i class="fas fa-crop-alt"></i></button>
-              <button class="btn btn-details-uphs btn-xs">
+            <div class="d-flex justify-content-center py-4">
+              <button class="btn btn-details-uphs btn-xs mx-2 px-4">
                 <i class="fas fa-undo"></i>
               </button>
-              <button class="btn btn-details-uphs btn-xs">
+              <button class="btn btn-details-uphs btn-xs mx-2 px-4">
                 <i class="fas fa-undo fa-flip-horizontal"></i>
-              </button>
-              <button class="btn btn-details-uphs btn-xs">
-                <i class="fas fa-check"></i>
               </button>
             </div>
           </div>

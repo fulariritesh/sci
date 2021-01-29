@@ -253,11 +253,10 @@
     $btn_details-uphs-bg,
     $btn_details-uphs-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_details-uphs-bg,
+    $btnbordercolor: $btn_details-uphs-br,
     $btnhoverbg: $btn_details-uphs-hoverbg,
     $btnhovercolor: $btn_details-uphs-color
   );
-  border-radius: 0;
 }
 .btn-details-my-pr {
   @include buttonstyle(
@@ -267,5 +266,28 @@
     $btnbordercolor: $btn_details-mypr-bg,
     $btnhoverbg: $btn_details-mypr-hoverbg,
     $btnhovercolor: $btn_details-mypr-color
+  );
+}
+
+//Popup btns
+.btn-popup-cancel {
+  @include buttonstyle(
+    $btn_popup-cancel-bg,
+    $btn_popup-cancel-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-cancel-hoverbg,
+    $btnhoverbg: $btn_popup-cancel-hoverbg,
+    $btnhovercolor: $btn_popup-cancel-color
+  );
+
+}
+.btn-popup-save {
+  @include buttonstyle(
+    $btn_popup-save-bg,
+    $btn_popup-save-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-save-bg,
+    $btnhoverbg: $btn_popup-save-hoverbg,
+    $btnhovercolor: $btn_popup-save-color
   );
 }

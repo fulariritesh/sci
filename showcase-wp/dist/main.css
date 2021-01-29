@@ -11240,16 +11240,15 @@ hr.new2 {
 }
 
 .btn-details-uphs {
-  background: #28388d;
-  color: #ffff;
+  background: #ffff;
+  color: #07bb9b;
   text-transform: capitalize;
-  border: 1px solid #28388d;
-  border-radius: 0;
+  border: 1px solid #444;
 }
 
 .btn-details-uphs:hover {
-  background: #19235a;
-  color: #ffff;
+  background: #F2F2F2;
+  color: #07bb9b;
 }
 
 .btn-details-my-pr {
@@ -11262,6 +11261,30 @@ hr.new2 {
 .btn-details-my-pr:hover {
   background: #19235a;
   color: #ffff;
+}
+
+.btn-popup-cancel {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #CCCCCC;
+}
+
+.btn-popup-cancel:hover {
+  background: #CCCCCC;
+  color: #444;
+}
+
+.btn-popup-save {
+  background: #08BB9B;
+  color: #fff;
+  text-transform: capitalize;
+  border: 1px solid #08BB9B;
+}
+
+.btn-popup-save:hover {
+  background: #058770;
+  color: #fff;
 }
 
 .jp-nav {
@@ -12209,7 +12232,7 @@ hr.new2 {
   height: auto;
 }
 
-.sign-up {
+.reg-bg {
   background-color: #f2fafd;
 }
 
@@ -12234,10 +12257,6 @@ hr.new2 {
   color: #ea4335;
 }
 
-.login {
-  background-color: #f2fafd;
-}
-
 .login .card .card-body .hr-or {
   height: 13px;
   border-bottom: 1px solid #c3c3c3;
@@ -12259,10 +12278,6 @@ hr.new2 {
   color: #ea4335;
 }
 
-.social-links {
-  background-color: #f2fafd;
-}
-
 @media screen and (max-width: 576px) {
   .social-links .card .card-body h4 {
     font-size: 1.25rem;
@@ -12277,10 +12292,6 @@ hr.new2 {
   .social-links .card .card-body .url-eg {
     font-size: 0.75rem;
   }
-}
-
-.email-con {
-  background-color: #f2fafd;
 }
 
 .email-con .card .card-body a {
@@ -12340,7 +12351,6 @@ hr.new2 {
 .pr-details .img-preview {
   width: 100%;
   min-height: 200px;
-  height: 100%;
   border: 1px dashed grey;
   margin-top: 2rem;
   margin-bottom: 2rem;

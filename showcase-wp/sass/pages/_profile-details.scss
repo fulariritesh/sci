@@ -1,5 +1,5 @@
 .pr-details {
-  background-color: $signup-bgcolor;
+  background-color: $bodyBG;
   .btn-group {
     @include media-sm {
       display: block;
@@ -29,7 +29,6 @@
   .img-preview {
     width: 100%;
     min-height: 200px;
-    height: 100%;
     border: 1px dashed grey;
     margin-top: 2rem;
     margin-bottom: 2rem;

@@ -1,104 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Category Modal</title>
-    <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
-  </head>
-  <body>
-    <section>
-      <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editCat">
-  Edit Category
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="editCatModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="col-3">
-          <img src="" alt="logo">
-        </div>
-        <h5 class="modal-title col-6 mx-auto" id="editCatModalLabel">Manage Category</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-8 mx-auto">
-            <p>Complete this section with as much detail as possible for better chances of being scouted</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Category Modal</title>
+  <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
+</head>
+
+<body>
+  <section>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editCat">
+      Edit Category
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="editCatModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="editCatModalLabel">Manage Category</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-8 mx-auto accordion shadow-sm pt-4" id="accordion">
-            <!-- One card -->
-          <div class="accordion-group mb-3 mx-5 card">
-            <div
-              class="row card-header collapsed p-2"
-              id="headingOne"
-              type="button"
-              data-toggle="collapse"
-              data-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              <div class="col-3 pl-md-5">
-                <!-- <div class="sprite actors"></div>
-                <div class="sprite actors-w d-none"></div> -->
-                <svg class="icon">
-                  <use xlink:href="images/category-icons.svg#actor" />
-                </svg>
-                <!-- <img src="./images/actors.png" alt="Actors Category" /> -->
-              </div>
-              <div class="col-7 col-md-8">
-                <p class="text-uppercase my-2 pt-1">Actor</p>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-11 col-md-8 mx-auto">
+                <p>Complete this section with as much detail as possible for better chances of being scouted</p>
               </div>
             </div>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
-              <div class="accordion-inner card-body">
-                <div class="btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-details-cat-subcat mb-1">
-                    <input type="checkbox" /> Agency Scout
-                  </label>
-                  <label class="btn btn-details-cat-subcat mb-1">
-                    <input type="checkbox" /> Feature Film
-                  </label>
-                  <label class="btn btn-details-cat-subcat mb-1">
-                    <input type="checkbox" /> Theatre & Musical
-                  </label>
+            <form class="row">
+              <div class="col-12 col-lg-8 mx-auto accordion shadow-sm pt-4" id="accordion">
+                <!-- One card -->
+                <div class="accordion-group mb-3 mx-lg-5 card">
+                  <div class="row card-header collapsed p-2" id="headingOne" type="button" data-toggle="collapse"
+                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="col-3 pl-md-5">
+                      <!-- <div class="sprite actors"></div>
+                  <div class="sprite actors-w d-none"></div> -->
+                      <svg class="icon">
+                        <use xlink:href="images/category-icons.svg#actor" />
+                      </svg>
+                      <!-- <img src="./images/actors.png" alt="Actors Category" /> -->
+                    </div>
+                    <div class="col-7 col-md-8">
+                      <p class="text-uppercase my-2 pt-1">Actor</p>
+                    </div>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                    <div class="accordion-inner card-body">
+                      <div class="btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-cat-subcat mb-1">
+                          <input type="checkbox" /> Agency Scout
+                        </label>
+                        <label class="btn btn-details-cat-subcat mb-1">
+                          <input type="checkbox" /> Feature Film
+                        </label>
+                        <label class="btn btn-details-cat-subcat mb-1">
+                          <input type="checkbox" /> Theatre & Musical
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Two card -->
+                <div class="accordion-group mb-3 mx-lg-5 card">
+                  <div class="row card-header collapsed p-2" id="headingTwo" type="button" data-toggle="collapse"
+                    data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <div class="col-3 pl-md-5">
+                      <!-- <div class="sprite actors"></div>
+                  <div class="sprite actors-w d-none"></div> -->
+                      <svg class="icon">
+                        <use xlink:href="images/category-icons.svg#model" />
+                      </svg>
+                      <!-- <img src="./images/actors.png" alt="Actors Category" /> -->
+                    </div>
+                    <div class="col-7 col-md-8">
+                      <p class="text-uppercase my-2 pt-1">Models</p>
+                    </div>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
+                    <div class="accordion-inner card-body">
+                      <div class="btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-cat-subcat mb-1">
+                          <input type="checkbox" /> SubCat 1
+                        </label>
+                        <label class="btn btn-details-cat-subcat mb-1">
+                          <input type="checkbox" /> SubCat 2
+                        </label>
+                        <label class="btn btn-details-cat-subcat mb-1">
+                          <input type="checkbox" /> SubCat 3
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <!-- btns div -->
+                  <div class="d-flex justify-content-around py-4">
+                    <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancle</button>
+                    <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-    </section>
-    <script
-      src="https://kit.fontawesome.com/f5515e915e.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      $(".card-header").click(function () {
-        $(this).toggleClass("selected");
-      });
-    </script>
-  </body>
+
+    <!-- Button trigger Deselect Category Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deselectCategory">
+      Deselect Category Modal
+    </button>
+
+    <!-- Deselect Category Modal -->
+
+    <div class="modal fade" id="deselectCategory" tabindex="-1" aria-labelledby="deselectCategoryLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deselectCategoryLabel">Confirm</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="px-4 pb-4">
+              Hi! Deselecting a main category will result in this section being hidden from your profile. You will also
+              not appear in search results for this category. However, this data has been saved if you want to re-select
+              this category in the future.
+            </p>
+            <!-- btns div -->
+            <div class="d-flex justify-content-around pb-4">
+              <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancle</button>
+              <button class="btn btn-lg btn-popup-save">Continue</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <script src="https://kit.fontawesome.com/f5515e915e.js" crossorigin="anonymous"></script>
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+  <script>
+    $(".card-header").click(function () {
+      $(this).toggleClass("selected");
+    });
+  </script>
+</body>
+
 </html>
