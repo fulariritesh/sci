@@ -10,6 +10,8 @@ jQuery(function($) {
     let location = '-1';
     let gender = '-1';
     let age = '-1';
+    let noResultsWithAdvanceFilter = false;
+    let advanceSearch = false;
 
     const noSerchResultDiv = $('#no-search-results');
     noSerchResultDiv.hide();
@@ -20,17 +22,26 @@ jQuery(function($) {
     $("#FT-allcategories").on('click','.actorCategory',function(){
         pageNumber = 1;
         noSerchResultDiv.hide();
+        noResultsWithAdvanceFilter = false;
+        advanceSearch = false;
+        $('#advance-search').prop('disabled', false);
         category[0] =$(this).attr("id");
         $('#subcategory-type').text($(this).data("singular-name"));
         
         $.get(`${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${category[0]}&location=${location}&gender=${gender}&age=${age}`, function(response){       
-        $('.displayList').empty();
-            totalMatchingProfiles = response.totalCount;
-            $('.totalCount').text(totalMatchingProfiles);   
-            UpdateList(response.userList[0]);
-            SubCategoryBlocks(response.categories);
-            $("#FT-allcategories").hide();
-            $("#FT-subcategories").show();
+            if(response.result == 0){
+                $('.displayList').empty();
+                totalMatchingProfiles = response.totalCount;
+                $('.totalCount').text(totalMatchingProfiles);   
+                UpdateList(response.userList[0]);
+                SubCategoryBlocks(response.categories);
+                $("#FT-allcategories").hide();
+                $("#FT-subcategories").show();
+            }else if(response.result == 1){
+                noResultsFoundWithFilters(response);
+            }else{
+                noResultsFound(response);
+            }
         });
 
     });
@@ -38,6 +49,9 @@ jQuery(function($) {
     $("#FT-subcategories").on('click','.actorSubCategory',function(){
         pageNumber = 1;
         noSerchResultDiv.hide();
+        noResultsWithAdvanceFilter = false;
+        advanceSearch = false;
+        $('#advance-search').prop('disabled', false);
         
         $(this).find('.row.shadow-sm').toggleClass('selected-subcategory');
         
@@ -63,10 +77,16 @@ jQuery(function($) {
         }
         
         $.get(`${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${categoryList}&location=${location}&gender=${gender}&age=${age}`, function(response){     
-        $('.displayList').empty();
-            totalMatchingProfiles = response.totalCount;
-            $('.totalCount').text(totalMatchingProfiles);   
-            UpdateList(response.userList[0]);
+            if(response.result == 0){
+                $('.displayList').empty();
+                totalMatchingProfiles = response.totalCount;
+                $('.totalCount').text(totalMatchingProfiles);   
+                UpdateList(response.userList[0]);
+            }else if(response.result == 1){
+                noResultsFoundWithFilters(response);
+            }else{
+                noResultsFound(response);
+            }
         });
 
     });
@@ -74,14 +94,18 @@ jQuery(function($) {
     $('#advance-search').on('click',function(){
         pageNumber = 1;
         noSerchResultDiv.hide();
+        advanceSearch = true;
+        $('#advance-search').prop('disabled', false);
         $.get(`${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${category.join()}&location=${location}&gender=${gender}&age=${age}`, function(response){       
-            if(response != 0){
+            if(response.result == 0){
                 $('.displayList').empty();
                 totalMatchingProfiles = response.totalCount;
                 $('.totalCount').text(totalMatchingProfiles);   
                 UpdateList(response.userList[0]);
+            }else if(response.result == 1){
+                noResultsFoundWithFilters(response);
             }else{
-                noSerchResultDiv.show();
+                noResultsFound(response);
             }
                 
         });
@@ -101,20 +125,30 @@ jQuery(function($) {
 
     $("#AllCategories").on('click',function(){
         noSerchResultDiv.hide();
+        $('#advance-search').prop('disabled', false);
         $("#FT-allcategories").show();
         $("#FT-subcategories").hide();
         pageNumber = 1;
         category = [0];
         categoryList = '';
         displayingCategory = true;
+        noResultsWithAdvanceFilter = false;
+        advanceSearch = true;
         AllCategoryListing();
     });
 
     $('.resultlisting').on('click','.loadMore button',function(){
-        query = `${baseUrl}${endpoint}?pageNumber=${++pageNumber}&pageSize=${pageSize}&category=${category.join()}&location=${location}&gender=${gender}&age=${age}`;
-        $.get(query, function(response){
-            UpdateList(response.userList[0]);            
-        });
+        if(noResultsWithAdvanceFilter){
+            query = `${baseUrl}${endpoint}?pageNumber=${++pageNumber}&pageSize=${pageSize}&category=${category.join()}`;
+            $.get(query, function(response){
+                UpdateList(response.userList[0]);            
+            });
+        }else{
+            query = `${baseUrl}${endpoint}?pageNumber=${++pageNumber}&pageSize=${pageSize}&category=${category.join()}&location=${location}&gender=${gender}&age=${age}`;
+            $.get(query, function(response){
+                UpdateList(response.userList[0]);            
+            });
+        }
         
     });
 
@@ -126,14 +160,53 @@ jQuery(function($) {
             url: `${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&location=${location}&gender=${gender}&age=${age}`, 
             cache: true
           }).then(function(response){
-            
-            if(pageNumber == 1){
-                CategoryBlocks(response.categories);
-                totalMatchingProfiles = response.totalCount;
-                $('.totalCount').text(totalMatchingProfiles);
+            if(response.result == 0){
+                if(pageNumber == 1){
+                    CategoryBlocks(response.categories);
+                    totalMatchingProfiles = response.totalCount;
+                    $('.totalCount').text(totalMatchingProfiles);
+                }
+                UpdateList(response.userList[0]); 
+            }else if(response.result == 1){
+                noResultsFoundWithFilters(response);
+            }else{
+                noResultsFound(response);
             }
-            UpdateList(response.userList[0]); 
           });
+    }
+
+    function noResultsFoundWithFilters(response){
+        noSerchResultDiv.show();
+        $('.totalCount').text(0);
+        if(pageNumber == 1){
+            $('.displayList').empty();
+        }
+        query = `${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${category.join()}`;
+        $.get(query, function(response){
+            if(response.result == 2){
+                $('.displayList').text(response.text);
+            }else{
+                $('.displayList').empty();  
+                totalMatchingProfiles = response.totalCount;
+                noResultsWithAdvanceFilter = true;
+                UpdateList(response.userList[0]);
+                
+                if(displayingCategory && !advanceSearch){
+                    $("#FT-allcategories").hide();
+                    $("#FT-subcategories").show();
+                    SubCategoryBlocks(response.categories);
+                    
+                }
+            }
+                    
+        });
+    }
+
+    function noResultsFound(response){
+        $('.loadMore button').prop('disabled', true);
+        $('.totalCount').text(0);
+        $('.displayList').text(response.text);
+        $('#advance-search').prop('disabled', true);
     }
 
     function CategoryBlocks(categories){

@@ -128,7 +128,12 @@ $genderSelected;
           <h4>No Profiles found from Pondicherry</h4>
           <h6>Explore other locations nearby for your requirements</h6>
           <h6 class="pt-1 pt-sm-2">If you want to showcase your talent from this location</h6>
-          <button class="btn btn-sm btn-primary">Join Now</button>
+          <?php
+            $page_object = get_page_by_path( 'join-now' );
+            $page_id = $page_object->ID;
+            $permalink = get_permalink( $page_id );
+          ?>
+          <a href=<?php echo $permalink ?> title="Join Now" class="btn btn-sm btn-primary">Join Now</a> 
         </div>
       </div>
     </div>

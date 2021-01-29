@@ -143,8 +143,9 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
         foreach($categoriesFound as $key => $value){
             $category = new stdClass();
             $category->id = $key;
-            $category->name = $value;
+            $category->name = get_term_meta( $key, 'category_name', true );
             $category->image = get_field('sci_category_image', 'jobs_' . $key);
+            $category->singularName = get_term_meta( $key, 'category_name_singular', true );
             
             $args = array(
               'role'          => 'subscriber',
@@ -169,13 +170,22 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
 
             array_push($categories, $category);
         }
-
+        $data->result = 0;
         $data->categories = $categories;
     }
 
     return $data;
     }else{
-      return 0;
+      $data = new stdClass();
+      if(($location && $location != "-1") || ($gender && $gender != '-1') || ($age && $age != '-1')){
+        $data->result = 1;
+        return $data;
+      }else{
+        $data->result = 2;
+        $data->text = "Sorry! No results found."; //fetch this from DB
+        return $data;
+      }
+      
     }
   }
  
