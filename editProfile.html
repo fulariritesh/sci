@@ -5,6 +5,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
   <title>Showcase India</title>
+  <link href="./showcase-wp/sass/components/bootstrap-editable.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -13,84 +15,175 @@
     <section class="container-fluid">
         <div class="container px-0 ">
         <div class="row">
-            <div class="col-12 col-sm-6 pt-3 scibreadcrumb order-sm-6">
-                <ul class="nav flowt-left float-sm-right">
-                    <li class="nav-item">
-                    <a class="nav-link select" data-toggle="tab" href="#">Find Talent</a>
-                    </li>
-                    <li class="pt-2"><i class="fas fa-chevron-right"></i></li>
-                    <li class="nav-item">
-                        <a class="nav-link select" data-toggle="tab" href="#">View Profile</a>
-                    </li>
-                </ul>
-                </div>
-            <div class="col-12 col-sm-6 pt-3 order-sm-1">
-            <!-- Nav tabs -->
-            <ul class="nav findtalent-tabs">
-                <li class="nav-item">
-                <a class="nav-link select" data-toggle="tab" href="">Find Talent</a>
-                </li>
-            </ul>
+            <div class="col-12 col-sm-6 pt-3">
+               <h5>My Profile</h5>
+            </div>
+            <div class="col-12 col-sm-6 pt-3 text-right">
+                <button class="btn btn-plain btn-sm shadow-sm" >View as Public</button>
             </div>
             
         </div>
 
+       <div class="row blockBG my-3 progressbar">
+           <div class="col-sm-11 mx-auto text-center p-3">
+            <h4 class="text-center font-weight-bold">
+                Profile Completion: <span class="completevalue">25%</span>
+                <a href="#" data-toggle="tooltip" title="Hooray!"> <i class="fas fa-info-circle"></i></a>
+            </h4>
+              <p class="text-center">
+                Good job! Keep adding to your profile to improve it further. 
+              </p>
+            <div class="progress pr-com-bar">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  style="width: 25%"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                ></div>
+              </div>
+           </div>
+       </div>
       
-        <div class="tab-content">
-            <div class="tab-pane container  active pb-4" id="">
+        <!-- <div class="tab-content"> -->
+            <!-- <div class="tab-pane container active pb-4" id=""> -->
                 <div class="row p-3 blockBG">
                     <div class="col-12 col-sm-6">
-                        <section class="slider">
-                        <div class="flexslider">
-                            <ul class="slides">
-                              <li data-thumb="images/profiles/1a.jpg">
-                                    <img src="images/profiles/1a.jpg" />
-                                    </li>
-                                    <li data-thumb="images/profiles/1b.jpg">
-                                    <img src="images/profiles/1b.jpg" />
-                                    </li>
-                                    <li data-thumb="images/profiles/1c.jpg">
-                                    <img src="images/profiles/1c.jpg" />
-                                    </li>
-                                    <li data-thumb="images/profiles/1d.jpg">
-                                    <img src="images/profiles/1d.jpg" />
-                                    </li>
-                            </ul>
-                          </div>
-                          </section>
+                        <div class="col-12 ">
+                            <div class="headshotarea">
+                            <!-- <label class="btn btn-add uploadimage" >Add Image
+                                <input type="file" id="file-input" class="" size="60" >  
+                            </label> -->
+                            <img src="/images/dummy.jpg" />
+                            <button class="btn btn-add">Add Image</button>
+                        </div>
                     </div>
-                    <div class="col-12 col-sm-6 profile-personaldetails">
-                        <h1>Sia Jha</h1>
-                        <h5><i class="fas fa-envelope"></i> siajha123@gmail.com</h5>
+                        <div class="col-12 mt-3">
+                            <div class="row">
+                                <div class="col-3 ">
+                                    <div class="headshotthumnails">
+                                        <img src="/images/thumbnail.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="headshotthumnails">
+                                        <img src="/images/thumbnail.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col-3 ">
+                                    <div class="headshotthumnails">
+                                        <img src="/images/thumbnail.png" />
+                                    </div>
+                                </div>
+
+                                <div class="col-3 ">
+                                    <div class="headshotthumnails">
+                                        <img src="/images/thumbnail.png" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="col-12 col-sm-6 profile-personaldetails pt-5">
+                        <form id="editable-form" class="editable-form">
+                            <div class="form-group row"> 
+                                 <h1><a href="#" id="username" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >Sia Jha</a></h1>
+                            </div>
+                            <div class="form-group row"> 
+                                <h5><i class="fas fa-envelope pr-2"></i><a href="#" id="useremail" data-type="email" data-pk="1" data-placement="right"  data-title="Enter your email" class="editable editable-click " data-abc="true">siajha@gmail.com</a></h5>
+                            </div>
+                            <div class="form-group row"> 
+                                <h5><i class="fas fa-phone-alt pr-2"></i><a href="#" id="phone" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >+91 9878765434</a></h5>
+
+                                <label class="switch ml-4">
+                                    <input type="checkbox" id="togBtn">
+                                    <div class="slider round">
+                                     <!--ADDED HTML -->
+                                     <span class="on">Show</span>
+                                     <span class="off">Hide</span>
+                                     <!--END-->
+                                    </div>
+                                   </label>
+
+                           </div>
+                            <div class="form-group row"> 
+                                <h5><i class="fas fa-map-marker-alt pr-2"></i> <a href="#" id="location" data-type="typeahead" data-pk="1" data-value="" data-title="Select location" class="editable editable-click" data-abc="true">Delhi </a> </h5>
+                            </div>
+                            <div class="form-group row"> 
+                                <h5><i class="fas fa-venus-mars"></i> <a href="#" id="gender" data-type="select" data-pk="1" data-value="" data-title="Select gender" class="editable editable-click" data-abc="true">Female</a> </h5>
+                            </div>
+                        </form>
+                        
+                        <!-- <h5><i class="fas fa-envelope"></i> siajha123@gmail.com</h5>
                         <h5><i class="fas fa-phone-alt pr-2"></i> +91 9887766787</h5>
                         <h5><i class="fas fa-map-marker-alt pr-2"></i> Delhi, India</h5>
-                        <h5><i class="fas fa-venus-mars"></i> Female</h5>
+                        <h5><i class="fas fa-venus-mars"></i> Female</h5> -->
 
-                        <div class="selectedcategories pt-3">
+                       
+
+                        <div class="selectedcategories pt-1">
+                            <div class="text-right"> <button class="btn btn-edit">Edit</button></div>
                             <span class="badge c-actors mt-2">Actor</span><span class="badge c-models mt-2">Model</span>
                             <span class="badge c-photographers mt-2">Photographer</span><span class="badge c-musicians mt-2">Musician</span>
                         </div>
 
-                        <div class="selectedsocialmedia pt-3">
+                        <div class="selectedsocialmedia pt-1">
+                            <div class="text-right"> <button class="btn btn-edit">Edit</button></div>
                             <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" alt="" /></a>
                             <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/color/30/000000/facebook.png" alt="" /></a>
                         </div>
                     </div>
                 </div>
-                <!-- Introdustion  Block-->
+
+                   <!--Empty Introduction Block-->
+                   <div class="row mt-3 blockBG p-3 emptyblock">
+                    <div class="col-sm-6 cameraIntro">
+                        <div class="col-12 pt-3 text-center">
+                            <h4>Intro to camera</h4>
+                        </div>
+                        <div class="col-12 text-center">
+                        <p>Completing this section will increase your chances of being noticed by casting professionals.</p>
+                        </div>
+                        <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-add ">Add Video</button></div>
+                    </div>
+
+                    <div class="col-sm-6 cameraIntro">
+                        <div class="col-12 pt-3 text-center">
+                            <h4>Introduction</h4>
+                        </div>
+                        <div class="col-12 text-center">
+                        <p>Write a short introduction to yourself.</p>
+                        </div>
+                        <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-add ">Add Intro</button></div>
+                    </div>
+
+                </div>
+
+                <!-- Introduction  Block-->
                 <div class="row mt-3 p-3 blockBG">
                     <div class="col-12 col-sm-6 introvideo">
                         <iframe width="100%" height="300px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
                         </iframe>
                     </div>
                     <div class="col-12 col-sm-6 intro">
-                        <h4>Introduction</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Aenean accumsan magna nisi, sed lacinia dolor imperdiet nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec elit ligula. Maecenas luctus vel sapien quis volutpat. Proin feugiat, est ac pulvinar condimentum, quam leo placerat leo, vel convallis mi libero vel dolor.</p>
+                        <div class="row">
+                            <div class="col-sm-6 "> <h4>Introduction</h4></div>
+                        <div class="col-sm-6 px-0 text-right">
+                            <button class="btn btn-edit">Edit</button>
+                        </div>
+                        </div>
+                       
+                        <p class="pt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Aenean accumsan magna nisi, sed lacinia dolor imperdiet nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec elit ligula. Maecenas luctus vel sapien quis volutpat. Proin feugiat, est ac pulvinar condimentum, quam leo placerat leo, vel convallis mi libero vel dolor.</p>
                     </div>
                 </div>
 
                  <!-- Navigation Bar-->
-                 <div class="row blockBG profilenavigation mt-3 shadow">
+                 <div class="row blockBG profilenavigation mt-3 ">
                 <nav id="navbar" class="navbar navbar-expand navbar-light navbarcolors  ">
                     <div class="" id="navbarNav">
                       <ul class="navbar-nav">
@@ -122,40 +215,38 @@
                 <div class="content">
                 <!-- Photo Grid-->
                 <div class="photogrid">
-                    <div class="col-12 pt-3"> <h4>Photos (23)</h4></div>
                    
+                    <div class="row">
+                        <div class="col-sm-6 pt-3 px-0"> <h4>Photos (23)</h4></div>
+                        <div class="col-sm-6 pt-3 px-0 text-right">
+                            <button class="btn btn-edit">Edit</button>
+                            <button class="btn btn-add">Add</button>
+                        </div>
+                    </div>
+
                 <div class="row pt-2">
-                    <div class="column">
-                        <a href="#" data-toggle="modal" data-target="#myModal" ><img src="./images/gridimg/2.png" style="width:100%"></a>
-                        <img src="./images/gridimg/3.jpg" style="width:100%">
-                        <img src="./images/gridimg/4.jpg" style="width:100%">
-                        <img src="./images/gridimg/5.jpg" style="width:100%">
-                        <img src="./images/gridimg/6.jpg" style="width:100%">
-                      </div>
-                      <div class="column">
+                  
+                      <div class="col-sm-4">
+                        
                         <img src="./images/gridimg/7.jpg" style="width:100%">
-                        <img src="./images/gridimg/8.jpg" style="width:100%">
-                        <img src="./images/gridimg/9.jpg" style="width:100%">
-                        <img src="./images/gridimg/10.jpg" style="width:100%">
+                      </div>
+                      <div class="col-sm-4">
                         <img src="./images/gridimg/1.jpg" style="width:100%">
+                      </div>
+                      <div class="col-sm-4">
                         <img src="./images/gridimg/2.png" style="width:100%">
-                      </div>  
-                      <div class="column">
-                        <img src="./images/gridimg/1.jpg" style="width:100%">
-                        <img src="./images/gridimg/2.png" style="width:100%">
-                        <img src="./images/gridimg/3.jpg" style="width:100%">
-                        <img src="./images/gridimg/4.jpg" style="width:100%">
+                        <div class="approved-status"><i class="fas fa-check"></i></div>
+                      </div>
+                      <div class="col-sm-4">
                         <img src="./images/gridimg/5.jpg" style="width:100%">
-                        <img src="./images/gridimg/6.jpg" style="width:100%">
+                        <div class="pending-status">Pending</div>
                       </div>
-                      <div class="column">
-                        <img src="./images/gridimg/7.jpg" style="width:100%">
-                        <img src="./images/gridimg/8.jpg" style="width:100%">
-                        <img src="./images/gridimg/9.jpg" style="width:100%">
-                        <img src="./images/gridimg/10.jpg" style="width:100%">
-                        <img src="./images/gridimg/1.jpg" style="width:100%">
-                        <img src="./images/gridimg/2.png" style="width:100%">
+                      <div class="col-sm-4">
+                        <div class="rejected-overlay"></div> 
+                        <img src="./images/gridimg/5.jpg" style="width:100%">
+                        <div class="rejected-status">Rejected</div>
                       </div>
+
                 </div>
                 <div class="loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
 
@@ -187,8 +278,10 @@
                 </div>
                 <!--Videos block-->
                 <div class="row mt- blockBG p-3">
-                    <div class="col-12 pt-3">
-                        <h4>Videos (5)</h4>
+                    <div class="col-sm-6 pt-3 "> <h4>Videos (5)</h4></div>
+                    <div class="col-sm-6 pt-3 text-right">
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-add">Add</button>
                     </div>
                     <div class="col-12 mt-2 profilevideos">
                         <iframe width="100%" height="400px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
@@ -219,8 +312,10 @@
 
                  <!--Audio block-->
                  <div class="row mt-3 blockBG p-3 audioblock">
-                    <div class="col-12 pt-3">
-                        <h4>Audio (2)</h4>
+                    <div class="col-sm-6 pt-3 "> <h4>Audio (3)</h4></div>
+                    <div class="col-sm-6 pt-3  text-right">
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-add">Add</button>
                     </div>
                     <div class="col-12 pt-1  row">
                         <div class="col-sm-6">
@@ -253,11 +348,12 @@
 
                   <!--Physical Attributes-->
                  <div class="row mt-3 physicalattribs">
-                    <div class="col-12 pt-3 px-0">
-                        <h4>Physical Attributes</h4>
-                    </div>
+                    <div class="col-sm-6 pt-3 px-0"> <h4>Physical Attributes</h4></div>
+                        <div class="col-sm-6 pt-3 px-0 text-right">
+                            <button class="btn btn-edit">Edit</button>
+                        </div>
                 </div>
-                        <div class="row physicalfeatures justify-content-center">
+                        <div class="row physicalfeatures justify-content-center pt-3">
                             <div class=" card">
                              <div class="pa-height"><div class='sprite height-c'></div></div>
                              <div class="card-title">Height<span>180cms/5ft 11in</span></div>
@@ -354,6 +450,7 @@
                     </div>
                     <div class="col-12 col-sm-6 pt-3 text-left text-sm-right">
                         <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous acting experience</span>
+                        <button class="btn btn-edit">Edit</button>
                     </div>
                    <div class="col-12 pt-3 pt-sm-0">
                        <div class="specialised-skills">
@@ -396,6 +493,7 @@
                     </div>
                     <div class="col-12 col-sm-6 pt-3 text-left text-sm-right">
                         <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous modelling experience</span>
+                        <button class="btn btn-edit">Edit</button>
                     </div>
                    <div class="col-12 pt-3 pt-sm-0">
                        <div class="specialised-skills">
@@ -431,11 +529,9 @@
                     <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
                 </div>
             </div>   <!-- content closing -->
-                </div> <!-- tab pane div closing -->
-            </div>
+                <!-- </div> tab pane div closing -->
+            <!-- </div> -->
         </div>
-       
-     
         </div>
     </section>
   </div>  
@@ -452,27 +548,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
-    <script src="showcase-wp/js/jquery.flexslider.js"></script>
-    <script type="text/javascript">
-        $(function(){
-          SyntaxHighlighter.all();
-        });
-        $(window).on('load', function(){
-          
-          $('.flexslider').flexslider({
-            animation: "slide",
-            controlNav: "thumbnails",
-            start: function(slider){
-              $('body').removeClass('loading');
-            }
-          });
-        });
-      </script>
-      <!-- Syntax Highlighter -->
-  <script type="text/javascript" src="../sci-main/showcase-wp/js/shCore.js"></script>
-  <script type="text/javascript" src="../sci-main/showcase-wp/js/shBrushXml.js"></script>
-  <script type="text/javascript" src="../sci-main/showcase-wp/js/shBrushJScript.js"></script>
-
+    <script src="/showcase-wp/js/bootstrap-editable.min.js"></script>
+    <!-- <script src="showcase-wp/js/jquery.flexslider.js"></script> -->
+    
   <script>
     window.onscroll = function() {myFunction()};
     
@@ -488,6 +566,68 @@
       }
     }
     </script>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+
+//         (function($) {
+// 'use strict';
+// $(function() {
+// if ($('#editable-form').length) {
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editableform.buttons =
+        '<button type="submit" class="btn btn-primary btn-sm editable-submit">' +
+            '<i class="fa fa-fw fa-check"></i>' +
+            '</button>' +
+        '<button type="button" class="btn btn-warning btn-sm editable-cancel">' +
+            '<i class="fa fa-fw fa-times"></i>' +
+            '</button>';
+
+        $('#username').editable({
+        type: 'text',
+        pk: 1,
+        name: 'username',
+        title: 'Enter username'
+        });
+
+        $('#useremail').editable({
+        type: 'text',
+        pk: 1,
+        name: 'useremail',
+        title: 'Enter Email'
+        });
+
+        $('#phone').editable({
+        type: 'text',
+        pk: 1,
+        name: 'phone',
+        title: 'Enter phone'
+        });
+
+        $('#gender').editable({
+        source: [{
+        value: 1,
+        text: 'Male'
+        },
+        {
+        value: 2,
+        text: 'Female'
+        }
+        ]
+        });
+
+        $('#country').editable({
+        value: 'ru',    
+        source: [
+              {value: 'gb', text: 'Great Britain'},
+              {value: 'us', text: 'United States'},
+              {value: 'ru', text: 'Russia'}
+           ]
+    });
+
+
+        </script>
 </body>
 
 </html>

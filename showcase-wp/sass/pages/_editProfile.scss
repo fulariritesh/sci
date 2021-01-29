@@ -1,0 +1,117 @@
+@mixin upload-status(
+$bg, 
+$color
+) {
+    background:$bg;
+    color:$color;
+    position: absolute;
+    bottom:10px;
+    right:10px;
+    border-radius:8px;
+}
+.approved-status{
+    @include upload-status($approvedBG, $approveColor);
+    border-radius:50%;
+    width: 30px;
+    height: 30px;
+    padding-left:7px;
+    padding-top:3px;
+}
+.pending-status{
+    @include upload-status($pendingBG, $pendingColor);
+    padding:0px 8px;
+    font-size:13px;
+    right:20px;
+}
+.rejected-status{
+    @include upload-status($rejectedBG, $rejectedColor);
+    padding:0px 8px;
+    font-size:13px;
+    right:20px;
+    z-index: 3; 
+}
+
+.rejected-overlay{
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $light-color;
+    opacity: 0.6;
+    z-index: 2; 
+    cursor: pointer; 
+}
+
+.completevalue{
+    color:$primary-color;
+}
+.headshotarea{
+    background:$bodyBG;
+    width:100%;
+}
+.headshotthumnails{
+    width:100%;
+    height:130px;
+    background:$bodyBG;
+    img{
+        width: 100%;
+overflow: hidden;
+    }
+}
+.uploadimage input[type="file"] {
+    display: none;
+}
+
+.editable-form .editable {
+    // color: #000;
+    // font-size: .8125rem
+}
+
+.editable-form .editable-click {
+    border-color: #000
+}
+
+.editable-container.editable-inline {
+    max-width: 100%
+}
+
+.editable-container.editable-inline .editableform {
+    max-width: 100%
+}
+
+.editable-container.editable-inline .editableform .control-group {
+    max-width: 100%;
+    white-space: initial
+}
+
+.editable-container.editable-inline .editableform .control-group>div {
+    max-width: 100%
+}
+
+.editable-container.editable-inline .editableform .control-group .editable-input input,
+.editable-container.editable-inline .editableform .control-group .editable-input textarea {
+    max-width: 100%;
+    width: 100%
+}
+
+@media (max-width: 991px) {
+    .editable-container.editable-inline .editableform .control-group .editable-buttons {
+        display: block;
+        margin-top: 10px
+    }
+}
+
+.btn-group-sm>.btn,
+.btn-sm {
+    padding: 0.49rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem
+}
+
+.btn-warning {
+    color: #fff
+}

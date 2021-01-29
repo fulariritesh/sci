@@ -7,6 +7,7 @@ $primary: #07bb9b;
 $secondary: #00a6d0;
 $warning: #ea4335;
 $dark: #1e1e1e;
+$grey:#efefef;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -190,3 +191,22 @@ $specialisedbadgeBG:#f8d7da;
 $specialisedbadgeBorder:#e8c1c4;
 $languagebadgeBG:#d4edda;
 $languagebadgeBorder:#a9f0ba;
+
+//edit profile page variables
+$btn_plainBG: #fff;
+$btn_plaincolor: #444;
+$btn_plainhoverbg: #fcfcfc;
+$btn_plainborder: #f3f3f3;
+
+//edit button
+$btn_editBG: #efefef;
+$btn_editcolor: #444;
+$btn_edithoverbg: #e7e6e6;
+$btn_editborder: #d8d8d8;
+
+$approvedBG:#16d011;
+$approveColor:#fff;
+$pendingBG:#ffd800;
+$pendingColor:#fff;
+$rejectedBG:#de1a1a;
+$rejectedColor:#fff;
