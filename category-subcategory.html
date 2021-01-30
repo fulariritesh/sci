@@ -14,7 +14,7 @@
           id="accordion"
         >
           <h4 class="text-center font-weight-bold py-4">
-            Select the jobs you're interested in
+            Select your main skills and specialised skills
           </h4>
           <!-- One card -->
           <div class="accordion-group mb-3 card">
@@ -375,6 +375,12 @@
               </div>
             </div>
           </div>
+          <button class="btn btn-block btn-details-nxt py-3 mt-5 mb-3">
+            Continue
+          </button>
+          <button class="btn btn-block btn-details-skp py-3 mb-3">
+            Skip for now
+          </button>
         </div>
       </div>
     </section>
@@ -394,34 +400,8 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      $(document).ready(function () {
-        $("#headingOne").click(function () {
-          $("#headingOne").toggleClass("selected");
-        });
-        $("#headingTwo").click(function () {
-          $("#headingTwo").toggleClass("selected");
-        });
-        $("#headingThree").click(function () {
-          $("#headingThree").toggleClass("selected");
-        });
-        $("#headingFour").click(function () {
-          $("#headingFour").toggleClass("selected");
-        });
-        $("#headingFive").click(function () {
-          $("#headingFive").toggleClass("selected");
-        });
-        $("#headingSix").click(function () {
-          $("#headingSix").toggleClass("selected");
-        });
-        $("#headingSeven").click(function () {
-          $("#headingSeven").toggleClass("selected");
-        });
-        $("#headingEight").click(function () {
-          $("#headingEight").toggleClass("selected");
-        });
-        $("#headingNine").click(function () {
-          $("#headingNine").toggleClass("selected");
-        });
+      $(".card-header").click(function () {
+        $(this).toggleClass("selected");
       });
     </script>
   </body>

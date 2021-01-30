@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Social Links Modal</title>
+  <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
+</head>
+
+<body>
+  <section>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSocialLinks">
+      Edit Social Links
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editSocialLinks" tabindex="-1" aria-labelledby="editSocialLinksModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="editSocialLinksModalLabel">Manage Social Links</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-11 col-md-8 mx-auto text-center">
+                <p>Display your social media accounts, if any.</p>
+              </div>
+            </div>
+            <div class="row social-links">
+              <div class="card col-12 col-lg-8 mx-auto shadow-sm pt-4">
+                <div class="card-body">
+                  <form action="">
+                    <div class="form-group mt-4">
+                      <div>
+                        <img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" />Instagram
+                      </div>
+                      <p class="url-eg">https://instagram.com/username</p>
+                      <input class="form-control" type="text" placeholder="Profile url" />
+                    </div>
+                    <div class="form-group mt-4">
+                      <div>
+                        <img src="https://img.icons8.com/color/30/000000/facebook.png" />Facebook
+                      </div>
+                      <p class="url-eg">https://instagram.com/username</p>
+                      <input class="form-control" type="text" placeholder="Profile url" />
+                    </div>
+                    <div class="form-group mt-4">
+                      <div>
+                        <img src="https://img.icons8.com/color/30/000000/twitter-squared.png" />Twitter
+                      </div>
+                      <p class="url-eg">https://instagram.com/username</p>
+                      <input class="form-control" type="text" placeholder="Profile url" />
+                    </div>
+                    <div class="form-group mt-4 pb-4">
+                      <div>
+                        <img src="https://img.icons8.com/color/30/000000/youtube-play.png" />Youtube
+                      </div>
+                      <p class="url-eg">https://instagram.com/username</p>
+                      <input class="form-control" type="text" placeholder="Profile url" />
+                    </div>
+                    <div class="d-flex justify-content-around pb-4">
+                      <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancle</button>
+                      <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                    </div>
+                  </form>
+                </div>
+                <!-- btns div -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+  <script src="https://kit.fontawesome.com/f5515e915e.js" crossorigin="anonymous"></script>
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

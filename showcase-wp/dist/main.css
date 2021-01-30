@@ -11240,28 +11240,51 @@ hr.new2 {
 }
 
 .btn-details-uphs {
-  background: #28388d;
-  color: #ffff;
+  background: #ffff;
+  color: #07bb9b;
   text-transform: capitalize;
-  border: 1px solid #28388d;
-  border-radius: 0;
+  border: 1px solid #444;
 }
 
 .btn-details-uphs:hover {
-  background: #19235a;
-  color: #ffff;
+  background: #F2F2F2;
+  color: #07bb9b;
 }
 
 .btn-details-my-pr {
   background: #28388d;
   color: #ffff;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border: 1px solid #28388d;
 }
 
 .btn-details-my-pr:hover {
   background: #19235a;
   color: #ffff;
+}
+
+.btn-popup-cancel {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #CCCCCC;
+}
+
+.btn-popup-cancel:hover {
+  background: #CCCCCC;
+  color: #444;
+}
+
+.btn-popup-save {
+  background: #08BB9B;
+  color: #fff;
+  text-transform: capitalize;
+  border: 1px solid #08BB9B;
+}
+
+.btn-popup-save:hover {
+  background: #058770;
+  color: #fff;
 }
 
 .jp-nav {
@@ -12209,16 +12232,20 @@ hr.new2 {
   height: auto;
 }
 
-.sign-up {
+.reg-bg {
   background-color: #f2fafd;
 }
 
-.sign-up .card .card-body .or {
-  position: absolute;
-  left: 50%;
-  width: 30px;
-  margin-top: 2px;
-  background-color: #fff;
+.sign-up .card .card-body .hr-or {
+  height: 13px;
+  border-bottom: 1px solid #c3c3c3;
+  width: 100%;
+  margin-top: 0px;
+  text-align: center;
+}
+
+.sign-up .card .card-body .hr-or .credit-title {
+  background: #fff;
 }
 
 .sign-up .card .card-body a {
@@ -12230,16 +12257,16 @@ hr.new2 {
   color: #ea4335;
 }
 
-.login {
-  background-color: #f2fafd;
+.login .card .card-body .hr-or {
+  height: 13px;
+  border-bottom: 1px solid #c3c3c3;
+  width: 100%;
+  margin-top: 0px;
+  text-align: center;
 }
 
-.login .card .card-body .or {
-  position: absolute;
-  left: 50%;
-  width: 30px;
-  margin-top: 2px;
-  background-color: #fff;
+.login .card .card-body .hr-or .credit-title {
+  background: #fff;
 }
 
 .login .card .card-body a {
@@ -12249,10 +12276,6 @@ hr.new2 {
 .login .card .card-body .um-field-error {
   background: #fff;
   color: #ea4335;
-}
-
-.social-links {
-  background-color: #f2fafd;
 }
 
 @media screen and (max-width: 576px) {
@@ -12269,10 +12292,6 @@ hr.new2 {
   .social-links .card .card-body .url-eg {
     font-size: 0.75rem;
   }
-}
-
-.email-con {
-  background-color: #f2fafd;
 }
 
 .email-con .card .card-body a {
@@ -12333,6 +12352,7 @@ hr.new2 {
   width: 100%;
   min-height: 200px;
   border: 1px dashed grey;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
@@ -12463,8 +12483,6 @@ hr.new2 {
 
 .noResults {
   background: #fff;
-  margin-right: -15px;
-  margin-left: -15px;
 }
 
 @media screen and (max-width: 768px) {
@@ -12510,6 +12528,11 @@ hr.new2 {
 
 .resultlisting .card .card-body h5 {
   font-size: 1.1rem;
+}
+
+.selected-subcategory {
+  border: 1px solid #07bb9b;
+  background: #fcfafa;
 }
 
 .c-actors,
@@ -12752,36 +12775,50 @@ hr.new2 {
   background: #fff;
 }
 
+.profile-personaldetails {
+  padding-top: 10rem;
+}
+
 .profile-personaldetails h5 {
   font-weight: normal;
+  margin-bottom: 1rem;
 }
 
 .profile-personaldetails .selectedcategories .badge {
   font-size: 1.1rem;
 }
 
+@media screen and (max-width: 576px) {
+  .profile-personaldetails {
+    padding-top: 1rem;
+  }
+}
+
+.flexslider {
+  margin-bottom: 0px;
+}
+
 .navbarcolors {
   background: #fff !important;
 }
 
-.profilevideos h5, .audioblock h5, .physicalattribs h5 {
+.profilevideos h5, .audioblock h5, .physicalattribs h5, .experienceblock h5, .emptyblock h5, .cat-block h5 {
   font-weight: normal;
   margin-bottom: 0px;
 }
 
-.profilevideos h6, .audioblock h6, .physicalattribs h6 {
+.profilevideos h6, .audioblock h6, .physicalattribs h6, .experienceblock h6, .emptyblock h6, .cat-block h6 {
   font-weight: normal;
   color: #9c9c9c;
 }
 
 .physicalfeatures .card {
   padding-top: 15px;
-  text-transform: uppercase;
+  padding-bottom: 10px;
   border-radius: 0;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 15px;
   margin-bottom: 15px;
-  width: 18%;
+  width: 18.8%;
   display: block;
 }
 
@@ -12813,11 +12850,124 @@ hr.new2 {
   }
 }
 
-.circlediv {
-  width: 80px;
-  border-radius: 50%;
-  background: red;
-  position: absolute;
+.physicalfeatures .card-title {
+  margin-bottom: 0;
+  font-size: 13px;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.physicalfeatures .card-title span {
+  display: block;
+  font-weight: bold;
+}
+
+.hr-text {
+  height: 13px;
+  border-bottom: 1px solid #c3c3c3;
+  width: 100%;
+  margin-top: 0px;
+}
+
+.hr-text .credit-title {
+  background: #fff;
+}
+
+.experienceblock ul, .cat-block ul {
+  padding-top: 20px;
+}
+
+.experienceblock ul li, .cat-block ul li {
+  margin-bottom: 20px;
+}
+
+.categorybadge {
+  background: #d1ecf1;
+  border: 1px solid #86dcec;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.specialisedbadge {
+  background: #f8d7da;
+  border: 1px solid #e8c1c4;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.specialisedbadge i {
+  padding-right: 5px;
+}
+
+.languagedbadge {
+  background: #d4edda;
+  border: 1px solid #a9f0ba;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.languagedbadge i {
+  padding-right: 5px;
+}
+
+.experiencedbadge {
+  background: #d1ecf1;
+  border: 1px solid #86dcec;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.experiencedbadge i {
+  padding-right: 5px;
+}
+
+.cat-block p {
+  margin-bottom: 0;
+}
+
+.profilenavigation .navbar {
+  overflow: hidden;
+  z-index: 999;
+}
+
+@media screen and (max-width: 768px) {
+  .profilenavigation .navbar {
+    overflow: auto;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .profilenavigation .navbar {
+    overflow: auto;
+    white-space: nowrap;
+  }
+}
+
+.profilenavigation .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.profilenavigation .sticky + .content {
+  padding-top: 60px;
 }
 
 .icon::before {
@@ -12828,7 +12978,16 @@ hr.new2 {
   -webkit-font-smoothing: antialiased;
 }
 
-.cat-subcat .accordion .card .card-header.collapsed:after {
+.accordion {
+  background-color: #fff;
+}
+
+.accordion .card {
+  border: 1px solid #dbdbdb !important;
+  border-radius: 0 !important;
+}
+
+.accordion .card .card-header.collapsed:after {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f078";
@@ -12837,7 +12996,7 @@ hr.new2 {
   float: right;
 }
 
-.cat-subcat .accordion .card .card-header:after {
+.accordion .card .card-header:after {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: #ffff;
@@ -12846,7 +13005,16 @@ hr.new2 {
   float: right;
 }
 
-.cat-subcat .accordion .card .btn-details-cat-subcat::after {
+.accordion .card .card-header.selected {
+  background: #07bb9b;
+  color: #fff;
+}
+
+.accordion .card .card-header.selected .icon {
+  fill: #ffff;
+}
+
+.accordion .card .btn-details-cat-subcat::after {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f067";
@@ -12854,11 +13022,26 @@ hr.new2 {
   float: left;
 }
 
-.cat-subcat .accordion .card .btn-details-cat-subcat.active::after {
+.accordion .card .btn-details-cat-subcat.active::after {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f00c";
   padding-right: 0.5rem;
   float: left;
+}
+
+.accordion .icon {
+  width: 3rem;
+  height: 3rem;
+  fill: #07bb9b;
+}
+
+.modal-header {
+  background: #ffff;
+  border-bottom: 0;
+}
+
+.modal-body {
+  background: #f7f7f7;
 }
 
