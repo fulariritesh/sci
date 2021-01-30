@@ -3,8 +3,7 @@
 
 include('page_ids.php'); 
 
-// $user_email = $_SESSION["user_args"]["submitted"]["user_email"];
-$user_email = 'test@example.com';
+$user_email = $_SESSION["user_args"]["submitted"]["user_email"];
 
 if(!$user_email){
 	wp_redirect( home_url() ); exit;
