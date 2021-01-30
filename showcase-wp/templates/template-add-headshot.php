@@ -11,77 +11,57 @@ if (!is_user_logged_in() ) {
 $user_id = get_current_user_id();
 $upload_id = NULL;
 
-$headshot_er = $headshot_er_msg = NULL;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	if(isset($_POST['submit'])){
+	if(isset($_POST['headshot'])){
 
-		if(empty($_FILES['headshot'])){
-			$headshot_er = true;
-			$headshot_er_msg = 'Please upload a headshot image';
-		}else{
-
-			// delete previous old headshot
-			$user_headshot_old = get_user_meta( $user_id, 'sci_user_headshot_1', true);
-			if(($user_headshot_old !== false)){ 
-				wp_delete_attachment(intval($user_headshot_old), true);
-				delete_user_meta( $user_id, 'sci_user_headshot_1');
-			}
-
-			$wordpress_upload_dir = wp_upload_dir();
-			$i = 1; // number of tries when the file with the same name is already exists
-
-			$headshot = $_FILES['headshot'];
-
-			$new_file_path = $wordpress_upload_dir['path'] . '/' .$user_id.'_'.$headshot['name'];
-			$new_file_mime = mime_content_type( $headshot['tmp_name'] );
-
-			if($headshot['error']){
-				$headshot_er = true;
-				$headshot_er_msg = $headshot['error'];
-			}
-
-			if($headshot['size'] > wp_max_upload_size()){
-				$headshot_er = true;
-				$headshot_er_msg = 'File too large';
-			}
-
-			if(!$headshot_er){
-
-				while( file_exists( $new_file_path ) ) {
-					$i++;
-					$new_file_path = $wordpress_upload_dir['path'] . '/'.$i.'_'.$user_id.'_'.$headshot['name'];
-				}
-
-				if( move_uploaded_file( $headshot['tmp_name'], $new_file_path ) ) {
-
-					$upload_id = wp_insert_attachment( array(
-						'guid'           => $new_file_path, 
-						'post_mime_type' => $new_file_mime,
-						'post_title'     => preg_replace( '/\.[^.]+$/', '', $user_id.'_'.$headshot['name']),
-						'post_content'   => '',
-						'post_status'    => 'inherit'
-					), $new_file_path );
-				
-					// wp_generate_attachment_metadata() won't work if you do not include this file
-					require_once( ABSPATH . 'wp-admin/includes/image.php' );
-				
-					// Generate and save the attachment metas into the database
-					wp_update_attachment_metadata( $upload_id, wp_generate_attachment_metadata( $upload_id, $new_file_path ) );		
-				
-				}
-
-				if((!is_wp_error($upload_id)) || ($upload_id !== 0)){
-					$success_headshot_1 = update_user_meta( $user_id, 'sci_user_headshot_1', $upload_id);
-					wp_redirect( get_page_link( $complete_page )); exit;		
-				}
-
-				// Show the uploaded file in browser
-				//wp_redirect( $wordpress_upload_dir['url'] . '/' . basename( $new_file_path ) );
-			}
-
+		// delete previous old headshot
+		$user_headshot_old = get_user_meta( $user_id, 'sci_user_headshot_1', true);
+		if(($user_headshot_old !== false)){ 
+			wp_delete_attachment(intval($user_headshot_old), true);
+			delete_user_meta( $user_id, 'sci_user_headshot_1');
 		}
+	
+		$data = $_POST['headshot'];
+		$image_array_1 = explode(";", $data);
+		$image_array_2 = explode(",", $image_array_1[1]);
+		$data = base64_decode($image_array_2[1]);
+		$wordpress_upload_dir = wp_upload_dir();
+		$new_file_path = $wordpress_upload_dir['path'] . '/' .$user_id.'_'.time().'.png';
+
+		if( file_put_contents($new_file_path , $data ) ) {
+
+			$upload_id = wp_insert_attachment( array(
+				'guid'           => $new_file_path, 
+				'post_mime_type' => 'image/png',
+				'post_title'     => preg_replace( '/\.[^.]+$/', '', $user_id.'_'.time().'.png'),
+				'post_content'   => '',
+				'post_status'    => 'inherit'
+			), $new_file_path );
 		
+			// wp_generate_attachment_metadata() won't work if you do not include this file
+			require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		
+			// Generate and save the attachment metas into the database
+			wp_update_attachment_metadata( $upload_id, wp_generate_attachment_metadata( $upload_id, $new_file_path ) );	
+		}
+
+		if((!is_wp_error($upload_id)) || ($upload_id !== 0)){
+			$success_headshot_1 = update_user_meta( $user_id, 'sci_user_headshot_1', $upload_id);
+			
+			http_response_code(200);
+			echo json_encode(array('data' => $upload_id ));
+			exit();		
+		}
+
+		http_response_code(500);
+		echo json_encode(array('data' => 'Something went wrong.'));
+		exit();		
+		
+	}else{
+		http_response_code(400);
+		echo json_encode(array('data' => 'Upload Error.'));
+		exit();
 	}
 }
 
@@ -92,147 +72,266 @@ include('join-pagination.php');
 
 ?>
 
-
-
 <section class="pr-details container-fluid py-5">
 	<div class="row">
-		<div
-			class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0 mx-auto"
-		>
-			<div class="card-header">Add a Headshot!</div>
-
-			<div class="card-body px-4">
-					<form action="" method="POST" enctype="multipart/form-data" >
-
-					<!-- capture-div -->
-					<div class="capture-div">
-						<p>
-						Make sure you're looking straight on, use good lighting & a plain
-						background, skip the filter, effects, hats & sunshine.
-						</p>
-						<div class="img-preview">
-							<video autoplay="true" id="videoElement"></video>
-							<span class="img-preview-default-txtCam">Image preview!</span>
-						</div>
-						<div class="d-flex justify-content-around pt-5 pb-3">
-							<a class="btn btn-lg btn-details-cptr btn-xs px-md-5" href=""
-								><i class="fas fa-camera"></i></a
-							>
-							<a class="btn btn-lg btn-details-fileup btn-xs"><i class="fas fa-upload"></i>
-								Upload File
-							</a>
-						</div>
-					</div>
-
-					<!-- upload-div -->
-					<div class="upload-div">
-						<!-- Img-preview -->
-						<div class="img-preview">
-							<img src="" alt="img-preview" class="img-preview-img">
-							<span class="img-preview-default-txt">Image preview!</span>
-							
-						</div>			
-						<label class="btn btn-custom-file-upload d-flex justify-content-center">
-							<input 
-							type="file" 
-							name="hsFile" 
-							id="hsFile"
-							class="form-control my-1 <?php echo ($headshot_er) ? "is-invalid" : ""; ?>"
-							accept="image/*"
-							/>
-							Choose file to upload
-						</label>
-						<div class="invalid-feedback"><?php echo $headshot_er_msg; ?></div>
-					</div>
+		<div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0 mx-auto">			
+			<div class="card-header">Add a Headshot</div>
 			
-					<!-- file-edit-btns -->
-					<div class="file-edit-btns">
-						<div class="d-flex justify-content-around py-4">
-							<button class="btn btn-details-uphs btn-xs" href=""
-								><i class="fas fa-crop-alt"></i></button
-							>
-							<button class="btn btn-details-uphs btn-xs">
-								<i class="fas fa-undo"></i>
-							</button>
-							<button class="btn btn-details-uphs btn-xs">
-								<i class="fas fa-undo fa-flip-horizontal"></i>
-							</button>
-						</div>
-					</div>
+			<div class="card-body px-4">
 
-					<div class="d-flex justify-content-between pt-5 pb-3">
-						<a class="btn btn-lg btn-details-bck btn-xs px-md-5" 
-						href="<?php echo get_page_link($physical_attributes_page); ?>"
-						>Back</a
-						>
-						<button 
-							type="submit"
-							name="submit"
-							value="save"
-							class="btn btn-lg btn-details-nxt btn-xs px-md-5"
-						>
-							Save
-						</button>
-					</div>
-
-				</form>
+				<!-- capture-div info -->
+				<div class="capture-div">
+					<!-- Info div -->
+					<p class="text-muted m-0 pb-2">1. Pay attention to framing, lighting, and background in your headshot. This
+					is your first impression!</p>
+					<p class="text-muted m-0 pb-2">2. Go easy with the makeup and try to use natural light.</p>
+					<p class="text-muted m-0 pb-2">3. Skip the sunglasses, hats, filters and special effects. This is business!
+					</p>
 				</div>
 
+				<!-- upload-div info -->
+				<div class="upload-div">
+					<p>
+					Crop headshot
+					</p>
+					<p class="text-muted">Click and drag the crop box to move and resize your headshot the way you'd like it to
+					appear on your profile.
+					</p>
+				</div>
+
+				<!-- Img preview -->
+				<div class="img-preview">
+					<video autoplay="true" id="videoElement"></video>
+					<canvas id="canvas" class="d-none"></canvas>
+					<img src="" alt="img-preview" class="img-preview-img">
+					<span class="img-preview-default-txt">Image preview!</span>
+				</div>
+
+				<!-- Upload btn -->
+				<div class="capture-div">
+					<button class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> 
+					Capture from Camera
+					</button>
+					<button class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+					Upload from device
+					</button>
+				</div>
+
+				<!-- capture btn  -->
+				<div class="upload-div">
+					<label class="btn btn-custom-file-upload d-flex justify-content-center">
+					<input type="file" name="hsFile" id="hsFile" />
+					Choose file to upload
+					</label>
+				</div>
+
+				<!-- file-edit-btns -->
+				<div class="file-edit-btns">
+					<div class="d-flex justify-content-center py-4">			
+					<button id="rotate-anticlock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+						<i class="fas fa-undo"></i>
+					</button>
+					<button id="rotate-clock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+						<i class="fas fa-undo fa-flip-horizontal"></i>
+					</button>
+					</div>
+				</div>
+
+				<!-- preview uploaded image -->
+				<div>
+					<div class="d-flex align-items-center justify-content-center py-4">
+
+					<p class="text-muted px-2">uploaded headshot</p>
+					<?php 
+						$user_headshot = get_user_meta( $user_id, 'sci_user_headshot_1', true);
+						$user_headshot_disp =  wp_get_attachment_image( intval($user_headshot), 
+						'thumbnail', 
+						"", 
+						array( "class" => "img-thumbnail", "id" => "headshot_display"));
+						if(($user_headshot !== false) && (!empty($user_headshot_disp))){ 
+							echo $user_headshot_disp;
+						}
+					?>
+					</div>	
+				</div>
+
+				<!-- error message -->
+				<div id="errorHeadshotWrapper">
+				</div>
+
+				<!-- back-save-btns -->
+				<div class="d-flex justify-content-between pt-5 pb-3">				
+					<a 
+					class="btn btn-lg btn-details-bck btn-xs px-md-5"
+					href="<?php echo get_page_link($physical_attributes_page); ?>">
+					Back
+					</a>
+					<button 
+					id="saveHeadshot" 
+					class="btn btn-lg btn-details-nxt btn-xs px-md-5">
+					Save
+					</button>
+				</div>
+
+        	</div>
 		</div>
 	</div>
 </section>
+
+
 
 <?php
 get_sidebar();
 get_footer();
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js" integrity="sha512-9pGiHYK23sqK5Zm0oF45sNBAX/JqbZEP7bSDHyt+nT3GddF+VFIcYNqREt0GDpmFVZI3LZ17Zu9nMMc9iktkCw==" crossorigin="anonymous"></script>
+
 <script>
-      var video = document.querySelector("#videoElement");
-      const inpFile =document.getElementById("hsFile");
-      const previewContainer = document.getElementById("img-preview");
-      const previewImg = document.querySelector(".img-preview-img");
-      const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
-      const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+    jQuery(document).ready(function () {
+		jQuery(".upload-div").hide();
+		jQuery(".file-edit-btns").hide();
 
-      inpFile.addEventListener("change",function(){
-        const file = this.files[0];
-        if (file){
-          const reader = new FileReader();
-          previewDefaultTxt.style.display = "none";
-          previewImg.style.display = "block";
+		var cropper;
+		var data;
+		var canvas = document.querySelector("#canvas");
+		var video = document.querySelector("#videoElement");
+		const inpFile = document.getElementById("hsFile");
+		const previewContainer = document.getElementById("img-preview");
+		const previewImg = document.querySelector(".img-preview-img");
+		const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+		const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
 
-          reader.addEventListener("load", function(){
-            console.log(this);
-            previewImg.setAttribute("src",this.result);
-          });
-          reader.readAsDataURL(file);
+		inpFile.addEventListener("change", function () {
+			const file = this.files[0];
+			if (file) {
+				const reader = new FileReader();
+				previewDefaultTxt.style.display = "none";
+				previewImg.style.display = "block";
+				reader.addEventListener("load", function () {
+				//console.log(this);
+				previewImg.setAttribute("src", this.result);
+				cropper = new Cropper(previewImg, {
+						viewMode: 2,
+						aspectRatio: 1/1,
+					});
+				});
+				reader.readAsDataURL(file);	
+			}
+		});	
+
+		if (navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then(function (stream) {
+			previewDefaultTxtCam.style.display = "none";
+			video.style.display = "block";
+			video.srcObject = stream;
+			})
+			.catch(function (err0r) {
+			
+				console.log("Looks like your device has no camera.");
+				jQuery('#errorHeadshotWrapper').empty();
+				jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															Looks like your device has no camera. \
+														</div>');
+			});
+		}
+
+		
+
+		jQuery(".btn-details-fileup").click(function () {
+			jQuery(".capture-div").hide();
+			jQuery(".upload-div").show();
+			jQuery(".file-edit-btns").show();
+		});
+
+		function takepicture(height,width) {
+            var context = canvas.getContext('2d');
+            if (width && height) {
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(video, 0, 0, width, height);
+                data = canvas.toDataURL('image/png');
+                previewDefaultTxt.style.display = "none";
+                previewImg.style.display = "block";
+                previewImg.setAttribute('src', data);
+                //console.log(data);
+            } 
         }
-      })
 
-      if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then(function (stream) {
-            previewDefaultTxtCam.style.display = "none";
-            video.style.display ="block";
-            video.srcObject = stream;
-          })
-          .catch(function (err0r) {
-            console.log("Something went wrong!");
-          });
-      }
-</script>
-<script>
-	jQuery(document).ready(function(){
-	jQuery(".upload-div").hide();
-	jQuery(".file-edit-btns").hide();
+		jQuery(".btn-details-cptr").click(function (e) {
+			e.preventDefault();
+			console.log('capturing...');
+			jQuery(".upload-div").show();
+			jQuery(".file-edit-btns").show();
+			//console.log(video.offsetHeight,video.offsetWidth);
+			takepicture(video.offsetHeight,video.offsetWidth);
+			jQuery(".capture-div").hide();
+		});
+	  
 
-	jQuery(".btn-details-fileup").click(function(){
-	jQuery(".capture-div").hide();
-	jQuery(".upload-div").show();
-	jQuery(".file-edit-btns").show();
-	});
+	  	jQuery('#saveHeadshot').on('click', function(){
+			console.log('uploading...');
+			if(cropper){
+				canvas = cropper.getCroppedCanvas({
+					width:400,
+					height:400
+				});
+				canvas.toBlob(function(blob){
+					url = URL.createObjectURL(blob);
+					var reader = new FileReader();
+					reader.readAsDataURL(blob);
+					reader.onloadend = function(){
+						var base64data = reader.result;
+						//console.log(base64data);
+						jQuery.ajax({
+							url:'<?php echo get_page_link($add_headshot_page); ?>',
+							method:'POST',
+							data:{headshot:base64data},
+							success:function(response, status, xhr)
+							{
+								res = JSON.parse(response);
+								console.log(res, status, xhr.status);
+								cropper.destroy();
+								cropper = null;
 
-	});
+								if(xhr.status == 200){
+									window.location.href = '<?php echo get_page_link($complete_page); ?>';
+								}else{
+									jQuery('#errorHeadshotWrapper').empty();
+									jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+																				<button type="button" class="close" data-dismiss="alert">&times;</button> \
+																				'+ res.data +'. \
+																			</div>');
+								}
+							}
+						});
+					};
+				});
+			}else{
+				console.log('please capture or upload a headshot');
+				jQuery('#errorHeadshotWrapper').empty();
+				jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															Please capture or upload a headshot. \
+														</div>');
+			}	
+		});
+
+		jQuery('#rotate-anticlock').on('click', function(){
+			console.log('rotate anticlock');
+			if(cropper){			
+				cropper.rotate(-90);
+			}
+		});
+
+		jQuery('#rotate-clock').on('click', function(){
+			console.log('rotate clock');
+			if(cropper){
+				cropper.rotate(90);
+			}
+		});
+
+    });
 </script>

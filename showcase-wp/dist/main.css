@@ -12332,7 +12332,6 @@ hr.new2 {
 .pr-details .img-preview {
   width: 100%;
   min-height: 200px;
-  height: 100%;
   border: 1px dashed grey;
   margin-bottom: 2rem;
   display: flex;

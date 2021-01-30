@@ -542,6 +542,21 @@ function my_registration_complete( $user_id, $args ) {
 		unset($_SESSION['user_social_links']['youtube']);
 	}
 
-
+	if(isset($_SESSION['user_profession'])){
+		update_user_meta( $user_id, 'profession', $_SESSION['user_profession']);
+		unset($_SESSION['user_profession']);
+	}
 }
 add_action( 'um_registration_complete', 'my_registration_complete', 10, 2 );
+
+function my_custom_mime_types( $mimes ) {
+	// New allowed mime types.
+	$mimes['svg'] = 'image/svg+xml';
+	//$mimes['svgz'] = 'image/svg+xml';
+	//$mimes['doc'] = 'application/msword';	 
+
+	// Optional. Remove a mime type.
+	//unset( $mimes['exe'] );	 
+	return $mimes;
+}
+add_filter( 'upload_mimes', 'my_custom_mime_types' );

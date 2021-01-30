@@ -92,7 +92,7 @@ get_header();
                 <input
                     id="instagram"
                     name="instagram"
-                    value="<?php echo ($_SESSION['user_social_links']['instagram']) ? $_SESSION['user_social_links']['instagram'] : ""; ?>"
+                    value="<?php echo isset($_SESSION['user_social_links']['instagram']) ? $_SESSION['user_social_links']['instagram'] : ""; ?>"
                     class="form-control <?php echo ($ig_error) ? "is-invalid" : ""; ?>"
                     type="text"
                     placeholder="Username"
@@ -111,7 +111,7 @@ get_header();
                 <input
                     id="facebook"
                     name="facebook"
-                    value="<?php echo ($_SESSION['user_social_links']['facebook']) ? $_SESSION['user_social_links']['facebook'] : ""; ?>"
+                    value="<?php echo isset($_SESSION['user_social_links']['facebook']) ? $_SESSION['user_social_links']['facebook'] : ""; ?>"
                     class="form-control <?php echo ($fb_error) ? "is-invalid" : ""; ?>"
                     type="text"
                     placeholder="Profile or page url"
@@ -130,7 +130,7 @@ get_header();
                 <input
                     id="twitter"
                     name="twitter"
-                    value="<?php echo ($_SESSION['user_social_links']['twitter']) ? $_SESSION['user_social_links']['twitter'] : ""; ?>"
+                    value="<?php echo isset($_SESSION['user_social_links']['twitter']) ? $_SESSION['user_social_links']['twitter'] : ""; ?>"
                     class="form-control <?php echo ($tw_error) ? "is-invalid" : ""; ?>"
                     type="text"
                     placeholder="Username"
@@ -148,7 +148,7 @@ get_header();
                 <input
                     id="youtube"
                     name="youtube"
-                    value="<?php echo ($_SESSION['user_social_links']['youtube']) ? $_SESSION['user_social_links']['youtube'] : ""; ?>"
+                    value="<?php echo isset($_SESSION['user_social_links']['youtube']) ? $_SESSION['user_social_links']['youtube'] : ""; ?>"
                     class="form-control <?php echo ($yt_error) ? "is-invalid" : ""; ?>"
                     type="text"
                     placeholder="Channel or user url"
