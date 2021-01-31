@@ -2,7 +2,6 @@
 
     /* Staging env */ 
     // Pre register
-    $category_subcategory_page = 505;
     $social_links_page = 392;
     $signup_page = 335;
     $email_verification_page = 373;
@@ -18,8 +17,7 @@
     $signin_page = 334;
 
     /* Development env */ 
-    // // Pre register
-    // $category_subcategory_page = 136; 
+    // Pre register
     // $social_links_page = 74;
     // $signup_page = 6;
     // $email_verification_page = 18;
@@ -32,5 +30,5 @@
     // $add_headshot_page = 107;
     // $complete_page = 110;
     
-    $signin_page = 21;
+    // $signin_page = 21;
 
