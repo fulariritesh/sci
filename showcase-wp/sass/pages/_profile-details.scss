@@ -1,5 +1,5 @@
 .pr-details {
-  background-color: $signup-bgcolor;
+  background-color: $bodyBG;
   .btn-group {
     @include media-sm {
       display: block;
@@ -9,6 +9,13 @@
       }
     }
   }
+  .or {
+    position: absolute;
+    left: 50%;
+    width: 30px;
+    margin-top: 2px;
+    background-color: $light-color;
+  }
   .disp-val {
     border-bottom: 1px solid;
     width: 3rem;
@@ -16,8 +23,38 @@
 
   #videoElement {
     width: 100%;
-    height: 100%;
-    background: $dark;
+    display: none;
+  }
+
+  .img-preview {
+    width: 100%;
+    min-height: 200px;
+    border: 1px dashed grey;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    //default-txt
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .img-preview-img {
+      display: none;
+      width: 100%;
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    cursor: pointer;
   }
 
   .pr-com {
@@ -30,5 +67,32 @@
     height: 2rem;
     border-radius: 0;
     background: $prcombr-bg;
+  }
+}
+
+//Category Sub category
+.cat-subcat {
+  background-color: $signup-bgcolor;
+  .card {
+    border: 1px solid $accordian-br-color !important;
+    border-radius: 0 !important;
+  }
+  .card-header.selected {
+    background: $primary-color;
+    color: $light-color;
+    .icon {
+      fill: $header-activeicon-color;
+    }
+  }
+  .accordion {
+    background: $light-color;
+    @include media-md-min {
+      padding: 0 5rem 2.5rem;
+    }
+  }
+  .icon {
+    width: 3rem;
+    height: 3rem;
+    fill: $header-icon-color;
   }
 }
