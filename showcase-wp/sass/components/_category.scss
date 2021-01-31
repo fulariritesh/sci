@@ -1,117 +1,42 @@
-@mixin categorystyle($catBackground, $catcolor) {
+@mixin categorystyle($catBackground, $catcolor){
   background: $catBackground;
   color: $catcolor;
   font-weight: normal;
-  margin-right: 5px;
+  margin-right:5px;
   padding-left: 8px;
   padding-right: 8px;
 }
-.c-actors,
-.c-actor {
+.c-actors, .c-actor{
   @include categorystyle($cat-actorBG, $cat-actorColor);
 }
-.c-musicians,
-.c-musician {
+.c-musicians, .c-musician{
   @include categorystyle($cat-musiciansBG, $cat-musiciansColor);
 }
-.c-filmcrew {
+.c-filmcrew{
   @include categorystyle($cat-filmcrewBG, $cat-filmcrewColor);
 }
-.c-photographers,
-.c-photographer {
+.c-photographers, .c-photographer{
   @include categorystyle($cat-photoBG, $cat-photoColor);
 }
-.c-influencers,
-.c-influencer {
+.c-influencers, .c-influencer{
   @include categorystyle($cat-influencerBG, $cat-influencerColor);
 }
-.c-hairs,
-.c-hair {
+.c-hairs, .c-hair{
   @include categorystyle($cat-hairBG, $cat-hairColor);
 }
-.c-entertainers,
-.c-entertainer {
+.c-entertainers, .c-entertainer{
   @include categorystyle($cat-entertainersBG, $cat-entertainersColor);
 }
-.c-models,
-.c-model {
+.c-models, .c-model{
   @include categorystyle($cat-modelsBG, $cat-modelsColor);
 }
-.c-presenters,
-.c-presenter {
+.c-presenters, .c-presenter{
   @include categorystyle($cat-presentersBG, $cat-presentersColor);
 }
-.c-dancers,
-.c-dancer {
+.c-dancers, .c-dancer{
   @include categorystyle($cat-dancersBG, $cat-dancersColor);
 }
-.c-more {
+.c-more{
   @include categorystyle($cat-moreBG, $cat-moreColor);
-  margin-left: 5px;
-}
-
-.sprite {
-  background: url("/images/CategoryIcons.png") no-repeat top left;
-  width: 48px;
-  height: 48px;
-}
-.sprite.actors {
-  background-position: 0 0;
-}
-.sprite.actors-w {
-  background-position: -58px 0;
-}
-.sprite.dancers {
-  background-position: -116px 0;
-}
-.sprite.dancers-w {
-  background-position: -174px 0;
-}
-.sprite.entertainment {
-  background-position: -232px 0;
-}
-.sprite.entertainment-w {
-  background-position: -290px 0;
-}
-.sprite.film-crew {
-  background-position: -348px 0;
-}
-.sprite.film-crew-w {
-  background-position: -406px 0;
-}
-.sprite.hair {
-  background-position: -464px 0;
-}
-.sprite.hair-w {
-  background-position: -522px 0;
-}
-.sprite.influencers {
-  background-position: -580px 0;
-}
-.sprite.influencers-w {
-  background-position: -638px 0;
-}
-.sprite.models {
-  background-position: -696px 0;
-}
-.sprite.models-w {
-  background-position: -754px 0;
-}
-.sprite.musicians {
-  background-position: -812px 0;
-}
-.sprite.musicians-w {
-  background-position: -870px 0;
-}
-.sprite.photographers {
-  background-position: -928px 0;
-}
-.sprite.photographers-w {
-  background-position: -986px 0;
-}
-.sprite.presenter {
-  background-position: -1044px 0;
-}
-.sprite.presenter-w {
-  background-position: -1102px 0;
+  margin-left:5px;
 }

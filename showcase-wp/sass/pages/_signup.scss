@@ -1,19 +1,14 @@
-.reg-bg {
-  background-color: $bodyBG;
-}
-
 .sign-up {
+  background-color: $signup-bgcolor;
+
   .card {
     .card-body {
-      .hr-or {
-        height: 13px;
-        border-bottom: 1px solid $viewprofile-hrborder;
-        width: 100%;
-        margin-top: 0px;
-        text-align: center;
-        .credit-title {
-          background: $light-color;
-        }
+      .or {
+        position: absolute;
+        left: 50%;
+        width: 30px;
+        margin-top: 2px;
+        background-color: $light-color;
       }
       a {
         color: $secondary;
