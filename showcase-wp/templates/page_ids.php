@@ -13,7 +13,6 @@
     $physical_attributes_page = 401;
     $add_headshot_page = 403;
     $complete_page = 405;
-    
     $signin_page = 334;
 
     /* Development env */ 
@@ -28,7 +27,6 @@
     // $profile_details_page = 83;
     // $physical_attributes_page = 99;
     // $add_headshot_page = 107;
-    // $complete_page = 110;
-    
+    // $complete_page = 110; 
     // $signin_page = 21;
 
