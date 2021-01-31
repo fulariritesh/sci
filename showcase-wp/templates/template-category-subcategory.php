@@ -56,6 +56,7 @@ get_header();
             </h4>
 
             <?php
+           
                 $categories = get_terms( array(
                     'taxonomy' => 'jobs',
                     'hide_empty' => false,
@@ -65,14 +66,17 @@ get_header();
                 if(!empty($categories)){
 
                     foreach( $categories as $category ) {
-        
+
+                        //var_dump(in_array($category->term_taxonomy_id,$_SESSION['user_profession']));
+                        $user_selected_category = in_array($category->term_taxonomy_id,$_SESSION['user_profession']);
                             ?>
-                            
+   
                             <!-- CATEGORY -->
                             <div class="accordion-group mb-3 card">
                           
+                            <!-- collapsed or selected -->
                             <div
-                                class="row card-header collapsed p-2"
+                                class="row card-header p-2 <?php echo ($user_selected_category) ? 'selected' : 'collapsed'; ?>"
                                 id="heading<?php echo $category->term_taxonomy_id; ?>"
                                 type="button"
                                 data-toggle="collapse"
@@ -89,10 +93,12 @@ get_header();
                                     <p class="text-uppercase my-2 pt-1"><?php echo $category->name; ?></p>
                                 </div>
 
-                                <input disabled type="hidden" name="profession[]" value="<?php echo $category->term_taxonomy_id; ?>">
+                                <!-- disabled or '' -->
+                                <input <?php echo ($user_selected_category) ? '' : 'disabled'; ?> type="hidden" name="profession[]" value="<?php echo $category->term_taxonomy_id; ?>">
                             </div>
 
-                                <div id="collapse<?php echo $category->term_taxonomy_id; ?>" class="collapse" aria-labelledby="heading<?php echo $category->name; ?>">
+                                <!-- collapse or collapse show -->
+                                <div id="collapse<?php echo $category->term_taxonomy_id; ?>" class="collapse <?php echo ($user_selected_category) ? 'show' : ''; ?>" aria-labelledby="heading<?php echo $category->name; ?>">
                                     <div class="accordion-inner card-body">
                                         <div class="btn-group-toggle" data-toggle="buttons">
                             <?php
@@ -105,10 +111,12 @@ get_header();
                             if(!empty($subcategories)){
                                 foreach( $subcategories as $subcategory ) {
                                     
+                                    //var_dump(in_array($subcategory->term_taxonomy_id,$_SESSION['user_profession']));
+                                    $user_selected_subcategory = in_array($subcategory->term_taxonomy_id,$_SESSION['user_profession']);
                                     ?>
                                     <!-- SUB CATEGORY -->
-                                    <label class="btn btn-details-cat-subcat mb-1">
-                                        <input type="checkbox" value="<?php echo $subcategory->term_taxonomy_id; ?>" name="profession[]"  /> <?php echo $subcategory->name; ?>
+                                    <label class="btn btn-details-cat-subcat mb-1 <?php echo ($user_selected_subcategory) ? 'active' : ''; ?>">
+                                        <input <?php echo ($user_selected_subcategory) ? 'checked' : ''; ?> type="checkbox" value="<?php echo $subcategory->term_taxonomy_id; ?>" name="profession[]"  /> <?php echo $subcategory->name; ?>
                                     </label>
 
                                     <?php
