@@ -53,5 +53,7 @@
     "lint:scss": "wp-scripts lint-style ./sass/*.scss --fix",
     "lint:js": "wp-scripts lint-js ./js/*.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lightbox2": "^2.11.3"
+  }
 }
