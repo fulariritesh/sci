@@ -123,11 +123,11 @@ $genderSelected;
 
     <div class="container" id="no-search-results">
       <div class="row noResults  p-0 shadow-sm ">
-        <div class="col-6 col-sm-6 text-right pt-3"><img src="http://localhost:8080/wordpress/wp-content/uploads/2021/01/noProfilesFound.jpg" alt="No profile found" class="img-fluid" /></div>
+        <div class="col-6 col-sm-6 text-right pt-3"><img src=<?php the_field('sci_no_result_image', 'option'); ?> alt="No profile found" class="img-fluid" /></div>
         <div class="col-6 col-sm-6 p-3">
-          <h4>No Profiles found from Pondicherry</h4>
-          <h6>Explore other locations nearby for your requirements</h6>
-          <h6 class="pt-1 pt-sm-2">If you want to showcase your talent from this location</h6>
+          <?php
+            echo the_field('sci_no_result_text', 'option');
+          ?>
           <?php
             $page_object = get_page_by_path( 'join-now' );
             $page_id = $page_object->ID;
