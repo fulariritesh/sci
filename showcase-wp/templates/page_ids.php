@@ -2,6 +2,8 @@
 
     /* Staging env */ 
     // Pre register
+    //$category_subcategory_page = 505;
+    $category_subcategory_page = 505;
     $social_links_page = 392;
     $signup_page = 335;
     $email_verification_page = 373;

@@ -585,15 +585,18 @@ function user_lock( $user, $username, $password ){
 }
 
 function hook_header(){
-	if (!is_page('signup')) {
-		return;
+	if (is_page('signup')) {	
+		echo '<style type="text/css">';
+		echo '#main-header{ text-align: center; }';
+		echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
+		echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
+		echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
+		echo '</style>';
 	}
-	echo '<style type="text/css">';
-	echo '#main-header{ text-align: center; }';
-	echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
-	echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
-	echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
-	echo '</style>';
+
+	if(is_page('add-headshot')){
+		echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css" integrity="sha512-w+u2vZqMNUVngx+0GVZYM21Qm093kAexjueWOv9e9nIeYJb1iEfiHC7Y+VvmP/tviQyA5IR32mwN/5hTEJx6Ng==" crossorigin="anonymous" />';
+	}
 }
 add_action('wp_head','hook_header');
 
