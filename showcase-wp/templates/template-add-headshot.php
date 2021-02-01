@@ -140,9 +140,7 @@ include('join-pagination.php');
 
 				<!-- preview uploaded image -->
 				<div>
-					<div class="d-flex align-items-center justify-content-center py-4">
-
-					
+					<div class="d-flex align-items-center justify-content-center py-4">		
 					<?php 
 						$user_headshot = get_user_meta( $user_id, 'sci_user_headshot_1', true);
 						$user_headshot_disp =  wp_get_attachment_image( intval($user_headshot), 
