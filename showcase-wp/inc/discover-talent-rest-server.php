@@ -122,7 +122,11 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
 
         $user->professions = array();
         foreach($userProfessions as $profession){
-            array_push($user->professions, get_term_meta( $profession, 'category_name_singular', true ));
+            $professionDetails = new stdClass();
+            $professionDetails->singularName = get_term_meta( $profession, 'category_name_singular', true );
+            $professionDetails->badgeColour = get_term_meta( $profession, 'badge_color', true );
+
+            array_push($user->professions, $professionDetails);
         }
 
         $user->href = "/wordpress/profile/" . $user->ID;

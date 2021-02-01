@@ -108,7 +108,6 @@ jQuery(function($) {
         advanceSearch = true;
         $btnAdvanceSearch.prop('disabled', false);
         $.get(`${baseUrl}${endpoint}?pageNumber=${pageNumber}&pageSize=${pageSize}&category=${category.join()}&location=${location}&gender=${gender}&age=${age}`, function(response){       
-            console.log(response);
             if(response.result == 0){
                 $displayList.empty();
                 totalMatchingProfiles = response.totalCount;
@@ -280,7 +279,7 @@ jQuery(function($) {
                         isProffessionCountMore = true;
                         return;
                     }
-                    listHtml = listHtml + `<span class="badge c-`+profession.toLowerCase().replace(',','').replace(' ','-')+`">`+profession+`</span>`;
+                    listHtml = listHtml + `<span class="badge" style="background-color: ${profession.badgeColour};">`+profession.singularName+`</span>`;
                 });
                 
                 if(isProffessionCountMore){
