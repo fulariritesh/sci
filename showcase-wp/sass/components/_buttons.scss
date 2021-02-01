@@ -291,3 +291,37 @@
     $btnhovercolor: $btn_popup-save-color
   );
 }
+.btn-plain {
+  @include buttonstyle(
+    $btn_plainBG,
+    $btn_plaincolor,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_plainborder,
+    $btnhoverbg: $btn_plainhoverbg,
+    $btnhovercolor: $btn_plaincolor
+  );
+}
+.btn-edit {
+  @include buttonstyle(
+    $btn_editBG,
+    $btn_editcolor,
+    $btntexttransform: capitalize,
+    $btnbordercolor:$btn_editborder,
+    $btnhoverbg: $btn_edithoverbg,
+    $btnhovercolor: $btn_editcolor
+  );
+  padding-left:20px;
+  padding-right:20px;
+}
+.btn-add {
+  @include buttonstyle(
+    $btn_primaryBG,
+    $btn_primarycolor,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_primaryborder,
+    $btnhoverbg: $btn_primaryhoverbg,
+    $btnhovercolor: $light-color
+  );
+  padding-left:20px;
+  padding-right:20px;
+}
