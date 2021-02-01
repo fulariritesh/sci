@@ -7,7 +7,6 @@
     $signup_page = 335;
     $email_verification_page = 373;
     $contact_administrator_page = 395;
-
     // Post register
     $welcome_page = 397;
     $profile_details_page = 399;
@@ -23,7 +22,6 @@
     // $signup_page = 6;
     // $email_verification_page = 18;
     // $contact_administrator_page = 0;
-
     // // Post register
     // $welcome_page = 61;
     // $profile_details_page = 83;
