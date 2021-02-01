@@ -50,13 +50,13 @@
             <!-- <div class="tab-pane container active pb-4" id=""> -->
                 <div class="row p-3 blockBG">
                     <div class="col-12 col-sm-6">
-                        <div class="col-12 ">
+                        <div class="col-12 text-center">
                             <div class="headshotarea">
                             <!-- <label class="btn btn-add uploadimage" >Add Image
                                 <input type="file" id="file-input" class="" size="60" >  
                             </label> -->
-                            <!-- <img src="/images/dummy.jpg" /> -->
-                            <button class="btn btn-add">Add Image</button>
+                            <img src="/images/dummy.jpg" />
+                            <div class="col"><button class="btn btn-add" data-toggle="modal" data-target="#editheadshot">Add Image</button></div>
                         </div>
                     </div>
                         <div class="col-12 mt-3">
@@ -127,13 +127,13 @@
                        
 
                         <div class="selectedcategories pt-1">
-                            <div class="text-right"> <button class="btn btn-edit">Edit</button></div>
+                            <div class="text-right"> <button class="btn btn-edit" data-toggle="modal" data-target="#editCat">Edit</button></div>
                             <span class="badge c-actors mt-2">Actor</span><span class="badge c-models mt-2">Model</span>
                             <span class="badge c-photographers mt-2">Photographer</span><span class="badge c-musicians mt-2">Musician</span>
                         </div>
 
                         <div class="selectedsocialmedia pt-1">
-                            <div class="text-right"> <button class="btn btn-edit">Edit</button></div>
+                            <div class="text-right"> <button class="btn btn-edit"  data-toggle="modal" data-target="#editSocialLinks">Edit</button></div>
                             <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" alt="" /></a>
                             <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/color/30/000000/facebook.png" alt="" /></a>
                         </div>
@@ -174,7 +174,7 @@
                         <div class="row">
                             <div class="col-6 col-sm-6 "> <h4>Introduction</h4></div>
                         <div class="col-6 col-sm-6 px-0 text-right">
-                            <button class="btn btn-edit">Edit</button>
+                            <button class="btn btn-edit" data-toggle="modal" data-target="#editIntro">Edit</button>
                         </div>
                         </div>
                        
@@ -636,6 +636,381 @@
 
 
         </script>
+    <!-- Modal scripts -->
+    <!-- Category Modal script -->
+        <scrip>
+            $(".card-header").click(function () {
+                $(this).toggleClass("selected");
+              });
+        </scrip>
+
+    <!-- Headshot Modal script -->
+        <script>
+            var video = document.querySelector("#videoElement");
+            const inpFile = document.getElementById("hsFile");
+            const previewContainer = document.getElementById("img-preview");
+            const previewImg = document.querySelector(".img-preview-img");
+            const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+            const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+        
+            inpFile.addEventListener("change", function () {
+              const file = this.files[0];
+              if (file) {
+                const reader = new FileReader();
+                previewDefaultTxt.style.display = "none";
+                previewImg.style.display = "block";
+        
+                reader.addEventListener("load", function () {
+                  console.log(this);
+                  previewImg.setAttribute("src", this.result);
+                });
+                reader.readAsDataURL(file);
+              }
+            })
+        
+            if (navigator.mediaDevices.getUserMedia) {
+              navigator.mediaDevices
+                .getUserMedia({ video: true })
+                .then(function (stream) {
+                  previewDefaultTxtCam.style.display = "none";
+                  video.style.display = "block";
+                  video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                  console.log("Something went wrong!");
+                });
+            }
+          </script>
+          <script>
+            $(document).ready(function () {
+              $(".upload-div").hide();
+              $(".file-edit-btns").hide();
+        
+              $(".btn-details-fileup").click(function () {
+                $(".capture-div").hide();
+                $(".upload-div").show();
+                $(".file-edit-btns").show();
+              });
+            });
+          </script>
 </body>
 
 </html>
+
+    <!-- category Modal -->
+    <div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="editCatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="col-md-3 d-none d-lg-block">
+                <img src="/images/footer-logo-grey.png" alt="logo">
+              </div>
+              <div class="col-10 col-md-6">
+                <h5 class="modal-title text-lg-center" id="editCatModalLabel">Manage Category</h5>
+              </div>
+              <div class="col-2 col-md-3">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-11 col-md-8 mx-auto">
+                  <p>Complete this section with as much detail as possible for better chances of being scouted</p>
+                </div>
+              </div>
+              <form class="row">
+                <div class="col-12 col-lg-8 mx-auto accordion shadow-sm pt-4" id="accordion">
+                  <!-- One card -->
+                  <div class="accordion-group mb-3 mx-lg-5 card">
+                    <div class="row card-header collapsed p-2" id="headingOne" type="button" data-toggle="collapse"
+                      data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <div class="col-3 pl-md-5">
+                        <!-- <div class="sprite actors"></div>
+                    <div class="sprite actors-w d-none"></div> -->
+                        <svg class="icon">
+                          <use xlink:href="images/category-icons.svg#actor" />
+                        </svg>
+                        <!-- <img src="./images/actors.png" alt="Actors Category" /> -->
+                      </div>
+                      <div class="col-7 col-md-8">
+                        <p class="text-uppercase my-2 pt-1">Actor</p>
+                      </div>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                      <div class="accordion-inner card-body">
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-details-cat-subcat mb-1">
+                            <input type="checkbox" /> Agency Scout
+                          </label>
+                          <label class="btn btn-details-cat-subcat mb-1">
+                            <input type="checkbox" /> Feature Film
+                          </label>
+                          <label class="btn btn-details-cat-subcat mb-1">
+                            <input type="checkbox" /> Theatre & Musical
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Two card -->
+                  <div class="accordion-group mb-3 mx-lg-5 card">
+                    <div class="row card-header collapsed p-2" id="headingTwo" type="button" data-toggle="collapse"
+                      data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                      <div class="col-3 pl-md-5">
+                        <!-- <div class="sprite actors"></div>
+                    <div class="sprite actors-w d-none"></div> -->
+                        <svg class="icon">
+                          <use xlink:href="images/category-icons.svg#model" />
+                        </svg>
+                        <!-- <img src="./images/actors.png" alt="Actors Category" /> -->
+                      </div>
+                      <div class="col-7 col-md-8">
+                        <p class="text-uppercase my-2 pt-1">Models</p>
+                      </div>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
+                      <div class="accordion-inner card-body">
+                        <div class="btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-details-cat-subcat mb-1">
+                            <input type="checkbox" /> SubCat 1
+                          </label>
+                          <label class="btn btn-details-cat-subcat mb-1">
+                            <input type="checkbox" /> SubCat 2
+                          </label>
+                          <label class="btn btn-details-cat-subcat mb-1">
+                            <input type="checkbox" /> SubCat 3
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <!-- btns div -->
+                    <div class="d-flex justify-content-around py-4">
+                      <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal headshot -->
+    <div class="modal fade" id="editheadshot" tabindex="-1" aria-labelledby="editHeadshotModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="col-md-3 d-none d-lg-block">
+                <img src="/images/footer-logo-grey.png" alt="logo">
+              </div>
+              <div class="col-10 col-md-6">
+                <h5 class="modal-title text-lg-center" id="editHeadshotModalLabel">Manage Headshot</h5>
+              </div>
+              <div class="col-2 col-md-3">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-body pr-details">
+              <div class="row">
+                <div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
+                  <div class="card-body">
+  
+                    <form action="">
+                      <!-- capture info -->
+                      <div class="capture-div">
+                        <ul class="text-muted">
+                          <li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+                          <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+                          <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+                        </ul>
+                      </div>
+                    <!-- upload-div info -->
+                      <div class="upload-div">
+                        <p>
+                          Crop headshot
+                        </p>
+                        <p class="text-muted">Click and drag the crop box to move and resize your headshot the way you'd like it to
+                          appear on your profile.
+                        </p>
+                      </div>
+  
+                      <!-- Img preview -->
+                      <div class="img-preview">
+                        <video autoplay="true" id="videoElement"></video>
+                        <img src="" alt="img-preview" class="img-preview-img">
+                        <span class="img-preview-default-txt">Image preview!</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Opps error!
+                      </div>
+                      <!-- capture btn -->
+                      <div class="capture-div">
+                        <a type="button" class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
+                          Camera</a>
+                        <button type="button" class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+                          Upload from device
+                        </button>
+                      </div>
+                      <!-- uoload btn  -->
+                      <div class="upload-div">
+                        <label class="btn btn-custom-file-upload d-flex justify-content-center">
+                          <input type="file" name="hsFile" id="hsFile" />
+                          Choose file to upload
+                        </label>
+                      </div>
+  
+                      <!-- file-edit-btns -->
+                      <div class="file-edit-btns">
+                        <div class="d-flex justify-content-center py-4">
+                          <button type="button" class="btn btn-details-uphs btn-xs mx-2 px-4">
+                            <i class="fas fa-undo"></i>
+                          </button>
+                          <button type="button" class="btn btn-details-uphs btn-xs mx-2 px-4">
+                            <i class="fas fa-undo fa-flip-horizontal"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-around py-4">
+                        <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+<!--Intro Modal -->
+    <div class="modal fade" id="editIntro" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="col-md-3 d-none d-lg-block">
+            <img src="/images/footer-logo-grey.png" alt="logo">
+          </div>
+          <div class="col-10 col-md-6">
+            <h5 class="modal-title text-lg-center" id="editIntroModalLabel">Manage Introduction</h5>
+          </div>
+          <div class="col-2 col-md-3">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
+              <div class="card-body">
+
+                <form action="">
+                  <h5 class="card-title">Add an Introduction to Camera</h5>
+                  <p class="text-muted">A video introduction is your chance to make a great first impression. In this
+                    video, be sure to focus on you. Share what inspires you and makes your talent unique.</p>
+                  <ul class="text-muted">
+                    <li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+                    <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+                    <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+                  </ul>
+                  <input class="form-control" type="text" placeholder="Paste your copied link here:" />
+                  <div class="invalid-feedback">
+                    Opps error!
+                  </div>
+                  <div class="hr-text mt-3 mb-4"></div>
+                  <h5 class="card-title">Introduction</h5>
+                  <p class="text-muted">Write a short introduction to yourself.</p>
+                  <div class="form-group">
+                    <textarea class="form-control justify-content-center"></textarea>
+                    <span class="float-right text-muted pt-1">180</span>
+                  </div>
+                  <div class="d-flex justify-content-around py-4">
+                    <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+        <!-- Social links Modal -->
+        <div class="modal fade" id="editSocialLinks" tabindex="-1" aria-labelledby="editSocialLinksModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="col-md-3 d-none d-lg-block">
+                <img src="/images/footer-logo-grey.png" alt="logo">
+              </div>
+              <div class="col-10 col-md-6">
+                <h5 class="modal-title text-lg-center" id="editSocialLinksModalLabel">Manage Social Links</h5>
+              </div>
+              <div class="col-2 col-md-3">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-11 col-md-8 mx-auto text-center">
+                  <p>Display your social media accounts, if any.</p>
+                </div>
+              </div>
+              <div class="row social-links">
+                <div class="card col-12 col-lg-8 mx-auto shadow-sm pt-4">
+                  <div class="card-body">
+                    <form action="">
+                      <div class="form-group mt-4">
+                        <div>
+                          <img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" />Instagram
+                        </div>
+                        <p class="url-eg">https://instagram.com/username</p>
+                        <input class="form-control" type="text" placeholder="Profile url" />
+                      </div>
+                      <div class="form-group mt-4">
+                        <div>
+                          <img src="https://img.icons8.com/color/30/000000/facebook.png" />Facebook
+                        </div>
+                        <p class="url-eg">https://instagram.com/username</p>
+                        <input class="form-control" type="text" placeholder="Profile url" />
+                      </div>
+                      <div class="form-group mt-4">
+                        <div>
+                          <img src="https://img.icons8.com/color/30/000000/twitter-squared.png" />Twitter
+                        </div>
+                        <p class="url-eg">https://instagram.com/username</p>
+                        <input class="form-control" type="text" placeholder="Profile url" />
+                      </div>
+                      <div class="form-group mt-4 pb-4">
+                        <div>
+                          <img src="https://img.icons8.com/color/30/000000/youtube-play.png" />Youtube
+                        </div>
+                        <p class="url-eg">https://instagram.com/username</p>
+                        <input class="form-control" type="text" placeholder="Profile url" />
+                      </div>
+                      <div class="d-flex justify-content-around pb-4">
+                        <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- btns div -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
