@@ -17,16 +17,18 @@ get_header();
                 <i class="far fa-envelope fa-5x my-4"></i>
                 <h4 class="ty font-weight-bold">Thank you!</h4>
                 <h4 class="um py-2">
-                Please confirm your email to complete your registration
+                Please verify your email address to complete your registration.
                 </h4>
                 <p>
-                Click the button in the email we sent to <?php echo $user_email; ?> and
-                you'll be on your way.
+                Click the button in the email we have sent you on <?php echo $user_email; ?>  to Verify Your Account
                 </p>
                 <hr class="my-4" />
                 <p>Didn't get the email?</p>
                 <p>
-                check your spam folder! <br /><a id="sci-rve" href="#">send email again</a> or
+                check your spam folder! <br />
+                or
+                <br>
+                <a id="sci-rve" href="#">Resend verification email</a> or
                 <a href="<?php echo get_page_link($contact_administrator_page); ?>">contact administrator</a>
                 </p>
             </div>

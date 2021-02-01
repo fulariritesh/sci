@@ -135,7 +135,7 @@ include('join-pagination.php');
 
 	<section class="pr-details d-flex justify-content-center py-5">
 		<div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0">
-			<div class="card-header">Enter your details</div>
+			<div class="card-header">Enter your basic information</div>
 			<div class="card-body px-4">
 
 				<form action="" method="post">

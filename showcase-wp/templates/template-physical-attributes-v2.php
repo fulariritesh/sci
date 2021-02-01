@@ -160,10 +160,11 @@ include('join-pagination.php');
 
 <section class="pr-details d-flex justify-content-center py-5">
     <div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0">
-    <div class="card-header">Physical-attributes</div>
+    <div class="card-header">Physical Features</div>
 		
         <div class="card-body px-4">
-			<p>The more complete this is, the better the chance of being scouted by someone casting a specific look.</p>
+			<p>The more complete this section is, the better your chances of catching the eye of a scout.</p>
+			<p>If this section is not relevant to your skillset, please skip below. And remember, you can always update this information later if you change your mind.</p>
 			<form action="" method="POST" >
 
 				<!-- HEIGHT -->
