@@ -175,6 +175,15 @@ function showcase_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
+function author_page_scripts(){
+	if (!is_author()) {
+		return;
+	}
+	wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
+	wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+}
+add_action('wp_head','author_page_scripts');
+
 function add_stylesheet_attributes( $html, $handle ) {
     if ( 'wp-block-library' === $handle ) {
         $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
@@ -474,6 +483,85 @@ function profession() {
 }
 add_action( 'init', 'profession', 0 );
 
+/**
+ * Rewrite author base to custom
+ *
+ * @return void
+ */
+function sci_author_base_rewrite() {
+    global $wp_rewrite;
+    $author_base_db = get_option( 'sci_author_base' );
+    if ( !empty( $author_base_db ) ) {
+        $wp_rewrite->author_base = $author_base_db;
+    }
+}
+
+add_action( 'init', 'sci_author_base_rewrite' );
+
+/**
+ * Render textinput for Author base
+ * Callback for the add_settings_function()
+ *
+ * @return void
+ */
+function sci_author_base_render_field() {
+    global $wp_rewrite;
+    printf(
+        '<input name="sci_author_base" id="sci_author_base" type="text" value="%s" class="regular-text code">',
+        esc_attr( $wp_rewrite->author_base )
+    );
+}
+
+/**
+ * Add a setting field for Author Base to the "Optional" Section
+ * of the Permalinks Page
+ *
+ * @return void
+ */
+function sci_author_base_add_settings_field() {
+    add_settings_field(
+        'sci_author_base',
+        esc_html__( 'Author base' ),
+        'sci_author_base_render_field',
+        'permalink',
+        'optional',
+        array( 'label_for' => 'sci_uthor_base' )
+    );
+}
+
+add_action( 'admin_init', 'sci_author_base_add_settings_field' );
+
+/**
+ * Sanitize and save the given Author Base value to the database
+ *
+ * @return void
+ */
+function sci_author_base_update() {
+    $author_base_db = get_option( 'sci_author_base' );
+
+    if ( isset( $_POST['sci_author_base'] ) &&
+        isset( $_POST['permalink_structure'] ) &&
+        check_admin_referer( 'update-permalink' )
+    ) {
+        $author_base = sanitize_title( $_POST['sci_author_base'] );
+
+        if ( empty( $author_base ) ) {
+            add_settings_error(
+                'sci_author_base',
+                'sci_author_base',
+                esc_html__( 'Invalid Author Base.' ),
+                'error'
+            );
+        } elseif ( $author_base_db != $author_base ) {
+            update_option( 'sci_author_base', $author_base );
+        }
+
+    }
+}
+
+add_action( 'admin_init', 'sci_author_base_update' );
+
+
 add_filter( 'authenticate', 'user_lock', 10, 3 );
 function user_lock( $user, $username, $password ){
     // Make sure a username and password are present for us to work with
@@ -497,18 +585,6 @@ function user_lock( $user, $username, $password ){
 }
 
 function hook_header(){
-	// if (is_page('signup')) {	
-	// 	echo '<style type="text/css">';
-	// 	echo '#main-header{ text-align: center; }';
-	// 	echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
-	// 	echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
-	// 	echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
-	// 	echo '</style>';
-	// }
-
-	// if(is_page('add-headshot')){
-	// 	echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css" integrity="sha512-w+u2vZqMNUVngx+0GVZYM21Qm093kAexjueWOv9e9nIeYJb1iEfiHC7Y+VvmP/tviQyA5IR32mwN/5hTEJx6Ng==" crossorigin="anonymous" />';
-	// }
 	if (is_page('signup')) {	
 		echo '<style type="text/css">';
 		echo '#main-header{ text-align: center; }';
@@ -569,5 +645,6 @@ function my_custom_mime_types( $mimes ) {
 	// Optional. Remove a mime type.
 	//unset( $mimes['exe'] );	 
 	return $mimes;
+
 }
-add_filter( 'upload_mimes', 'my_custom_mime_types' );
+add_action( 'um_registration_complete', 'my_registration_complete', 10, 2 );
