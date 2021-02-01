@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Headshot</title>
+  <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
+</head>
+
+<body>
+  <section>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editIntro">
+      Edit Headshot
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editIntro" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="editIntroModalLabel">Manage Headshot</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body pr-details">
+            <div class="row">
+              <div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
+                <div class="card-body">
+
+                  <form action="">
+                    <!-- capture info -->
+                    <div class="capture-div">
+                      <ul class="text-muted">
+                        <li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+                        <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+                        <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+                      </ul>
+                    </div>
+                  <!-- upload-div info -->
+                    <div class="upload-div">
+                      <p>
+                        Crop headshot
+                      </p>
+                      <p class="text-muted">Click and drag the crop box to move and resize your headshot the way you'd like it to
+                        appear on your profile.
+                      </p>
+                    </div>
+
+                    <!-- Img preview -->
+                    <div class="img-preview">
+                      <video autoplay="true" id="videoElement"></video>
+                      <img src="" alt="img-preview" class="img-preview-img">
+                      <span class="img-preview-default-txt">Image preview!</span>
+                    </div>
+                    <div class="invalid-feedback">
+                      Opps error!
+                    </div>
+                    <!-- capture btn -->
+                    <div class="capture-div">
+                      <a type="button" class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
+                        Camera</a>
+                      <button type="button" class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+                        Upload from device
+                      </button>
+                    </div>
+                    <!-- uoload btn  -->
+                    <div class="upload-div">
+                      <label class="btn btn-custom-file-upload d-flex justify-content-center">
+                        <input type="file" name="hsFile" id="hsFile" />
+                        Choose file to upload
+                      </label>
+                    </div>
+
+                    <!-- file-edit-btns -->
+                    <div class="file-edit-btns">
+                      <div class="d-flex justify-content-center py-4">
+                        <button type="button" class="btn btn-details-uphs btn-xs mx-2 px-4">
+                          <i class="fas fa-undo"></i>
+                        </button>
+                        <button type="button" class="btn btn-details-uphs btn-xs mx-2 px-4">
+                          <i class="fas fa-undo fa-flip-horizontal"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-around py-4">
+                      <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://kit.fontawesome.com/f5515e915e.js" crossorigin="anonymous"></script>
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+    <script>
+      var video = document.querySelector("#videoElement");
+      const inpFile = document.getElementById("hsFile");
+      const previewContainer = document.getElementById("img-preview");
+      const previewImg = document.querySelector(".img-preview-img");
+      const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+      const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+  
+      inpFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          previewDefaultTxt.style.display = "none";
+          previewImg.style.display = "block";
+  
+          reader.addEventListener("load", function () {
+            console.log(this);
+            previewImg.setAttribute("src", this.result);
+          });
+          reader.readAsDataURL(file);
+        }
+      })
+  
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            previewDefaultTxtCam.style.display = "none";
+            video.style.display = "block";
+            video.srcObject = stream;
+          })
+          .catch(function (err0r) {
+            console.log("Something went wrong!");
+          });
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(".upload-div").hide();
+        $(".file-edit-btns").hide();
+  
+        $(".btn-details-fileup").click(function () {
+          $(".capture-div").hide();
+          $(".upload-div").show();
+          $(".file-edit-btns").show();
+        });
+      });
+    </script>
+</body>
+
+</html>
