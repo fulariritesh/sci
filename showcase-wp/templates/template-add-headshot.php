@@ -141,7 +141,7 @@ include('join-pagination.php');
 				<div>
 					<div class="d-flex align-items-center justify-content-center py-4">
 
-					<p class="text-muted px-2">uploaded headshot</p>
+					
 					<?php 
 						$user_headshot = get_user_meta( $user_id, 'sci_user_headshot_1', true);
 						$user_headshot_disp =  wp_get_attachment_image( intval($user_headshot), 
@@ -149,6 +149,7 @@ include('join-pagination.php');
 						"", 
 						array( "class" => "img-thumbnail", "id" => "headshot_display"));
 						if(($user_headshot !== false) && (!empty($user_headshot_disp))){ 
+							echo '<p class="text-muted px-2">uploaded headshot</p>';
 							echo $user_headshot_disp;
 						}
 					?>
