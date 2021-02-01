@@ -82,11 +82,12 @@ include('join-pagination.php');
 				<!-- capture-div info -->
 				<div class="capture-div">
 					<!-- Info div -->
-					<p class="text-muted m-0 pb-2">1. Pay attention to framing, lighting, and background in your headshot. This
-					is your first impression!</p>
-					<p class="text-muted m-0 pb-2">2. Go easy with the makeup and try to use natural light.</p>
-					<p class="text-muted m-0 pb-2">3. Skip the sunglasses, hats, filters and special effects. This is business!
-					</p>
+					<ul class="text-muted">
+					<li class="pb-2">Pay attention to framing, lighting, and background in your headshot. This
+						is your first impression!</li>
+					<li class="pb-2">Go easy with the makeup and try to use natural light.</li>
+					<li class="pb-2">Skip the sunglasses, hats, filters and special effects. This is business!</li>
+					</ul>
 				</div>
 
 				<!-- upload-div info -->
@@ -107,7 +108,7 @@ include('join-pagination.php');
 					<span class="img-preview-default-txt">Image preview!</span>
 				</div>
 
-				<!-- Upload btn -->
+				<!-- capture btn -->
 				<div class="capture-div">
 					<button class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> 
 					Capture from Camera
@@ -117,7 +118,7 @@ include('join-pagination.php');
 					</button>
 				</div>
 
-				<!-- capture btn  -->
+				<!-- upload btn  -->
 				<div class="upload-div">
 					<label class="btn btn-custom-file-upload d-flex justify-content-center">
 					<input type="file" name="hsFile" id="hsFile" />
