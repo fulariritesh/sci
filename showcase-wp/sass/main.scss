@@ -2,13 +2,10 @@
 @import '../bootstrap/scss/bootstrap.scss';
 @import 'base/config';
 @import 'base/typography';
-@import 'base/linearstyle.css';
 @import 'components/menu';
 @import 'components/footer';
 @import 'components/buttons';
 @import 'components/joinpages-nav';
-@import 'components/flexslider.css';
-@import 'components/inputrng';
 @import 'pages/home';
 @import 'pages/signup';
 @import 'pages/login';
@@ -20,4 +17,8 @@
 @import 'components/category';
 @import 'components/photogrid';
 @import 'components/physicalAttribs';
+@import 'components/bs-switch';
 @import 'pages/viewprofile';
+@import 'pages/editProfile';
+@import "components/accordion";
+@import "components/popups";
