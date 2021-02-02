@@ -9,7 +9,7 @@ include('page_ids.php');
 		<div class="card col-11 col-md-8 col-lg-6 col-xl-4 shadow-sm">
 			<div class="card-body">
 			<h4 class="text-center font-weight-bold py-4">
-				Get your free account
+			Sign up for your free </br>Showcase India account!
 			</h4>
 			<button class="btn btn-signup-fb btn-block btn-lg">
 				Sign In with Facebook
@@ -30,7 +30,7 @@ include('page_ids.php');
 			?>
 
 			<p class="text-center mt-4">
-				Already a member? <a href="<?php echo get_page_link($signin_page); ?>">Sign In</a>
+				Already a member? <a href="<?php echo get_page_link($signin_page); ?>">Log In</a>
 			</p>
 			</div>
 		</div>

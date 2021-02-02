@@ -11659,8 +11659,7 @@ hr.new2 {
   background: #fcfafa;
 }
 
-.c-actors,
-.c-actor {
+.c-actors, .c-actor {
   background: #a7dcbe;
   color: #444;
   font-weight: normal;
@@ -11669,8 +11668,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-musicians,
-.c-musician {
+.c-musicians, .c-musician {
   background: #f8a0b3;
   color: #444;
   font-weight: normal;
@@ -11688,8 +11686,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-photographers,
-.c-photographer {
+.c-photographers, .c-photographer {
   background: #b9e9f4;
   color: #444;
   font-weight: normal;
@@ -11698,8 +11695,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-influencers,
-.c-influencer {
+.c-influencers, .c-influencer {
   background: #b796c5;
   color: #444;
   font-weight: normal;
@@ -11708,8 +11704,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-hairs,
-.c-hair {
+.c-hairs, .c-hair {
   background: #c2bdeb;
   color: #444;
   font-weight: normal;
@@ -11718,8 +11713,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-entertainers,
-.c-entertainer {
+.c-entertainers, .c-entertainer {
   background: #c2bdeb;
   color: #444;
   font-weight: normal;
@@ -11728,8 +11722,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-models,
-.c-model {
+.c-models, .c-model {
   background: #fcd9e7;
   color: #444;
   font-weight: normal;
@@ -11738,8 +11731,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-presenters,
-.c-presenter {
+.c-presenters, .c-presenter {
   background: #a5f6a7;
   color: #444;
   font-weight: normal;
@@ -11748,8 +11740,7 @@ hr.new2 {
   padding-right: 8px;
 }
 
-.c-dancers,
-.c-dancer {
+.c-dancers, .c-dancer {
   background: #f5f7b0;
   color: #444;
   font-weight: normal;
@@ -11766,92 +11757,6 @@ hr.new2 {
   padding-left: 8px;
   padding-right: 8px;
   margin-left: 5px;
-}
-
-.sprite {
-  background: url("/images/CategoryIcons.png") no-repeat top left;
-  width: 48px;
-  height: 48px;
-}
-
-.sprite.actors {
-  background-position: 0 0;
-}
-
-.sprite.actors-w {
-  background-position: -58px 0;
-}
-
-.sprite.dancers {
-  background-position: -116px 0;
-}
-
-.sprite.dancers-w {
-  background-position: -174px 0;
-}
-
-.sprite.entertainment {
-  background-position: -232px 0;
-}
-
-.sprite.entertainment-w {
-  background-position: -290px 0;
-}
-
-.sprite.film-crew {
-  background-position: -348px 0;
-}
-
-.sprite.film-crew-w {
-  background-position: -406px 0;
-}
-
-.sprite.hair {
-  background-position: -464px 0;
-}
-
-.sprite.hair-w {
-  background-position: -522px 0;
-}
-
-.sprite.influencers {
-  background-position: -580px 0;
-}
-
-.sprite.influencers-w {
-  background-position: -638px 0;
-}
-
-.sprite.models {
-  background-position: -696px 0;
-}
-
-.sprite.models-w {
-  background-position: -754px 0;
-}
-
-.sprite.musicians {
-  background-position: -812px 0;
-}
-
-.sprite.musicians-w {
-  background-position: -870px 0;
-}
-
-.sprite.photographers {
-  background-position: -928px 0;
-}
-
-.sprite.photographers-w {
-  background-position: -986px 0;
-}
-
-.sprite.presenter {
-  background-position: -1044px 0;
-}
-
-.sprite.presenter-w {
-  background-position: -1102px 0;
 }
 
 .photogrid {
