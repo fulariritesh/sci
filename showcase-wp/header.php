@@ -134,14 +134,14 @@
             </div>
             <div class="navbar-btn">
               <a
-				 href="/login"
+				 href="/signin"
                 class="btn btn-signIn"
                 type="button"
               >
                 Log in
               </a>
               <a
-				 href="/register"
+				 href="/category-subcategory/"
                 class="btn btn-join"
                 type="button"
               >
