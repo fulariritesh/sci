@@ -647,4 +647,4 @@ function my_custom_mime_types( $mimes ) {
 	return $mimes;
 
 }
-add_action( 'um_registration_complete', 'my_registration_complete', 10, 2 );
+add_filter( 'upload_mimes', 'my_custom_mime_types' );

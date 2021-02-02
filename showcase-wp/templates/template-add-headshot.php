@@ -8,11 +8,70 @@ if (!is_user_logged_in() ) {
   wp_redirect(home_url()); exit;
 } 
 
+$user_id = get_current_user_id();
+$upload_id = NULL;
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if(isset($_POST['headshot'])){
+
+		// delete previous old headshot
+		$user_headshot_old = get_user_meta( $user_id, 'sci_user_headshot_1', true);
+		if(($user_headshot_old !== false)){ 
+			wp_delete_attachment(intval($user_headshot_old), true);
+			delete_user_meta( $user_id, 'sci_user_headshot_1');
+		}
+	
+		$data = $_POST['headshot'];
+		$image_array_1 = explode(";", $data);
+		$image_array_2 = explode(",", $image_array_1[1]);
+		$data = base64_decode($image_array_2[1]);
+		$wordpress_upload_dir = wp_upload_dir();
+		$new_file_path = $wordpress_upload_dir['path'] . '/' .$user_id.'_'.time().'.png';
+
+		if( file_put_contents($new_file_path , $data ) ) {
+
+			$upload_id = wp_insert_attachment( array(
+				'guid'           => $new_file_path, 
+				'post_mime_type' => 'image/png',
+				'post_title'     => preg_replace( '/\.[^.]+$/', '', $user_id.'_'.time().'.png'),
+				'post_content'   => '',
+				'post_status'    => 'inherit'
+			), $new_file_path );
+		
+			// wp_generate_attachment_metadata() won't work if you do not include this file
+			require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		
+			// Generate and save the attachment metas into the database
+			wp_update_attachment_metadata( $upload_id, wp_generate_attachment_metadata( $upload_id, $new_file_path ) );	
+		}
+
+		if((!is_wp_error($upload_id)) || ($upload_id !== 0)){
+			$success_headshot_1 = update_user_meta( $user_id, 'sci_user_headshot_1', $upload_id);
+			
+			http_response_code(200);
+			echo json_encode(array('data' => $upload_id ));
+			exit();		
+		}
+
+		http_response_code(500);
+		echo json_encode(array('data' => 'Something went wrong.'));
+		exit();		
+		
+	}else{
+		http_response_code(400);
+		echo json_encode(array('data' => 'Upload Error.'));
+		exit();
+	}
+}
+
+
 get_header();
 
 include('join-pagination.php');
 
 ?>
+
 <section class="pr-details container-fluid py-5">
 	<div class="row">
 		<div class="card col-11 col-md-8 col-lg-7 col-xl-4 shadow-sm p-0 mx-auto">			
@@ -81,7 +140,9 @@ include('join-pagination.php');
 
 				<!-- preview uploaded image -->
 				<div>
-					<div class="d-flex align-items-center justify-content-center py-4">		
+					<div class="d-flex align-items-center justify-content-center py-4">
+
+					
 					<?php 
 						$user_headshot = get_user_meta( $user_id, 'sci_user_headshot_1', true);
 						$user_headshot_disp =  wp_get_attachment_image( intval($user_headshot), 
@@ -118,12 +179,12 @@ include('join-pagination.php');
 		</div>
 	</div>
 </section>
+
+
+
 <?php
-
-
 get_sidebar();
 get_footer();
-
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js" integrity="sha512-9pGiHYK23sqK5Zm0oF45sNBAX/JqbZEP7bSDHyt+nT3GddF+VFIcYNqREt0GDpmFVZI3LZ17Zu9nMMc9iktkCw==" crossorigin="anonymous"></script>
 
