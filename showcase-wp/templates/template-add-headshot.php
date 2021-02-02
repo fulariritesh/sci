@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(isset($_POST['headshot'])){
 
 		// delete previous old headshot
-		$user_headshot_old = get_user_meta( $user_id, 'sci_user_headshot_1', true);
+		$user_headshot_old = get_user_meta( $user_id, 'sci_user_headshot', true);
 		if(($user_headshot_old !== false)){ 
 			wp_delete_attachment(intval($user_headshot_old), true);
-			delete_user_meta( $user_id, 'sci_user_headshot_1');
+			delete_user_meta( $user_id, 'sci_user_headshot');
 		}
 	
 		$data = $_POST['headshot'];
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 
 		if((!is_wp_error($upload_id)) || ($upload_id !== 0)){
-			$success_headshot_1 = update_user_meta( $user_id, 'sci_user_headshot_1', $upload_id);
+			$success_headshot_1 = update_user_meta( $user_id, 'sci_user_headshot', $upload_id);
 			
 			http_response_code(200);
 			echo json_encode(array('data' => $upload_id ));
@@ -144,7 +144,7 @@ include('join-pagination.php');
 
 					
 					<?php 
-						$user_headshot = get_user_meta( $user_id, 'sci_user_headshot_1', true);
+						$user_headshot = get_user_meta( $user_id, 'sci_user_headshot', true);
 						$user_headshot_disp =  wp_get_attachment_image( intval($user_headshot), 
 						'thumbnail', 
 						"", 
