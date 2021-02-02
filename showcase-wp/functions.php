@@ -593,10 +593,6 @@ function hook_header(){
 		echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
 		echo '</style>';
 	}
-
-	if(is_page('add-headshot')){
-		echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css" integrity="sha512-w+u2vZqMNUVngx+0GVZYM21Qm093kAexjueWOv9e9nIeYJb1iEfiHC7Y+VvmP/tviQyA5IR32mwN/5hTEJx6Ng==" crossorigin="anonymous" />';
-	}
 }
 add_action('wp_head','hook_header');
 

@@ -207,16 +207,18 @@ get_footer();
 			const file = this.files[0];
 			if (file) {
 				const reader = new FileReader();
-				previewDefaultTxt.style.display = "none";
-				previewImg.style.display = "block";
+				
 				reader.addEventListener("load", function () {
-				//console.log(this);
-				previewImg.setAttribute("src", this.result);
-				cropper = new Cropper(previewImg, {
-						viewMode: 2,
-						aspectRatio: 1/1,
+					//console.log(this);
+					previewDefaultTxt.style.display = "none";
+					previewImg.setAttribute("src", this.result);
+					previewImg.style.display = "block";
+					cropper = new Cropper(previewImg, {
+							viewMode: 1,
+							aspectRatio: 1,
+							initialAspectRatio: 1
+						});
 					});
-				});
 				reader.readAsDataURL(file);	
 			}
 		});	
