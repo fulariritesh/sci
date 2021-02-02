@@ -31,23 +31,14 @@ get_header();
                 <a id="sci-rve" href="#">Resend verification email</a> or
                 <a href="<?php echo get_page_link($contact_administrator_page); ?>">contact administrator</a>
                 </p>
+
+                <!-- response message -->
+				<div id="resEmailVerification">
+				</div>
+
             </div>
         </div>
     </section>
-
-    <!-- Modal -->
-    <div class="modal fade" id="revModal" tabindex="-1" aria-labelledby="revModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    Resend Verification Email
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 <?php
 get_sidebar();

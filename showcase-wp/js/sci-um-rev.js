@@ -18,21 +18,34 @@ jQuery(document).ready(function ($) {
       dataType: 'json',
       success: function (data) {
         if (data.success && data.message) {
-          $('.modal-body').text(data.message);
           $('#sci-rve').text('send email again');
-          modal.call($('#revModal'));
+
+          $('#resEmailVerification').empty();
+				  $('#resEmailVerification').prepend('<div class="alert alert-success alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+data.message+'\
+														</div>');
+
         } else if (data.message) {
-          $('.modal-body').text(data.message);
           $('#sci-rve').text('send email again');
-          modal.call($('#revModal'));
+
+          $('#resEmailVerification').empty();
+				  $('#resEmailVerification').prepend('<div class="alert alert-warning alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+data.message+'\
+														</div>');
+
           console.log(data.message);
         } else {
           console.log('Something went wrong. Please contact support.');
           $('#sci-rve').text('send email again');
-          $('.modal-body').text(
-            'Something went wrong. Please contact support.'
-          );
-          modal.call($('#revModal'));
+
+          $('#resEmailVerification').empty();
+				  $('#resEmailVerification').prepend('<div class="alert alert-warning alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+data.message+'\
+														</div>');
+
         }
       },
       error: function (data) {

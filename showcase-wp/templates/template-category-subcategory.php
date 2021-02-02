@@ -68,7 +68,11 @@ get_header();
                     foreach( $categories as $category ) {
 
                         //var_dump(in_array($category->term_taxonomy_id,$_SESSION['user_profession']));
-                        $user_selected_category = in_array($category->term_taxonomy_id,$_SESSION['user_profession']);
+                        if(isset($_SESSION['user_profession'])){
+                            $user_selected_category = in_array($category->term_taxonomy_id,$_SESSION['user_profession']);
+                        }else{
+                            $user_selected_category = false;
+                        }
                             ?>
    
                             <!-- CATEGORY -->
@@ -112,7 +116,11 @@ get_header();
                                 foreach( $subcategories as $subcategory ) {
                                     
                                     //var_dump(in_array($subcategory->term_taxonomy_id,$_SESSION['user_profession']));
-                                    $user_selected_subcategory = in_array($subcategory->term_taxonomy_id,$_SESSION['user_profession']);
+                                    if(isset($_SESSION['user_profession'])){
+                                        $user_selected_subcategory = in_array($subcategory->term_taxonomy_id,$_SESSION['user_profession']);
+                                    }else{
+                                        $user_selected_subcategory = false;
+                                    }
                                     ?>
                                     <!-- SUB CATEGORY -->
                                     <label class="btn btn-details-cat-subcat mb-1 <?php echo ($user_selected_subcategory) ? 'active' : ''; ?>">
