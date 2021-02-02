@@ -10529,6 +10529,54 @@ hr.new2 {
   color: #fff;
 }
 
+.btn-popup-edit {
+  background: #f7f7f7;
+  color: #08BB9B;
+  text-transform: capitalize;
+  border: 1px solid #f7f7f7;
+}
+
+.btn-popup-edit:hover {
+  background: #08BB9B;
+  color: #ffff;
+}
+
+.btn-popup-del {
+  background: #f7f7f7;
+  color: #08BB9B;
+  text-transform: capitalize;
+  border: 1px solid #f7f7f7;
+}
+
+.btn-popup-del:hover {
+  background: #ffff;
+  color: #ea4335;
+}
+
+.btn-popup-delete {
+  background: #ea4335;
+  color: #ffff;
+  text-transform: capitalize;
+  border: 1px solid #ea4335;
+}
+
+.btn-popup-delete:hover {
+  background: #B63429;
+  color: #ffff;
+}
+
+.btn-popup-add {
+  background: #f7f7f7;
+  color: #08BB9B;
+  text-transform: capitalize;
+  border: 1px solid #f7f7f7;
+}
+
+.btn-popup-add:hover {
+  background: #ffff;
+  color: #08BB9B;
+}
+
 .jp-nav {
   background: #fff;
 }

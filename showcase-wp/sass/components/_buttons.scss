@@ -325,3 +325,45 @@
   padding-left:20px;
   padding-right:20px;
 }
+
+.btn-popup-edit {
+  @include buttonstyle(
+    $btn_popup-edit-bg,
+    $btn_popup-edit-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-edit-bg,
+    $btnhoverbg: $btn_popup-edit-hoverbg,
+    $btnhovercolor: $btn_popup-edit-hovercolor
+  );
+}
+.btn-popup-del {
+  @include buttonstyle(
+    $btn_popup-del-bg,
+    $btn_popup-del-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-del-bg,
+    $btnhoverbg: $btn_popup-del-hoverbg,
+    $btnhovercolor: $btn_popup-del-hovercolor
+  );
+}
+
+.btn-popup-delete {
+  @include buttonstyle(
+    $btn_popup-delete-bg,
+    $btn_popup-delete-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-delete-bg,
+    $btnhoverbg: $btn_popup-delete-hoverbg,
+    $btnhovercolor: $btn_popup-delete-hovercolor
+  );
+}
+.btn-popup-add {
+  @include buttonstyle(
+    $btn_popup-add-bg,
+    $btn_popup-add-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-add-bg,
+    $btnhoverbg: $btn_popup-add-hoverbg,
+    $btnhovercolor: $btn_popup-add-hovercolor
+  );
+}

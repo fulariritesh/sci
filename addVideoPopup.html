@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Video</title>
+  <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
+</head>
+
+<body>
+  <section>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addvideo">
+      Add Video
+    </button>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editvideo">
+      Edit Video
+    </button>
+
+    <!--add video Modal -->
+    <div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12 col-lg-8 mx-auto py-4">
+                <!-- <div class="card-body"> -->
+                  <form action="">
+                    <ul class="text-muted">
+                      <li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+                      <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+                      <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+                    </ul>
+                    <input class="form-control" type="text" placeholder="Paste your copied link here:" />
+                    <div class="invalid-feedback">
+                      Opps error!
+                    </div>
+                    <div class="d-flex justify-content-around py-4">
+                      <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                    </div>
+                  </form>
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+          <!--edit video details Modal -->
+          <div class="modal fade" id="editvideo" tabindex="-1" aria-labelledby="editvideoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editvideoModalLabel">Edit Video Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form action="">
+                    <div class="form-group">
+                      <label for="videoTitle">Title</label>
+                      <input type="text" class="form-control" id="videoTitle">
+                    </div>
+                    <div class="form-group">
+                      <label for="videoDesp">Title</label>
+                      <input type="text-area" class="form-control" id="videoDesp">
+                    </div>
+                  <!-- btns div -->
+                  <div class="d-flex justify-content-around pb-4">
+                    <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-lg btn-popup-delete">Delete</button>
+                  </div>
+                </form>
+                </div>
+      
+              </div>
+            </div>
+          </div>
+  </section>
+  <script src="https://kit.fontawesome.com/f5515e915e.js" crossorigin="anonymous"></script>
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
