@@ -5,8 +5,9 @@ import Lightbox from 'lightbox2';
 require("./bootstrap-editable.min.js");
 
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
+
+	$('[data-toggle="tooltip"]').tooltip();
+
 	$.fn.editable.defaults.mode = 'inline';
 	$.fn.editableform.buttons =
 		'<button type="submit" class="btn btn-primary btn-sm editable-submit">' +
@@ -15,25 +16,33 @@ $(document).ready(function(){
 		'<button type="button" class="btn btn-warning btn-sm editable-cancel">' +
 	    	'<i class="fa fa-fw fa-times"></i>' +
 	    '</button>';
-	$('#username').editable({
-		type: 'text',
-		pk: 1,
-		name: 'username',
-		title: 'Enter username'
-	});
-
-	$('#useremail').editable({
-		type: 'text',
-		pk: 1,
-		name: 'useremail',
-		title: 'Enter Email'
+	    
+	$('#name').editable({
+ 		type: 'text',
+    	url: Edit.request_url,    
+		send: "always",
+	  	params: function(params) { 
+			var data = {};
+			data['id'] = params.pk;
+			data[params.name] = params.value;
+			data['action'] = 'sci_change_name';
+			data['nonce'] = Edit.nonce;
+			return data;
+		}
 	});
 
 	$('#phone').editable({
 		type: 'text',
-		pk: 1,
-		name: 'phone',
-		title: 'Enter phone'
+		url: Edit.request_url, 
+		send: "always",
+	  	params: function(params) {  
+			var data = {};
+			data['id'] = params.pk;
+			data['number'] = params.value;
+			data['action'] = 'sci_change_number';
+			data['nonce'] = Edit.nonce;
+			return data;
+		}
 	});
 
 	$('#gender').editable({
@@ -49,14 +58,16 @@ $(document).ready(function(){
 		]
 	});
 
-$('#country').editable({
-	value: 'ru',    
-	source: [
-	      {value: 'gb', text: 'Great Britain'},
-	      {value: 'us', text: 'United States'},
-	      {value: 'ru', text: 'Russia'}
-	   ]
+	$('#country').editable({
+		value: 'ru',    
+		source: [
+		      {value: 'gb', text: 'Great Britain'},
+		      {value: 'us', text: 'United States'},
+		      {value: 'ru', text: 'Russia'}
+		   ]
+	});
 });
+
 $(".card-header").click(function () {
 	$(this).toggleClass("selected");
 });
@@ -82,7 +93,7 @@ if (inpFile) inpFile.addEventListener("change", function () {
   }
 })
 
-if (navigator.mediaDevices.getUserMedia) {
+if (navigator.mediaDevices) {
   navigator.mediaDevices
     .getUserMedia({ video: true })
     .then(function (stream) {
