@@ -259,7 +259,12 @@ get_footer();
                 data = canvas.toDataURL('image/png');
                 previewDefaultTxt.style.display = "none";
                 previewImg.style.display = "block";
-                previewImg.setAttribute('src', data);
+				previewImg.setAttribute('src', data);
+				cropper = new Cropper(previewImg, {
+							viewMode: 1,
+							aspectRatio: 1,
+							initialAspectRatio: 1
+						});
                 //console.log(data);
             } 
         }

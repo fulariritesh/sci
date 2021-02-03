@@ -124,7 +124,7 @@ $user_info = get_userdata($obj_id);
 								}
 							</style>
 	     					<div class="headshot">
-	     						<?php if (get_field('sci_user_headshot', 'user_' . $obj_id)): ?>
+								 <?php if (get_field('sci_user_headshot', 'user_' . $obj_id)): ?>
 								<div id="image-slider" class="splide slider_headshot">
 									<div class="splide__track">
 										<ul class="splide__list">
@@ -175,6 +175,7 @@ $user_info = get_userdata($obj_id);
 													</li>
 											<?php // End loop.
 											    endwhile;?>
+											<li class="splide__slide fas fa-user" id="add_featured_image"  data-toggle="modal" data-target="#editheadshot"></li>
 										</ul>
 									</div>
 								</div>
@@ -800,6 +801,99 @@ $user_info = get_userdata($obj_id);
         </div>
     </section>
   </div> 
+
+
+  <!-- Modal headshot -->
+<div class="modal fade" id="editheadshot" tabindex="-1" aria-labelledby="editHeadshotModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="editHeadshotModalLabel">Manage Headshot</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body pr-details">
+            <div class="row">
+              <div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
+                <div class="card-body">
+
+                    <!-- capture info -->
+                    <div class="capture-div">
+                      <ul class="text-muted">
+                        <li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+                        <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+                        <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+                      </ul>
+                    </div>
+                  <!-- upload-div info -->
+                    <div class="upload-div">
+                      <p>
+                        Crop headshot
+                      </p>
+                      <p class="text-muted">Click and drag the crop box to move and resize your headshot the way you'd like it to
+                        appear on your profile.
+                      </p>
+                    </div>
+                    <!-- Img preview -->
+                    <div class="img-preview">
+					  <video autoplay="true" id="videoElement"></video>
+					  <canvas id="canvas" class="d-none"></canvas>
+                      <img src="" alt="img-preview" class="img-preview-img">
+                      <span class="img-preview-default-txt">Image preview!</span>
+                    </div>
+                    <div class="invalid-feedback">
+                      Opps error!
+                    </div>
+                    <!-- capture btn -->
+                    <div class="capture-div">
+                      <a type="button" class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
+                        Camera</a>
+                      <button type="button" class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+                        Upload from device
+                      </button>
+                    </div>
+                    <!-- uoload btn  -->
+                    <div class="upload-div">
+                      <label class="btn btn-custom-file-upload d-flex justify-content-center">
+                        <input type="file" name="hsFile" id="hsFile" />
+                        Choose file to upload
+                      </label>
+                    </div>
+                    <!-- file-edit-btns -->
+                    <div class="file-edit-btns">
+                      <div class="d-flex justify-content-center py-4">
+                        <button type="button" id="rotate-anticlock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+                          <i class="fas fa-undo"></i>
+                        </button>
+                        <button type="button" id="rotate-clock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+                          <i class="fas fa-undo fa-flip-horizontal"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-around py-4">
+                      <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-lg btn-popup-save px-4">Save</button>
+					</div>			
+					<!-- error message -->
+					<div id="errorHeadshotWrapper" class="m-2"></div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+										
+
 <script type="text/javascript">
 	(function(){
 		document.addEventListener("scroll", function(event){
@@ -817,3 +911,161 @@ $user_info = get_userdata($obj_id);
 </script>
 <?php
 get_footer();
+?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js" integrity="sha512-9pGiHYK23sqK5Zm0oF45sNBAX/JqbZEP7bSDHyt+nT3GddF+VFIcYNqREt0GDpmFVZI3LZ17Zu9nMMc9iktkCw==" crossorigin="anonymous"></script>
+<script>
+jQuery(document).ready(function () {
+		jQuery(".upload-div").hide();
+		jQuery(".file-edit-btns").hide();
+
+		var cropper;
+		var data;
+		var canvas = document.querySelector("#canvas");
+		var video = document.querySelector("#videoElement");
+		const inpFile = document.getElementById("hsFile");
+		const previewContainer = document.getElementById("img-preview");
+		const previewImg = document.querySelector(".img-preview-img");
+		const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+		const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+
+		inpFile.addEventListener("change", function () {
+			const file = this.files[0];
+			if (file) {
+				const reader = new FileReader();
+				
+				reader.addEventListener("load", function () {
+					//console.log(this);
+					previewDefaultTxt.style.display = "none";
+					previewImg.setAttribute("src", this.result);
+					previewImg.style.display = "block";
+					cropper = new Cropper(previewImg, {
+							viewMode: 1,
+							aspectRatio: 1,
+							initialAspectRatio: 1
+						});
+					});
+				reader.readAsDataURL(file);	
+			}
+		});	
+
+		if (navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then(function (stream) {
+			previewDefaultTxtCam.style.display = "none";
+			video.style.display = "block";
+			video.srcObject = stream;
+			})
+			.catch(function (err0r) {
+			
+				console.log("Looks like your device has no camera.");
+				jQuery('#errorHeadshotWrapper').empty();
+				jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															Looks like your device has no camera. \
+														</div>');
+			});
+		}
+
+		
+
+		jQuery(".btn-details-fileup").click(function () {
+			jQuery(".capture-div").hide();
+			jQuery(".upload-div").show();
+			jQuery(".file-edit-btns").show();
+		});
+
+		function takepicture(height,width) {
+            var context = canvas.getContext('2d');
+            if (width && height) {
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(video, 0, 0, width, height);
+                data = canvas.toDataURL('image/png');
+                previewDefaultTxt.style.display = "none";
+                previewImg.style.display = "block";
+				previewImg.setAttribute('src', data);
+				cropper = new Cropper(previewImg, {
+							viewMode: 1,
+							aspectRatio: 1,
+							initialAspectRatio: 1
+						});
+                //console.log(data);
+            } 
+        }
+
+		jQuery(".btn-details-cptr").click(function (e) {
+			e.preventDefault();
+			console.log('capturing...');
+			jQuery(".upload-div").show();
+			jQuery(".file-edit-btns").show();
+			//console.log(video.offsetHeight,video.offsetWidth);
+			takepicture(video.offsetHeight,video.offsetWidth);
+			jQuery(".capture-div").hide();
+		});
+	  
+
+	  	jQuery('#saveHeadshot').on('click', function(){
+			console.log('uploading...');
+			if(cropper){
+				canvas = cropper.getCroppedCanvas({
+					width:400,
+					height:400
+				});
+				canvas.toBlob(function(blob){
+					url = URL.createObjectURL(blob);
+					var reader = new FileReader();
+					reader.readAsDataURL(blob);
+					reader.onloadend = function(){
+						var base64data = reader.result;
+						//console.log(base64data);
+						jQuery.ajax({
+							url:'<?php echo get_template_directory().'/inc/ajax-headshot.php'; ?>',
+							method:'POST',
+							data:{headshot:base64data},
+							success:function(response, status, xhr)
+							{
+								res = JSON.parse(response);
+								console.log(res, status, xhr.status);
+								cropper.destroy();
+								cropper = null;
+
+								if(xhr.status == 200){
+									console.log('success');
+								}else{
+									jQuery('#errorHeadshotWrapper').empty();
+									jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+																				<button type="button" class="close" data-dismiss="alert">&times;</button> \
+																				'+ res.data +'. \
+																			</div>');
+								}
+							}
+						});
+					};
+				});
+			}else{
+				console.log('please capture or upload a headshot');
+				jQuery('#errorHeadshotWrapper').empty();
+				jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															Please capture or upload a headshot. \
+														</div>');
+			}	
+		});
+
+		jQuery('#rotate-anticlock').on('click', function(){
+			console.log('rotate anticlock');
+			if(cropper){			
+				cropper.rotate(-90);
+			}
+		});
+
+		jQuery('#rotate-clock').on('click', function(){
+			console.log('rotate clock');
+			if(cropper){
+				cropper.rotate(90);
+			}
+		});
+
+    });
+</script>
