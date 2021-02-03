@@ -15,13 +15,6 @@ $upload_id = NULL;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if(isset($_POST['headshot'])){
 
-		// delete previous old headshot
-		$user_headshot_old = get_user_meta( $user_id, 'sci_user_headshot', true);
-		if(($user_headshot_old !== false)){ 
-			wp_delete_attachment(intval($user_headshot_old), true);
-			delete_user_meta( $user_id, 'sci_user_headshot');
-		}
-	
 		$data = $_POST['headshot'];
 		$image_array_1 = explode(";", $data);
 		$image_array_2 = explode(",", $image_array_1[1]);
@@ -47,7 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 
 		if((!is_wp_error($upload_id)) || ($upload_id !== 0)){
-			$success_headshot_1 = update_user_meta( $user_id, 'sci_user_headshot', $upload_id);
+	
+			if(have_rows('sci_user_headshots', 'user_' . $user_id)){
+				$row = array('sci_user_headshot' => $upload_id);
+				update_row('sci_user_headshots', 1, $row, 'user_'.$user_id);
+			}else{
+				$row = array('sci_user_headshot' => $upload_id);
+				add_row('sci_user_headshots', $row, 'user_'.$user_id);
+			}		
 			
 			http_response_code(200);
 			echo json_encode(array('data' => $upload_id ));
@@ -140,18 +140,13 @@ include('join-pagination.php');
 
 				<!-- preview uploaded image -->
 				<div>
-					<div class="d-flex align-items-center justify-content-center py-4">
-
-					
+					<div class="d-flex align-items-center justify-content-center py-4">			
 					<?php 
-						$user_headshot = get_user_meta( $user_id, 'sci_user_headshot', true);
-						$user_headshot_disp =  wp_get_attachment_image( intval($user_headshot), 
-						'thumbnail', 
-						"", 
-						array( "class" => "img-thumbnail", "id" => "headshot_display"));
-						if(($user_headshot !== false) && (!empty($user_headshot_disp))){ 
+						$user_headshots = get_field('sci_user_headshots', 'user_' . $user_id);
+						if($user_headshots){ 
+							$user_headshot_1 = $user_headshots[0]["sci_user_headshot"]["sizes"]["thumbnail"];	
 							echo '<p class="text-muted px-2">uploaded headshot</p>';
-							echo $user_headshot_disp;
+							echo '<img src="'.$user_headshot_1.'" class="img-thumbnail" />';
 						}
 					?>
 					</div>	
