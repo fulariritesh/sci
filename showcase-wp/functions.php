@@ -175,14 +175,16 @@ function showcase_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
-function author_page_scripts(){
-	if (!is_author()) {
-		return;
+function custom_page_scripts(){
+	if (is_page('edit-profile')) {
+		wp_enqueue_style( 'editable', get_template_directory_uri() . "/sass/components/bootstrap-editable.css", array(), _S_VERSION );
 	}
-	wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
-	wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+	if (is_author()) {
+		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+	}
 }
-add_action('wp_head','author_page_scripts');
+add_action('wp_head','custom_page_scripts');
 
 function add_stylesheet_attributes( $html, $handle ) {
     if ( 'wp-block-library' === $handle ) {
@@ -648,3 +650,14 @@ function my_custom_mime_types( $mimes ) {
 
 }
 add_filter( 'upload_mimes', 'my_custom_mime_types' );
+
+add_action( 'template_redirect', 'redirect_to_login_page' );
+
+function redirect_to_login_page() {
+
+	if ( is_page('edit-profile') && ! is_user_logged_in() ) {
+
+		wp_redirect( get_site_url() . '/signin', 301 ); 
+  		exit;
+    }
+}
