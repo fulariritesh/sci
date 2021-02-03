@@ -1,6 +1,109 @@
 import Splide from '@splidejs/splide';
 import Lightbox from 'lightbox2';
 
+// Edit Profile scripts
+require("./bootstrap-editable.min.js");
+
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+	$.fn.editable.defaults.mode = 'inline';
+	$.fn.editableform.buttons =
+		'<button type="submit" class="btn btn-primary btn-sm editable-submit">' +
+	    	'<i class="fa fa-fw fa-check"></i>' +
+	    	'</button>' +
+		'<button type="button" class="btn btn-warning btn-sm editable-cancel">' +
+	    	'<i class="fa fa-fw fa-times"></i>' +
+	    '</button>';
+	$('#username').editable({
+		type: 'text',
+		pk: 1,
+		name: 'username',
+		title: 'Enter username'
+	});
+
+	$('#useremail').editable({
+		type: 'text',
+		pk: 1,
+		name: 'useremail',
+		title: 'Enter Email'
+	});
+
+	$('#phone').editable({
+		type: 'text',
+		pk: 1,
+		name: 'phone',
+		title: 'Enter phone'
+	});
+
+	$('#gender').editable({
+		source: [
+			{
+				value: 1,
+				text: 'Male'
+			},
+			{
+				value: 2,
+				text: 'Female'
+			}
+		]
+	});
+
+$('#country').editable({
+	value: 'ru',    
+	source: [
+	      {value: 'gb', text: 'Great Britain'},
+	      {value: 'us', text: 'United States'},
+	      {value: 'ru', text: 'Russia'}
+	   ]
+});
+$(".card-header").click(function () {
+	$(this).toggleClass("selected");
+});
+var video = document.querySelector("#videoElement");
+const inpFile = document.getElementById("hsFile");
+const previewContainer = document.getElementById("img-preview");
+const previewImg = document.querySelector(".img-preview-img");
+const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+
+if (inpFile) inpFile.addEventListener("change", function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    previewDefaultTxt.style.display = "none";
+    previewImg.style.display = "block";
+
+    reader.addEventListener("load", function () {
+      console.log(this);
+      previewImg.setAttribute("src", this.result);
+    });
+    reader.readAsDataURL(file);
+  }
+})
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices
+    .getUserMedia({ video: true })
+    .then(function (stream) {
+      previewDefaultTxtCam.style.display = "none";
+      video.style.display = "block";
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+$(document).ready(function () {
+	$(".upload-div").hide();
+	$(".file-edit-btns").hide();
+	$(".btn-details-fileup").click(function () {
+		$(".capture-div").hide();
+		$(".upload-div").show();
+		$(".file-edit-btns").show();
+	});
+});
+
 $(document).ready(function(){
 	// Check if element exists
 	if (!!$('.slider_headshot').length) {
@@ -80,10 +183,6 @@ $(document).ready(function(){
 		} ).mount();
 	}
 
-
-	$('.brands_carousel').carousel({
-	  interval: 2000
-	})
 
 	/* Profile details page - dynamically show custom gender text field */
 	/* 
