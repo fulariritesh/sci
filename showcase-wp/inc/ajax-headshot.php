@@ -1,8 +1,9 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+	$ref = $_SERVER['HTTP_REFERER'];
     http_response_code(400);
-	echo json_encode(array('data' => 'Testing Ajax.'));
+	echo json_encode(array('data' => $ref));
 	exit();
 
     $user_id = get_current_user_id();

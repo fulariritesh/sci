@@ -161,11 +161,3 @@ get_header();
 get_sidebar();
 get_footer();
 ?>
-<script>
-    jQuery(document).ready(function () {
-        jQuery(".card-header").click(function () {
-        jQuery(this).toggleClass("selected");
-        jQuery(this).children('input[type="hidden"]').prop('disabled', function(i, v) { return !v; });
-      });
-    });
-</script>
