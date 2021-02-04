@@ -32,7 +32,7 @@ $user_info = get_userdata($obj_id);
 		z-index: 99;
 	}
 </style>
-  <div class="bodyBG">
+<div class="bodyBG">
     <section class="container-fluid">
         <div class="container px-0 ">
 	        <div class="row">
@@ -124,28 +124,22 @@ $user_info = get_userdata($obj_id);
 								}
 							</style>
 	     					<div class="headshot">
-	     						<?php if (get_field('sci_user_headshot', 'user_' . $obj_id)): ?>
+				 
 								<div id="image-slider" class="splide slider_headshot">
 									<div class="splide__track">
 										<ul class="splide__list">
-											<li class="splide__slide">
-								     			<img src="<?php echo get_field('sci_user_headshot', 'user_' . $obj_id); ?>">
-											</li>
 											<?php
 											// Check rows exists.
-											if( have_rows('featured_images', 'user_' . $obj_id) ):
-
+											if( have_rows('sci_user_headshots', 'user_' . $obj_id) ):
 											    // Loop through rows.
-											    while( have_rows('featured_images', 'user_' . $obj_id) ) : the_row();
-
+											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
 											        // Load sub field value.
-											        $sub_value = get_sub_field('image'); ?>
+											        $sub_value = get_sub_field('sci_user_headshot'); ?>
 											        <li  class="splide__slide">
-											        	<img src="<?php echo $sub_value; ?>">
+											        	<img src="<?php echo $sub_value['url']; ?>">
 													</li>
 											    <?php // End loop.
 											    endwhile;
-
 											// No value.
 											else :
 											    // Do something...
@@ -154,24 +148,20 @@ $user_info = get_userdata($obj_id);
 										</ul>
 									</div>
 								</div>
-								<?php endif ?>
+						
 								<?php 
 								// Check rows exists.
-								if( have_rows('featured_images', 'user_' . $obj_id) ): ?>
+								if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
 								<div id="secondary-slider" class="splide slider_headshot_thumbnail">
 									<div class="splide__track">
 										<ul class="splide__list">
-											<li class="splide__slide">
-								     			<img src="<?php echo get_field('sci_user_headshot', 'user_' . $obj_id); ?>">
-											</li>
 											<?php
-											    // Loop through rows.
-											    while( have_rows('featured_images', 'user_' . $obj_id) ) : the_row();
-
+												// Loop through rows.												
+											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
 											        // Load sub field value.
-											        $sub_value = get_sub_field('image'); ?>
+											        $sub_value = get_sub_field('sci_user_headshot'); ?>
 											        <li  class="splide__slide">
-											        	<img src="<?php echo $sub_value; ?>">
+														<img src="<?php echo $sub_value['url']; ?>">
 													</li>
 											<?php // End loop.
 											    endwhile;?>
@@ -799,7 +789,8 @@ $user_info = get_userdata($obj_id);
 	        </div>     
         </div>
     </section>
-  </div> 
+</div> 
+									
 <script type="text/javascript">
 	(function(){
 		document.addEventListener("scroll", function(event){

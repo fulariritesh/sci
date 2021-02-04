@@ -1,9 +1,6 @@
 <?php
 /* Template Name: Physical Attributes v2.0 Page */
 
-include('page_ids.php'); 
-include('acf_field_ids.php'); 
-
 if (!is_user_logged_in() ) {
   wp_redirect(home_url()); exit;
 } 
@@ -27,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				if(is_numeric($heightvalueft)){
 					$heightvalueft = intval($heightvalueft);
 					//get values from ACF plugin
-					$acf_height_ft = get_field_object($height_field_ft);			
+					$acf_height_ft = acf_get_field('sci_user_height_ft');			
 					if((intval($acf_height_ft['min']) <= $heightvalueft) && ($heightvalueft <= intval($acf_height_ft['max']))){
 						$height_ft = $heightvalueft;
 					}else{
@@ -42,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if(is_numeric($heightvaluein)){
                             $heightvaluein = intval($heightvaluein);
                             //get values from ACF plugin
-                            $acf_height_in = get_field_object($height_field_in);			
+                            $acf_height_in = acf_get_field('sci_user_height_in');			
                             if((intval($acf_height_in['min']) <= $heightvaluein) && ($heightvaluein <= intval($acf_height_in['max']))){
                                 $height_in = $heightvaluein;
                             }else{
@@ -66,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				if(is_numeric($weightvalue)){
 					$weightvalue = floatval($weightvalue);
 					//get values from ACF plugin
-					$acf_weight = get_field_object($weight_field_kg);				
+					$acf_weight = acf_get_field('sci_user_weight_kg');				
 					if((floatval($acf_weight['min']) <= $weightvalue) && ($weightvalue <= floatval($acf_weight['max']))){
 						$weight_kg = $weightvalue;
 					}else{
@@ -83,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			else{
 				$eye_colorvalue = sanitize_text_field( $_POST['eye_color']);
 				//get values from ACF plugin
-				$acf_eye_color = get_field_object($eye_color_field);
+				$acf_eye_color = acf_get_field('sci_user_eye_color');
 				$verify_eye_color = array_search($eye_colorvalue,array_keys($acf_eye_color['choices']),true);		
 				if($verify_eye_color !== false){				
 					$eye_color = $eye_colorvalue;
@@ -98,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			else{
 				$skin_colorvalue = sanitize_text_field( $_POST['skin_color']);
 				//get values from ACF plugin
-				$acf_skin_color = get_field_object($skin_color_field);
+				$acf_skin_color = acf_get_field('sci_user_skin_color');
 				$verify_skin_color = array_search($skin_colorvalue,array_keys($acf_skin_color['choices']),true);		
 				if($verify_skin_color !== false){				
 					$skin_color = $skin_colorvalue;
@@ -114,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				if(is_numeric($chestvalue)){
 					$chestvalue = intval($chestvalue);
 					//get values from ACF plugin
-					$acf_chest = get_field_object($chest_field_in);				
+					$acf_chest = acf_get_field('sci_user_chest_in');				
 					if((intval($acf_chest['min']) <= $chestvalue) && ($chestvalue <= intval($acf_chest['max']))){
 						$chest_in = $chestvalue;
 					}else{
@@ -135,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$success_skin_color = update_user_meta( $user_id, 'sci_user_skin_color', $skin_color);
 				$success_chest = update_user_meta( $user_id, 'sci_user_chest_in', $chest_in);
 
-				wp_redirect( get_page_link( $add_headshot_page )); exit;
+				wp_redirect(get_page_link(get_page_by_path('add-headshot'))); exit;
 			}
 
 		}else{
@@ -147,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$deleted_skin_color = delete_user_meta( $user_id, 'sci_user_skin_color');
 			$deleted_chest = delete_user_meta( $user_id, 'sci_user_chest_in');
 
-			wp_redirect( get_page_link( $add_headshot_page )); exit;
+			wp_redirect(get_page_link(get_page_by_path('add-headshot'))); exit;
 		}		
 	}
 }
@@ -171,9 +168,9 @@ include('join-pagination.php');
 				<div class="form-group">
 					<?php
 						//get values from ACF plugin
-						$height_f_ft = get_field_object($height_field_ft);
+						$height_f_ft = acf_get_field('sci_user_height_ft');
                         $user_height_ft = get_user_meta( $user_id, 'sci_user_height_ft', true);
-                        $height_f_in = get_field_object($height_field_in);
+                        $height_f_in = acf_get_field('sci_user_height_in');
 						$user_height_in = get_user_meta( $user_id, 'sci_user_height_in', true);
 					?>
 					<div class="d-flex justify-content-between">
@@ -206,7 +203,7 @@ include('join-pagination.php');
 				<div class="form-group">
 					<?php
 						//get values from ACF plugin
-						$weight_f = get_field_object($weight_field_kg);
+						$weight_f = acf_get_field('sci_user_weight_kg');
 						$user_weight= get_user_meta( $user_id, 'sci_user_weight_kg', true);
 					?>
 					<div class="d-flex justify-content-between">
@@ -232,7 +229,7 @@ include('join-pagination.php');
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 						<?php
 							//get values from ACF plugin
-							$eye_color_f = get_field_object($eye_color_field);
+							$eye_color_f = acf_get_field('sci_user_eye_color');
 							$user_eye_color = get_user_meta( $user_id, 'sci_user_eye_color', true);
 							foreach($eye_color_f['choices'] as $eye_color_value => $eye_color_label){	
 								echo '<label class="btn btn-details-gen">';	
@@ -252,7 +249,7 @@ include('join-pagination.php');
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 						<?php
 							//get values from ACF plugin
-							$skin_color_f = get_field_object($skin_color_field);
+							$skin_color_f = acf_get_field('sci_user_skin_color');
 							$user_skin_color = get_user_meta( $user_id, 'sci_user_skin_color', true);
 							foreach($skin_color_f['choices'] as $skin_color_value => $skin_color_label){	
 								echo '<label class="btn btn-details-gen">';	
@@ -268,7 +265,7 @@ include('join-pagination.php');
 				<div class="form-group">
 					<?php
 						//get values from ACF plugin
-						$chest_f = get_field_object($chest_field_in);
+						$chest_f = acf_get_field('sci_user_chest_in');
 						$user_chest = get_user_meta( $user_id, 'sci_user_chest_in', true);
 					?>
 					<div class="d-flex justify-content-between">
@@ -288,7 +285,7 @@ include('join-pagination.php');
 
 				<!-- BACK - SAVE -->
 				<div class="d-flex justify-content-between py-3">
-					<a href="<?php echo get_page_link($profile_details_page); ?>" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
+					<a href="<?php echo get_page_link(get_page_by_path('profile-details')); ?>" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
 					<button type="submit" name="submit" value="save" class="btn btn-lg btn-details-nxt float-right btn-xs px-md-5">Next</button>
 				</div>
 				

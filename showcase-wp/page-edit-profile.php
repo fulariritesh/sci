@@ -10,6 +10,13 @@ $obj_id = wp_get_current_user()->data->ID;
 $data = get_user_meta($obj_id);
 $user_info = get_userdata($obj_id);
 ?>
+<?php 
+
+$obj_id = wp_get_current_user()->data->ID;
+$data = get_user_meta($obj_id);
+$user_info = get_userdata($obj_id);
+
+?>
 <div class="bodyBG">
 	<section class="container-fluid">
 	    <div class="container px-0 ">
@@ -46,17 +53,135 @@ $user_info = get_userdata($obj_id);
 	        <!-- <div class="tab-pane container active pb-4" id=""> -->
 	            <div class="row p-3 blockBG">
 	                <div class="col-12 col-sm-6">
-	                    <div class="col-12 text-center">
-	                        <div class="headshotarea">
-	                        <!-- <label class="btn btn-add uploadimage" >Add Image
-	                            <input type="file" id="file-input" class="" size="60" >  
-	                        </label> -->
-	                        <?php if (get_field('sci_user_headshot', 'user_' . $obj_id)): ?>
-	                        <img src="<?php echo get_field('sci_user_headshot', 'user_' . $obj_id); ?>" />
-							<?php endif ?>
-	                        <div class="col"><button class="btn btn-add" data-toggle="modal" data-target="#editheadshot">Add Image</button></div>
-	                    </div>
-	                </div>
+				
+					<style type="text/css">
+								#secondary-slider .splide__slide {
+									background-position: top center !important;
+								}
+								.slider_headshot_thumbnail, .slider_headshot {
+									margin-bottom: 2rem;
+								}
+								#image-slider .splide__slide {
+									width: 42.7vw;
+									height: 42.7vw;
+									max-height: 462px;
+									background-position-y: top !important;
+								}
+								.headshot {
+									padding-top: 28px;
+									padding-left: 13px;
+								}
+								.profile-personaldetails {
+									padding-left: 63px;
+									padding-top: 0;
+									display: flex;
+									justify-content: center;
+									flex-direction: column;
+								}
+								.profile-personaldetails > h1 {
+									margin-bottom: 23px;
+									font-weight: 600;
+									font-size: 44px;
+									line-height: 1.1;
+								}
+								.profile-personaldetails > span {
+									margin-bottom: 24px;
+									font-size: 1.4rem;
+									line-height: 1;
+									position: relative;
+									padding-left: 44px;
+								}
+								.profile-personaldetails > span i {
+									position: absolute;
+									left: 15px;
+									top: 50%;
+									transform: translate(-50%, -50%);
+								}
+								.selectedcategories {
+									padding-top: 40px;
+									margin-bottom: 65px;
+								}
+								.profile-personaldetails .selectedcategories span.badge {
+									padding: 5px 31px;
+									font-weight: 500;
+									font-size: 22px;
+									border-radius: 15px;
+									padding-right: 28px;
+									margin-right: 2px;
+									margin-bottom: 5px;
+								}
+								.defaultHeadshot{
+									text-align:center;
+									background:#f2f2f2;
+								}
+								.defaultHeadshot i{
+									font-size:100px;
+									padding-top:5px;
+								}
+								@media (max-width: 575px){
+									#image-slider .splide__slide {
+										height: calc(100vw - 60px);
+									}
+								}
+							</style>
+	     					<div class="headshot">				 
+								<div id="image-slider" class="splide slider_headshot">
+									<div class="splide__track">
+										<ul class="splide__list">
+											<?php
+											// Check rows exists.
+											if( have_rows('sci_user_headshots', 'user_' . $obj_id) ):
+											    // Loop through rows.
+											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+											        // Load sub field value.
+											        $sub_value = get_sub_field('sci_user_headshot'); ?>
+											        <li  class="splide__slide">
+											        	<img src="<?php echo $sub_value['url']; ?>">
+													</li>
+											    <?php // End loop.
+											    endwhile;
+											// No value.
+											else :
+											    // Do something...
+											endif;
+											?>
+										</ul>
+									</div>
+								</div>
+						
+								<?php 
+								// Check rows exists.
+	
+								if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
+								<div id="secondary-slider" class="splide slider_headshot_thumbnail">
+									<div class="splide__track">
+										<ul class="splide__list">
+											<?php
+												// Loop through rows.												
+											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+											        // Load sub field value.
+											        $sub_value = get_sub_field('sci_user_headshot'); ?>
+											        <li  data-toggle="modal" data-target="#editheadshot" data-index=<?php echo get_row_index(); ?> class="splide__slide">
+														<img src="<?php echo $sub_value['url']; ?>">
+													</li>
+											<?php // End loop.
+												endwhile;
+												$usedHeadshots = count(get_field('sci_user_headshots', 'user_' . $obj_id));
+												$emptyHeadshots = 4 - $usedHeadshots;
+												for($i=($usedHeadshots+1); $i <= 4; $i++ ){
+													echo 	'<li  data-toggle="modal" data-target="#editheadshot" data-index="'.$i.'" class="splide__slide defaultHeadshot"> 
+																<i class="fas fa-user"></i> 			
+															</li>';
+												}
+											?>
+										</ul>
+									</div>
+								</div>
+								<?php // No value.
+								else :
+								    // Do something...
+								endif; ?>
+	     					</div>
 	                </div>
 	                <div class="col-12 col-sm-6 profile-personaldetails pt-5">
 	                    <form id="editable-form" class="editable-form">
@@ -524,201 +649,202 @@ $user_info = get_userdata($obj_id);
 	    </div>
 	</section>
 </div>
-    <!-- category Modal -->
-    <div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="editCatModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="col-md-3 d-none d-lg-block">
-                <!-- <img src="/images/footer-logo-grey.png" alt="logo"> -->
-              </div>
-              <div class="col-10 col-md-6">
-                <h5 class="modal-title text-lg-center" id="editCatModalLabel">Manage Category</h5>
-              </div>
-              <div class="col-2 col-md-3">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-11 col-md-8 mx-auto">
-                  <p>Complete this section with as much detail as possible for better chances of being scouted</p>
-                </div>
-              </div>
-              <form class="row">
-                <div class="col-12 col-lg-8 mx-auto accordion shadow-sm pt-4" id="accordion">
-                  <!-- One card -->
-                  <div class="accordion-group mb-3 mx-lg-5 card">
-                    <div class="row card-header collapsed p-2" id="headingOne" type="button" data-toggle="collapse"
-                      data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      <div class="col-3 pl-md-5">
-                        <!-- <div class="sprite actors"></div>
-                    <div class="sprite actors-w d-none"></div> -->
-                        <svg class="icon">
-                          <use xlink:href="images/category-icons.svg#actor" />
-                        </svg>
-                        <img src="./images/actors.png" alt="Actors Category" />
-                      </div>
-                      <div class="col-7 col-md-8">
-                        <p class="text-uppercase my-2 pt-1">Actor</p>
-                      </div>
-                    </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
-                      <div class="accordion-inner card-body">
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                          <label class="btn btn-details-cat-subcat mb-1">
-                            <input type="checkbox" /> Agency Scout
-                          </label>
-                          <label class="btn btn-details-cat-subcat mb-1">
-                            <input type="checkbox" /> Feature Film
-                          </label>
-                          <label class="btn btn-details-cat-subcat mb-1">
-                            <input type="checkbox" /> Theatre & Musical
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Two card -->
-                  <div class="accordion-group mb-3 mx-lg-5 card">
-                    <div class="row card-header collapsed p-2" id="headingTwo" type="button" data-toggle="collapse"
-                      data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                      <div class="col-3 pl-md-5">
-                        <!-- <div class="sprite actors"></div>
-                    <div class="sprite actors-w d-none"></div> -->
-                        <svg class="icon">
-                          <use xlink:href="images/category-icons.svg#model" />
-                        </svg>
-                        <img src="./images/actors.png" alt="Actors Category" />
-                      </div>
-                      <div class="col-7 col-md-8">
-                        <p class="text-uppercase my-2 pt-1">Models</p>
-                      </div>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
-                      <div class="accordion-inner card-body">
-                        <div class="btn-group-toggle" data-toggle="buttons">
-                          <label class="btn btn-details-cat-subcat mb-1">
-                            <input type="checkbox" /> SubCat 1
-                          </label>
-                          <label class="btn btn-details-cat-subcat mb-1">
-                            <input type="checkbox" /> SubCat 2
-                          </label>
-                          <label class="btn btn-details-cat-subcat mb-1">
-                            <input type="checkbox" /> SubCat 3
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <!-- btns div -->
-                    <div class="d-flex justify-content-around py-4">
-                      <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
-                      <button class="btn btn-lg btn-popup-save px-4">Save</button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
 
-    <!-- Modal headshot -->
-    <div class="modal fade" id="editheadshot" tabindex="-1" aria-labelledby="editHeadshotModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="col-md-3 d-none d-lg-block">
-                <!-- <img src="/images/footer-logo-grey.png" alt="logo"> -->
-              </div>
-              <div class="col-10 col-md-6">
-                <h5 class="modal-title text-lg-center" id="editHeadshotModalLabel">Manage Headshot</h5>
-              </div>
-              <div class="col-2 col-md-3">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-            <div class="modal-body pr-details">
-              <div class="row">
-                <div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
-                  <div class="card-body">
-  
-                    <form action="">
-                      <!-- capture info -->
-                      <div class="capture-div">
-                        <ul class="text-muted">
-                          <li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
-                          <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
-                          <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
-                        </ul>
-                      </div>
-                    <!-- upload-div info -->
-                      <div class="upload-div">
-                        <p>
-                          Crop headshot
-                        </p>
-                        <p class="text-muted">Click and drag the crop box to move and resize your headshot the way you'd like it to
-                          appear on your profile.
-                        </p>
-                      </div>
-  
-                      <!-- Img preview -->
-                      <div class="img-preview">
-                        <video autoplay="true" id="videoElement"></video>
-                        <img src="" alt="img-preview" class="img-preview-img">
-                        <span class="img-preview-default-txt">Image preview!</span>
-                      </div>
-                      <div class="invalid-feedback">
-                        Opps error!
-                      </div>
-                      <!-- capture btn -->
-                      <div class="capture-div">
-                        <a type="button" class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
-                          Camera</a>
-                        <button type="button" class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
-                          Upload from device
-                        </button>
-                      </div>
-                      <!-- uoload btn  -->
-                      <div class="upload-div">
-                        <label class="btn btn-custom-file-upload d-flex justify-content-center">
-                          <input type="file" name="hsFile" id="hsFile" />
-                          Choose file to upload
-                        </label>
-                      </div>
-  
-                      <!-- file-edit-btns -->
-                      <div class="file-edit-btns">
-                        <div class="d-flex justify-content-center py-4">
-                          <button type="button" class="btn btn-details-uphs btn-xs mx-2 px-4">
-                            <i class="fas fa-undo"></i>
-                          </button>
-                          <button type="button" class="btn btn-details-uphs btn-xs mx-2 px-4">
-                            <i class="fas fa-undo fa-flip-horizontal"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-around py-4">
-                        <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-lg btn-popup-save px-4">Save</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
+<!-- category Modal -->
+<div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="editCatModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+		<div class="modal-header">
+			<div class="col-md-3 d-none d-lg-block">
+			<img src="/images/footer-logo-grey.png" alt="logo">
+			</div>
+			<div class="col-10 col-md-6">
+			<h5 class="modal-title text-lg-center" id="editCatModalLabel">Manage Category</h5>
+			</div>
+			<div class="col-2 col-md-3">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+			<div class="col-11 col-md-8 mx-auto">
+				<p>Complete this section with as much detail as possible for better chances of being scouted</p>
+			</div>
+			</div>
+			<form class="row">
+			<div class="col-12 col-lg-8 mx-auto accordion shadow-sm pt-4" id="accordion">
+				<!-- One card -->
+				<div class="accordion-group mb-3 mx-lg-5 card">
+				<div class="row card-header collapsed p-2" id="headingOne" type="button" data-toggle="collapse"
+					data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					<div class="col-3 pl-md-5">
+					<!-- <div class="sprite actors"></div>
+				<div class="sprite actors-w d-none"></div> -->
+					<svg class="icon">
+						<use xlink:href="images/category-icons.svg#actor" />
+					</svg>
+					<!-- <img src="./images/actors.png" alt="Actors Category" /> -->
+					</div>
+					<div class="col-7 col-md-8">
+					<p class="text-uppercase my-2 pt-1">Actor</p>
+					</div>
+				</div>
+				<div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+					<div class="accordion-inner card-body">
+					<div class="btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-details-cat-subcat mb-1">
+						<input type="checkbox" /> Agency Scout
+						</label>
+						<label class="btn btn-details-cat-subcat mb-1">
+						<input type="checkbox" /> Feature Film
+						</label>
+						<label class="btn btn-details-cat-subcat mb-1">
+						<input type="checkbox" /> Theatre & Musical
+						</label>
+					</div>
+					</div>
+				</div>
+				</div>
+				<!-- Two card -->
+				<div class="accordion-group mb-3 mx-lg-5 card">
+				<div class="row card-header collapsed p-2" id="headingTwo" type="button" data-toggle="collapse"
+					data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+					<div class="col-3 pl-md-5">
+					<!-- <div class="sprite actors"></div>
+				<div class="sprite actors-w d-none"></div> -->
+					<svg class="icon">
+						<use xlink:href="images/category-icons.svg#model" />
+					</svg>
+					<!-- <img src="./images/actors.png" alt="Actors Category" /> -->
+					</div>
+					<div class="col-7 col-md-8">
+					<p class="text-uppercase my-2 pt-1">Models</p>
+					</div>
+				</div>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
+					<div class="accordion-inner card-body">
+					<div class="btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-details-cat-subcat mb-1">
+						<input type="checkbox" /> SubCat 1
+						</label>
+						<label class="btn btn-details-cat-subcat mb-1">
+						<input type="checkbox" /> SubCat 2
+						</label>
+						<label class="btn btn-details-cat-subcat mb-1">
+						<input type="checkbox" /> SubCat 3
+						</label>
+					</div>
+					</div>
+				</div>
+				</div>
+				<div>
+				<!-- btns div -->
+				<div class="d-flex justify-content-around py-4">
+					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+					<button class="btn btn-lg btn-popup-save px-4">Save</button>
+				</div>
+				</div>
+			</div>
+			</form>
+		</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal headshot -->
+<div class="modal fade" id="editheadshot" tabindex="-1" aria-labelledby="editHeadshotModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+	<div class="modal-content">
+	<div class="modal-header">
+		<div class="col-md-3 d-none d-lg-block">
+			<img src="/images/footer-logo-grey.png" alt="logo">
+		</div>
+		<div class="col-10 col-md-6">
+			<h5 class="modal-title text-lg-center" id="editHeadshotModalLabel">Manage Headshot</h5>
+		</div>
+		<div class="col-2 col-md-3">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</div>
+	<div class="modal-body pr-details">
+		<div class="row">
+			<div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
+			<div class="card-body">
+
+				<!-- capture info -->
+				<div class="capture-div">
+					<ul class="text-muted">
+					<li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+					<li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+					<li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+					</ul>
+				</div>
+				<!-- upload-div info -->
+				<div class="upload-div">
+					<p>
+					Crop headshot
+					</p>
+					<p class="text-muted">Click and drag the crop box to move and resize your headshot the way you'd like it to
+					appear on your profile.
+					</p>
+				</div>
+				<!-- Img preview -->
+				<div class="img-preview">
+					<video autoplay="true" id="videoElement"></video>
+					<canvas id="canvas" class="d-none"></canvas>
+					<img src="" alt="img-preview" class="img-preview-img">
+					<span class="img-preview-default-txt">Image preview!</span>
+				</div>
+				<div class="invalid-feedback">
+					Opps error!
+				</div>
+				<!-- capture btn -->
+				<div class="capture-div">
+					<a type="button" class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
+					Camera</a>
+					<button type="button" class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+					Upload from device
+					</button>
+				</div>
+				<!-- uoload btn  -->
+				<div class="upload-div">
+					<label class="btn btn-custom-file-upload d-flex justify-content-center">
+					<input type="file" name="hsFile" id="hsFile" />
+					Choose file to upload
+					</label>
+				</div>
+				<!-- file-edit-btns -->
+				<div class="file-edit-btns">
+					<div class="d-flex justify-content-center py-4">
+					<button type="button" id="rotate-anticlock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+						<i class="fas fa-undo"></i>
+					</button>
+					<button type="button" id="rotate-clock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+						<i class="fas fa-undo fa-flip-horizontal"></i>
+					</button>
+					</div>
+				</div>
+				<div class="d-flex justify-content-around py-4">
+					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+					<button id="saveHeadshot" class="btn btn-lg btn-popup-save px-4">Save</button>
+				</div>			
+				<!-- error message -->
+				<div id="errorHeadshotWrapper" class="m-2"></div>
+				
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
 
 <!--Intro Modal -->
-    <div class="modal fade" id="editIntro" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
+<div class="modal fade" id="editIntro" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -770,10 +896,10 @@ $user_info = get_userdata($obj_id);
         </div>
       </div>
     </div>
-    </div>
+</div>
     
-        <!-- Social links Modal -->
-        <div class="modal fade" id="editSocialLinks" tabindex="-1" aria-labelledby="editSocialLinksModalLabel"
+<!-- Social links Modal -->
+<div class="modal fade" id="editSocialLinks" tabindex="-1" aria-labelledby="editSocialLinksModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
@@ -840,22 +966,21 @@ $user_info = get_userdata($obj_id);
             </div>
           </div>
         </div>
-      </div>
-       <script>
-    window.onscroll = function() {myFunction()};
-    
-    var navbar = document.getElementById("navbar");
-    var sticky = navbar.offsetTop;
-    
-    
-    function myFunction() {
-      if (window.pageYOffset >= sticky) {
-        navbar.classList.add("sticky")
-      } else {
-        navbar.classList.remove("sticky");
-      }
-    }
-    </script>
+</div>
+	  
+<script>
+window.onscroll = function() {myFunction()};
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+function myFunction() {
+	if (window.pageYOffset >= sticky) {
+	navbar.classList.add("sticky")
+	} else {
+	navbar.classList.remove("sticky");
+	}
+}
+</script>
 <?php
 get_sidebar();
 get_footer();
+?>
