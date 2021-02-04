@@ -1,7 +1,6 @@
 <?php
 /* Template Name: Physical Attributes v2.0 Page */
 
-include('page_ids.php'); 
 include('acf_field_ids.php'); 
 
 if (!is_user_logged_in() ) {
@@ -135,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$success_skin_color = update_user_meta( $user_id, 'sci_user_skin_color', $skin_color);
 				$success_chest = update_user_meta( $user_id, 'sci_user_chest_in', $chest_in);
 
-				wp_redirect( get_page_link( $add_headshot_page )); exit;
+				wp_redirect(get_page_link(get_page_by_path('add-headshot'))); exit;
 			}
 
 		}else{
@@ -147,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$deleted_skin_color = delete_user_meta( $user_id, 'sci_user_skin_color');
 			$deleted_chest = delete_user_meta( $user_id, 'sci_user_chest_in');
 
-			wp_redirect( get_page_link( $add_headshot_page )); exit;
+			wp_redirect(get_page_link(get_page_by_path('add-headshot'))); exit;
 		}		
 	}
 }
@@ -288,7 +287,7 @@ include('join-pagination.php');
 
 				<!-- BACK - SAVE -->
 				<div class="d-flex justify-content-between py-3">
-					<a href="<?php echo get_page_link($profile_details_page); ?>" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
+					<a href="<?php echo get_page_link(get_page_by_path('profile-details')); ?>" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
 					<button type="submit" name="submit" value="save" class="btn btn-lg btn-details-nxt float-right btn-xs px-md-5">Next</button>
 				</div>
 				

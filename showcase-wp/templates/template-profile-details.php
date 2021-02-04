@@ -1,7 +1,5 @@
 <?php
 /* Template Name: Profile details Page */
-include('page_ids.php'); 
-include('acf_field_ids.php'); 
 
 if (!is_user_logged_in() ) {
   wp_redirect(home_url()); exit;
@@ -120,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				$profile_detail_complete = update_user_meta( $user_id, 'sci_user_profile_detail_complete', true);
 
-				wp_redirect( get_page_link( $physical_attributes_page )); exit;
+				wp_redirect( get_page_link(get_page_by_path('physical-attributes'))); exit;
 			}
 			
 		}
@@ -260,7 +258,7 @@ include('join-pagination.php');
 
 					<!-- BACK - SUBMIT -->
 					<div class="d-flex justify-content-between">
-						<a href="<?php echo get_page_link($welcome_page); ?>" class="btn btn-lg btn-xs btn-details-bck px-md-5">Back</a>
+						<a href="<?php echo get_page_link(get_page_by_path('welcome')); ?>" class="btn btn-lg btn-xs btn-details-bck px-md-5">Back</a>
 						<button 
 							type="submit" 
 							name="submit" 

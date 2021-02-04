@@ -1,7 +1,6 @@
 <?php
 /* Template Name: Complete Page */
 
-include('page_ids.php'); 
 include('acf_field_ids.php'); 
 
 if (!is_user_logged_in() ) {

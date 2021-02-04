@@ -1,7 +1,6 @@
 <?php
 /* Template Name: Add Headshot Page */
 
-include('page_ids.php'); 
 include('acf_field_ids.php'); 
 
 if (!is_user_logged_in() ) {
@@ -9,6 +8,7 @@ if (!is_user_logged_in() ) {
 }
 
 get_header();
+$user_id = get_current_user_id();
 
 include('join-pagination.php');
 
@@ -102,7 +102,7 @@ include('join-pagination.php');
 				<div class="d-flex justify-content-between pt-5 pb-3">				
 					<a 
 					class="btn btn-lg btn-details-bck btn-xs px-md-5"
-					href="<?php echo get_page_link($physical_attributes_page); ?>">
+					href="<?php echo get_page_link(get_page_by_path('physical-attributes')); ?>">
 					Back
 					</a>
 					<button 
@@ -120,160 +120,3 @@ include('join-pagination.php');
 get_sidebar();
 get_footer();
 ?>
-
-<script>
-    // jQuery(document).ready(function () {
-	// 	jQuery(".upload-div").hide();
-	// 	jQuery(".file-edit-btns").hide();
-
-	// 	var cropper;
-	// 	var data;
-	// 	var canvas = document.querySelector("#canvas");
-	// 	var video = document.querySelector("#videoElement");
-	// 	const inpFile = document.getElementById("hsFile");
-	// 	const previewContainer = document.getElementById("img-preview");
-	// 	const previewImg = document.querySelector(".img-preview-img");
-	// 	const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
-	// 	const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
-
-	// 	inpFile.addEventListener("change", function () {
-	// 		const file = this.files[0];
-	// 		if (file) {
-	// 			const reader = new FileReader();
-				
-	// 			reader.addEventListener("load", function () {
-	// 				//console.log(this);
-	// 				previewDefaultTxt.style.display = "none";
-	// 				previewImg.setAttribute("src", this.result);
-	// 				previewImg.style.display = "block";
-	// 				cropper = new Cropper(previewImg, {
-	// 						viewMode: 1,
-	// 						aspectRatio: 1,
-	// 						initialAspectRatio: 1
-	// 					});
-	// 				});
-	// 			reader.readAsDataURL(file);	
-	// 		}
-	// 	});	
-
-	// 	if (navigator.mediaDevices.getUserMedia) {
-	// 		navigator.mediaDevices
-	// 		.getUserMedia({ video: true })
-	// 		.then(function (stream) {
-	// 		previewDefaultTxtCam.style.display = "none";
-	// 		video.style.display = "block";
-	// 		video.srcObject = stream;
-	// 		})
-	// 		.catch(function (err0r) {
-			
-	// 			console.log("Looks like your device has no camera.");
-	// 			jQuery('#errorHeadshotWrapper').empty();
-	// 			jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-	// 														<button type="button" class="close" data-dismiss="alert">&times;</button> \
-	// 														Looks like your device has no camera. \
-	// 													</div>');
-	// 		});
-	// 	}
-
-		
-
-	// 	jQuery(".btn-details-fileup").click(function () {
-	// 		jQuery(".capture-div").hide();
-	// 		jQuery(".upload-div").show();
-	// 		jQuery(".file-edit-btns").show();
-	// 	});
-
-	// 	function takepicture(height,width) {
-    //         var context = canvas.getContext('2d');
-    //         if (width && height) {
-    //             canvas.width = width;
-    //             canvas.height = height;
-    //             context.drawImage(video, 0, 0, width, height);
-    //             data = canvas.toDataURL('image/png');
-    //             previewDefaultTxt.style.display = "none";
-    //             previewImg.style.display = "block";
-	// 			previewImg.setAttribute('src', data);
-	// 			cropper = new Cropper(previewImg, {
-	// 						viewMode: 1,
-	// 						aspectRatio: 1,
-	// 						initialAspectRatio: 1
-	// 					});
-    //             //console.log(data);
-    //         } 
-    //     }
-
-	// 	jQuery(".btn-details-cptr").click(function (e) {
-	// 		e.preventDefault();
-	// 		console.log('capturing...');
-	// 		jQuery(".upload-div").show();
-	// 		jQuery(".file-edit-btns").show();
-	// 		//console.log(video.offsetHeight,video.offsetWidth);
-	// 		takepicture(video.offsetHeight,video.offsetWidth);
-	// 		jQuery(".capture-div").hide();
-	// 	});
-	  
-
-	  	// jQuery('#saveHeadshot').on('click', function(){
-		// 	console.log('uploading...');
-		// 	if(cropper){
-		// 		canvas = cropper.getCroppedCanvas({
-		// 			width:400,
-		// 			height:400
-		// 		});
-		// 		canvas.toBlob(function(blob){
-		// 			url = URL.createObjectURL(blob);
-		// 			var reader = new FileReader();
-		// 			reader.readAsDataURL(blob);
-		// 			reader.onloadend = function(){
-		// 				var base64data = reader.result;
-		// 				//console.log(base64data);
-		// 				jQuery.ajax({
-		// 					url:'<?php //echo get_page_link($add_headshot_page); ?>',
-		// 					method:'POST',
-		// 					data:{headshot:base64data},
-		// 					success:function(response, status, xhr)
-		// 					{
-		// 						res = JSON.parse(response);
-		// 						console.log(res, status, xhr.status);
-		// 						cropper.destroy();
-		// 						cropper = null;
-
-		// 						if(xhr.status == 200){
-		// 							window.location.href = '<?php //echo get_page_link($complete_page); ?>';
-		// 						}else{
-		// 							jQuery('#errorHeadshotWrapper').empty();
-		// 							jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-		// 																		<button type="button" class="close" data-dismiss="alert">&times;</button> \
-		// 																		'+ res.data +'. \
-		// 																	</div>');
-		// 						}
-		// 					}
-		// 				});
-		// 			};
-		// 		});
-		// 	}else{
-		// 		console.log('please capture or upload a headshot');
-		// 		jQuery('#errorHeadshotWrapper').empty();
-		// 		jQuery('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-		// 													<button type="button" class="close" data-dismiss="alert">&times;</button> \
-		// 													Please capture or upload a headshot. \
-		// 												</div>');
-		// 	}	
-		// });
-
-	// 	jQuery('#rotate-anticlock').on('click', function(){
-	// 		console.log('rotate anticlock');
-	// 		if(cropper){			
-	// 			cropper.rotate(-90);
-	// 		}
-	// 	});
-
-	// 	jQuery('#rotate-clock').on('click', function(){
-	// 		console.log('rotate clock');
-	// 		if(cropper){
-	// 			cropper.rotate(90);
-	// 		}
-	// 	});
-
-    // });
-</script>
