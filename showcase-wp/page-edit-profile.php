@@ -111,7 +111,14 @@ $user_info = get_userdata($obj_id);
 									margin-right: 2px;
 									margin-bottom: 5px;
 								}
-								
+								.defaultHeadshot{
+									text-align:center;
+									background:#f2f2f2;
+								}
+								.defaultHeadshot i{
+									font-size:100px;
+									padding-top:5px;
+								}
 								@media (max-width: 575px){
 									#image-slider .splide__slide {
 										height: calc(100vw - 60px);
@@ -145,6 +152,7 @@ $user_info = get_userdata($obj_id);
 						
 								<?php 
 								// Check rows exists.
+	
 								if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
 								<div id="secondary-slider" class="splide slider_headshot_thumbnail">
 									<div class="splide__track">
@@ -154,12 +162,19 @@ $user_info = get_userdata($obj_id);
 											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
 											        // Load sub field value.
 											        $sub_value = get_sub_field('sci_user_headshot'); ?>
-											        <li  class="splide__slide">
+											        <li  data-toggle="modal" data-target="#editheadshot" data-index=<?php echo get_row_index(); ?> class="splide__slide">
 														<img src="<?php echo $sub_value['url']; ?>">
 													</li>
 											<?php // End loop.
-												endwhile;?>
-												<li  class="splide__slide" data-toggle="modal" data-target="#editheadshot"><i class="fas fa-user"></i></li>
+												endwhile;
+												$usedHeadshots = count(get_field('sci_user_headshots', 'user_' . $obj_id));
+												$emptyHeadshots = 4 - $usedHeadshots;
+												for($i=($usedHeadshots+1); $i <= 4; $i++ ){
+													echo 	'<li  data-toggle="modal" data-target="#editheadshot" data-index="'.$i.'" class="splide__slide defaultHeadshot"> 
+																<i class="fas fa-user"></i> 			
+															</li>';
+												}
+											?>
 										</ul>
 									</div>
 								</div>

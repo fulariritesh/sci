@@ -1,23 +1,19 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+add_action("wp_ajax_sci_add_headshot", "sci_add_headshot");
 
-	$ref = $_SERVER['HTTP_REFERER'];
-    http_response_code(400);
-	echo json_encode(array('data' => $ref));
-	exit();
+function sci_add_headshot() {
+	$user_id = get_current_user_id();
+	$upload_id = NULL;
 
-    $user_id = get_current_user_id();
-    $upload_id = NULL;
+   	if(!wp_verify_nonce( $_REQUEST['nonce'], "headshot_request")) {
+		echo json_encode(array('data' => "No naughty business please"));
+      	exit();
+   	}   
+
+   	if(isset($_REQUEST["headshot"]) && isset($_REQUEST["index"])) {
     
-    if(isset($_POST['headshot'])){
-
-		// delete previous old headshot
-		$user_headshot_old = get_user_meta( $user_id, 'sci_user_headshot', true);
-		if(($user_headshot_old !== false)){ 
-			wp_delete_attachment(intval($user_headshot_old), true);
-			delete_user_meta( $user_id, 'sci_user_headshot');
-		}
-	
+		$success = false;
+		$index = intval($_REQUEST["index"]);
 		$data = $_POST['headshot'];
 		$image_array_1 = explode(";", $data);
 		$image_array_2 = explode(",", $image_array_1[1]);
@@ -43,20 +39,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 
 		if((!is_wp_error($upload_id)) || ($upload_id !== 0)){
-			$success_headshot_1 = update_user_meta( $user_id, 'sci_user_headshot', $upload_id);
+		
+			if(have_rows('sci_user_headshots', 'user_' . $user_id)){
+				$row = array('sci_user_headshot' => $upload_id);
+				$success = update_row('sci_user_headshots', $index, $row, 'user_'.$user_id);
+			}else{
+				$row = array('sci_user_headshot' => $upload_id);
+				$success = add_row('sci_user_headshots', $row, 'user_'.$user_id);
+			}
 			
-			http_response_code(200);
-			echo json_encode(array('data' => $upload_id ));
-			exit();		
+			if($success){
+				http_response_code(200);
+				echo json_encode(array('data' => $upload_id ));
+				exit();	
+			}else{
+				http_response_code(500);
+				echo json_encode(array('data' => 'upload failed' ));
+				exit();	
+			}
+				
 		}
 
 		http_response_code(500);
 		echo json_encode(array('data' => 'Something went wrong.'));
-		exit();		
-		
+		exit();	
 	}else{
 		http_response_code(400);
-		echo json_encode(array('data' => 'Upload Error.'));
+		echo json_encode(array('data' => 'Bad Request :('));
 		exit();
-	}
+   	}
+
+   wp_die();
+
 }

@@ -16516,6 +16516,8 @@ $(document).ready(function () {
   });
   var cropper;
   var data;
+  var res;
+  var indexHeadshot = 1;
   var canvas = document.querySelector("#canvas");
   var video = document.querySelector("#videoElement");
   var inpFile = document.getElementById("hsFile");
@@ -16523,6 +16525,14 @@ $(document).ready(function () {
   var previewImg = document.querySelector(".img-preview-img");
   var previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
   var previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+  $('li.splide__slide').click(function () {
+    var index = $(this).attr("data-index");
+
+    if (index) {
+      indexHeadshot = index;
+      console.log('Headshot: ' + indexHeadshot);
+    }
+  });
   inpFile.addEventListener("change", function () {
     var file = this.files[0];
 
@@ -16619,20 +16629,23 @@ $(document).ready(function () {
           var base64data = reader.result; //console.log(base64data);
 
           $.ajax({
-            url: SCI_HEADSHOT.url,
+            url: SCI_HEADSHOT.request_url,
             method: 'POST',
             data: {
-              headshot: base64data
+              headshot: base64data,
+              nonce: SCI_HEADSHOT.nonce,
+              action: 'sci_add_headshot',
+              index: indexHeadshot
             },
             success: function success(response, status, xhr) {
               res = JSON.parse(response);
-              console.log(res, status, xhr.status);
+              console.log(response, status, xhr.status);
               cropper.destroy();
               cropper = null;
 
               if (xhr.status == 200) {
                 $('#errorHeadshotWrapper').empty();
-                $('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+                $('#errorHeadshotWrapper').prepend('<div class="alert alert-success alert-dismissible"> \
 																			<button type="button" class="close" data-dismiss="alert">&times;</button> \
 																			' + res.data + '. \
 																		</div>');
@@ -16643,6 +16656,9 @@ $(document).ready(function () {
 																			' + res.data + '. \
 																		</div>');
               }
+            },
+            error: function error(xhr, status, _error) {
+              console.log(xhr, status, _error);
             }
           });
         };

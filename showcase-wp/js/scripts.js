@@ -90,6 +90,8 @@ $(document).ready(function () {
 
 	var cropper;
 	var data;
+	var res;
+	var indexHeadshot = 1;
 	var canvas = document.querySelector("#canvas");
 	var video = document.querySelector("#videoElement");
 	const inpFile = document.getElementById("hsFile");
@@ -97,6 +99,14 @@ $(document).ready(function () {
 	const previewImg = document.querySelector(".img-preview-img");
 	const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
 	const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+
+	$('li.splide__slide').click(function () {
+		var index = $(this).attr("data-index");
+		if(index){
+			indexHeadshot = index;
+			console.log('Headshot: '+indexHeadshot);
+		}	
+  	});
 
 	inpFile.addEventListener("change", function () {
 		const file = this.files[0];
@@ -194,13 +204,18 @@ $(document).ready(function () {
 					var base64data = reader.result;
 					//console.log(base64data);
 					$.ajax({
-						url: SCI_HEADSHOT.ajax_url,
+						url: SCI_HEADSHOT.request_url,
 						method:'POST',
-						data:{headshot:base64data},
+						data:{
+							headshot: base64data,
+							nonce: SCI_HEADSHOT.nonce,
+							action:'sci_add_headshot',
+							index: indexHeadshot
+						},
 						success:function(response, status, xhr)
 						{
 							res = JSON.parse(response);
-							console.log(res, status, xhr.status);
+							console.log(response, status, xhr.status);
 							cropper.destroy();
 							cropper = null;
 
@@ -217,6 +232,9 @@ $(document).ready(function () {
 																			'+ res.data +'. \
 																		</div>');
 							}
+						},
+						error :function(xhr,status,error){
+							console.log(xhr,status,error);
 						}
 					});
 				};

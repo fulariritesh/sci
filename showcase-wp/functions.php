@@ -197,6 +197,12 @@ function custom_page_scripts(){
 }
 add_action('wp_head','custom_page_scripts');
 
+/**
+ * Add Headshot 
+ */
+require get_template_directory() . '/inc/ajax-headshot.php';
+
+
 function add_stylesheet_attributes( $html, $handle ) {
     if ( 'wp-block-library' === $handle ) {
         $html = str_replace( "media='all'", "media='none' onload=\"if(media!='all')media='all'\" ", $html );
