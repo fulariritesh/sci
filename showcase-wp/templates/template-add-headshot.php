@@ -1,8 +1,6 @@
 <?php
 /* Template Name: Add Headshot Page */
 
-include('acf_field_ids.php'); 
-
 if (!is_user_logged_in() ) {
   wp_redirect(home_url()); exit;
 }

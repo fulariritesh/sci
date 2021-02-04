@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		else{
 			$gendervalue = sanitize_text_field( $_POST['gender']);
 			//get values from ACF plugin
-			$acf_gender = get_field_object($gender_field);
+			$acf_gender = acf_get_field('sci_user_gender');
 			$verify_gen = array_search($gendervalue,array_keys($acf_gender['choices']),true);		
 
 			if($verify_gen !== false){
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}else{
 			$locationvalue = sanitize_text_field($_POST['location']);
 			//get values from ACF plugin
-			$acf_location = get_field_object($location_field);
+			$acf_location = acf_get_field('sci_user_location');
 			$verify_loc = array_search($locationvalue,array_keys($acf_location['choices']),true);
 			if($verify_loc !== false){
 				$location = $locationvalue;
@@ -198,7 +198,7 @@ include('join-pagination.php');
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
 							<?php 
 								//get values from ACF plugin
-								$genderf = get_field_object($gender_field);
+								$genderf = acf_get_field('sci_user_gender');
 								$g = get_user_meta( $user_id, 'sci_user_gender', true);
 								foreach($genderf['choices'] as $genvalue => $genlabel){	
 									echo '<label class="btn btn-details-gen">';	
@@ -246,7 +246,7 @@ include('join-pagination.php');
 						<select class="form-control <?php echo ($loc_er) ? "is-invalid" : ""; ?>" id="location" name="location">
 						<?php 
 							//get values from ACF plugin
-							$locationf = get_field_object($location_field);
+							$locationf = acf_get_field('sci_user_location');
 							$l = get_user_meta( $user_id, 'sci_user_location', true);
 							foreach($locationf['choices'] as $locvalue => $loclabel){		
 								echo '<option class="dropdown-item" value="'.$locvalue.'" '.(($l==$locvalue)?'selected="selected"':"").'>'.$loclabel.'</option>';		
