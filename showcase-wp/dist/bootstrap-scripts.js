@@ -16441,48 +16441,56 @@ __webpack_require__(/*! ./bootstrap-editable.min.js */ "./js/bootstrap-editable.
 
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
-});
-$.fn.editable.defaults.mode = 'inline';
-$.fn.editableform.buttons = '<button type="submit" class="btn btn-primary btn-sm editable-submit">' + '<i class="fa fa-fw fa-check"></i>' + '</button>' + '<button type="button" class="btn btn-warning btn-sm editable-cancel">' + '<i class="fa fa-fw fa-times"></i>' + '</button>';
-$('#username').editable({
-  type: 'text',
-  pk: 1,
-  name: 'username',
-  title: 'Enter username'
-});
-$('#useremail').editable({
-  type: 'text',
-  pk: 1,
-  name: 'useremail',
-  title: 'Enter Email'
-});
-$('#phone').editable({
-  type: 'text',
-  pk: 1,
-  name: 'phone',
-  title: 'Enter phone'
-});
-$('#gender').editable({
-  source: [{
-    value: 1,
-    text: 'Male'
-  }, {
-    value: 2,
-    text: 'Female'
-  }]
-});
-$('#country').editable({
-  value: 'ru',
-  source: [{
-    value: 'gb',
-    text: 'Great Britain'
-  }, {
-    value: 'us',
-    text: 'United States'
-  }, {
+  $.fn.editable.defaults.mode = 'inline';
+  $.fn.editableform.buttons = '<button type="submit" class="btn btn-primary btn-sm editable-submit">' + '<i class="fa fa-fw fa-check"></i>' + '</button>' + '<button type="button" class="btn btn-warning btn-sm editable-cancel">' + '<i class="fa fa-fw fa-times"></i>' + '</button>';
+  $('#name').editable({
+    type: 'text',
+    url: Edit.request_url,
+    send: "always",
+    params: function params(_params) {
+      var data = {};
+      data['id'] = _params.pk;
+      data[_params.name] = _params.value;
+      data['action'] = 'sci_change_name';
+      data['nonce'] = Edit.nonce;
+      return data;
+    }
+  });
+  $('#phone').editable({
+    type: 'text',
+    url: Edit.request_url,
+    send: "always",
+    params: function params(_params2) {
+      var data = {};
+      data['id'] = _params2.pk;
+      data['number'] = _params2.value;
+      data['action'] = 'sci_change_number';
+      data['nonce'] = Edit.nonce;
+      return data;
+    }
+  });
+  $('#gender').editable({
+    source: [{
+      value: 1,
+      text: 'Male'
+    }, {
+      value: 2,
+      text: 'Female'
+    }]
+  });
+  $('#country').editable({
     value: 'ru',
-    text: 'Russia'
-  }]
+    source: [{
+      value: 'gb',
+      text: 'Great Britain'
+    }, {
+      value: 'us',
+      text: 'United States'
+    }, {
+      value: 'ru',
+      text: 'Russia'
+    }]
+  });
 });
 $(document).ready(function () {
   /* Category Subcategory Page */

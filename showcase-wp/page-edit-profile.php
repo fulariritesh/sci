@@ -6,7 +6,9 @@
  */
 
 get_header();
-
+$obj_id = wp_get_current_user()->data->ID;
+$data = get_user_meta($obj_id);
+$user_info = get_userdata($obj_id);
 ?>
 <?php 
 
@@ -25,9 +27,7 @@ $user_info = get_userdata($obj_id);
 	        <div class="col-6 col-sm-6 pt-3 text-right">
 	            <button class="btn btn-plain btn-sm shadow-sm" >View as Public</button>
 	        </div>
-	        
 	    </div>
-
 	   <div class="row blockBG my-3 progressbar">
 	       <div class="col-sm-11 mx-auto text-center p-3">
 	        <h4 class="text-center font-weight-bold">
@@ -48,8 +48,7 @@ $user_info = get_userdata($obj_id);
 	            ></div>
 	          </div>
 	       </div>
-	   </div>
-	  
+	   </div>	  
 	    <!-- <div class="tab-content"> -->
 	        <!-- <div class="tab-pane container active pb-4" id=""> -->
 	            <div class="row p-3 blockBG">
@@ -187,14 +186,26 @@ $user_info = get_userdata($obj_id);
 	                <div class="col-12 col-sm-6 profile-personaldetails pt-5">
 	                    <form id="editable-form" class="editable-form">
 	                        <div class="form-group row"> 
-	                             <h1><a href="#" id="username" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >Sia Jha</a></h1>
+	                             <h1>
+	                             	<a id="name" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >
+	                             		<?php echo $data['first_name'][0]; ?>
+	                             	</a>
+	                             </h1>
 	                        </div>
 	                        <div class="form-group row"> 
-	                            <h5><i class="fas fa-envelope pr-2"></i><a href="#" id="useremail" data-type="email" data-pk="1" data-placement="right"  data-title="Enter your email" class="editable editable-click " data-abc="true">siajha@gmail.com</a></h5>
+	                            <h5>
+	                            	<i class="fas fa-envelope pr-2"></i>
+	                            	<span><?php echo $user_info->data->user_email; ?></span>
+	                            </h5>
 	                        </div>
+	                        <?php if (get_field('sci_user_mobile', 'user_' . $obj_id)): ?>
 	                        <div class="form-group row"> 
-	                            <h5><i class="fas fa-phone-alt pr-2"></i><a href="#" id="phone" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >+91 9878765434</a></h5>
-
+	                            <h5>
+	                            	<i class="fas fa-phone-alt pr-2"></i>
+                            		<a id="phone" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >
+                            			+91 9878765434
+                            		</a>
+	                            </h5>
 	                            <label class="switch ml-4">
 	                                <input type="checkbox" id="togBtn">
 	                                <div class="slider round">
@@ -203,9 +214,9 @@ $user_info = get_userdata($obj_id);
 	                                 <span class="off">Hide</span>
 	                                 <!--END-->
 	                                </div>
-	                               </label>
-
+								</label>
 	                       </div>
+	                       <?php endif; ?>
 	                        <div class="form-group row"> 
 	                            <h5><i class="fas fa-map-marker-alt pr-2"></i> <a href="#" id="location" data-type="typeahead" data-pk="1" data-value="" data-title="Select location" class="editable editable-click" data-abc="true">Delhi </a> </h5>
 	                        </div>
@@ -229,8 +240,8 @@ $user_info = get_userdata($obj_id);
 
 	                    <div class="selectedsocialmedia pt-1">
 	                        <div class="text-right"> <button class="btn btn-edit"  data-toggle="modal" data-target="#editSocialLinks">Edit</button></div>
-	                        <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" alt="" /></a>
-	                        <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/color/30/000000/facebook.png" alt="" /></a>
+	                        <!-- <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" alt="" /></a> -->
+	                        <!-- <a href="#" target="_blank" class="pr-1"><img src="https://img.icons8.com/color/30/000000/facebook.png" alt="" /></a> -->
 	                    </div>
 	                </div>
 	            </div>
@@ -262,8 +273,8 @@ $user_info = get_userdata($obj_id);
 	            <!-- Introduction  Block-->
 	            <div class="row mt-3 p-3 blockBG">
 	                <div class="col-12 col-sm-6 introvideo  py-3">
-	                    <iframe width="100%" height="300px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe>
+	                    <!-- <iframe width="100%" height="300px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+	                    </iframe> -->
 	                </div>
 	                <div class="col-12 col-sm-6 intro  py-3">
 	                    <div class="row">
@@ -323,22 +334,22 @@ $user_info = get_userdata($obj_id);
 	              
 	                  <div class="col-sm-4">
 	                    
-	                    <img src="./images/gridimg/7.jpg" style="width:100%">
+	                    <!-- <img src="./images/gridimg/7.jpg" style="width:100%"> -->
 	                  </div>
 	                  <div class="col-sm-4">
-	                    <img src="./images/gridimg/1.jpg" style="width:100%">
+	                    <!-- <img src="./images/gridimg/1.jpg" style="width:100%"> -->
 	                  </div>
 	                  <div class="col-sm-4">
-	                    <img src="./images/gridimg/2.png" style="width:100%">
+	                    <!-- <img src="./images/gridimg/2.png" style="width:100%"> -->
 	                    <div class="approved-status"><i class="fas fa-check"></i></div>
 	                  </div>
 	                  <div class="col-sm-4">
-	                    <img src="./images/gridimg/5.jpg" style="width:100%">
+	                    <!-- <img src="./images/gridimg/5.jpg" style="width:100%"> -->
 	                    <div class="pending-status">Pending</div>
 	                  </div>
 	                  <div class="col-sm-4">
 	                    <div class="rejected-overlay"></div> 
-	                    <img src="./images/gridimg/5.jpg" style="width:100%">
+	                    <!-- <img src="./images/gridimg/5.jpg" style="width:100%"> -->
 	                    <div class="rejected-status">Rejected</div>
 	                  </div>
 
@@ -379,26 +390,26 @@ $user_info = get_userdata($obj_id);
 	                    <button class="btn btn-add">Add</button>
 	                </div>
 	                <div class="col-12 mt-2 profilevideos">
-	                    <iframe width="100%" height="400px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe>
+	                    <!-- <iframe width="100%" height="400px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+	                    </iframe> -->
 	                    <h5 class="pt-2">Video Title</h5>
 	                    <h6>3 months ago</h6>
 	                </div>
 	                <div class="col-sm-4 profilevideos pt-3">
-	                    <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe>
+	                    <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+	                    </iframe> -->
 	                    <h5 class="pt-2">Video Title</h5>
 	                    <h6>3 months ago</h6>
 	                </div>
 	                <div class="col-sm-4 profilevideos pt-3">
-	                    <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe>
+	                    <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+	                    </iframe> -->
 	                    <h5 class="pt-2">Video Title</h5>
 	                    <h6>3 months ago</h6>
 	                </div>
 	                <div class="col-sm-4 profilevideos pt-3">
-	                    <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe>
+	                    <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+	                    </iframe> -->
 	                    <h5 class="pt-2">Video Title</h5>
 	                    <h6>3 months ago</h6>
 	                </div>
@@ -838,7 +849,7 @@ $user_info = get_userdata($obj_id);
       <div class="modal-content">
         <div class="modal-header">
           <div class="col-md-3 d-none d-lg-block">
-            <img src="/images/footer-logo-grey.png" alt="logo">
+            <!-- <img src="/images/footer-logo-grey.png" alt="logo"> -->
           </div>
           <div class="col-10 col-md-6">
             <h5 class="modal-title text-lg-center" id="editIntroModalLabel">Manage Introduction</h5>
@@ -894,7 +905,7 @@ $user_info = get_userdata($obj_id);
           <div class="modal-content">
             <div class="modal-header">
               <div class="col-md-3 d-none d-lg-block">
-                <img src="/images/footer-logo-grey.png" alt="logo">
+                <!-- <img src="/images/footer-logo-grey.png" alt="logo"> -->
               </div>
               <div class="col-10 col-md-6">
                 <h5 class="modal-title text-lg-center" id="editSocialLinksModalLabel">Manage Social Links</h5>
@@ -917,28 +928,28 @@ $user_info = get_userdata($obj_id);
                     <form action="">
                       <div class="form-group mt-4">
                         <div>
-                          <img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" />Instagram
+                          <!-- <img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" />Instagram -->
                         </div>
                         <p class="url-eg">https://instagram.com/username</p>
                         <input class="form-control" type="text" placeholder="Profile url" />
                       </div>
                       <div class="form-group mt-4">
                         <div>
-                          <img src="https://img.icons8.com/color/30/000000/facebook.png" />Facebook
+                          <!-- <img src="https://img.icons8.com/color/30/000000/facebook.png" />Facebook -->
                         </div>
                         <p class="url-eg">https://instagram.com/username</p>
                         <input class="form-control" type="text" placeholder="Profile url" />
                       </div>
                       <div class="form-group mt-4">
                         <div>
-                          <img src="https://img.icons8.com/color/30/000000/twitter-squared.png" />Twitter
+                          <!-- <img src="https://img.icons8.com/color/30/000000/twitter-squared.png" />Twitter -->
                         </div>
                         <p class="url-eg">https://instagram.com/username</p>
                         <input class="form-control" type="text" placeholder="Profile url" />
                       </div>
                       <div class="form-group mt-4 pb-4">
                         <div>
-                          <img src="https://img.icons8.com/color/30/000000/youtube-play.png" />Youtube
+                          <!-- <img src="https://img.icons8.com/color/30/000000/youtube-play.png" />Youtube -->
                         </div>
                         <p class="url-eg">https://instagram.com/username</p>
                         <input class="form-control" type="text" placeholder="Profile url" />

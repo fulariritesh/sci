@@ -189,6 +189,17 @@ add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 function custom_page_scripts(){
 	if (is_page('edit-profile')) {
 		wp_enqueue_style( 'editable', get_template_directory_uri() . "/sass/components/bootstrap-editable.css", array(), _S_VERSION );
+		
+		wp_enqueue_script( 'editable_request', get_template_directory_uri() . '/js/edit-page.js', array(), _S_VERSION, false );
+		wp_localize_script(
+			'editable_request',
+			'Edit',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'edit_request' ),
+			)
+		);
+
 	}
 	if (is_author()) {
 		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
@@ -214,6 +225,11 @@ add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
+
+/**
+ * Edit profile page
+ */
+require get_template_directory() . '/inc/edit-page.php';
 
 /**
  * Implement the Custom Nav Walker feature.
