@@ -10505,6 +10505,18 @@ hr.new2 {
   color: #444;
 }
 
+.btn-popup-savAddmr {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #CCCCCC;
+}
+
+.btn-popup-savAddmr:hover {
+  background: #CCCCCC;
+  color: #444;
+}
+
 .btn-popup-save {
   background: #08BB9B;
   color: #fff;
@@ -10611,8 +10623,7 @@ hr.new2 {
   text-transform: capitalize;
   border: 1px solid #E7E7E7;
   border-radius: 1.5rem !important;
-  margin-bottom: 0.25rem;
-  margin-right: 0.25rem;
+  margin-bottom: 0.25rem !important;
   padding-top: 0.25rem !important;
   padding-bottom: 0.25rem !important;
 }

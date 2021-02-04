@@ -296,6 +296,17 @@
   );
 
 }
+.btn-popup-savAddmr {
+  @include buttonstyle(
+    $btn_popup-cancel-bg,
+    $btn_popup-cancel-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-cancel-hoverbg,
+    $btnhoverbg: $btn_popup-cancel-hoverbg,
+    $btnhovercolor: $btn_popup-cancel-color
+  );
+
+}
 .btn-popup-save {
   @include buttonstyle(
     $btn_popup-save-bg,
@@ -392,8 +403,7 @@
     $btnhovercolor: $btn_popup-pill-hovercolor
   );
   border-radius: 1.5rem !important;
-  margin-bottom: 0.25rem;
-  margin-right: 0.25rem;
+  margin-bottom: 0.25rem !important;
   padding-top: 0.25rem !important;
   padding-bottom: 0.25rem !important;
 }

@@ -24,7 +24,8 @@
               <img src="/images/footer-logo-grey.png" alt="logo">
             </div>
             <div class="col-10 col-md-6">
-              <h5 class="modal-title text-lg-center" id="catDetailedModalLabel"><span>Category_Name</span> Details</h5>
+              <h5 class="modal-title text-lg-center" id="catDetailedModalLabel"><span>(Category_Name)</span> Details
+              </h5>
             </div>
             <div class="col-2 col-md-3">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -38,15 +39,17 @@
                 <p>Complete this section with as much detail as possible for better chances of being scouted</p>
               </div>
             </div>
+            <!-- Main form -->
             <form class="row">
               <div class="col-12 col-lg-10 mx-auto accordion shadow-sm pt-4" id="accordion">
-                <div class="row px-4">
+                <!-- Specialised skill section -->
+                <div class="row px-4 pb-5">
                   <div class="hr-text col-12 p-0 mb-4">
                     <span class="credit-title font-weight-bold pr-3">
-                    Specialised Skills
+                      Specialised Skills
                     </span>
-                   </div>
-                   <div class="col-12">
+                  </div>
+                  <div class="col-12">
                     <div class="btn-group-toggle" data-toggle="buttons">
                       <label class="btn btn-popup-pill">
                         <input type="checkbox" /> Sub Cat1
@@ -58,14 +61,186 @@
                         <input type="checkbox" /> Sub cat3
                       </label>
                     </div>
-                   </div>
-                </div>
-                  <!-- btns div -->
-                  <div class="d-flex justify-content-center py-4">
-                    <button class=" btn-lg btn-popup-cancel mr-2" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-lg btn-popup-save px-4 ml-2">Save</button>
                   </div>
                 </div>
+                <!-- section ends -->
+                <!-- Generic section -->
+                <div class="row px-4 pb-5">
+                  <div class="hr-text col-12 p-0 mb-4">
+                    <span class="credit-title font-weight-bold pr-3">
+                      Generic Expertise
+                    </span>
+                  </div>
+                  <div class="col-12">
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Beginner
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Novice
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Intermediate
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Advanced
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Expert
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <!-- section ends -->
+                <!-- Text input section -->
+                <div class="row px-4 pb-5">
+                  <div class="hr-text col-12 p-0 mb-4">
+                    <span class="credit-title font-weight-bold pr-3">
+                      Generic text/link
+                    </span>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" type="text" placeholder="Paste your thing here:" />
+                      <div class="invalid-feedback">
+                        Opps error!
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- section ends -->
+                <!-- Text input that adds pills section -->
+                <div class="row px-4 pb-5">
+                  <div class="hr-text col-12 p-0 mb-4">
+                    <span class="credit-title font-weight-bold pr-3">
+                      Generic text that adds pills
+                    </span>
+                  </div>
+                  <div class="col-12">
+                    <div class="btn-group-toggle pb-4" data-toggle="buttons">
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Pill 1
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Pill 2
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Pill 3
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Pill 4
+                      </label>
+                      <label class="btn btn-popup-pill">
+                        <input type="checkbox" /> Others
+                      </label>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-12 col-md-6">
+                        <input class="form-control" type="text" placeholder="Popup if Others selected" />
+                        <div class="invalid-feedback">
+                          Opps error!
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- section ends -->
+                <!-- Exp accordion -->
+                  <div
+                    class="accordion col-12 mx-auto"
+                    id="accordion"
+                  >
+                    <!-- One card -->
+                    <div class="accordion-group mb-3 card">
+                      <div
+                        class="row card-header collapsed p-2"
+                        id="headingOne"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      >
+                        <div class="col-11">
+                          <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(2020)</span></p>
+                        </div>
+                      </div>
+                      <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                        <div class="accordion-inner card-body">
+                          <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <!-- accordion ends -->
+                <!-- EXP input section -->
+                <div class="row px-4 pb-5">
+                  <div class="hr-text col-12 p-0 mb-4">
+                    <span class="credit-title font-weight-bold pr-3">
+                      Generic experience by Year
+                    </span>
+                  </div>
+                  <form action=""></form>
+                  <div class="col-12 card p-3 mb-3">
+                    <div class="d-flex justify-content-end">
+                      <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteExp">
+                        <i class="fas fa-trash-alt fa-lg"></i>
+                      </button>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-12 col-md-6">
+                        <label for="ExpYr">Year</label>
+                        <input type="text" class="form-control" id="ExpYr">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="videoDesp">Experience</label>
+                      <textarea class="form-control justify-content-center" id="videoDesp" rows="4"></textarea>
+                      <span class="float-right text-muted pt-1">200</span>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-start">
+                    <button class="btn btn-lg btn-popup-savAddmr">Save & Add more</button>
+                  </div>
+            </form>
+          </div>
+          <!-- section ends -->
+          <!-- btns div -->
+          <div class="d-flex justify-content-center py-4">
+            <button class=" btn-lg btn-popup-cancel mr-2" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-lg btn-popup-save px-4 ml-2">Save</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+    </div>
+    </div>
+
+    <!-- Delete Exp Modal -->
+    <div class="modal fade" id="deleteExp" tabindex="-1" aria-labelledby="deleteExpLabel" aria-hidden="true"
+      data-backdrop="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteExpLabel">Confirm Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <p class="px-4 pb-3">
+                Are you sure you want to delete the Experience?
+              </p>
+              <!-- btns div -->
+              <div class="d-flex justify-content-end pb-4">
+                <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-lg btn-popup-delete">Delete</button>
               </div>
             </form>
           </div>
