@@ -238,6 +238,11 @@ add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
 require get_template_directory() . '/inc/ajax-headshot.php';
 
 /**
+ * User Videos 
+ */
+require get_template_directory() . '/inc/ajax-videos.php';
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';

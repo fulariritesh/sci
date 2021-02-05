@@ -25,7 +25,7 @@ $user_info = get_userdata($obj_id);
 	           <h5>My Profile</h5>
 	        </div>
 	        <div class="col-6 col-sm-6 pt-3 text-right">
-	            <button class="btn btn-plain btn-sm shadow-sm" >View as Public</button>
+	            <a href="<?php $home = home_url(); echo $home.'/author/'.wp_get_current_user()->user_nicename; ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
 	        </div>
 	    </div>
 	   <div class="row blockBG my-3 progressbar">
@@ -289,7 +289,7 @@ $user_info = get_userdata($obj_id);
 	            </div>
 
 	             <!-- Navigation Bar-->
-	             <div class="row blockBG profilenavigation mt-3 ">
+	        <div class="row blockBG profilenavigation mt-3 ">
 	            <nav id="navbar" class="navbar navbar-expand navbar-light navbarcolors  ">
 	                <div class="" id="navbarNav">
 	                  <ul class="navbar-nav">
@@ -316,8 +316,8 @@ $user_info = get_userdata($obj_id);
 	                      </li>
 	                  </ul>
 	                </div>
-	              </nav>
-	            </div>
+	            </nav>
+	        </div>
 	            <div class="content">
 	            <!-- Photo Grid-->
 	            <div class="photogrid">
@@ -383,38 +383,38 @@ $user_info = get_userdata($obj_id);
 
 	            </div>
 	            <!--Videos block-->
-	            <div class="row mt- blockBG p-3">
-	                <div class="col-6 col-sm-6 pt-3 "> <h4>Videos (5)</h4></div>
-	                <div class="col-6 col-sm-6 pt-3 text-right">
-	                    <button class="btn btn-edit">Edit</button>
-	                    <button class="btn btn-add">Add</button>
-	                </div>
-	                <div class="col-12 mt-2 profilevideos">
-	                    <!-- <iframe width="100%" height="400px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe> -->
-	                    <h5 class="pt-2">Video Title</h5>
-	                    <h6>3 months ago</h6>
-	                </div>
-	                <div class="col-sm-4 profilevideos pt-3">
-	                    <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe> -->
-	                    <h5 class="pt-2">Video Title</h5>
-	                    <h6>3 months ago</h6>
-	                </div>
-	                <div class="col-sm-4 profilevideos pt-3">
-	                    <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe> -->
-	                    <h5 class="pt-2">Video Title</h5>
-	                    <h6>3 months ago</h6>
-	                </div>
-	                <div class="col-sm-4 profilevideos pt-3">
-	                    <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-	                    </iframe> -->
-	                    <h5 class="pt-2">Video Title</h5>
-	                    <h6>3 months ago</h6>
-	                </div>
-	                <div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-	            </div>
+	        <div class="row mt- blockBG p-3">
+				<style type="text/css">
+					.iframe-container iframe {
+						width: 100%;
+					}
+					.iframe-container.col-12 iframe {
+						height: 500px;
+					}
+					.iframe-container.col-sm-4 iframe {
+						height: 250px;
+					}
+	            </style>
+				<div class="col-6 col-sm-6 pt-3 "> <h4>Videos (<?php echo count(get_field('videos', 'user_' . $obj_id)); ?>)</h4></div>
+				<div class="col-6 col-sm-6 pt-3 text-right">
+					<button class="btn btn-edit" data-toggle="modal" data-target="#manageVideos">Edit</button>
+					<button class="btn btn-add" data-toggle="modal" data-target="#addvideo">Add</button>
+				</div>
+
+				<!-- Display user videos in reverse order  -->
+				<?php $display_videos = array(); if( have_rows('videos', 'user_' . $obj_id) ): $i = 1; ?>
+					<?php while ( have_rows('videos', 'user_' . $obj_id) ) : the_row(); ob_start(); $i++; ?>
+						<div class="iframe-container profilevideos <?php echo get_row_index() == count(get_field('videos', 'user_' . $obj_id)) ? 'col-12 mt-2' : 'col-sm-4 pt-3'; ?>">
+							<?php echo get_sub_field('video_link'); ?>
+							<h5 class="pt-2 text-center"><?php echo get_sub_field('video_caption'); ?></h5>	                				
+						</div>
+					<?php $display_videos[] = ob_get_clean(); endwhile; ?>
+				<?php endif;
+				$display_videos = array_reverse($display_videos);
+				echo implode($display_videos);
+				?>
+				<div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
+				</div>
 
 	             <!--Audio block-->
 	             <div class="row mt-3 blockBG p-3 audioblock">
@@ -967,7 +967,225 @@ $user_info = get_userdata($obj_id);
           </div>
         </div>
 </div>
-	  
+
+<!--add video Modal -->
+<div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+		<div class="col-md-3 d-none d-lg-block">
+			<img src="/images/footer-logo-grey.png" alt="logo">
+		</div>
+		<div class="col-10 col-md-6">
+			<h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
+		</div>
+		<div class="col-2 col-md-3">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		</div>
+		<div class="modal-body">
+		<div class="row">
+			<div class="col-12 col-lg-8 mx-auto py-4">
+			<!-- <div class="card-body"> -->			
+				<ul class="text-muted">
+					<li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+					<li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+					<li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+				</ul>
+				<input id="addvideolink_input" class="form-control my-2" type="text" placeholder="Paste your copied link here:" />
+				<input id="addvideocaption_input" class="form-control my-2" type="text" placeholder="Add caption (optional)" />
+				<div class="d-flex justify-content-around py-4">
+					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+					<button id="addvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+				</div>
+
+				<div id="resaddvideoWrapper"></div> 
+			<!-- </div> -->
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<!--Manage video Modal -->
+    <div class="modal fade" id="manageVideos" tabindex="-1" aria-labelledby="manageVideosModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="manageVideosModalLabel">Manage Video</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <!--Videos block-->
+            <div class="row justify-content-end pb-3">
+              <button type="button" class="btn btn-popup-add mx-4" data-toggle="modal" data-target="#addvideo"><i
+                  class="fas fa-plus-circle fa-2x"></i></button>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 profilevideos pb-5">
+                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                </iframe>
+                <div class="float-right">
+                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
+                    <i class="fas fa-pen fa-lg"></i>
+                  </button>
+                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
+                    <i class="fas fa-trash-alt fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-4 profilevideos pb-5">
+                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                </iframe>
+                <div class="float-right">
+                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
+                    <i class="fas fa-pen fa-lg"></i>
+                  </button>
+                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
+                    <i class="fas fa-trash-alt fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-4 profilevideos pb-5">
+                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                </iframe>
+                <div class="float-right">
+                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
+                    <i class="fas fa-pen fa-lg"></i>
+                  </button>
+                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
+                    <i class="fas fa-trash-alt fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-4 profilevideos pb-5">
+                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                </iframe>
+                <div class="float-right">
+                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
+                    <i class="fas fa-pen fa-lg"></i>
+                  </button>
+                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
+                    <i class="fas fa-trash-alt fa-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--add video Modal -->
+    <div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12 col-sm-10 mx-auto">
+                <form action="">
+                  <ul class="pt-3">
+                    <li class="pb-2">Upload your video on a public site like Youtube or Vimeo. Your profile
+                      should be set to public.</li>
+                    <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+                    <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+                  </ul>
+                  <input class="form-control" type="text" placeholder="Paste your copied link here:" />
+                  <div class="invalid-feedback">
+                    Opps error!
+                  </div>
+                  <div class="d-flex justify-content-end py-4">
+                    <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--edit video details Modal -->
+    <div class="modal fade" id="editvideo" tabindex="-1" aria-labelledby="editvideoModalLabel" aria-hidden="true" data-backdrop="false">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editvideoModalLabel">Edit Video Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <div class="form-group">
+                <label for="videoTitle">Title</label>
+                <input type="text" class="form-control" id="videoTitle">
+              </div>
+              <div class="form-group">
+                <label for="videoDesp">Description</label>
+                <textarea class="form-control justify-content-center" id="videoDesp" rows="4"></textarea>
+              </div>
+              <!-- btns div -->
+              <div class="d-flex justify-content-end py-4">
+                <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-lg btn-popup-save px-4">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Delete video Modal -->
+    <div class="modal fade" id="deleteVideo" tabindex="-1" aria-labelledby="deleteVideoLabel" aria-hidden="true" data-backdrop="false">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteVideoLabel">Confirm Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <p class="px-4 pb-3">
+                Are you sure you want to delete the video?
+              </p>
+              <!-- btns div -->
+              <div class="d-flex justify-content-end pb-4">
+                <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-lg btn-popup-delete">Delete</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+	</div>
+	
 <script>
 window.onscroll = function() {myFunction()};
 var navbar = document.getElementById("navbar");

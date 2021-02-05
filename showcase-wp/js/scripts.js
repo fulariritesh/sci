@@ -444,3 +444,46 @@ $(document).ready(function () {
 		}	
 	});
 });
+
+//sid
+/* User Videos */
+$(document).ready(function () {
+
+	// ADD VIDEO
+	$('#addvideosave_submit').click(function () {
+		var res;
+		var video = $('#addvideolink_input').val();
+		var caption = $('#addvideocaption_input').val();
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				video: video,
+				caption: caption,
+				nonce: Edit.nonce,
+				action:'sci_add_video',
+			},
+			success:function(response, status, xhr)
+			{
+				res = JSON.parse(response);
+				// console.log(response, status, xhr.status);
+				if(xhr.status == 200){
+					$('#resaddvideoWrapper').empty();
+					$('#resaddvideoWrapper').prepend('<div class="alert alert-success alert-dismissible"> \
+																<button type="button" class="close" data-dismiss="alert">&times;</button> \
+																'+ res.data +'. \
+															</div>');
+				}else{
+					$('#resaddvideoWrapper').empty();
+					$('#resaddvideoWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+																<button type="button" class="close" data-dismiss="alert">&times;</button> \
+																'+ res.data +'. \
+															</div>');
+				}
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			}
+		});
+	});
+});
