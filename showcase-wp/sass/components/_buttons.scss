@@ -325,3 +325,14 @@
   padding-left:20px;
   padding-right:20px;
 }
+.btn-rotate {
+  @include buttonstyle(
+    $btn_plainBG,
+    $primary_color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_plainborder,
+    $btnhoverbg: $btn_plainhoverbg,
+    $btnhovercolor:  $primary_color
+  );
+  
+}

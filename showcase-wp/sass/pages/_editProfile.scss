@@ -115,3 +115,75 @@ overflow: hidden;
 .btn-warning {
     color: #fff
 }
+.addphoto-thumb{
+    position:absolute;
+    bottom:-8px;
+    right:8px;
+    color:$primary-color;
+    font-size: 20px;
+}
+.addicon, .deleteicon, .editicon{
+    color:$primary-color;
+    font-size:20px;
+    padding-left:10px;
+}
+.imageGrid{
+    img{
+        width:100%;
+    }
+}
+.managephotoicons{
+    a{
+        color:$primary-color;
+    }
+}
+.bulkselect-radio{
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    input[type="checkbox"]{
+      height:18px;
+      width:18px;
+    }
+}
+#imageGrid{
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+}
+
+.defaultHeadshot{
+    text-align:center;
+    background:$bodyBG;
+}
+.defaultHeadshot i{
+    font-size:100px;
+    padding-top:5px;
+}
+.uploadphoto{
+    min-height:300px;
+    border: 1px dashed $basefont-color;
+    background: $light-color;
+   
+    label{
+        padding-top:90px;
+        cursor:pointer;
+        &:hover{
+            color:$primary-color;
+        }
+    }
+   
+}
+// .modal {
+//     overflow-y:auto;
+//   }
+
+.viewphotodiv{
+    img{
+        width:100%;
+    }
+}
+.imgContent{
+    position:relative;
+}

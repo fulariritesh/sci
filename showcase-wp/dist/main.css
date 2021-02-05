@@ -10529,6 +10529,18 @@ hr.new2 {
   color: #fff;
 }
 
+.btn-rotate {
+  background: #fff;
+  color: #07bb9b;
+  text-transform: capitalize;
+  border: 1px solid #f3f3f3;
+}
+
+.btn-rotate:hover {
+  background: #fcfcfc;
+  color: #07bb9b;
+}
+
 .jp-nav {
   background: #fff;
 }
@@ -11664,8 +11676,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-musicians, .c-musician {
@@ -11673,8 +11686,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-filmcrew {
@@ -11682,8 +11696,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-photographers, .c-photographer {
@@ -11691,8 +11706,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-influencers, .c-influencer {
@@ -11700,8 +11716,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-hairs, .c-hair {
@@ -11709,8 +11726,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-entertainers, .c-entertainer {
@@ -11718,8 +11736,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-models, .c-model {
@@ -11727,8 +11746,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-presenters, .c-presenter {
@@ -11736,8 +11756,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-dancers, .c-dancer {
@@ -11745,8 +11766,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-more {
@@ -11754,9 +11776,20 @@ hr.new2 {
   color: #fff;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
   margin-left: 5px;
+}
+
+.categorybadge {
+  background: transparent;
+  color: #444;
+  font-weight: normal;
+  margin-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .photogrid {
@@ -12216,7 +12249,7 @@ input:checked + .slider .off {
 }
 
 .categorybadge {
-  background: #d1ecf1;
+  background: transparent;
   border: 1px solid #86dcec;
   font-weight: normal;
   padding-left: 10px;
@@ -12426,6 +12459,72 @@ input:checked + .slider .off {
   color: #fff;
 }
 
+.addphoto-thumb {
+  position: absolute;
+  bottom: -8px;
+  right: 8px;
+  color: #07bb9b;
+  font-size: 20px;
+}
+
+.addicon, .deleteicon, .editicon {
+  color: #07bb9b;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.imageGrid img {
+  width: 100%;
+}
+
+.managephotoicons a {
+  color: #07bb9b;
+}
+
+.bulkselect-radio {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.bulkselect-radio input[type="checkbox"] {
+  height: 18px;
+  width: 18px;
+}
+
+.defaultHeadshot {
+  text-align: center;
+  background: #f2fafd;
+}
+
+.defaultHeadshot i {
+  font-size: 100px;
+  padding-top: 5px;
+}
+
+.uploadphoto {
+  min-height: 300px;
+  border: 1px dashed #444;
+  background: #fff;
+}
+
+.uploadphoto label {
+  padding-top: 90px;
+  cursor: pointer;
+}
+
+.uploadphoto label:hover {
+  color: #07bb9b;
+}
+
+.viewphotodiv img {
+  width: 100%;
+}
+
+.imgContent {
+  position: relative;
+}
+
 .icon::before {
   display: inline-block;
   font-style: normal;
@@ -12499,5 +12598,48 @@ input:checked + .slider .off {
 
 .modal-body {
   background: #f7f7f7;
+}
+
+.spotlight-bannerbg {
+  background: #07bb9b;
+  color: #fff;
+}
+
+.spotlight-bannerbg .bannerimg img {
+  width: 100%;
+}
+
+.spotlightbadge {
+  background: #00a6d0;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 3px 20px;
+  border-radius: 20px;
+}
+
+.spotlightpost .post {
+  background: #fff;
+}
+
+.likebar {
+  border: 1px solid #dee2e6;
+  border-top: none;
+}
+
+.likebar .b4-click {
+  width: 32px;
+  height: 32px;
+  fill: #efefef;
+}
+
+.likebar .selected {
+  fill: #07bb9b;
+}
+
+.likebar .likesnum {
+  width: 24px;
+  height: 24px;
+  fill: #07bb9b;
 }
 

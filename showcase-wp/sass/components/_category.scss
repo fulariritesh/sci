@@ -3,8 +3,9 @@
   color: $catcolor;
   font-weight: normal;
   margin-right:5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 .c-actors, .c-actor{
   @include categorystyle($cat-actorBG, $cat-actorColor);
@@ -39,4 +40,8 @@
 .c-more{
   @include categorystyle($cat-moreBG, $cat-moreColor);
   margin-left:5px;
+}
+
+.categorybadge{
+  @include categorystyle($categorybadgeBG, $categorybadgecolor);
 }
