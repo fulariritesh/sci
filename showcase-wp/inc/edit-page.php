@@ -9,7 +9,10 @@ function sci_change_name() {
    }   
 
    if (!!$_REQUEST["name"]) {
-      $data = wp_update_user( array( 'ID' => $current_user->ID, 'first_name' => $_REQUEST["name"] ) );      
+      preg_match("/^([\w.]+) ?(.*)?$/", $_REQUEST["name"], $res);
+      $first_name = $res[1] ? $res[1] : '';
+      $last_name = $res[2] ? $res[2] : '';
+      $data = wp_update_user( array( 'ID' => $current_user->ID, 'first_name' => $first_name, 'last_name' => $last_name ) );      
    }
 
    if ( is_wp_error( $data ) ) {
@@ -17,7 +20,7 @@ function sci_change_name() {
        echo 'Error.';
    } else {
        // Success!
-       echo 'User profile updated.';
+       echo 'ok';
    }
 
    wp_die();
@@ -26,6 +29,8 @@ function sci_change_name() {
 
 add_action("wp_ajax_sci_change_number", "sci_change_number");
 function sci_change_number() {
+
+
    $current_user = wp_get_current_user();
    
    if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
@@ -33,8 +38,104 @@ function sci_change_number() {
    }   
 
    if (!!$_REQUEST["number"]) {
-      echo "Number Updated";     
+      update_field(__sci_s("USER: Profile details", 'sci_user_mobile')['key'], $_REQUEST["number"], 'user_' . $current_user->ID);
+      echo "ok";
    }
+   if (!!$_REQUEST["hide_number"]) {
+      $bool = filter_var($_REQUEST["hide_number"], FILTER_VALIDATE_BOOLEAN);
+      update_field(__sci_s("USER: Profile details", 'hide_number')['key'], $bool, 'user_' . $current_user->ID);
+      echo "ok";
+
+   }
+
+   wp_die();
+
+}
+
+add_action("wp_ajax_sci_change_location", "sci_change_location");
+function sci_change_location() {
+
+   $current_user = wp_get_current_user();
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+
+   if (!!$_REQUEST["location"]) {
+      update_field(__sci_s("USER: Profile details", 'sci_user_location')['key'], $_REQUEST["location"], 'user_' . $current_user->ID);
+      echo "ok";
+   }
+   wp_die();
+
+}
+
+add_action("wp_ajax_sci_change_gender", "sci_change_gender");
+function sci_change_gender() {
+
+   $current_user = wp_get_current_user();
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+
+   if (!!$_REQUEST["gender"]) {
+      update_field(__sci_s("USER: Profile details", 'sci_user_gender')['key'], $_REQUEST["gender"], 'user_' . $current_user->ID);
+      echo "ok";
+   }
+   wp_die();
+
+}
+
+add_action("wp_ajax_sci_change_category", "sci_change_category");
+function sci_change_category() {
+
+   $current_user = wp_get_current_user();
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+
+   if (!!$_REQUEST["categories"]) {
+      $new = array_map(function($item){
+         return get_term_by('id', $item, 'jobs');
+      }, json_decode($_REQUEST["categories"]));
+      update_field(__sci_s("Profession", 'profession')['key'], json_decode($_REQUEST["categories"]), 'user_' . $current_user->ID);
+      echo "ok";
+   }
+   wp_die();
+
+}
+
+add_action("wp_ajax_sci_change_intro", "sci_change_intro");
+function sci_change_intro() {
+
+   $current_user = wp_get_current_user();
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+
+   update_field(__sci_s("USER: Profile details", 'intro_to_camera')['key'], $_REQUEST["camera"], 'user_' . $current_user->ID);
+   update_field(__sci_s("USER: Profile details", 'intro_text')['key'], $_REQUEST["text"], 'user_' . $current_user->ID);
+   echo "ok";
+
+   wp_die();
+
+}
+
+add_action("wp_ajax_sci_change_social", "sci_change_social");
+function sci_change_social() {
+
+   $current_user = wp_get_current_user();
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+   update_field(__sci_s("USER: Social Links and websites", 'sci_user_social_links_instagram')['key'], $_REQUEST["instagram"], 'user_' . $current_user->ID);
+   update_field(__sci_s("USER: Social Links and websites", 'sci_user_social_links_facebook')['key'], $_REQUEST["facebook"], 'user_' . $current_user->ID);
+   update_field(__sci_s("USER: Social Links and websites", 'sci_user_social_links_twitter')['key'], $_REQUEST["twitter"], 'user_' . $current_user->ID);
+   update_field(__sci_s("USER: Social Links and websites", 'sci_user_social_links_youtube')['key'], $_REQUEST["youtube"], 'user_' . $current_user->ID);
+   echo "ok";
 
    wp_die();
 
