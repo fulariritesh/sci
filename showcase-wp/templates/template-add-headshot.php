@@ -118,3 +118,9 @@ include('join-pagination.php');
 get_sidebar();
 get_footer();
 ?>
+<script>
+function headshotSuccess(){
+	console.log('Goto Complete');
+	window.location.href = "<?php echo get_page_link(get_page_by_path('complete')); ?>";
+}
+</script> 

@@ -50,11 +50,11 @@ function sci_add_headshot() {
 			
 			if($success){
 				http_response_code(200);
-				echo json_encode(array('data' => $upload_id ));
+				echo json_encode(array('data' => 'Success' ));
 				exit();	
 			}else{
 				http_response_code(500);
-				echo json_encode(array('data' => 'upload failed' ));
+				echo json_encode(array('data' => 'Upload failed' ));
 				exit();	
 			}
 				
