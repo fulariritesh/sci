@@ -26,6 +26,11 @@ input {
   outline: 0;
 }
 
+//hide the input type file
+input[type="file"] {
+  display: none;
+}
+
 .gradient-bg {
   background-image: linear-gradient(
     $gradientbg1,
@@ -143,4 +148,13 @@ input {
   @include media-xs {
     font-size: 0.75rem;
   }
+}
+
+//icon change config
+.icon::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
 }
