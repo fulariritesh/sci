@@ -40,70 +40,141 @@
             <p class="text-muted">If this section is not relevant to your skillset, please skip below. And remember, you can always update this information later if you change your mind.</p>
             <form action="">
                 <div class="form-group">
-                  <div class="d-flex justify-content-between">
-                    <label for="formControlRange">Height (cm): </label>
-                    <input class="disp-val" id="HeightInput" oninput="updateHeightInput(this.value);"></input>
+                  <label for="height">Height (feet inches): </label>
+                  <div class="d-flex">
+                    <input type="number" class="form-control col-5 mr-2" name="height_ft" placeholder="feet" />
+                    <input type="number" class="form-control col-5 ml-2" name="height_in" placeholder="inches" />
                   </div>
-                  <input type="range" id="HeightOutput" class="form-control-range slider" min="0" max="100" oninput="updateHeightInput(this.value);">
-                  </div>
-                <div class="form-group">
-                  <div class="d-flex justify-content-between">
-                    <label for="formControlRange">Weight (kg): </label>
-                    <input class="disp-val" id="WeightInput" oninput="updateWeightInput(this.value);"></input>
-                  </div>
-                  <input type="range" id="WeightOutput" class="form-control-range" min="0" max="100" oninput="updateWeightInput(this.value);">
-                  </div>
-              <div class="form-group">
-                <div>
-                  <label for="Gender"
-                    >Eye color:</label
-                  >
-                </div>
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option1" checked />Black</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option2" />Brown</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Blue</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Green</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Grey</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Hazel<label>
-                </div>
-                </div>
-              <div class="form-group">
-                <div>
-                  <label for="Gender"
-                    >Skin color:</label
-                  >
-                </div>
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option1" checked />
-                    Pale
-                  </label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option2" />Fair</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Medium</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Olive</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Brown</label>
-                  <label class="btn btn-details-gen">
-                    <input type="radio" name="options" id="option3" />Black<label>
-                </div>
+                  <div class="invalid-feedback">Please enter a valid height</div>
                 </div>
                 <div class="form-group">
-                  <div class="d-flex justify-content-between">
-                    <label for="formControlRange">Chest (cm): </label>
-                    <input class="disp-val" id="ChestInput" oninput="updateChestInput(this.value);"></input>
+                  <label for="weight">Weight (kg): </label>
+                  <input type="number" class="form-control" name="weight" />
+                  <div class="invalid-feedback">Please enter a valid weight</div>
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="eye color">Eye color:</label>
                   </div>
-                  <input type="range" id="ChestOutput" class="form-control-range" min="0" max="100" oninput="updateChestInput(this.value);">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="eye-color"/>Black</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="eye-color"/>Brown</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="eye-color"/>Blue</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="eye-color"/>Green</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="eye-color"/>Grey</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="eye-color"/>Hazel<label>
                   </div>
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="skin color">Skin color:</label>
+                  </div>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="skin-color"/>
+                      Pale
+                    </label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="skin-color" />Fair</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="skin-color"/>Medium</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="skin-color"/>Olive</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="skin-color"/>Brown</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="skin-color"/>Black<label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="chest">Chest (inches): </label>
+                  <input type="number" class="form-control" name="chest" />
+                  <div class="invalid-feedback">Please enter a valid chest size</div>
+                </div>
+                <div class="form-group">
+                  <label for="waist">Waist (inches): </label>
+                  <input type="number" class="form-control" name="waist" />
+                  <div class="invalid-feedback">Please enter a valid waist size</div>
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="hair color">Hair length:</label>
+                  </div>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-len"/>Long</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-len"/>Medium</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-len"/>Short</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-len"/>Bald</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="hair color">Hair color:</label>
+                  </div>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-col" />Bloned</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-col" />Auburn</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-col" />Black</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-col" />Brown</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-col" />Grey</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-col" />Others<label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="popup if selected others hair color" />
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="hair type">Hair type:</label>
+                  </div>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-type" />Straight</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-type" />Wavy</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="hair-type" />Curly</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div>
+                    <label for="ethnicity">Ethnicity:</label>
+                  </div>
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="ethnicity" />Indian</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="ethnicity" />Option2</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="ethnicity" />Option3</label>
+                    <label class="btn btn-details-gen">
+                      <input type="radio" name="ethnicity" />Others<label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="popup if selected others ethnicity" />
+                </div>
+                <div class="d-flex justify-content-center py-4">
+                  <button class="btn btn-lg btn-popup-cancel mr-2" data-dismiss="modal">Cancel</button>
+                  <button class="btn btn-lg btn-popup-save px-4 ml-2">Save</button>
+                </div>
+             
               <div class="d-flex justify-content-between py-3">
                 <a type="" class="btn btn-lg btn-details-bck btn-xs px-md-5">Back</a>
               <button type="submit" class="btn btn-lg btn-details-nxt btn-xs px-md-5">Next</button>

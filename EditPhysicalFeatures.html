@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physical Features</title>
+  <link rel="stylesheet" href="./showcase-wp/dist/main.css" />
+</head>
+
+<body>
+  <section>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editIntro">
+      Physical Features
+    </button>
+
+    <!--Intro Modal -->
+    <div class="modal fade" id="editIntro" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="col-md-3 d-none d-lg-block">
+              <img src="/images/footer-logo-grey.png" alt="logo">
+            </div>
+            <div class="col-10 col-md-6">
+              <h5 class="modal-title text-lg-center" id="editIntroModalLabel">Manage Introduction</h5>
+            </div>
+            <div class="col-2 col-md-3">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
+                <div class="card-body">
+                  <form action="">
+                    <div class="form-group">
+                      <label for="height">Height (feet inches): </label>
+                      <div class="d-flex justify-content-between">
+                        <input type="number" class="form-control mr-2" name="height_ft" placeholder="feet" />
+                        <input type="number" class="form-control ml-2" name="height_in" placeholder="inches" />
+                      </div>
+                      <div class="invalid-feedback">Please enter a valid height</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="weight">Weight (kg): </label>
+                      <input type="number" class="form-control" name="weight" />
+                      <div class="invalid-feedback">Please enter a valid weight</div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <label for="eye color">Eye color:</label>
+                      </div>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="eye-color"/>Black</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="eye-color"/>Brown</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="eye-color"/>Blue</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="eye-color"/>Green</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="eye-color"/>Grey</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="eye-color"/>Hazel<label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <label for="skin color">Skin color:</label>
+                      </div>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="skin-color"/>
+                          Pale
+                        </label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="skin-color" />Fair</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="skin-color"/>Medium</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="skin-color"/>Olive</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="skin-color"/>Brown</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="skin-color"/>Black<label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="chest">Chest (inches): </label>
+                      <input type="number" class="form-control" name="chest" />
+                      <div class="invalid-feedback">Please enter a valid chest size</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="waist">Waist (inches): </label>
+                      <input type="number" class="form-control" name="waist" />
+                      <div class="invalid-feedback">Please enter a valid waist size</div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <label for="hair color">Hair length:</label>
+                      </div>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-len"/>Long</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-len"/>Medium</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-len"/>Short</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-len"/>Bald</label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <label for="hair color">Hair color:</label>
+                      </div>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-col" />Bloned</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-col" />Auburn</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-col" />Black</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-col" />Brown</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-col" />Grey</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-col" />Others<label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="popup if selected others hair color" />
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <label for="hair type">Hair type:</label>
+                      </div>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-type" />Straight</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-type" />Wavy</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="hair-type" />Curly</label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div>
+                        <label for="ethnicity">Ethnicity:</label>
+                      </div>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="ethnicity" />Indian</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="ethnicity" />Option2</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="ethnicity" />Option3</label>
+                        <label class="btn btn-details-gen">
+                          <input type="radio" name="ethnicity" />Others<label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="popup if selected others ethnicity" />
+                    </div>
+                    <div class="d-flex justify-content-center py-4">
+                      <button class="btn btn-lg btn-popup-cancel mr-2" data-dismiss="modal">Cancel</button>
+                      <button class="btn btn-lg btn-popup-save px-4 ml-2">Save</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://kit.fontawesome.com/f5515e915e.js" crossorigin="anonymous"></script>
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
