@@ -16676,7 +16676,7 @@ $(document).ready(function () {
       }
     }).mount();
   }
-}); // sid
+}); //sid
 
 $(document).ready(function () {
   /* Category Subcategory Page */
@@ -16712,6 +16712,7 @@ $(document).ready(function () {
   var cropper;
   var data;
   var res;
+  var redirectFunction = '';
   var indexHeadshot = 1;
   var canvas = document.querySelector("#canvas");
   var video = document.querySelector("#videoElement");
@@ -16719,9 +16720,16 @@ $(document).ready(function () {
   var previewContainer = document.getElementById("img-preview");
   var previewImg = document.querySelector(".img-preview-img");
   var previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
-  var previewDefaultTxt = document.querySelector(".img-preview-default-txt");
-  $('li.splide__slide').click(function () {
-    var index = $(this).attr("data-index");
+  var previewDefaultTxt = document.querySelector(".img-preview-default-txt"); // $('li.splide__slide').click(function () {
+  // 	var index = $(this).attr("data-index");
+  // 	if(index){
+  // 		indexHeadshot = index;
+  // 		console.log('Headshot: '+indexHeadshot);
+  // 	}	
+  // });
+
+  $(".manageHeadshot").find("button").click(function () {
+    var index = $(this).attr("data-indexheadshot");
 
     if (index) {
       indexHeadshot = index;
@@ -16757,8 +16765,8 @@ $(document).ready(function () {
       video.srcObject = stream;
     })["catch"](function (error) {
       console.log("Looks like your device has no camera.");
-      $('#errorHeadshotWrapper').empty();
-      $('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+      $('#resHeadshotWrapper').empty();
+      $('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
 													<button type="button" class="close" data-dismiss="alert">&times;</button> \
 													Looks like your device has no camera. \
 												</div>');
@@ -16806,7 +16814,8 @@ $(document).ready(function () {
     if (cropper) {
       cropper.rotate(90);
     }
-  });
+  }); // ADD/EDIT HEADSHOT
+
   $('#saveHeadshot').on('click', function () {
     console.log('uploading...');
 
@@ -16833,45 +16842,92 @@ $(document).ready(function () {
               index: indexHeadshot
             },
             success: function success(response, status, xhr) {
-              res = JSON.parse(response);
-              console.log(response, status, xhr.status);
+              res = JSON.parse(response); //console.log(response, status, xhr.status);
+
               cropper.destroy();
               cropper = null;
 
-              if (xhr.status == 200) {
-                $('#errorHeadshotWrapper').empty();
-                $('#errorHeadshotWrapper').prepend('<div class="alert alert-success alert-dismissible"> \
-																			<button onclick="headshotSuccess()" type="button" class="close" data-dismiss="alert">&times;</button> \
-																			' + res.data + '. \
-																		</div>');
-              } else {
-                $('#errorHeadshotWrapper').empty();
-                $('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-																			<button type="button" class="close" data-dismiss="alert">&times;</button> \
-																			' + res.data + '. \
-																		</div>');
+              if (res.status === 'success') {
+                redirectFunction = 'onclick="headshotSuccess()"';
               }
-            },
-            error: function error(xhr, status, _error) {
-              console.log(xhr, status, _error);
+
+              $('#resHeadshotWrapper').empty();
+              $('#resHeadshotWrapper').prepend('<div class="alert alert-' + res.status + ' alert-dismissible"> \
+																		<button ' + redirectFunction + ' type="button" class="close" data-dismiss="alert">&times;</button> \
+																		' + res.msg + '. \
+																	</div>');
             }
           });
         };
       });
     } else {
       console.log('please capture or upload a headshot');
-      $('#errorHeadshotWrapper').empty();
-      $('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+      $('#resHeadshotWrapper').empty();
+      $('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
 														<button type="button" class="close" data-dismiss="alert">&times;</button> \
 														Please capture or upload a headshot. \
 													</div>');
     }
+  }); // DELETE HEADSHOT
+
+  $('#deleteheadshotsave_submit').click(function () {
+    var res;
+    $.ajax({
+      url: Edit.request_url,
+      method: 'POST',
+      data: {
+        index: indexHeadshot,
+        nonce: Edit.nonce,
+        action: 'sci_delete_headshot'
+      },
+      success: function success(response, status, xhr) {
+        res = JSON.parse(response);
+        $('#resdeleteheadshotWrapper').empty();
+        $('#resdeleteheadshotWrapper').prepend('<div class="alert alert-' + res.status + ' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															' + res.msg + '. \
+														</div>');
+
+        if (res.status === 'success') {
+          window.location.reload();
+        }
+      },
+      error: function error(xhr, status, _error) {
+        console.log(xhr, status, _error);
+      }
+    });
   });
 }); //sid
 
-/* Add Video */
+/* User Videos */
 
 $(document).ready(function () {
+  var indexVideo = 1;
+  $(".manageVideo").find("button").click(function () {
+    var index = $(this).attr("data-indexvideo");
+    var res;
+
+    if (index) {
+      indexVideo = index;
+      console.log('Video: ' + indexVideo);
+    }
+
+    $.ajax({
+      url: Edit.request_url,
+      method: 'POST',
+      data: {
+        index: indexVideo,
+        nonce: Edit.nonce,
+        action: 'sci_get_video'
+      },
+      success: function success(response, status, xhr) {
+        res = JSON.parse(response);
+        $('#editvideolink_input').val(res.video);
+        $('#editvideocaption_input').val(res.caption);
+      }
+    });
+  }); // ADD VIDEO
+
   $('#addvideosave_submit').click(function () {
     var res;
     var video = $('#addvideolink_input').val();
@@ -16887,24 +16943,78 @@ $(document).ready(function () {
       },
       success: function success(response, status, xhr) {
         res = JSON.parse(response);
-        console.log(response, status, xhr.status);
+        $('#resaddvideoWrapper').empty();
+        $('#resaddvideoWrapper').prepend('<div class="alert alert-' + res.status + ' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															' + res.msg + '. \
+														</div>');
 
-        if (xhr.status == 200) {
-          $('#resaddvideoWrapper').empty();
-          $('#resaddvideoWrapper').prepend('<div class="alert alert-success alert-dismissible"> \
-																<button type="button" class="close" data-dismiss="alert">&times;</button> \
-																' + res.data + '. \
-															</div>');
-        } else {
-          $('#resaddvideoWrapper').empty();
-          $('#resaddvideoWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-																<button type="button" class="close" data-dismiss="alert">&times;</button> \
-																' + res.data + '. \
-															</div>');
+        if (res.status === 'success') {
+          window.location.reload();
         }
       },
       error: function error(xhr, status, _error2) {
         console.log(xhr, status, _error2);
+      }
+    });
+  }); // EDIT VIDEO
+
+  $('#editvideosave_submit').click(function () {
+    var res;
+    var video = $('#editvideolink_input').val();
+    var caption = $('#editvideocaption_input').val();
+    $.ajax({
+      url: Edit.request_url,
+      method: 'POST',
+      data: {
+        video: video,
+        caption: caption,
+        index: indexVideo,
+        nonce: Edit.nonce,
+        action: 'sci_edit_video'
+      },
+      success: function success(response, status, xhr) {
+        res = JSON.parse(response);
+        $('#reseditvideoWrapper').empty();
+        $('#reseditvideoWrapper').prepend('<div class="alert alert-' + res.status + ' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															' + res.msg + '. \
+														</div>');
+
+        if (res.status === 'success') {
+          window.location.reload();
+        }
+      },
+      error: function error(xhr, status, _error3) {
+        console.log(xhr, status, _error3);
+      }
+    });
+  }); // DELETE VIDEO
+
+  $('#deletevideosave_submit').click(function () {
+    var res;
+    $.ajax({
+      url: Edit.request_url,
+      method: 'POST',
+      data: {
+        index: indexVideo,
+        nonce: Edit.nonce,
+        action: 'sci_delete_video'
+      },
+      success: function success(response, status, xhr) {
+        res = JSON.parse(response);
+        $('#resdeletevideoWrapper').empty();
+        $('#resdeletevideoWrapper').prepend('<div class="alert alert-' + res.status + ' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															' + res.msg + '. \
+														</div>');
+
+        if (res.status === 'success') {
+          window.location.reload();
+        }
+      },
+      error: function error(xhr, status, _error4) {
+        console.log(xhr, status, _error4);
       }
     });
   });

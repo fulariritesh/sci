@@ -92,9 +92,14 @@ include('join-pagination.php');
 					</div>	
 				</div>
 
-				<!-- error message -->
-				<div id="errorHeadshotWrapper">
-				</div>
+				<!-- response message -->
+				<div id="resHeadshotWrapper"></div>
+				<script>
+				function headshotSuccess(){
+					console.log('Goto Complete');
+					window.location.href = "<?php echo get_page_link(get_page_by_path('complete')); ?>";
+				}
+				</script> 
 
 				<!-- back-save-btns -->
 				<div class="d-flex justify-content-between pt-5 pb-3">				
@@ -118,9 +123,3 @@ include('join-pagination.php');
 get_sidebar();
 get_footer();
 ?>
-<script>
-function headshotSuccess(){
-	console.log('Goto Complete');
-	window.location.href = "<?php echo get_page_link(get_page_by_path('complete')); ?>";
-}
-</script> 

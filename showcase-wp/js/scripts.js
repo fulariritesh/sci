@@ -252,7 +252,7 @@ $(document).ready(function(){
 	}
 });
 
-// sid
+//sid
 $(document).ready(function () {
 	/* Category Subcategory Page */
 	$(".card-header").click(function () {
@@ -286,6 +286,7 @@ $(document).ready(function () {
 	var cropper;
 	var data;
 	var res;
+	var redirectFunction = '';
 	var indexHeadshot = 1;
 	var canvas = document.querySelector("#canvas");
 	var video = document.querySelector("#videoElement");
@@ -295,13 +296,20 @@ $(document).ready(function () {
 	const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
 	const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
 
-	$('li.splide__slide').click(function () {
-		var index = $(this).attr("data-index");
+	// $('li.splide__slide').click(function () {
+	// 	var index = $(this).attr("data-index");
+	// 	if(index){
+	// 		indexHeadshot = index;
+	// 		console.log('Headshot: '+indexHeadshot);
+	// 	}	
+	// });
+	$(".manageHeadshot").find("button").click(function(){
+		var index = $(this).attr("data-indexheadshot");
 		if(index){
 			indexHeadshot = index;
 			console.log('Headshot: '+indexHeadshot);
-		}	
-  	});
+		}
+	});
 
 	inpFile.addEventListener("change", function () {
 		const file = this.files[0];
@@ -333,8 +341,8 @@ $(document).ready(function () {
 		})
 		.catch(function (error) {
 			console.log("Looks like your device has no camera.");
-			$('#errorHeadshotWrapper').empty();
-			$('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+			$('#resHeadshotWrapper').empty();
+			$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
 													<button type="button" class="close" data-dismiss="alert">&times;</button> \
 													Looks like your device has no camera. \
 												</div>');
@@ -384,6 +392,7 @@ $(document).ready(function () {
 		}
 	});
 
+	// ADD/EDIT HEADSHOT
 	$('#saveHeadshot').on('click', function(){
 		console.log('uploading...');
 		if(cropper){
@@ -410,45 +419,90 @@ $(document).ready(function () {
 						success:function(response, status, xhr)
 						{
 							res = JSON.parse(response);
-							console.log(response, status, xhr.status);
+							//console.log(response, status, xhr.status);
 							cropper.destroy();
 							cropper = null;
 
-							if(xhr.status == 200){
-								$('#errorHeadshotWrapper').empty();
-								$('#errorHeadshotWrapper').prepend('<div class="alert alert-success alert-dismissible"> \
-																			<button onclick="headshotSuccess()" type="button" class="close" data-dismiss="alert">&times;</button> \
-																			'+ res.data +'. \
-																		</div>');
-							}else{
-								$('#errorHeadshotWrapper').empty();
-								$('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-																			<button type="button" class="close" data-dismiss="alert">&times;</button> \
-																			'+ res.data +'. \
-																		</div>');
+							if(res.status === 'success'){
+								redirectFunction = 'onclick="headshotSuccess()"';
 							}
-						},
-						error :function(xhr,status,error){
-							console.log(xhr,status,error);
+							$('#resHeadshotWrapper').empty();
+							$('#resHeadshotWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+																		<button '+ redirectFunction +' type="button" class="close" data-dismiss="alert">&times;</button> \
+																		'+ res.msg +'. \
+																	</div>');						
 						}
 					});
 				};
 			});
 		}else{
 			console.log('please capture or upload a headshot');
-			$('#errorHeadshotWrapper').empty();
-			$('#errorHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+			$('#resHeadshotWrapper').empty();
+			$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
 														<button type="button" class="close" data-dismiss="alert">&times;</button> \
 														Please capture or upload a headshot. \
 													</div>');
 		}	
 	});
+
+	// DELETE HEADSHOT
+	$('#deleteheadshotsave_submit').click(function () {
+		var res;
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexHeadshot,
+				nonce: Edit.nonce,
+				action:'sci_delete_headshot',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#resdeleteheadshotWrapper').empty();
+				$('#resdeleteheadshotWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
 });
 
 //sid
 /* User Videos */
 $(document).ready(function () {
 
+	var indexVideo = 1;
+	$(".manageVideo").find("button").click(function(){
+		var index = $(this).attr("data-indexvideo");
+		var res;
+		if(index){
+			indexVideo = index;
+			console.log('Video: '+indexVideo);
+		}
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexVideo,
+				nonce: Edit.nonce,
+				action:'sci_get_video',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#editvideolink_input').val(res.video)
+				$('#editvideocaption_input').val(res.caption);					
+			}
+		});
+	});
+	  
 	// ADD VIDEO
 	$('#addvideosave_submit').click(function () {
 		var res;
@@ -463,27 +517,80 @@ $(document).ready(function () {
 				nonce: Edit.nonce,
 				action:'sci_add_video',
 			},
-			success:function(response, status, xhr)
-			{
+			success: function(response, status, xhr){
 				res = JSON.parse(response);
-				// console.log(response, status, xhr.status);
-				if(xhr.status == 200){
-					$('#resaddvideoWrapper').empty();
-					$('#resaddvideoWrapper').prepend('<div class="alert alert-success alert-dismissible"> \
-																<button type="button" class="close" data-dismiss="alert">&times;</button> \
-																'+ res.data +'. \
-															</div>');
-				}else{
-					$('#resaddvideoWrapper').empty();
-					$('#resaddvideoWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-																<button type="button" class="close" data-dismiss="alert">&times;</button> \
-																'+ res.data +'. \
-															</div>');
-				}
+				$('#resaddvideoWrapper').empty();
+				$('#resaddvideoWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}								
 			},
 			error :function(xhr,status,error){
 				console.log(xhr,status,error);
-			}
+			},
+		});
+	});
+
+	// EDIT VIDEO
+	$('#editvideosave_submit').click(function () {
+		var res;
+		var video = $('#editvideolink_input').val();
+		var caption = $('#editvideocaption_input').val();
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				video: video,
+				caption: caption,
+				index: indexVideo,
+				nonce: Edit.nonce,
+				action:'sci_edit_video',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#reseditvideoWrapper').empty();
+				$('#reseditvideoWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	// DELETE VIDEO
+	$('#deletevideosave_submit').click(function () {
+		var res;
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexVideo,
+				nonce: Edit.nonce,
+				action:'sci_delete_video',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#resdeletevideoWrapper').empty();
+				$('#resdeletevideoWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
 		});
 	});
 });

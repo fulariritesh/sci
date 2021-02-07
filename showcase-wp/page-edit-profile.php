@@ -6,11 +6,6 @@
  */
 
 get_header();
-$obj_id = wp_get_current_user()->data->ID;
-$data = get_user_meta($obj_id);
-$user_info = get_userdata($obj_id);
-?>
-<?php 
 
 $obj_id = wp_get_current_user()->data->ID;
 $data = get_user_meta($obj_id);
@@ -114,7 +109,7 @@ $user_info = get_userdata($obj_id);
 									text-align:center;
 									background:#f2f2f2;
 								}
-								.defaultHeadshot i{
+								.defaultHeadshot i.fas.fa-user{
 									font-size:100px;
 									padding-top:5px;
 								}
@@ -161,16 +156,29 @@ $user_info = get_userdata($obj_id);
 											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
 											        // Load sub field value.
 											        $sub_value = get_sub_field('sci_user_headshot'); ?>
-											        <li  data-toggle="modal" data-target="#editheadshot" data-index=<?php echo get_row_index(); ?> class="splide__slide">
+											        <li  class="splide__slide">
 														<img src="<?php echo $sub_value['url']; ?>">
+														<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
+															<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
+																<i class="fas fa-pen fa-lg"></i>
+															</button>
+															<button class="btn btn-popup-del" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
+																<i class="fas fa-trash-alt fa-lg"></i>
+															</button>
+														</div>
 													</li>
 											<?php // End loop.
 												endwhile;
 												$usedHeadshots = count(get_field('sci_user_headshots', 'user_' . $obj_id));
 												$emptyHeadshots = 4 - $usedHeadshots;
 												for($i=($usedHeadshots+1); $i <= 4; $i++ ){
-													echo 	'<li  data-toggle="modal" data-target="#editheadshot" data-index="'.$i.'" class="splide__slide defaultHeadshot"> 
-																<i class="fas fa-user"></i> 			
+													echo 	'<li class="splide__slide defaultHeadshot"> 
+																<i class="fas fa-user"></i>
+																<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
+																	<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot="'.$i.'">
+																		<i class="fas fa-pen fa-lg"></i>
+																	</button>
+																</div>			
 															</li>';
 												}
 											?>
@@ -753,7 +761,8 @@ $user_info = get_userdata($obj_id);
 	</div>
 </div>
 
-<!-- Modal headshot -->
+<!-- HEADSHOT -->
+<!-- Add/Edit Headshot Modal -->
 <div class="modal fade" id="editheadshot" tabindex="-1" aria-labelledby="editHeadshotModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 	<div class="modal-content">
@@ -810,7 +819,7 @@ $user_info = get_userdata($obj_id);
 					Upload from device
 					</button>
 				</div>
-				<!-- uoload btn  -->
+				<!-- upload btn  -->
 				<div class="upload-div">
 					<label class="btn btn-custom-file-upload d-flex justify-content-center">
 					<input type="file" name="hsFile" id="hsFile" />
@@ -831,16 +840,49 @@ $user_info = get_userdata($obj_id);
 				<div class="d-flex justify-content-around py-4">
 					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
 					<button id="saveHeadshot" class="btn btn-lg btn-popup-save px-4">Save</button>
-				</div>			
-				<!-- error message -->
-				<div id="errorHeadshotWrapper" class="m-2"></div>
-				
+				</div>
+
+				<!-- response message -->
+				<div id="resHeadshotWrapper" class="m-2"></div>
+				<script>
+				function headshotSuccess(){
+					console.log('Refresh');
+					window.location.reload();
+				}
+				</script>	
 			</div>
 			</div>
 		</div>
 		</div>
 	</div>
 	</div>
+</div>
+<!-- Delete Headshot Modal -->
+<div class="modal fade" id="deleteheadshot" tabindex="-1" aria-labelledby="deleteheadshotLabel" aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteheadshotLabel">Confirm Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+				<p class="px-4 pb-3">
+					Are you sure you want to delete the headshot?
+				</p>
+				<!-- btns div -->
+				<div class="d-flex justify-content-end pb-4">
+					<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+					<button id="deleteheadshotsave_submit" class="btn btn-lg btn-popup-delete">Delete</button>
+				</div>   
+			  
+			  	<!-- response message -->
+				<div id="resdeleteheadshotWrapper" class="m-2"></div>
+          </div>
+
+        </div>
+    </div>
 </div>
 
 <!--Intro Modal -->
@@ -968,49 +1010,8 @@ $user_info = get_userdata($obj_id);
         </div>
 </div>
 
-<!--add video Modal -->
-<div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-	<div class="modal-content">
-		<div class="modal-header">
-		<div class="col-md-3 d-none d-lg-block">
-			<img src="/images/footer-logo-grey.png" alt="logo">
-		</div>
-		<div class="col-10 col-md-6">
-			<h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
-		</div>
-		<div class="col-2 col-md-3">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		</div>
-		<div class="modal-body">
-		<div class="row">
-			<div class="col-12 col-lg-8 mx-auto py-4">
-			<!-- <div class="card-body"> -->			
-				<ul class="text-muted">
-					<li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
-					<li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
-					<li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
-				</ul>
-				<input id="addvideolink_input" class="form-control my-2" type="text" placeholder="Paste your copied link here:" />
-				<input id="addvideocaption_input" class="form-control my-2" type="text" placeholder="Add caption (optional)" />
-				<div class="d-flex justify-content-around py-4">
-					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
-					<button id="addvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
-				</div>
-
-				<div id="resaddvideoWrapper"></div> 
-			<!-- </div> -->
-			</div>
-		</div>
-		</div>
-	</div>
-	</div>
-</div>
-
-<!--Manage video Modal -->
+<!-- VIDEOS -->
+	<!--Manage video Modal -->
     <div class="modal fade" id="manageVideos" tabindex="-1" aria-labelledby="manageVideosModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -1034,101 +1035,74 @@ $user_info = get_userdata($obj_id);
                   class="fas fa-plus-circle fa-2x"></i></button>
             </div>
             <div class="row">
-              <div class="col-lg-4 profilevideos pb-5">
-                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe>
-                <div class="float-right">
-                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
-                    <i class="fas fa-pen fa-lg"></i>
-                  </button>
-                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
-                    <i class="fas fa-trash-alt fa-lg"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-lg-4 profilevideos pb-5">
-                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe>
-                <div class="float-right">
-                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
-                    <i class="fas fa-pen fa-lg"></i>
-                  </button>
-                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
-                    <i class="fas fa-trash-alt fa-lg"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-lg-4 profilevideos pb-5">
-                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe>
-                <div class="float-right">
-                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
-                    <i class="fas fa-pen fa-lg"></i>
-                  </button>
-                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
-                    <i class="fas fa-trash-alt fa-lg"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-lg-4 profilevideos pb-5">
-                <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe>
-                <div class="float-right">
-                  <button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editvideo">
-                    <i class="fas fa-pen fa-lg"></i>
-                  </button>
-                  <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteVideo">
-                    <i class="fas fa-trash-alt fa-lg"></i>
-                  </button>
-                </div>
-              </div>
+				<style type="text/css">
+					.col-lg-4.profilevideos.pb-5 iframe {
+						width: 100%;
+						height: 200px;
+					}
+	            </style>
+				<?php if( have_rows('videos', 'user_' . $obj_id) ): ?>
+					<?php while ( have_rows('videos', 'user_' . $obj_id) ) : the_row(); ?>
+						<div class="col-lg-4 profilevideos pb-5">						
+							<?php echo get_sub_field('video_link'); ?>
+							<h5 class="pt-2"><?php echo get_sub_field('video_caption'); ?></h5>
+							<div class="float-right manageVideo" >
+								<button class="btn btn-popup-edit" type="button" data-indexvideo="<?php echo get_row_index(); ?>" data-toggle="modal" data-target="#editvideo">
+									<i class="fas fa-pen fa-lg"></i>
+								</button>
+								<button class="btn btn-popup-del" type="button" data-indexvideo="<?php echo get_row_index(); ?>" data-toggle="modal" data-target="#deleteVideo">
+									<i class="fas fa-trash-alt fa-lg"></i>
+								</button>
+							</div>
+						</div>
+					<?php endwhile; ?>
+				<?php endif; ?>       
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--add video Modal -->
-    <div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="col-md-3 d-none d-lg-block">
-              <img src="/images/footer-logo-grey.png" alt="logo">
-            </div>
-            <div class="col-10 col-md-6">
-              <h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
-            </div>
-            <div class="col-2 col-md-3">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-12 col-sm-10 mx-auto">
-                <form action="">
-                  <ul class="pt-3">
-                    <li class="pb-2">Upload your video on a public site like Youtube or Vimeo. Your profile
-                      should be set to public.</li>
-                    <li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
-                    <li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
-                  </ul>
-                  <input class="form-control" type="text" placeholder="Paste your copied link here:" />
-                  <div class="invalid-feedback">
-                    Opps error!
-                  </div>
-                  <div class="d-flex justify-content-end py-4">
-                    <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-lg btn-popup-save px-4">Save</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+	</div>
+	<!--add video Modal -->
+	<div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<div class="col-md-3 d-none d-lg-block">
+				<img src="/images/footer-logo-grey.png" alt="logo">
+			</div>
+			<div class="col-10 col-md-6">
+				<h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
+			</div>
+			<div class="col-2 col-md-3">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			</div>
+			<div class="modal-body">
+			<div class="row">
+				<div class="col-12 col-lg-8 mx-auto py-4">
+				<!-- <div class="card-body"> -->			
+					<ul class="text-muted">
+						<li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+						<li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+						<li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+					</ul>
+					<input id="addvideolink_input" class="form-control my-2" type="text" placeholder="Paste your copied link here:" />
+					<input id="addvideocaption_input" class="form-control my-2" type="text" placeholder="Add caption (optional)" />
+					<div class="d-flex justify-content-around py-4">
+						<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+						<button id="addvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+					</div>
+
+					<div id="resaddvideoWrapper"></div> 
+				<!-- </div> -->
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
     <!--edit video details Modal -->
     <div class="modal fade" id="editvideo" tabindex="-1" aria-labelledby="editvideoModalLabel" aria-hidden="true" data-backdrop="false">
       <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -1140,21 +1114,20 @@ $user_info = get_userdata($obj_id);
             </button>
           </div>
           <div class="modal-body">
-            <form action="">
-              <div class="form-group">
-                <label for="videoTitle">Title</label>
-                <input type="text" class="form-control" id="videoTitle">
-              </div>
-              <div class="form-group">
-                <label for="videoDesp">Description</label>
-                <textarea class="form-control justify-content-center" id="videoDesp" rows="4"></textarea>
-              </div>
-              <!-- btns div -->
-              <div class="d-flex justify-content-end py-4">
-                <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-lg btn-popup-save px-4">Save</button>
-              </div>
-            </form>
+
+                <label for="editvideolink_input">Video Link</label>
+                <input id="editvideolink_input" class="form-control my-2" type="text" placeholder="Edit link here:" />
+              
+                <label for="editvideocaption_input">Caption</label>
+                <input id="editvideocaption_input" class="form-control my-2" type="text" placeholder="Add/Edit caption" />
+      
+				<!-- btns div -->
+				<div class="d-flex justify-content-end py-4">
+					<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+					<button id="editvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+				</div>
+
+			  	<div id="reseditvideoWrapper"></div> 
           </div>
         </div>
       </div>
@@ -1170,16 +1143,16 @@ $user_info = get_userdata($obj_id);
             </button>
           </div>
           <div class="modal-body">
-            <form action="">
               <p class="px-4 pb-3">
                 Are you sure you want to delete the video?
               </p>
               <!-- btns div -->
               <div class="d-flex justify-content-end pb-4">
                 <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-lg btn-popup-delete">Delete</button>
-              </div>
-            </form>
+                <button id="deletevideosave_submit" class="btn btn-lg btn-popup-delete">Delete</button>
+			  </div>   
+			  
+			  <div id="resdeletevideoWrapper"></div> 
           </div>
 
         </div>
