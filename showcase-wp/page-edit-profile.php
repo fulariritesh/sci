@@ -85,318 +85,333 @@ $user_info = get_userdata($obj_id);
 <div class="bodyBG" id="edit-profile">
 	<section class="container-fluid">
 	    <div class="container px-0 ">
-	    <div class="row">
-	        <div class="col-6 col-sm-6 pt-3">
-	           <h5>My Profile</h5>
-	        </div>
-	        <div class="col-6 col-sm-6 pt-3 text-right">
-	            <a href="<?php echo get_author_posts_url($obj_id); ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
-	        </div>
-	    </div>
-	   <div class="row blockBG my-3 progressbar">
-	       <div class="col-sm-11 mx-auto text-center p-3">
-	        <h4 class="text-center font-weight-bold">
-	            Profile Completion: <span class="completevalue">25%</span>
-	            <a href="#" data-toggle="tooltip" title="Hooray!"> <i class="fas fa-info-circle"></i></a>
-	        </h4>
-	          <p class="text-center">
-	            Good job! Keep adding to your profile to improve it further. 
-	          </p>
-	        <div class="progress pr-com-bar">
-	            <div
-	              class="progress-bar"
-	              role="progressbar"
-	              style="width: 25%"
-	              aria-valuenow="25"
-	              aria-valuemin="0"
-	              aria-valuemax="100"
-	            ></div>
-	          </div>
-	       </div>
-	   </div>	  
-	    <!-- <div class="tab-content"> -->
-	        <!-- <div class="tab-pane container active pb-4" id=""> -->
-	            <div class="row p-3 blockBG">
-	                <div class="col-12 col-sm-6">
-				
+		    <div class="row">
+		        <div class="col-6 col-sm-6 pt-3">
+		           <h5>My Profile</h5>
+		        </div>
+		        <div class="col-6 col-sm-6 pt-3 text-right">
+		            <a href="<?php echo get_author_posts_url($obj_id); ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
+		        </div>
+		    </div>
+		   	<div class="row blockBG my-3 progressbar">
+			    <div class="col-sm-11 mx-auto text-center p-3">
+			        <h4 class="text-center font-weight-bold">
+			            Profile Completion: <span class="completevalue">25%</span>
+			            <a href="#" data-toggle="tooltip" title="Hooray!"> <i class="fas fa-info-circle"></i></a>
+			        </h4>
+					<p class="text-center">
+						Good job! Keep adding to your profile to improve it further. 
+					</p>
+			        <div class="progress pr-com-bar">
+			            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>	
+			       	</div>
+			   	</div>	  
+			</div>
+			<div class="row p-3 blockBG mb-3">
+			    <div class="col-12 col-sm-6">
 					<style type="text/css">
-								#secondary-slider .splide__slide {
-									background-position: top center !important;
-								}
-								.slider_headshot_thumbnail, .slider_headshot {
-									margin-bottom: 2rem;
-								}
-								#image-slider .splide__slide {
-									width: 42.7vw;
-									height: 42.7vw;
-									max-height: 462px;
-									background-position-y: top !important;
-								}
-								.headshot {
-									padding-top: 28px;
-									padding-left: 13px;
-								}
-								.profile-personaldetails {
-									padding-left: 63px;
-									padding-top: 0;
-									display: flex;
-									justify-content: center;
-									flex-direction: column;
-								}
-								.profile-personaldetails > h1 {
-									margin-bottom: 23px;
-									font-weight: 600;
-									font-size: 44px;
-									line-height: 1.1;
-								}
-								.profile-personaldetails > span {
-									margin-bottom: 24px;
-									font-size: 1.4rem;
-									line-height: 1;
-									position: relative;
-									padding-left: 44px;
-								}
-								.profile-personaldetails > span i {
-									position: absolute;
-									left: 15px;
-									top: 50%;
-									transform: translate(-50%, -50%);
-								}
-								.selectedcategories {
-									padding-top: 40px;
-									margin-bottom: 65px;
-								}
-								.profile-personaldetails .selectedcategories span.badge {
-									padding: 5px 31px;
-									font-weight: 500;
-									font-size: 22px;
-									border-radius: 15px;
-									padding-right: 28px;
-									margin-right: 2px;
-									margin-bottom: 5px;
-								}
-								.defaultHeadshot{
-									text-align:center;
-									background:#f2f2f2;
-								}
-								.defaultHeadshot i.fas.fa-user{
-									font-size:100px;
-									padding-top:5px;
-								}
-								@media (max-width: 575px){
-									#image-slider .splide__slide {
-										height: calc(100vw - 60px);
-									}
-								}
-							</style>
-	     					<div class="headshot">				 
-								<div id="image-slider" class="splide slider_headshot">
-									<div class="splide__track">
-										<ul class="splide__list">
-											<?php
-											// Check rows exists.
-											if( have_rows('sci_user_headshots', 'user_' . $obj_id) ):
-											    // Loop through rows.
-											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
-											        // Load sub field value.
-											        $sub_value = get_sub_field('sci_user_headshot'); ?>
-											        <li  class="splide__slide">
-											        	<img src="<?php echo $sub_value['url']; ?>">
-													</li>
-											    <?php // End loop.
-											    endwhile;
-											// No value.
-											else :
-											    // Do something...
-											endif;
-											?>
-										</ul>
-									</div>
-								</div>
-						
-								<?php 
-								// Check rows exists.
-	
-								if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
-								<div id="secondary-slider" class="splide slider_headshot_thumbnail">
-									<div class="splide__track">
-										<ul class="splide__list">
-											<?php
-												// Loop through rows.												
-											    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
-											        // Load sub field value.
-											        $sub_value = get_sub_field('sci_user_headshot'); ?>
-											        <li  class="splide__slide">
-														<img src="<?php echo $sub_value['url']; ?>">
+						#secondary-slider .splide__slide {
+							background-position: top center !important;
+						}
+						.slider_headshot_thumbnail, .slider_headshot {
+							margin-bottom: 2rem;
+						}
+						#image-slider .splide__slide {
+							width: 42.7vw;
+							height: 42.7vw;
+							max-height: 462px;
+							background-position-y: top !important;
+						}
+						.headshot {
+							padding-top: 28px;
+							padding-left: 13px;
+						}
+						.profile-personaldetails {
+							padding-left: 63px;
+							padding-top: 0;
+							display: flex;
+							justify-content: center;
+							flex-direction: column;
+						}
+						.profile-personaldetails > h1 {
+							margin-bottom: 23px;
+							font-weight: 600;
+							font-size: 44px;
+							line-height: 1.1;
+						}
+						.profile-personaldetails > span {
+							margin-bottom: 24px;
+							font-size: 1.4rem;
+							line-height: 1;
+							position: relative;
+							padding-left: 44px;
+						}
+						.profile-personaldetails > span i {
+							position: absolute;
+							left: 15px;
+							top: 50%;
+							transform: translate(-50%, -50%);
+						}
+						.selectedcategories {
+							padding-top: 40px;
+							margin-bottom: 65px;
+						}
+						.profile-personaldetails .selectedcategories span.badge {
+							padding: 5px 31px;
+							font-weight: 500;
+							font-size: 22px;
+							border-radius: 15px;
+							padding-right: 28px;
+							margin-right: 2px;
+							margin-bottom: 5px;
+						}
+						.defaultHeadshot{
+							text-align:center;
+							background:#f2f2f2;
+						}
+						.defaultHeadshot i.fas.fa-user{
+							font-size:100px;
+							padding-top:5px;
+						}
+						@media (max-width: 575px){
+							#image-slider .splide__slide {
+								height: calc(100vw - 60px);
+							}
+						}
+					</style>
+					<div class="headshot">				 
+						<div id="image-slider" class="splide slider_headshot">
+							<div class="splide__track">
+								<ul class="splide__list">
+									<?php
+									// Check rows exists.
+									if( have_rows('sci_user_headshots', 'user_' . $obj_id) ):
+									    // Loop through rows.
+									    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+									        // Load sub field value.
+									        $sub_value = get_sub_field('sci_user_headshot'); ?>
+									        <li  class="splide__slide">
+									        	<img src="<?php echo $sub_value['url']; ?>">
+											</li>
+									    <?php // End loop.
+									    endwhile;
+									// No value.
+									else :
+									    // Do something...
+									endif;
+									?>
+								</ul>
+							</div>
+						</div>
+						<?php 
+						if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
+						<div id="secondary-slider" class="splide slider_headshot_thumbnail">
+							<div class="splide__track">
+								<ul class="splide__list">
+									<?php
+										// Loop through rows.												
+									    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+									        // Load sub field value.
+									        $sub_value = get_sub_field('sci_user_headshot'); ?>
+									        <li  class="splide__slide">
+												<img src="<?php echo $sub_value['url']; ?>">
+												<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
+													<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
+														<i class="fas fa-pen fa-lg"></i>
+													</button>
+													<button class="btn btn-popup-del" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
+														<i class="fas fa-trash-alt fa-lg"></i>
+													</button>
+												</div>
+											</li>
+									<?php // End loop.
+										endwhile;
+										$usedHeadshots = count(get_field('sci_user_headshots', 'user_' . $obj_id));
+										$emptyHeadshots = 4 - $usedHeadshots;
+										for($i=($usedHeadshots+1); $i <= 4; $i++ ){
+											echo 	'<li class="splide__slide defaultHeadshot"> 
+														<i class="fas fa-user"></i>
 														<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
-															<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
+															<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot="'.$i.'">
 																<i class="fas fa-pen fa-lg"></i>
 															</button>
-															<button class="btn btn-popup-del" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
-																<i class="fas fa-trash-alt fa-lg"></i>
-															</button>
-														</div>
-													</li>
-											<?php // End loop.
-												endwhile;
-												$usedHeadshots = count(get_field('sci_user_headshots', 'user_' . $obj_id));
-												$emptyHeadshots = 4 - $usedHeadshots;
-												for($i=($usedHeadshots+1); $i <= 4; $i++ ){
-													echo 	'<li class="splide__slide defaultHeadshot"> 
-																<i class="fas fa-user"></i>
-																<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
-																	<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot="'.$i.'">
-																		<i class="fas fa-pen fa-lg"></i>
-																	</button>
-																</div>			
-															</li>';
-												}
-											?>
-										</ul>
-									</div>
-								</div>
-								<?php // No value.
-								else :
-								    // Do something...
-								endif; ?>
-	     					</div>
+														</div>			
+													</li>';
+										}
+									?>
+								</ul>
+							</div>
+						</div>
+						<?php // No value.
+						else :
+						    // Do something...
+						endif; ?>
+					</div>
+			    </div>
+			    <div class="col-12 col-sm-6 profile-personaldetails pt-5">
+		            <div id="editable-form" class="editable-form">
+		                <div class="form-group row"> 
+		                     <h1>
+		                     	<a id="name" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >
+		                     		<?php echo $data['first_name'][0]; ?>
+		                     	</a>
+		                     </h1>
+		                </div>
+		                <div class="form-group row"> 
+		                    <h5>
+		                    	<i class="fas fa-envelope pr-2"></i>
+		                    	<span><?php echo $user_info->data->user_email; ?></span>
+		                    </h5>
+		                </div>
+		                <?php if (get_field('sci_user_mobile', 'user_' . $obj_id)): ?>
+		                <div class="form-group row"> 
+		                    <h5>
+		                    	<i class="fas fa-phone-alt pr-2"></i>
+		                		<a id="phone" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >
+		                			<?php echo get_field('sci_user_mobile', 'user_' . $obj_id); ?>
+		                		</a>
+		                    </h5>
+		                    <label class="switch ml-4">
+		                        <input type="checkbox" id="togBtn" <?php echo !!get_field('hide_number', 'user_' . $obj_id) ? 'checked' : ''; ?>>
+		                        <div class="slider round">
+		                         <!--ADDED HTML -->
+		                         <span class="on">Show</span>
+		                         <span class="off">Hide</span>
+		                         <!--END-->
+		                        </div>
+							</label>
+		               	</div>
+		               	<?php endif; ?>
+						<?php if (get_field('sci_user_location', 'user_' . $obj_id)): ?>
+		                <div class="form-group row"> 
+		                    <h5>
+		                    	<i class="fas fa-map-marker-alt pr-2"></i>
+		                    	<a id="country" data-type="select" data-title="Select location" class="editable editable-click">
+		                    		<?php echo get_field('sci_user_location', 'user_' . $obj_id); ?>
+		                    	</a>
+		                    </h5>
+		                </div>
+		                <?php endif ?>
+		                <div class="form-group row"> 
+		                	<?php if (get_field('sci_user_gender', 'user_' . $obj_id)): ?>
+		                    <h5>
+		                    	<i class="fas fa-venus-mars"></i> 
+		                    	<a href="#" id="gender" data-type="select" data-pk="1" data-title="Select gender" class="editable editable-click" data-abc="true">
+		                    		<?php echo get_field('sci_user_gender', 'user_' . $obj_id); ?>
+		                    	</a> 
+		                    </h5>
+		                	<?php endif; ?>
+		                </div>
+		            </div>
+		        	<div class="text-right">
+		        		<button class="btn btn-edit" data-toggle="modal" data-target="#editCat">
+		        			Edit
+		        		</button>
+		        	</div>
+					<?php if (get_field('profession', 'user_' . $obj_id)): ?>
+		            <div class="selectedcategories pt-1">
+						<?php
+						$parents = [];
+						foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
+							$child = get_term($key);
+							$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
+							array_push($parents, $termParent->term_id);
+						}
+						foreach (array_unique($parents) as $key) { ?>
+							<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
+								<?php echo get_field('category_name_singular', 'term_' . $key); ?>
+							</span>									
+						<?php }
+
+						?>
+		            </div>
+					<?php endif ?>
+		            <div class="selectedsocialmedia pt-1">
+		            	<style type="text/css">
+		            		.sci-icon {
+								font-size: 1.5rem;
+								padding: 5px;
+								border-radius: 3px;
+								color: #002f43;
+		            		}
+		            	</style>
+		            	<div class="text-right"> <button class="btn btn-edit"  data-toggle="modal" data-target="#editSocialLinks">Edit</button></div>
+		            	<a class="pr-1">
+		                	<i class="sci-icon fab fa-instagram" aria-hidden="true"></i>
+		                </a>
+		                <a class="pr-1">
+		                	<i class="sci-icon fab fa-facebook" aria-hidden="true"></i>
+		                </a>
+		                <a class="pr-1">
+		                	<i class="sci-icon fab fa-twitter" aria-hidden="true"></i>
+		                </a>
+		                <a class="pr-1">
+		                	<i class="sci-icon fab fa-youtube" aria-hidden="true"></i>
+		                </a>
+		            </div>
+	        	</div>
+	        </div>
+
+	        <!-- Introduction  Block-->
+	        <div class="row mb-3 p-3 blockBG">
+	        	<style type="text/css">
+	        		.introvideo {
+	        			padding-top: 24px;
+						padding-bottom: 19px;
+	        		}
+	        		.intro {
+	        			padding-top: 35px;
+	        		}
+	        		.intro h4 {
+						font-size: 2rem;
+						line-height: 1;
+						letter-spacing: -0.6px;
+						margin-bottom: 33px;
+	        		}
+	        		.intro p {
+	        			line-height: 1.44;
+	        		}
+	        	</style>
+	        	<?php if (get_field('intro_to_camera', 'user_' . $obj_id)): ?>
+	            <div class="col-12 col-sm-6 introvideo">
+	                <?php echo get_field('intro_to_camera', 'user_' . $obj_id); ?>
+	            </div>
+	        	<?php else : ?>
+	        	<div class="col-sm-6 cameraIntro py-3">
+	                <div class="col-12 pt-3 text-center">
+	                    <h4>Intro to camera</h4>
 	                </div>
-					<div class="col-12 col-sm-6 profile-personaldetails pt-5">
-                <div id="editable-form" class="editable-form">
-                    <div class="form-group row"> 
-                         <h1>
-                         	<a id="name" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >
-                         		<?php echo $data['first_name'][0]; ?>
-                         	</a>
-                         </h1>
-                    </div>
-                    <div class="form-group row"> 
-                        <h5>
-                        	<i class="fas fa-envelope pr-2"></i>
-                        	<span><?php echo $user_info->data->user_email; ?></span>
-                        </h5>
-                    </div>
-                    <?php if (get_field('sci_user_mobile', 'user_' . $obj_id)): ?>
-                    <div class="form-group row"> 
-                        <h5>
-                        	<i class="fas fa-phone-alt pr-2"></i>
-                    		<a id="phone" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >
-                    			<?php echo get_field('sci_user_mobile', 'user_' . $obj_id); ?>
-                    		</a>
-                        </h5>
-                        <label class="switch ml-4">
-                            <input type="checkbox" id="togBtn" <?php echo !!get_field('hide_number', 'user_' . $obj_id) ? 'checked' : ''; ?>>
-                            <div class="slider round">
-                             <!--ADDED HTML -->
-                             <span class="on">Show</span>
-                             <span class="off">Hide</span>
-                             <!--END-->
-                            </div>
-						</label>
-                   </div>
-                   <?php endif; ?>
-                    <?php if (get_field('sci_user_location', 'user_' . $obj_id)): ?>
-                    <div class="form-group row"> 
-                        <h5>
-                        	<i class="fas fa-map-marker-alt pr-2"></i>
-                        	<a id="country" data-type="select" data-title="Select location" class="editable editable-click">
-                        		<?php echo get_field('sci_user_location', 'user_' . $obj_id); ?>
-                        	</a>
-                        </h5>
-                    </div>
-                    <?php endif ?>
-                    <div class="form-group row"> 
-                    	<?php if (get_field('sci_user_gender', 'user_' . $obj_id)): ?>
-                        <h5>
-                        	<i class="fas fa-venus-mars"></i> 
-                        	<a href="#" id="gender" data-type="select" data-pk="1" data-title="Select gender" class="editable editable-click" data-abc="true">
-                        		<?php echo get_field('sci_user_gender', 'user_' . $obj_id); ?>
-                        	</a> 
-                        </h5>
-                    	<?php endif; ?>
-                    </div>
-                </div>
-                	<div class="text-right"> <button class="btn btn-edit" data-toggle="modal" data-target="#editCat">Edit</button></div>
-				<?php if (get_field('profession', 'user_' . $obj_id)): ?>
-                <div class="selectedcategories pt-1">
-					<?php
-					$parents = [];
-					foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-						$child = get_term($key);
-						$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
-						array_push($parents, $termParent->term_id);
-					}
-					foreach (array_unique($parents) as $key) { ?>
-						<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
-							<?php echo get_field('category_name_singular', 'term_' . $key); ?>
-						</span>									
-					<?php }
+	                <div class="col-12 text-center">
+	                <p>Completing this section will increase your chances of being noticed by casting professionals.</p>
+	                </div>
+	                <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-add" data-toggle="modal" data-target="#editIntro">Add Video</button></div>
+	            </div>
+	        	<?php endif; ?>
 
-					?>
-                </div>
-				<?php endif ?>
-                <div class="selectedsocialmedia pt-1">
-                	<style type="text/css">
-                		.sci-icon {
-							font-size: 1.5rem;
-							padding: 5px;
-							border-radius: 3px;
-							color: #002f43;
-                		}
-                	</style>
-                	<div class="text-right"> <button class="btn btn-edit"  data-toggle="modal" data-target="#editSocialLinks">Edit</button></div>
-                	<a class="pr-1">
-                    	<i class="sci-icon fab fa-instagram" aria-hidden="true"></i>
-                    </a>
-                    <a class="pr-1">
-                    	<i class="sci-icon fab fa-facebook" aria-hidden="true"></i>
-                    </a>
-                    <a class="pr-1">
-                    	<i class="sci-icon fab fa-twitter" aria-hidden="true"></i>
-                    </a>
-                    <a class="pr-1">
-                    	<i class="sci-icon fab fa-youtube" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Introduction  Block-->
-        <div class="row mb-3 p-3 blockBG">
-        	<style type="text/css">
-        		.introvideo {
-        			padding-top: 24px;
-					padding-bottom: 19px;
-        		}
-        		.intro {
-        			padding-top: 35px;
-        		}
-        		.intro h4 {
-					font-size: 2rem;
-					line-height: 1;
-					letter-spacing: -0.6px;
-					margin-bottom: 33px;
-        		}
-        		.intro p {
-        			line-height: 1.44;
-        		}
-        	</style>
-        	<?php if (get_field('intro_to_camera', 'user_' . $obj_id)): ?>
-            <div class="col-12 col-sm-6 introvideo">
-                <?php echo get_field('intro_to_camera', 'user_' . $obj_id); ?>
-            </div>
-        	<?php else : ?>
-        	<div class="col-sm-6 cameraIntro py-3">
-                <div class="col-12 pt-3 text-center">
-                    <h4>Intro to camera</h4>
-                </div>
-                <div class="col-12 text-center">
-                <p>Completing this section will increase your chances of being noticed by casting professionals.</p>
-                </div>
-                <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-add" data-toggle="modal" data-target="#editIntro">Add Video</button></div>
-            </div>
-        	<?php endif; ?>
+	        	<?php if (get_field('intro_text', 'user_' . $obj_id)): ?>
+	            <div class="col-12 col-sm-6 intro">
+	                <div class="row">
+	                    <div class="col-6 col-sm-6 "> <h4>Introduction</h4></div>
+	                    <div class="col-6 col-sm-6 px-0 text-right">
+	                        <button class="btn btn-edit" data-toggle="modal" data-target="#editIntro">Edit</button>
+	                    </div>
+	                </div>
+	                <p><?php echo get_field('intro_text', 'user_' . $obj_id); ?></p>
+	            </div>
+	        	<?php else : ?>
+	            <div class="col-sm-6 cameraIntro py-3">
+	                <div class="col-12 pt-3 text-center">
+	                    <h4>Introduction</h4>
+	                </div>
+	                <div class="col-12 text-center">
+	                <p>Write a short introduction to yourself.</p>
+	                </div>
+	                <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-add" data-toggle="modal" data-target="#editIntro">Add Intro</button></div>
+	            </div>
+	        	<?php endif; ?>
+	        </div>
 
-	             <!-- Navigation Bar-->
+			<!-- Navigation Bar-->
 	        <div class="row blockBG profilenavigation mt-3 ">
 	            <nav id="navbar" class="navbar navbar-expand navbar-light navbarcolors  ">
 	                <div class="" id="navbarNav">
@@ -426,71 +441,49 @@ $user_info = get_userdata($obj_id);
 	                </div>
 	            </nav>
 	        </div>
-	            <div class="content">
-	            <!-- Photo Grid-->
-	            <div class="photogrid">
-	               
-	                <div class="row">
-	                    <div class="col-6 col-sm-6 pt-3 px-0"> <h4>Photos (23)</h4></div>
-	                    <div class="col-6 col-sm-6 pt-3 px-0 text-right">
-	                        <button class="btn btn-edit">Edit</button>
-	                        <button class="btn btn-add">Add</button>
-	                    </div>
-	                </div>
 
-	            <div class="row pt-2">
-	              
-	                  <div class="col-sm-4">
-	                    
-	                    <!-- <img src="./images/gridimg/7.jpg" style="width:100%"> -->
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <!-- <img src="./images/gridimg/1.jpg" style="width:100%"> -->
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <!-- <img src="./images/gridimg/2.png" style="width:100%"> -->
-	                    <div class="approved-status"><i class="fas fa-check"></i></div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <!-- <img src="./images/gridimg/5.jpg" style="width:100%"> -->
-	                    <div class="pending-status">Pending</div>
-	                  </div>
-	                  <div class="col-sm-4">
-	                    <div class="rejected-overlay"></div> 
-	                    <!-- <img src="./images/gridimg/5.jpg" style="width:100%"> -->
-	                    <div class="rejected-status">Rejected</div>
-	                  </div>
-
-	            </div>
-	            <div class="loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-
-	          <!-- The Modal -->
-	            <div class="modal" id="myModal">
-	                <div class="modal-dialog">
-	                  <div class="modal-content">
-	              
-	                    <!-- Modal Header -->
-	                    <div class="modal-header">
-	                      <h4 class="modal-title">Modal Heading</h4>
-	                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-	                    </div>
-	              
-	                    <!-- Modal body -->
-	                    <div class="modal-body">
-	                      Modal body..
-	                    </div>
-	              
-	                    <!-- Modal footer -->
-	                    <div class="modal-footer">
-	                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-	                    </div>
-	              
-	                  </div>
-	                </div>
-	              </div>
-
-	            </div>
-	            <!--Videos block-->
+			<div class="photogrid">
+			    <?php if (get_field('photos', 'user_' . $obj_id)): ?>
+				<div class="row">
+					<div class="col-6 col-sm-6 pt-3 px-0">
+						<h4>Photos (<?php echo count(get_field('photos', 'user_' . $obj_id)); ?>)</h4>
+					</div>
+					<div class="col-6 col-sm-6 pt-3 px-0 text-right">
+						<button class="btn btn-edit" data-toggle="modal" data-target="#managephotos">Edit</button>
+						<button class="btn btn-add" data-toggle="modal" data-target="#addphotos">Add</button>
+					</div>
+				</div>
+				<div class="row pt-2 photogrid">
+					<div class="grid">
+					<?php foreach ( get_field('photos', 'user_' . $obj_id) as $index => $obj): ?>
+					<div class="grid-item">
+						<a href="<?php echo $obj['url']; ?>" data-lightbox="roadtrip">
+							<img src="<?php echo $obj['url']; ?>">					
+							<?php 
+		                    if (get_field('moderated', 'attachment_' . $obj["ID"])) {
+		    					switch (get_field('moderated', 'attachment_' . $obj["ID"])['value']) {
+		    						case 'pending':
+		    							echo "<div class='pending-status'>Pending</div>";
+		    							break;
+		    						case 'approved':
+		    							echo "<div class='approved-status'><i class='fas fa-check'></i></div>";
+		    							break;
+		    						case 'rejected':
+		    							echo "<div class='rejected-status'>Rejected</div>";
+		    							break;
+		    						default:
+		    							break;
+		                        }
+							} ?>				
+						</a>
+					</div>
+					<?php endforeach;?>
+					</div>
+				</div>
+			    <?php endif; ?>
+			</div>
+			
+			<!--Videos block-->
 	        <div class="row mt- blockBG p-3">
 				<style type="text/css">
 					.iframe-container iframe {
@@ -503,12 +496,13 @@ $user_info = get_userdata($obj_id);
 						height: 250px;
 					}
 	            </style>
-				<div class="col-6 col-sm-6 pt-3 "> <h4>Videos (<?php echo count(get_field('videos', 'user_' . $obj_id)); ?>)</h4></div>
+				<div class="col-6 col-sm-6 pt-3 ">
+					<h4>Videos (<?php echo count(get_field('videos', 'user_' . $obj_id)); ?>)</h4>
+				</div>
 				<div class="col-6 col-sm-6 pt-3 text-right">
 					<button class="btn btn-edit" data-toggle="modal" data-target="#manageVideos">Edit</button>
 					<button class="btn btn-add" data-toggle="modal" data-target="#addvideo">Add</button>
 				</div>
-
 				<!-- Display user videos in reverse order  -->
 				<?php $display_videos = array(); if( have_rows('videos', 'user_' . $obj_id) ): $i = 1; ?>
 					<?php while ( have_rows('videos', 'user_' . $obj_id) ) : the_row(); ob_start(); $i++; ?>
@@ -518,613 +512,243 @@ $user_info = get_userdata($obj_id);
 						</div>
 					<?php $display_videos[] = ob_get_clean(); endwhile; ?>
 				<?php endif;
-				$display_videos = array_reverse($display_videos);
-				echo implode($display_videos);
+					$display_videos = array_reverse($display_videos);
+					echo implode($display_videos);
 				?>
-				<div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-				</div>
+			</div>
 
-	             <!--Audio block-->
-	             <div class="row mt-3 blockBG p-3 audioblock">
-	                <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (3)</h4></div>
-	                <div class="col-6 col-sm-6 pt-3  text-right">
-	                    <button class="btn btn-edit">Edit</button>
-	                    <button class="btn btn-add">Add</button>
-	                </div>
-	                <div class="col-12 pt-1  row">
-	                    <div class="col-sm-6">
-	                        <h5 class="pt-2">Audio Title</h5>
-	                        <h6>audio description</h6>
-	                    </div>
-	                    <div class="col-sm-6 pt-3">
-	                        <audio controls>
-	                            <source src="horse.ogg" type="audio/ogg">
-	                            <source src="horse.mp3" type="audio/mpeg">
-	                            Your browser does not support the audio element.
-	                          </audio>
-	                    </div>
-	                    <hr>
-	                </div>
-	                <div class="col-12 pt-1  row">
-	                    <div class="col-sm-6">
-	                        <h5 class="pt-2">Audio Title</h5>
-	                        <h6>audio description</h6>
-	                    </div>
-	                    <div class="col-sm-6 pt-3">
-	                        <audio controls>
-	                            <source src="horse.ogg" type="audio/ogg">
-	                            <source src="horse.mp3" type="audio/mpeg">
-	                            Your browser does not support the audio element.
-	                          </audio>
-	                    </div>
-	                </div>
-	             </div>
-
-	              <!--Physical Attributes-->
-	             <div class="row mt-3 physicalattribs">
-	                <div class="col-9 col-sm-6 pt-3 px-0"> <h4>Physical Attributes</h4></div>
-	                    <div class="col-3 col-sm-6 pt-3 px-0 text-right">
-	                        <button class="btn btn-edit">Edit</button>
-	                    </div>
+	        <!--Audio block-->
+	        <div class="row mt-3 blockBG p-3 audioblock">
+	            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (3)</h4></div>
+	            <div class="col-6 col-sm-6 pt-3  text-right">
+	                <button class="btn btn-edit">Edit</button>
+	                <button class="btn btn-add">Add</button>
 	            </div>
-	                    <div class="row physicalfeatures justify-content-center pt-3">
-	                        <div class=" card">
-	                         <div class="pa-height"><div class='sprite height-c'></div></div>
-	                         <div class="card-title">Height<span>180cms/5ft 11in</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-weight"><div class='sprite weight-c'></div></div>
-	                            <div class="card-title">Weight<span>68kg/149lbs</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-ethnicity"><div class='sprite ethnicity-c'></div></div>
-	                            <div class="card-title">Ethnicity<span>Indian</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-chest"><div class='sprite chest-c'></div></div>
-	                            <div class="card-title">Chest<span>36cms</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-skincolor"><div class='sprite skincolor-c'></div></div>
-	                            <div class="card-title">Skin Color<span>Brown</span></div>
-	                        </div>
-	                    
-	                        <div class=" card">
-	                            <div class="pa-notset"><div class='sprite waist'></div></div>
-	                            <div class="card-title">Waist<span>Not Set</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-notset"><div class='sprite eyecolor'></div></div>
-	                            <div class="card-title">Eye Color<span>Not Set</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-notset"><div class='sprite hair-dye'></div></div>
-	                            <div class="card-title">Hair Color<span>Not Set</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-notset"><div class='sprite hair-length'></div></div>
-	                            <div class="card-title">Hair Length<span>Not Set</span></div>
-	                        </div>
-	                        <div class=" card">
-	                            <div class="pa-notset"><div class='sprite hair'></div></div>
-	                            <div class="card-title">Hair Type<span>Not Set</span></div>
-	                        </div>
-	                      </div>
+	            <div class="col-12 pt-1  row">
+	                <div class="col-sm-6">
+	                    <h5 class="pt-2">Audio Title</h5>
+	                    <h6>audio description</h6>
+	                </div>
+	                <div class="col-sm-6 pt-3">
+	                    <audio controls>
+	                        <source src="horse.ogg" type="audio/ogg">
+	                        <source src="horse.mp3" type="audio/mpeg">
+	                        Your browser does not support the audio element.
+	                      </audio>
+	                </div>
+	                <hr>
+	            </div>
+	            <div class="col-12 pt-1  row">
+	                <div class="col-sm-6">
+	                    <h5 class="pt-2">Audio Title</h5>
+	                    <h6>audio description</h6>
+	                </div>
+	                <div class="col-sm-6 pt-3">
+	                    <audio controls>
+	                        <source src="horse.ogg" type="audio/ogg">
+	                        <source src="horse.mp3" type="audio/mpeg">
+	                        Your browser does not support the audio element.
+	                      </audio>
+	                </div>
+	            </div>
+	         </div>
 
-	             <!--Credit and Experience Block-->
-	             <div class="row mt-3 blockBG p-3 experienceblock">
-	                <div class="col-12 col-sm-6 pt-3">
-	                    <h4>Credit and Experience</h4>
+	          <!--Physical Attributes-->
+	         <div class="row mt-3 physicalattribs">
+	            <div class="col-9 col-sm-6 pt-3 px-0"> <h4>Physical Attributes</h4></div>
+	                <div class="col-3 col-sm-6 pt-3 px-0 text-right">
+	                    <button class="btn btn-edit">Edit</button>
 	                </div>
-	                <div class="col-12 col-sm-6">
-	                    <select class="form-control">
-	                        <option>Year</option>
-	                        <option>Category</option>
-	                    </select>
-	                </div>
-	                <div class="col-12 pt-1 pt-3 pt-sm-0">
+	        </div>
+	        <div class="row physicalfeatures justify-content-center pt-3">
+	            <div class=" card">
+	             <div class="pa-height"><div class='sprite height-c'></div></div>
+	             <div class="card-title">Height<span>180cms/5ft 11in</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-weight"><div class='sprite weight-c'></div></div>
+	                <div class="card-title">Weight<span>68kg/149lbs</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-ethnicity"><div class='sprite ethnicity-c'></div></div>
+	                <div class="card-title">Ethnicity<span>Indian</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-chest"><div class='sprite chest-c'></div></div>
+	                <div class="card-title">Chest<span>36cms</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-skincolor"><div class='sprite skincolor-c'></div></div>
+	                <div class="card-title">Skin Color<span>Brown</span></div>
+	            </div>
+	        
+	            <div class=" card">
+	                <div class="pa-notset"><div class='sprite waist'></div></div>
+	                <div class="card-title">Waist<span>Not Set</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-notset"><div class='sprite eyecolor'></div></div>
+	                <div class="card-title">Eye Color<span>Not Set</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-notset"><div class='sprite hair-dye'></div></div>
+	                <div class="card-title">Hair Color<span>Not Set</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-notset"><div class='sprite hair-length'></div></div>
+	                <div class="card-title">Hair Length<span>Not Set</span></div>
+	            </div>
+	            <div class=" card">
+	                <div class="pa-notset"><div class='sprite hair'></div></div>
+	                <div class="card-title">Hair Type<span>Not Set</span></div>
+	            </div>
+	          </div>
+
+	        <!--Credit and Experience Block-->
+	        <div class="row mt-3 blockBG p-3 experienceblock">
+	            <div class="col-12 col-sm-6 pt-3">
+	                <h4>Credit and Experience</h4>
+	            </div>
+	            <div class="col-12 col-sm-6">
+	                <select class="form-control">
+	                    <option>Year</option>
+	                    <option>Category</option>
+	                </select>
+	            </div>
+	            <div class="col-12 pt-1 pt-3 pt-sm-0">
+	                <div class="hr-text">
+	                    <span class="credit-title pr-3">
+	                    2020
+	                    </span>
+	                 </div>
+	                 <ul>
+	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Modelling</span></li>
+	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
+	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
+	                 </ul>
+	                 <div class="hr-text">
+	                    <span class="credit-title pr-3">
+	                    2019
+	                    </span>
+	                 </div>
+	                 <ul>
+	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Music</span></li>
+	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
+	                 </ul>
+	                 <div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
+	            </div>
+	        </div>
+
+	        <!--empty Block-->
+	        <div class="row mt-3 blockBG p-3 emptyblock">
+	            <div class="col-12 pt-3 text-center">
+	                <h4>Actors</h4>
+	            </div>
+	            <div class="col-12 text-center">
+	               <p>Completing this section will increase your chances of being noticed by casting professionals.</p>
+	            </div>
+	            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Add Details</button></div>
+	        </div>
+
+	        <!--Actors Block-->
+	        <div class="row mt-3 blockBG p-3 cat-block">
+	            <div class="col-6 col-sm-4 col-lg-5 pt-3">
+	                <h4>Actors</h4>
+	            </div>
+	            <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
+	                <button class="btn btn-edit">Edit</button>
+	            </div>
+	            <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6">
+	                <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous acting experience</span>
+	            </div>
+	        </div>
+	        <div class="row  blockBG cat-block pb-3">   
+	           <div class="col-12 pt-3 pt-sm-0">
+	               <div class="specialised-skills">
+	                <div class="hr-text">
+	                    <span class="credit-title pr-3">
+	                    Specialised Skills
+	                    </span>
+	                 </div>
+	                 <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Feature Films</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Short Films</span></p>
+	               </div>
+
+	               <div class="languages">
+	                <div class="hr-text">
+	                    <span class="credit-title pr-3">
+	                    Languages
+	                    </span>
+	                 </div>
+	                 <p class="py-4"><span class="badge languagedbadge"><i class="fas fa-check"></i> Marathi</span><span class="badge languagedbadge"><i class="fas fa-check"></i> English</span></p>
+	               </div>
+	           
+	                <div class="experience">
 	                    <div class="hr-text">
 	                        <span class="credit-title pr-3">
-	                        2020
+	                        Acting Experience
 	                        </span>
 	                     </div>
 	                     <ul>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Modelling</span></li>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
+	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
+	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
 	                     </ul>
-	                     <div class="hr-text">
+	                </div>
+	           </div>
+	            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
+	        </div>
+
+	        <!--Modelling Block-->
+	        <div class="row mt-3 blockBG p-3 cat-block">
+	            <div class="col-6 col-sm-4 col-lg-5 pt-3">
+	                <h4>Modelling</h4>
+	            </div>
+	            <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
+	                <button class="btn btn-edit">Edit</button>
+	            </div>
+	            <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6 ">
+	                <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous modelling experience</span>
+	            </div>
+	        </div>
+	        <div class="row  pb-3 cat-block blockBG">
+	           <div class="col-12 pt-3 pt-sm-0">
+	               <div class="specialised-skills">
+	                <div class="hr-text">
+	                    <span class="credit-title pr-3">
+	                    Specialised Skills
+	                    </span>
+	                 </div>
+	                 <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Cat Walk</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Hair Model</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Fitting</span></p>
+	               </div>
+
+	               <div class="website">
+	                <div class="hr-text">
+	                    <span class="credit-title pr-3">
+	                    Modelling Website
+	                    </span>
+	                 </div>
+	                 <p class="py-4">abc.com</p>
+	               </div>
+	           
+	                <div class="experience">
+	                    <div class="hr-text">
 	                        <span class="credit-title pr-3">
-	                        2019
+	                        Modelling Experience
 	                        </span>
 	                     </div>
 	                     <ul>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Music</span></li>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
+	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
+	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
 	                     </ul>
-	                     <div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
 	                </div>
-	            </div>
+	           </div>
+	            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
+	        </div>
 
-	             <!--empty Block-->
-	             <div class="row mt-3 blockBG p-3 emptyblock">
-	                <div class="col-12 pt-3 text-center">
-	                    <h4>Actors</h4>
-	                </div>
-	                <div class="col-12 text-center">
-	                   <p>Completing this section will increase your chances of being noticed by casting professionals.</p>
-	                </div>
-	                <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Add Details</button></div>
-	            </div>
-
-	            <!--Actors Block-->
-	            <div class="row mt-3 blockBG p-3 cat-block">
-	                <div class="col-6 col-sm-4 col-lg-5 pt-3">
-	                    <h4>Actors</h4>
-	                </div>
-	                <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-	                    <button class="btn btn-edit">Edit</button>
-	                </div>
-	                <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6">
-	                    <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous acting experience</span>
-	                </div>
-	            </div>
-	            <div class="row  blockBG cat-block pb-3">   
-	               <div class="col-12 pt-3 pt-sm-0">
-	                   <div class="specialised-skills">
-	                    <div class="hr-text">
-	                        <span class="credit-title pr-3">
-	                        Specialised Skills
-	                        </span>
-	                     </div>
-	                     <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Feature Films</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Short Films</span></p>
-	                   </div>
-
-	                   <div class="languages">
-	                    <div class="hr-text">
-	                        <span class="credit-title pr-3">
-	                        Languages
-	                        </span>
-	                     </div>
-	                     <p class="py-4"><span class="badge languagedbadge"><i class="fas fa-check"></i> Marathi</span><span class="badge languagedbadge"><i class="fas fa-check"></i> English</span></p>
-	                   </div>
-	               
-	                    <div class="experience">
-	                        <div class="hr-text">
-	                            <span class="credit-title pr-3">
-	                            Acting Experience
-	                            </span>
-	                         </div>
-	                         <ul>
-	                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
-	                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
-	                         </ul>
-	                    </div>
-	               </div>
-	                <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-	            </div>
-
-	             <!--Modelling Block-->
-	             <div class="row mt-3 blockBG p-3 cat-block">
-	                <div class="col-6 col-sm-4 col-lg-5 pt-3">
-	                    <h4>Modelling</h4>
-	                </div>
-	                <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-	                    <button class="btn btn-edit">Edit</button>
-	                </div>
-	                <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6 ">
-	                    <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous modelling experience</span>
-	                </div>
-	            </div>
-	            <div class="row  pb-3 cat-block blockBG">
-	               <div class="col-12 pt-3 pt-sm-0">
-	                   <div class="specialised-skills">
-	                    <div class="hr-text">
-	                        <span class="credit-title pr-3">
-	                        Specialised Skills
-	                        </span>
-	                     </div>
-	                     <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Cat Walk</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Hair Model</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Fitting</span></p>
-	                   </div>
-
-	                   <div class="website">
-	                    <div class="hr-text">
-	                        <span class="credit-title pr-3">
-	                        Modelling Website
-	                        </span>
-	                     </div>
-	                     <p class="py-4">abc.com</p>
-	                   </div>
-	               
-	                    <div class="experience">
-	                        <div class="hr-text">
-	                            <span class="credit-title pr-3">
-	                            Modelling Experience
-	                            </span>
-	                         </div>
-	                         <ul>
-	                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
-	                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
-	                         </ul>
-	                    </div>
-	               </div>
-	                <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-	            </div>
-	        </div>   <!-- content closing -->
-	            <!-- </div> tab pane div closing -->
-	        <!-- </div> -->
-	    </div>
-	    </div>
+		</div>
 	</section>
 </div>
 
-        	<?php if (get_field('intro_text', 'user_' . $obj_id)): ?>
-            <div class="col-12 col-sm-6 intro">
-                <div class="row">
-                    <div class="col-6 col-sm-6 "> <h4>Introduction</h4></div>
-                    <div class="col-6 col-sm-6 px-0 text-right">
-                        <button class="btn btn-edit" data-toggle="modal" data-target="#editIntro">Edit</button>
-                    </div>
-                </div>
-                <p><?php echo get_field('intro_text', 'user_' . $obj_id); ?></p>
-            </div>
-        	<?php else : ?>
-            <div class="col-sm-6 cameraIntro py-3">
-                <div class="col-12 pt-3 text-center">
-                    <h4>Introduction</h4>
-                </div>
-                <div class="col-12 text-center">
-                <p>Write a short introduction to yourself.</p>
-                </div>
-                <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-add" data-toggle="modal" data-target="#editIntro">Add Intro</button></div>
-            </div>
-        	<?php endif; ?>
-        </div>
 
-
-        <!-- Navigation Bar--><!-- 
-        <div class="row blockBG profilenavigation mt-3 ">
-			<nav id="navbar" class="navbar navbar-expand navbar-light navbarcolors">
-                <div class="" id="navbarNav">
-                  <ul class="navbar-nav">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">Photo </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Video</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Audio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Physical Attributes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Credit and Experience</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Acting</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Modelling</a>
-                      </li>
-                  </ul>
-                </div>
-          	</nav>
-        </div> -->
-        <div class="content">
-        <!-- Photo Grid-->
-		<div class="photogrid">
-	    <?php if (get_field('photos', 'user_' . $obj_id)): ?>
-
-		<div class="row">
-			<div class="col-6 col-sm-6 pt-3 px-0">
-				<h4>Photos (<?php echo count(get_field('photos', 'user_' . $obj_id)); ?>)</h4>
-			</div>
-			<div class="col-6 col-sm-6 pt-3 px-0 text-right">
-				<button class="btn btn-edit" data-toggle="modal" data-target="#managephotos">Edit</button>
-				<button class="btn btn-add" data-toggle="modal" data-target="#addphotos">Add</button>
-			</div>
-		</div>
-		<div class="row pt-2 photogrid">
-			<div class="grid">
-			<?php foreach ( get_field('photos', 'user_' . $obj_id) as $index => $obj): ?>
-			<div class="grid-item">
-				<a href="<?php echo $obj['url']; ?>" data-lightbox="roadtrip">
-					<img src="<?php echo $obj['url']; ?>">					
-					<?php 
-                    if (get_field('moderated', 'attachment_' . $obj["ID"])) {
-    					switch (get_field('moderated', 'attachment_' . $obj["ID"])['value']) {
-    						case 'pending':
-    							echo "<div class='pending-status'>Pending</div>";
-    							break;
-    						case 'approved':
-    							echo "<div class='approved-status'><i class='fas fa-check'></i></div>";
-    							break;
-    						case 'rejected':
-    							echo "<div class='rejected-status'>Rejected</div>";
-    							break;
-    						default:
-    							break;
-                        }
-					} ?>				
-				</a>
-			</div>
-			<?php endforeach;?>
-			</div>
-			<!-- <div class="loadMore text-center py-3">
-				<button class="btn btn-md btn-full btn-primary px-5">Show More</button>
-			</div> -->
-		</div>
-	    <?php endif; ?>
-
-        <!--Videos block-->
-        <div class="row mt- blockBG p-3">
-            <div class="col-6 col-sm-6 pt-3 "> <h4>Videos (5)</h4></div>
-            <div class="col-6 col-sm-6 pt-3 text-right">
-                <button class="btn btn-edit">Edit</button>
-                <button class="btn btn-add">Add</button>
-            </div>
-            <div class="col-12 mt-2 profilevideos">
-                <!-- <iframe width="100%" height="400px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe> -->
-                <h5 class="pt-2">Video Title</h5>
-                <h6>3 months ago</h6>
-            </div>
-            <div class="col-sm-4 profilevideos pt-3">
-                <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe> -->
-                <h5 class="pt-2">Video Title</h5>
-                <h6>3 months ago</h6>
-            </div>
-            <div class="col-sm-4 profilevideos pt-3">
-                <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe> -->
-                <h5 class="pt-2">Video Title</h5>
-                <h6>3 months ago</h6>
-            </div>
-            <div class="col-sm-4 profilevideos pt-3">
-                <!-- <iframe width="100%" height="200px" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                </iframe> -->
-                <h5 class="pt-2">Video Title</h5>
-                <h6>3 months ago</h6>
-            </div>
-            <div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-        </div>
-
-         <!--Audio block-->
-         <div class="row mt-3 blockBG p-3 audioblock">
-            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (3)</h4></div>
-            <div class="col-6 col-sm-6 pt-3  text-right">
-                <button class="btn btn-edit">Edit</button>
-                <button class="btn btn-add">Add</button>
-            </div>
-            <div class="col-12 pt-1  row">
-                <div class="col-sm-6">
-                    <h5 class="pt-2">Audio Title</h5>
-                    <h6>audio description</h6>
-                </div>
-                <div class="col-sm-6 pt-3">
-                    <audio controls>
-                        <source src="horse.ogg" type="audio/ogg">
-                        <source src="horse.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                      </audio>
-                </div>
-                <hr>
-            </div>
-            <div class="col-12 pt-1  row">
-                <div class="col-sm-6">
-                    <h5 class="pt-2">Audio Title</h5>
-                    <h6>audio description</h6>
-                </div>
-                <div class="col-sm-6 pt-3">
-                    <audio controls>
-                        <source src="horse.ogg" type="audio/ogg">
-                        <source src="horse.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                      </audio>
-                </div>
-            </div>
-         </div>
-
-          <!--Physical Attributes-->
-         <div class="row mt-3 physicalattribs">
-            <div class="col-9 col-sm-6 pt-3 px-0"> <h4>Physical Attributes</h4></div>
-                <div class="col-3 col-sm-6 pt-3 px-0 text-right">
-                    <button class="btn btn-edit">Edit</button>
-                </div>
-        </div>
-                <div class="row physicalfeatures justify-content-center pt-3">
-                    <div class=" card">
-                     <div class="pa-height"><div class='sprite height-c'></div></div>
-                     <div class="card-title">Height<span>180cms/5ft 11in</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-weight"><div class='sprite weight-c'></div></div>
-                        <div class="card-title">Weight<span>68kg/149lbs</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-ethnicity"><div class='sprite ethnicity-c'></div></div>
-                        <div class="card-title">Ethnicity<span>Indian</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-chest"><div class='sprite chest-c'></div></div>
-                        <div class="card-title">Chest<span>36cms</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-skincolor"><div class='sprite skincolor-c'></div></div>
-                        <div class="card-title">Skin Color<span>Brown</span></div>
-                    </div>
-                
-                    <div class=" card">
-                        <div class="pa-notset"><div class='sprite waist'></div></div>
-                        <div class="card-title">Waist<span>Not Set</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-notset"><div class='sprite eyecolor'></div></div>
-                        <div class="card-title">Eye Color<span>Not Set</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-notset"><div class='sprite hair-dye'></div></div>
-                        <div class="card-title">Hair Color<span>Not Set</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-notset"><div class='sprite hair-length'></div></div>
-                        <div class="card-title">Hair Length<span>Not Set</span></div>
-                    </div>
-                    <div class=" card">
-                        <div class="pa-notset"><div class='sprite hair'></div></div>
-                        <div class="card-title">Hair Type<span>Not Set</span></div>
-                    </div>
-                  </div>
-
-         <!--Credit and Experience Block-->
-         <div class="row mt-3 blockBG p-3 experienceblock">
-            <div class="col-12 col-sm-6 pt-3">
-                <h4>Credit and Experience</h4>
-            </div>
-            <div class="col-12 col-sm-6">
-                <select class="form-control">
-                    <option>Year</option>
-                    <option>Category</option>
-                </select>
-            </div>
-            <div class="col-12 pt-1 pt-3 pt-sm-0">
-                <div class="hr-text">
-                    <span class="credit-title pr-3">
-                    2020
-                    </span>
-                 </div>
-                 <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Modelling</span></li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-                 </ul>
-                 <div class="hr-text">
-                    <span class="credit-title pr-3">
-                    2019
-                    </span>
-                 </div>
-                 <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Music</span></li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-                 </ul>
-                 <div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-            </div>
-        </div>
-
-         <!--empty Block-->
-         <div class="row mt-3 blockBG p-3 emptyblock">
-            <div class="col-12 pt-3 text-center">
-                <h4>Actors</h4>
-            </div>
-            <div class="col-12 text-center">
-               <p>Completing this section will increase your chances of being noticed by casting professionals.</p>
-            </div>
-            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Add Details</button></div>
-        </div>
-
-        <!--Actors Block-->
-        <div class="row mt-3 blockBG p-3 cat-block">
-            <div class="col-6 col-sm-4 col-lg-5 pt-3">
-                <h4>Actors</h4>
-            </div>
-            <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-                <button class="btn btn-edit">Edit</button>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6">
-                <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous acting experience</span>
-            </div>
-        </div>
-        <div class="row  blockBG cat-block pb-3">   
-           <div class="col-12 pt-3 pt-sm-0">
-               <div class="specialised-skills">
-                <div class="hr-text">
-                    <span class="credit-title pr-3">
-                    Specialised Skills
-                    </span>
-                 </div>
-                 <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Feature Films</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Short Films</span></p>
-               </div>
-
-               <div class="languages">
-                <div class="hr-text">
-                    <span class="credit-title pr-3">
-                    Languages
-                    </span>
-                 </div>
-                 <p class="py-4"><span class="badge languagedbadge"><i class="fas fa-check"></i> Marathi</span><span class="badge languagedbadge"><i class="fas fa-check"></i> English</span></p>
-               </div>
-           
-                <div class="experience">
-                    <div class="hr-text">
-                        <span class="credit-title pr-3">
-                        Acting Experience
-                        </span>
-                     </div>
-                     <ul>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
-                     </ul>
-                </div>
-           </div>
-            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-        </div>
-
-         <!--Modelling Block-->
-         <div class="row mt-3 blockBG p-3 cat-block">
-            <div class="col-6 col-sm-4 col-lg-5 pt-3">
-                <h4>Modelling</h4>
-            </div>
-            <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-                <button class="btn btn-edit">Edit</button>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6 ">
-                <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous modelling experience</span>
-            </div>
-        </div>
-        <div class="row  pb-3 cat-block blockBG">
-           <div class="col-12 pt-3 pt-sm-0">
-               <div class="specialised-skills">
-                <div class="hr-text">
-                    <span class="credit-title pr-3">
-                    Specialised Skills
-                    </span>
-                 </div>
-                 <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Cat Walk</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Hair Model</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Fitting</span></p>
-               </div>
-
-               <div class="website">
-                <div class="hr-text">
-                    <span class="credit-title pr-3">
-                    Modelling Website
-                    </span>
-                 </div>
-                 <p class="py-4">abc.com</p>
-               </div>
-           
-                <div class="experience">
-                    <div class="hr-text">
-                        <span class="credit-title pr-3">
-                        Modelling Experience
-                        </span>
-                     </div>
-                     <ul>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
-                     </ul>
-                </div>
-           </div>
-            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-        </div>
-    </div>   <!-- content closing -->
-        <!-- </div> tab pane div closing -->
-    <!-- </div> -->
-	    </div>
-	    </div>
-	</section>
-</div>
 <!-- category Modal -->
 <div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="editCatModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -1204,7 +828,6 @@ $user_info = get_userdata($obj_id);
 <!-- HEADSHOT -->
 <!-- Add/Edit Headshot Modal -->
 <div class="modal fade" id="editheadshot" tabindex="-1" aria-labelledby="editHeadshotModalLabel" aria-hidden="true">
-<<<<<<< HEAD
 	<div class="modal-dialog modal-xl">
 	<div class="modal-content">
 	<div class="modal-header">
@@ -1328,8 +951,6 @@ $user_info = get_userdata($obj_id);
 
 <!--Intro Modal -->
 <div class="modal fade" id="editIntro" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
-=======
->>>>>>> newhomepage
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -1906,157 +1527,156 @@ aria-hidden="true">
   </div>
 </div>
 
-<<<<<<< HEAD
-<!-- VIDEOS -->
-	<!--Manage video Modal -->
-    <div class="modal fade" id="manageVideos" tabindex="-1" aria-labelledby="manageVideosModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="col-md-3 d-none d-lg-block">
-              <img src="/images/footer-logo-grey.png" alt="logo">
-            </div>
-            <div class="col-10 col-md-6">
-              <h5 class="modal-title text-lg-center" id="manageVideosModalLabel">Manage Video</h5>
-            </div>
-            <div class="col-2 col-md-3">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-          <div class="modal-body">
-            <!--Videos block-->
-            <div class="row justify-content-end pb-3">
-              <button type="button" class="btn btn-popup-add mx-4" data-toggle="modal" data-target="#addvideo"><i
-                  class="fas fa-plus-circle fa-2x"></i></button>
-            </div>
-            <div class="row">
-				<style type="text/css">
-					.col-lg-4.profilevideos.pb-5 iframe {
-						width: 100%;
-						height: 200px;
-					}
-	            </style>
-				<?php if( have_rows('videos', 'user_' . $obj_id) ): ?>
-					<?php while ( have_rows('videos', 'user_' . $obj_id) ) : the_row(); ?>
-						<div class="col-lg-4 profilevideos pb-5">						
-							<?php echo get_sub_field('video_link'); ?>
-							<h5 class="pt-2"><?php echo get_sub_field('video_caption'); ?></h5>
-							<div class="float-right manageVideo" >
-								<button class="btn btn-popup-edit" type="button" data-indexvideo="<?php echo get_row_index(); ?>" data-toggle="modal" data-target="#editvideo">
-									<i class="fas fa-pen fa-lg"></i>
-								</button>
-								<button class="btn btn-popup-del" type="button" data-indexvideo="<?php echo get_row_index(); ?>" data-toggle="modal" data-target="#deleteVideo">
-									<i class="fas fa-trash-alt fa-lg"></i>
-								</button>
-							</div>
-						</div>
-					<?php endwhile; ?>
-				<?php endif; ?>       
-            </div>
-          </div>
+<!--Manage video Modal -->
+<div class="modal fade" id="manageVideos" tabindex="-1" aria-labelledby="manageVideosModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col-md-3 d-none d-lg-block">
+          <img src="/images/footer-logo-grey.png" alt="logo">
+        </div>
+        <div class="col-10 col-md-6">
+          <h5 class="modal-title text-lg-center" id="manageVideosModalLabel">Manage Video</h5>
+        </div>
+        <div class="col-2 col-md-3">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
       </div>
-	</div>
-	<!--add video Modal -->
-	<div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-			<div class="col-md-3 d-none d-lg-block">
-				<img src="/images/footer-logo-grey.png" alt="logo">
-			</div>
-			<div class="col-10 col-md-6">
-				<h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
-			</div>
-			<div class="col-2 col-md-3">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			</div>
-			<div class="modal-body">
-			<div class="row">
-				<div class="col-12 col-lg-8 mx-auto py-4">
-				<!-- <div class="card-body"> -->			
-					<ul class="text-muted">
-						<li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
-						<li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
-						<li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
-					</ul>
-					<input id="addvideolink_input" class="form-control my-2" type="text" placeholder="Paste your copied link here:" />
-					<input id="addvideocaption_input" class="form-control my-2" type="text" placeholder="Add caption (optional)" />
-					<div class="d-flex justify-content-around py-4">
-						<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
-						<button id="addvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+      <div class="modal-body">
+        <!--Videos block-->
+        <div class="row justify-content-end pb-3">
+          <button type="button" class="btn btn-popup-add mx-4" data-toggle="modal" data-target="#addvideo"><i
+              class="fas fa-plus-circle fa-2x"></i></button>
+        </div>
+        <div class="row">
+			<style type="text/css">
+				.col-lg-4.profilevideos.pb-5 iframe {
+					width: 100%;
+					height: 200px;
+				}
+            </style>
+			<?php if( have_rows('videos', 'user_' . $obj_id) ): ?>
+				<?php while ( have_rows('videos', 'user_' . $obj_id) ) : the_row(); ?>
+					<div class="col-lg-4 profilevideos pb-5">						
+						<?php echo get_sub_field('video_link'); ?>
+						<h5 class="pt-2"><?php echo get_sub_field('video_caption'); ?></h5>
+						<div class="float-right manageVideo" >
+							<button class="btn btn-popup-edit" type="button" data-indexvideo="<?php echo get_row_index(); ?>" data-toggle="modal" data-target="#editvideo">
+								<i class="fas fa-pen fa-lg"></i>
+							</button>
+							<button class="btn btn-popup-del" type="button" data-indexvideo="<?php echo get_row_index(); ?>" data-toggle="modal" data-target="#deleteVideo">
+								<i class="fas fa-trash-alt fa-lg"></i>
+							</button>
+						</div>
 					</div>
-
-					<div id="resaddvideoWrapper"></div> 
-				<!-- </div> -->
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
-	</div>
-    <!--edit video details Modal -->
-    <div class="modal fade" id="editvideo" tabindex="-1" aria-labelledby="editvideoModalLabel" aria-hidden="true" data-backdrop="false">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editvideoModalLabel">Edit Video Details</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-                <label for="editvideolink_input">Video Link</label>
-                <input id="editvideolink_input" class="form-control my-2" type="text" placeholder="Edit link here:" />
-              
-                <label for="editvideocaption_input">Caption</label>
-                <input id="editvideocaption_input" class="form-control my-2" type="text" placeholder="Add/Edit caption" />
-      
-				<!-- btns div -->
-				<div class="d-flex justify-content-end py-4">
-					<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
-					<button id="editvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
-				</div>
-
-			  	<div id="reseditvideoWrapper"></div> 
-          </div>
+				<?php endwhile; ?>
+			<?php endif; ?>       
         </div>
       </div>
     </div>
-    <!-- Delete video Modal -->
-    <div class="modal fade" id="deleteVideo" tabindex="-1" aria-labelledby="deleteVideoLabel" aria-hidden="true" data-backdrop="false">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="deleteVideoLabel">Confirm Delete</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <p class="px-4 pb-3">
-                Are you sure you want to delete the video?
-              </p>
-              <!-- btns div -->
-              <div class="d-flex justify-content-end pb-4">
-                <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
-                <button id="deletevideosave_submit" class="btn btn-lg btn-popup-delete">Delete</button>
-			  </div>   
-			  
-			  <div id="resdeletevideoWrapper"></div> 
-          </div>
+  </div>
+</div>
+<!--add video Modal -->
+<div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="addvideoModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+		<div class="col-md-3 d-none d-lg-block">
+			<img src="/images/footer-logo-grey.png" alt="logo">
+		</div>
+		<div class="col-10 col-md-6">
+			<h5 class="modal-title text-lg-center" id="addvideoModalLabel">Add Video</h5>
+		</div>
+		<div class="col-2 col-md-3">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		</div>
+		<div class="modal-body">
+		<div class="row">
+			<div class="col-12 col-lg-8 mx-auto py-4">
+			<!-- <div class="card-body"> -->			
+				<ul class="text-muted">
+					<li class="pb-2">Upload your introduction video on a public site like Youtube or Vimeo. Your profile should be set to public.</li>
+					<li class="pb-2">Go to the video on the site you uploaded to and copy the link in your browser.</li>
+					<li class="pb-2">Paste the video link in the box below and click 'Save'.</li>
+				</ul>
+				<input id="addvideolink_input" class="form-control my-2" type="text" placeholder="Paste your copied link here:" />
+				<input id="addvideocaption_input" class="form-control my-2" type="text" placeholder="Add caption (optional)" />
+				<div class="d-flex justify-content-around py-4">
+					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
+					<button id="addvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+				</div>
 
-        </div>
-      </div>
+				<div id="resaddvideoWrapper"></div> 
+			<!-- </div> -->
+			</div>
+		</div>
+		</div>
 	</div>
+	</div>
+</div>
+<!--edit video details Modal -->
+<div class="modal fade" id="editvideo" tabindex="-1" aria-labelledby="editvideoModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editvideoModalLabel">Edit Video Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+            <label for="editvideolink_input">Video Link</label>
+            <input id="editvideolink_input" class="form-control my-2" type="text" placeholder="Edit link here:" />
+          
+            <label for="editvideocaption_input">Caption</label>
+            <input id="editvideocaption_input" class="form-control my-2" type="text" placeholder="Add/Edit caption" />
+  
+			<!-- btns div -->
+			<div class="d-flex justify-content-end py-4">
+				<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+				<button id="editvideosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+			</div>
+
+		  	<div id="reseditvideoWrapper"></div> 
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete video Modal -->
+<div class="modal fade" id="deleteVideo" tabindex="-1" aria-labelledby="deleteVideoLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteVideoLabel">Confirm Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p class="px-4 pb-3">
+            Are you sure you want to delete the video?
+          </p>
+          <!-- btns div -->
+          <div class="d-flex justify-content-end pb-4">
+            <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+            <button id="deletevideosave_submit" class="btn btn-lg btn-popup-delete">Delete</button>
+		  </div>   
+		  
+		  <div id="resdeletevideoWrapper"></div> 
+      </div>
+
+    </div>
+  </div>
+</div>
 	
-=======
+
+
 <script type="text/javascript">
 (function(on){
     on("DOMContentLoaded", function(){
@@ -2098,7 +1718,6 @@ aria-hidden="true">
 
 </script>
 
->>>>>>> newhomepage
 <script>
 
 var navbar = document.getElementById("navbar");

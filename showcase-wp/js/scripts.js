@@ -230,6 +230,121 @@ $(document).ready(function(){
 			    }
 			})
 		})
+		let $experienceBlock = $('#experienceblock');
+		if($experienceBlock){
+			let $drpExperienceBlockToggle = $('#year-category-toggle');
+			let $experienceBlockCategory = $('#experienceblock-category');
+			let $experienceBlockYear = $('#experienceblock-year');
+			
+			$experienceBlockYear.hide();
+			$drpExperienceBlockToggle.on('change', function(e) {
+				let toggleValue = this.options[e.target.selectedIndex].value;
+				if(toggleValue === 'category'){
+					$experienceBlockYear.hide();
+					$experienceBlockCategory.show();
+				}else{
+					$experienceBlockCategory.hide();
+					$experienceBlockYear.show();
+				}
+			});
+		}
+		
+
+		$('.btn-add-experience').on('click', function(e){
+			e.preventDefault();
+			
+			let id = $(this).data('id');
+			$.post({
+			    url: Edit.request_url,
+			    data: {
+			        action: 'sci_experience_form',
+					nonce: Edit.nonce,
+					catid: id,
+			    },
+			    success : function(res){
+					$('#experience-modal-content').html(res);
+					$('#catdetailed').modal('show');
+					//$('.other-selected').hide();
+			    }
+			})
+
+		});
+
+		
+
+		$("#catdetailed").on('click','.other-fields', function() {
+			if($(this).closest('.btn-group-toggle').data('type') == 'checkbox'){
+				if($(this).val() == 'Others' && !$(this).parent().hasClass('active')){
+					$(this).closest('.form-additional-fields').find('.other-selected').show();
+				}else if($(this).val() == 'Others' && $(this).parent().hasClass('active')){
+					$(this).closest('.form-additional-fields').find('.other-selected').hide();
+				}
+			}
+		});
+
+		$("#catdetailed").on("click", "#experience-submit", function(event){
+			event.preventDefault();
+
+			$("#form-experience .btn-popup-save").addClass('disabled');
+			let loading = document.createElement("div");
+			loading.classList.add("editableform-loading");
+			$("#form-experience .btn-popup-save").parent().addClass("loading")
+			$("#form-experience .btn-popup-save").parent()[0].appendChild(loading);
+
+			let $categoryModal = $(this).closest("#catdetailed");
+
+						
+			let catId = $categoryModal.find(".modal-header").data('id').toString();
+
+			let subCatsIds = [];
+			$categoryModal.find("#experience-specialized-skills").find(".btn-popup-pill.active").map(function(i, e){
+				subCatsIds.push($(e).find('input').val());
+			});
+
+			let extraFields = $(this).closest("#catdetailed").find(".form-additional-fields");
+			let fields = [];
+			extraFields.map(function(i, e){
+				let field = $();
+				field.efType = $(this).find('.btn-group-toggle').data('type');
+				field.efFieldName =  $(this).data('name');
+				field.efOptions = []
+				$(this).find(".btn-popup-pill.active").map(function(i, e){
+					field.efOptions.push($(e).find('input').val().replace(/-/g, " "));
+				});
+				fields.push(field);
+			});
+
+
+
+			let fieldOthers = $(this).closest("#catdetailed").find('input[data-other$="-other"]');
+			let otherFields = [];
+			fieldOthers.map(function(i, e){
+				let field = $();
+				field.efFieldName = $(this).data('other');
+				field.efValue = $(this).val().replace(/,/g, "@");
+				
+				otherFields.push(field);
+			});
+			console.log(otherFields);
+
+			let experienceWebsite = $('#experience-website').val();
+
+			let dataStringified = JSON.stringify({subCats : subCatsIds, additionalFields : fields, website : experienceWebsite, fieldOtherSpecifications : otherFields});
+			console.log(dataStringified);
+			$.post({
+			    url: Edit.request_url,
+			    data: {
+			        action: 'sci_experience_form_submit',
+					nonce: Edit.nonce,
+					category : catId, 
+			        updateData: dataStringified,
+			    },
+			    success : function(res){
+					console.log(res);
+			    	location.reload();
+			    }
+			})
+		});
 	}
 });
 
