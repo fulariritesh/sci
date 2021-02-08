@@ -1,12 +1,11 @@
 <?php
 add_action("wp_ajax_sci_add_headshot", "sci_add_headshot");
-
 function sci_add_headshot() {
 	$user_id = get_current_user_id();
 	$upload_id = NULL;
 
    	if(!wp_verify_nonce( $_REQUEST['nonce'], "headshot_request")) {
-		echo json_encode(array('data' => "No naughty business please"));
+		echo json_encode(array('status' => 'danger','msg' => "No naughty business please"));
       	exit();
    	}   
 
@@ -49,26 +48,46 @@ function sci_add_headshot() {
 			}
 			
 			if($success){
-				http_response_code(200);
-				echo json_encode(array('data' => 'Success' ));
+				echo json_encode(array('status' => 'success','msg' => "Success."));
 				exit();	
 			}else{
-				http_response_code(500);
-				echo json_encode(array('data' => 'Upload failed' ));
+				echo json_encode(array('status' => 'danger','msg' => "Upload Failed."));
 				exit();	
-			}
-				
+			}			
 		}
-
-		http_response_code(500);
-		echo json_encode(array('data' => 'Something went wrong.'));
+		echo json_encode(array('status' => 'danger','msg' => "Something went wrong."));
 		exit();	
 	}else{
-		http_response_code(400);
-		echo json_encode(array('data' => 'Bad Request :('));
+		echo json_encode(array('status' => 'danger','msg' => "Bad Request :("));
 		exit();
    	}
+   	wp_die();
+}
 
-   wp_die();
+add_action("wp_ajax_sci_delete_headshot", "sci_delete_headshot");
+function sci_delete_headshot() {
+	$user_id = get_current_user_id();
 
+   	if(!wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+		echo json_encode(array('status' => 'danger','msg' => "No naughty business please"));
+      	exit();
+   	}   
+
+   	if(!empty($_REQUEST["index"])) {
+        $index = intval($_REQUEST["index"]);     
+        $success = delete_row('sci_user_headshots', $index, 'user_'.$user_id);
+        if($success){
+            echo json_encode(array('status' => 'success','msg' =>  'Success.' ));
+            exit();	
+        }else{
+            echo json_encode(array('status' => 'danger','msg' => 'Delete failed' ));
+            exit();	
+        }
+		echo json_encode(array('status' => 'danger','msg' => 'Something went wrong.'));
+		exit();	
+	}else{
+		echo json_encode(array('status' => 'danger','msg' => 'Invalid video index'));
+		exit();
+   	}
+    wp_die();
 }
