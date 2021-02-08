@@ -140,4 +140,42 @@ function sci_change_social() {
    wp_die();
 
 }
+
+add_action("wp_ajax_sci_manage_photos", "sci_manage_photos");
+function sci_manage_photos() {
+
+   $current_user = wp_get_current_user();
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+
+   $newOrder = [];
+
+   if ($_REQUEST['order']) {
+      foreach ($_REQUEST['order'] as $key => $value) {
+         $id = (int) $value['id'];
+         if ($value['caption']) {
+            $my_post = array(
+               'ID'           => $id,
+               'post_excerpt'   => $value['caption'],
+            );
+            wp_update_post($my_post);
+         }
+         array_push($newOrder, get_post($id));
+      }
+   }
+   //
+   
+   $path = str_replace('\\', '/', preg_replace("/^(?:.+)(wp-content.*)/", ABSPATH . "$1", $newOrder[0]->guid));
+
+   //$image = wp_get_image_editor($path);
+   //var_dump($image->rotate(-90));
+   //var_dump($image->save($path));
+   //var_dump($newOrder);
+   update_field(__sci_s("USER: Profile details", 'photos')['key'], $newOrder, 'user_' . $current_user->ID);
+   echo "ok";
+   wp_die();
+
+}
  ?>

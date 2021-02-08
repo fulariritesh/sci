@@ -17,18 +17,80 @@ $color
     padding-left:7px;
     padding-top:3px;
 }
+.headshotapproved-status{
+    @include upload-status($approvedBG, $approveColor);
+    border-radius:50%;
+    width: 25px;
+    height: 25px;
+    padding-left:5px;
+    padding-top:1px;
+    top:10px;
+    bottom:0;
+    right:25px;
+}
+.headshotpending-status{
+    @include upload-status($pendingBG, $pendingColor);
+    border-radius:50%;
+    width: 25px;
+    height: 25px;
+    padding-left:6px;
+    padding-top:1px;
+    top:10px;
+    bottom:0;
+    right:25px;
+}
+.headshotrejected-status{
+    @include upload-status($rejectedBG, $rejectedColor);
+    border-radius:50%;
+    width: 25px;
+    height: 25px;
+    padding-left:10px;
+    padding-top:1px;
+    top:10px;
+    bottom:0;
+    right:25px;
+}
+.textapproved-status{
+    background:$approvedBG;
+    color:$approveColor;
+    border-radius:50%;
+    width: 25px;
+    height: 25px;
+    padding-left:5px;
+    padding-top:1px;
+    display:inline-block;
+
+}
 .pending-status{
     @include upload-status($pendingBG, $pendingColor);
     padding:0px 8px;
     font-size:13px;
     right:20px;
 }
+.textpending-status{
+    background:$pendingBG;
+    color:$pendingColor;
+    padding:0px 8px;
+    font-size:13px;
+    display:inline-block;
+    border-radius:15px;
+}
+
 .rejected-status{
     @include upload-status($rejectedBG, $rejectedColor);
     padding:0px 8px;
     font-size:13px;
     right:20px;
     z-index: 3; 
+}
+.textrejected-status{
+    background:$rejectedBG;
+    color:$rejectedColor;
+    padding:0px 8px;
+    font-size:13px;
+    right:20px;
+    z-index: 3; 
+    border-radius:15px;
 }
 
 .rejected-overlay{
@@ -44,6 +106,11 @@ $color
     z-index: 2; 
     cursor: pointer; 
 }
+
+
+
+
+
 
 .completevalue{
     color:$primary-color;
@@ -114,4 +181,76 @@ overflow: hidden;
 
 .btn-warning {
     color: #fff
+}
+.addphoto-thumb{
+    position:absolute;
+    bottom:-8px;
+    right:8px;
+    color:$primary-color;
+    font-size: 20px;
+}
+.addicon, .deleteicon, .editicon{
+    color:$primary-color;
+    font-size:20px;
+    padding-left:10px;
+}
+.imageGrid{
+    img{
+        width:100%;
+    }
+}
+.managephotoicons{
+    a{
+        color:$primary-color;
+    }
+}
+.bulkselect-radio{
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    input[type="checkbox"]{
+      height:18px;
+      width:18px;
+    }
+}
+#imageGrid{
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+}
+
+.defaultHeadshot{
+    text-align:center;
+    background:$bodyBG;
+}
+.defaultHeadshot i{
+    font-size:100px;
+    padding-top:5px;
+}
+.uploadphoto{
+    min-height:300px;
+    border: 1px dashed $basefont-color;
+    background: $light-color;
+   
+    label{
+        padding-top:90px;
+        cursor:pointer;
+        &:hover{
+            color:$primary-color;
+        }
+    }
+   
+}
+// .modal {
+//     overflow-y:auto;
+//   }
+
+.viewphotodiv{
+    img{
+        width:100%;
+    }
+}
+.imgContent{
+    position:relative;
 }

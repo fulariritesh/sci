@@ -8,6 +8,7 @@ $secondary: #00a6d0;
 $warning: #ea4335;
 $dark: #1e1e1e;
 $grey:#efefef;
+$border:#dee2e6 ;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -275,3 +276,7 @@ $pendingBG:#ffd800;
 $pendingColor:#fff;
 $rejectedBG:#de1a1a;
 $rejectedColor:#fff;
+
+// category badge
+$categorybadgetransBG:transparent;
+$categorybadgecolor:#444;

@@ -5,7 +5,6 @@ import Cropper from 'cropperjs'; //sid
 // Edit Profile scripts
 require("./bootstrap-editable.min.js");
 
-// wiseman
 $(document).ready(function(){
 
 	$('[data-toggle="tooltip"]').tooltip();
@@ -97,6 +96,69 @@ $(document).ready(function(){
 				sci.classList.add("active");
 			})
 		})
+		$('#managephotos').on('show.bs.modal', function (e) {
+			setTimeout(function(){
+				$drag.layout();
+			}, 200);
+			$(".rotate-image").on('click', function(){
+				$(this).parents(".packery-item").find("img").css({
+				    transform: "rotate(-90deg)"
+				})
+			})
+			$(".delete-image").on('click', function(){
+				$(this).parents(".packery-item").remove();
+				$drag.layout();
+			})
+		})
+		$("#delete-photos").on("submit", function(){
+			$(".bulkselect-radio input:checked").parents(".packery-item").remove();
+			$drag.layout();
+			$("#deletephoto").modal('hide');
+		})
+		$('#editcaption').on('show.bs.modal', function (e) {
+			$(this).find('.caption-value').val($(e.relatedTarget).parents('[data-caption]').attr('data-caption'));
+			$(this).find('.caption-value').attr("data-media-id", $(e.relatedTarget).parents('[data-media-id]').attr('data-media-id'));
+		})
+		$('#editcaption, #deletephoto').on('hidden.bs.modal', function(){
+			$('body').addClass('modal-open');
+		})
+		$("#saveCaption").on("submit", function(event){
+			event.preventDefault();
+			$("[data-media-id='" + $(this).find('.caption-value').attr('data-media-id') + "']").attr('data-caption', $(this).find('.caption-value').val());
+			$('#managephotos').modal('handleUpdate');
+			$("#editcaption").modal("hide");
+			$('#managephotos').modal("show");
+		})
+		$("#managephotos-form").on("submit", function(event){
+			event.preventDefault();
+			let order = [];
+
+			jQuery('[data-order]').each(function(i, ele){
+				let $item = jQuery('[data-order=' + (i + 1) + ']');
+				console.log($item);
+				console.log('[data-order=' + (i + 1) + ']');
+
+                order.push({id : $item.attr("data-media-id"), caption :  $item.attr("data-caption")});
+            })
+
+			$("#managephotos-form .btn-popup-save").addClass('disabled');
+			let loading = document.createElement("div");
+			loading.classList.add("editableform-loading");
+			$("#managephotos-form .btn-popup-save").parent().addClass("loading")
+			$("#managephotos-form .btn-popup-save").parent()[0].appendChild(loading);
+
+			$.post({
+			    url: Edit.request_url,
+			    data: {
+			        action: 'sci_manage_photos',
+			        nonce: Edit.nonce,
+			        order: order
+			    },
+			    success : function(res){
+			    	location.reload();
+			    }
+			})
+		})
 		$("#manage-category").on("submit", function(event){
 			event.preventDefault();
 			let categories = [];
@@ -171,7 +233,53 @@ $(document).ready(function(){
 	}
 });
 
-// wiseman
+$(".card-header").click(function () {
+	$(this).toggleClass("selected");
+});
+var video = document.querySelector("#videoElement");
+const inpFile = document.getElementById("hsFile");
+const previewContainer = document.getElementById("img-preview");
+const previewImg = document.querySelector(".img-preview-img");
+const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+
+if (inpFile) inpFile.addEventListener("change", function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    previewDefaultTxt.style.display = "none";
+    previewImg.style.display = "block";
+
+    reader.addEventListener("load", function () {
+      console.log(this);
+      previewImg.setAttribute("src", this.result);
+    });
+    reader.readAsDataURL(file);
+  }
+})
+
+if (navigator.mediaDevices) {
+  navigator.mediaDevices
+    .getUserMedia({ video: true })
+    .then(function (stream) {
+      previewDefaultTxtCam.style.display = "none";
+      video.style.display = "block";
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+$(document).ready(function () {
+	$(".upload-div").hide();
+	$(".file-edit-btns").hide();
+	$(".btn-details-fileup").click(function () {
+		$(".capture-div").hide();
+		$(".upload-div").show();
+		$(".file-edit-btns").show();
+	});
+});
+
 $(document).ready(function(){
 	// Check if element exists
 	if (!!$('.slider_headshot').length) {
@@ -260,8 +368,13 @@ $(document).ready(function () {
 		$(this).children('input[type="hidden"]').prop('disabled', function(i, v) { return !v; });
   	});
 
-	/* Profile Details Page */ 
-  	$("input[type='radio']").on('click', function (e){
+	/* Profile details page - dynamically show custom gender text field */
+	/* 
+
+		!!! --- Use conditional fields in acf --- !!! ~ Wiseman 
+
+	*/
+	$("input[type='radio']").on('click', function (e){
 		var genvalue = $("input[name='gender']:checked").val();
 		if(genvalue === 'custom'){
 			$('#custom_gender').removeClass('d-none');

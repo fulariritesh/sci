@@ -10569,6 +10569,18 @@ hr.new2 {
   color: #fff;
 }
 
+.btn-rotate {
+  background: #fff;
+  color: #07bb9b;
+  text-transform: capitalize;
+  border: 1px solid #f3f3f3;
+}
+
+.btn-rotate:hover {
+  background: #fcfcfc;
+  color: #07bb9b;
+}
+
 .btn-popup-edit {
   background: #f7f7f7;
   color: #08BB9B;
@@ -11789,8 +11801,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-musicians, .c-musician {
@@ -11798,8 +11811,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-filmcrew {
@@ -11807,8 +11821,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-photographers, .c-photographer {
@@ -11816,8 +11831,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-influencers, .c-influencer {
@@ -11825,8 +11841,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-hairs, .c-hair {
@@ -11834,8 +11851,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-entertainers, .c-entertainer {
@@ -11843,8 +11861,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-models, .c-model {
@@ -11852,8 +11871,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-presenters, .c-presenter {
@@ -11861,8 +11881,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-dancers, .c-dancer {
@@ -11870,8 +11891,9 @@ hr.new2 {
   color: #444;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .c-more {
@@ -11879,9 +11901,20 @@ hr.new2 {
   color: #fff;
   font-weight: normal;
   margin-right: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
   margin-left: 5px;
+}
+
+.categorybadge {
+  background: transparent;
+  color: #444;
+  font-weight: normal;
+  margin-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 .photogrid {
@@ -12443,6 +12476,68 @@ input:checked + .slider .off {
   padding-top: 3px;
 }
 
+.headshotapproved-status {
+  background: #16d011;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 5px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.headshotpending-status {
+  background: #ffd800;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 6px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.headshotrejected-status {
+  background: #de1a1a;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 10px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.textapproved-status {
+  background: #16d011;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 5px;
+  padding-top: 1px;
+  display: inline-block;
+}
+
 .pending-status {
   background: #ffd800;
   color: #fff;
@@ -12453,6 +12548,15 @@ input:checked + .slider .off {
   padding: 0px 8px;
   font-size: 13px;
   right: 20px;
+}
+
+.textpending-status {
+  background: #ffd800;
+  color: #fff;
+  padding: 0px 8px;
+  font-size: 13px;
+  display: inline-block;
+  border-radius: 15px;
 }
 
 .rejected-status {
@@ -12466,6 +12570,16 @@ input:checked + .slider .off {
   font-size: 13px;
   right: 20px;
   z-index: 3;
+}
+
+.textrejected-status {
+  background: #de1a1a;
+  color: #fff;
+  padding: 0px 8px;
+  font-size: 13px;
+  right: 20px;
+  z-index: 3;
+  border-radius: 15px;
 }
 
 .rejected-overlay {
@@ -12551,6 +12665,72 @@ input:checked + .slider .off {
   color: #fff;
 }
 
+.addphoto-thumb {
+  position: absolute;
+  bottom: -8px;
+  right: 8px;
+  color: #07bb9b;
+  font-size: 20px;
+}
+
+.addicon, .deleteicon, .editicon {
+  color: #07bb9b;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.imageGrid img {
+  width: 100%;
+}
+
+.managephotoicons a {
+  color: #07bb9b;
+}
+
+.bulkselect-radio {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.bulkselect-radio input[type="checkbox"] {
+  height: 18px;
+  width: 18px;
+}
+
+.defaultHeadshot {
+  text-align: center;
+  background: #f2fafd;
+}
+
+.defaultHeadshot i {
+  font-size: 100px;
+  padding-top: 5px;
+}
+
+.uploadphoto {
+  min-height: 300px;
+  border: 1px dashed #444;
+  background: #fff;
+}
+
+.uploadphoto label {
+  padding-top: 90px;
+  cursor: pointer;
+}
+
+.uploadphoto label:hover {
+  color: #07bb9b;
+}
+
+.viewphotodiv img {
+  width: 100%;
+}
+
+.imgContent {
+  position: relative;
+}
+
 .accordion {
   background-color: #fff;
 }
@@ -12600,5 +12780,48 @@ input:checked + .slider .off {
 
 .modal-body {
   background: #f7f7f7;
+}
+
+.spotlight-bannerbg {
+  background: #07bb9b;
+  color: #fff;
+}
+
+.spotlight-bannerbg .bannerimg img {
+  width: 100%;
+}
+
+.spotlightbadge {
+  background: #00a6d0;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 3px 20px;
+  border-radius: 20px;
+}
+
+.spotlightpost .post {
+  background: #fff;
+}
+
+.likebar {
+  border: 1px solid #dee2e6;
+  border-top: none;
+}
+
+.likebar .b4-click {
+  width: 32px;
+  height: 32px;
+  fill: #efefef;
+}
+
+.likebar .selected {
+  fill: #07bb9b;
+}
+
+.likebar .likesnum {
+  width: 24px;
+  height: 24px;
+  fill: #07bb9b;
 }
 
