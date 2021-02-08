@@ -1,6 +1,5 @@
 <?php
 /* Template Name: Social Links Page */
-include('page_ids.php');
 
 $ig_error = $fb_error = $tw_error = $yt_error = NULL;
 
@@ -60,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(!( $ig_error || $fb_error || $tw_error || $yt_error )){
-        wp_redirect( get_page_link(  $signup_page )); exit;
+        wp_redirect( get_page_link(get_page_by_path('signup'))); exit;
     }
 } 
 

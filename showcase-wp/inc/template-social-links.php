@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(!( isset($ig_error) || isset($fb_error) || isset($tw_error) || isset($yt_error) )){
-        wp_redirect( get_page_link( 6 )); exit;
+        wp_redirect( get_page_link(get_page_by_path('signup'))); exit;
     }
 
 } 
@@ -160,7 +160,7 @@ get_header();
             <button type="submit" value="save" name="submit" class="btn btn-signup-gen btn-block btn-lg">
             Save
             </button>
-            <!-- <a href="<?php echo get_page_link(6) ?>" class="btn btn-social-skp btn-block btn-lg">
+            <!-- <a href="<?php //echo get_page_link(get_page_by_path('signup')) ?>" class="btn btn-social-skp btn-block btn-lg">
             Skip for now
             </a> -->
             <button type="submit" value="skip" name="submit" class="btn btn-social-skp btn-block btn-lg">

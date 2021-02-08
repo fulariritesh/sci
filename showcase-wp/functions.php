@@ -145,6 +145,7 @@ function showcase_widgets_init() {
 }
 add_action( 'widgets_init', 'showcase_widgets_init' );
 
+
 /**
  * Enqueue scripts and styles.
  */
@@ -157,6 +158,7 @@ function showcase_scripts() {
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
+	wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -172,17 +174,59 @@ function showcase_scripts() {
 			'nonce'    => wp_create_nonce( 'um_raf_nonce' ),
 		)
 	);
+
+	/* Add Headshot */ 
+	wp_localize_script(
+		'headshot',
+		'SCI_HEADSHOT',
+		array(
+			'request_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'headshot_request' ),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
-function author_page_scripts(){
-	if (!is_author()) {
-		return;
-	}
-	wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
-	wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+function __sci_s($field_group, $field){
+   $raw_field_groups = acf_get_raw_field_groups();
+   foreach ($raw_field_groups as $key => $value) {
+      if ($value["title"] == $field_group) {
+         foreach (acf_get_fields($value['key']) as $key => $value) {
+            if ($value['name'] == $field) {
+              return $value;
+            }
+         }
+      }
+   }
 }
-add_action('wp_head','author_page_scripts');
+function custom_page_scripts(){
+	if (is_page('edit-profile')) {
+		wp_enqueue_style( 'editable', get_template_directory_uri() . "/sass/components/bootstrap-editable.css", array(), _S_VERSION );
+		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'packery', 'https://unpkg.com/packery@2/dist/packery.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'draggabilly', 'https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'editable_request', get_template_directory_uri() . '/js/edit-page.js', array(), _S_VERSION, false );
+		$obj_id = wp_get_current_user()->data->ID;
+		wp_localize_script(
+			'editable_request',
+			'Edit',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'edit_request' ),
+				'locations' => json_encode(__sci_s("USER: Profile details", 'sci_user_location')['choices']),
+				'gender' => json_encode(__sci_s("USER: Profile details", 'sci_user_gender')['choices']),
+				'categories' => json_encode(get_field('profession', 'user_' . $obj_id)),
+			)
+		);
+
+	}
+	if (is_author()) {
+		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+	}
+}
+add_action('wp_head','custom_page_scripts');
 
 function add_stylesheet_attributes( $html, $handle ) {
     if ( 'wp-block-library' === $handle ) {
@@ -191,10 +235,21 @@ function add_stylesheet_attributes( $html, $handle ) {
     return $html;
 }
 add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
+
+/**
+ * Add Headshot 
+ */
+require get_template_directory() . '/inc/ajax-headshot.php';
+
 /**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
+
+/**
+ * Edit profile page
+ */
+require get_template_directory() . '/inc/edit-page.php';
 
 /**
  * Implement the Custom Nav Walker feature.
@@ -648,3 +703,14 @@ function my_custom_mime_types( $mimes ) {
 
 }
 add_filter( 'upload_mimes', 'my_custom_mime_types' );
+
+add_action( 'template_redirect', 'redirect_to_login_page' );
+
+function redirect_to_login_page() {
+
+	if ( is_page('edit-profile') && ! is_user_logged_in() ) {
+
+		wp_redirect( get_site_url() . '/signin', 301 ); 
+  		exit;
+    }
+}

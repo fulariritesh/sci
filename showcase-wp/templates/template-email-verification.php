@@ -1,8 +1,6 @@
 <?php
 /* Template Name: Email verification Page */
 
-include('page_ids.php'); 
-
 $user_email = $_SESSION["user_args"]["submitted"]["user_email"];
 
 if(!$user_email){
@@ -29,7 +27,7 @@ get_header();
                 or
                 <br>
                 <a id="sci-rve" href="#">Resend verification email</a> or
-                <a href="<?php echo get_page_link($contact_administrator_page); ?>">contact administrator</a>
+                <a href="<?php echo get_page_link(get_page_by_path('contact-administrator')); ?>">contact administrator</a>
                 </p>
 
                 <!-- response message -->

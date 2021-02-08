@@ -1,7 +1,5 @@
 <?php
 /* Template Name: Profile details Page */
-include('page_ids.php'); 
-include('acf_field_ids.php'); 
 
 if (!is_user_logged_in() ) {
   wp_redirect(home_url()); exit;
@@ -52,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		else{
 			$gendervalue = sanitize_text_field( $_POST['gender']);
 			//get values from ACF plugin
-			$acf_gender = get_field_object($gender_field);
+			$acf_gender = acf_get_field('sci_user_gender');
 			$verify_gen = array_search($gendervalue,array_keys($acf_gender['choices']),true);		
 
 			if($verify_gen !== false){
@@ -92,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}else{
 			$locationvalue = sanitize_text_field($_POST['location']);
 			//get values from ACF plugin
-			$acf_location = get_field_object($location_field);
+			$acf_location = acf_get_field('sci_user_location');
 			$verify_loc = array_search($locationvalue,array_keys($acf_location['choices']),true);
 			if($verify_loc !== false){
 				$location = $locationvalue;
@@ -120,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 				$profile_detail_complete = update_user_meta( $user_id, 'sci_user_profile_detail_complete', true);
 
-				wp_redirect( get_page_link( $physical_attributes_page )); exit;
+				wp_redirect( get_page_link(get_page_by_path('physical-attributes'))); exit;
 			}
 			
 		}
@@ -200,7 +198,7 @@ include('join-pagination.php');
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
 							<?php 
 								//get values from ACF plugin
-								$genderf = get_field_object($gender_field);
+								$genderf = acf_get_field('sci_user_gender');
 								$g = get_user_meta( $user_id, 'sci_user_gender', true);
 								foreach($genderf['choices'] as $genvalue => $genlabel){	
 									echo '<label class="btn btn-details-gen">';	
@@ -248,7 +246,7 @@ include('join-pagination.php');
 						<select class="form-control <?php echo ($loc_er) ? "is-invalid" : ""; ?>" id="location" name="location">
 						<?php 
 							//get values from ACF plugin
-							$locationf = get_field_object($location_field);
+							$locationf = acf_get_field('sci_user_location');
 							$l = get_user_meta( $user_id, 'sci_user_location', true);
 							foreach($locationf['choices'] as $locvalue => $loclabel){		
 								echo '<option class="dropdown-item" value="'.$locvalue.'" '.(($l==$locvalue)?'selected="selected"':"").'>'.$loclabel.'</option>';		
@@ -260,7 +258,7 @@ include('join-pagination.php');
 
 					<!-- BACK - SUBMIT -->
 					<div class="d-flex justify-content-between">
-						<a href="<?php echo get_page_link($welcome_page); ?>" class="btn btn-lg btn-xs btn-details-bck px-md-5">Back</a>
+						<a href="<?php echo get_page_link(get_page_by_path('welcome')); ?>" class="btn btn-lg btn-xs btn-details-bck px-md-5">Back</a>
 						<button 
 							type="submit" 
 							name="submit" 

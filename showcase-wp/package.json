@@ -55,6 +55,6 @@
     "lint:js": "wp-scripts lint-js ./js/*.js"
   },
   "dependencies": {
-    "@types/jqueryui": "^1.12.14"
+    "cropperjs": "^1.5.9"
   }
 }
