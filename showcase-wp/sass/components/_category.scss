@@ -43,5 +43,5 @@
 }
 
 .categorybadge{
-  @include categorystyle($categorybadgeBG, $categorybadgecolor);
+  @include categorystyle($categorybadgetransBG, $categorybadgecolor);
 }

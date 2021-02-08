@@ -12249,7 +12249,7 @@ input:checked + .slider .off {
 }
 
 .categorybadge {
-  background: transparent;
+  background: #d1ecf1;
   border: 1px solid #86dcec;
   font-weight: normal;
   padding-left: 10px;
@@ -12351,6 +12351,68 @@ input:checked + .slider .off {
   padding-top: 3px;
 }
 
+.headshotapproved-status {
+  background: #16d011;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 5px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.headshotpending-status {
+  background: #ffd800;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 6px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.headshotrejected-status {
+  background: #de1a1a;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 10px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.textapproved-status {
+  background: #16d011;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 5px;
+  padding-top: 1px;
+  display: inline-block;
+}
+
 .pending-status {
   background: #ffd800;
   color: #fff;
@@ -12361,6 +12423,15 @@ input:checked + .slider .off {
   padding: 0px 8px;
   font-size: 13px;
   right: 20px;
+}
+
+.textpending-status {
+  background: #ffd800;
+  color: #fff;
+  padding: 0px 8px;
+  font-size: 13px;
+  display: inline-block;
+  border-radius: 15px;
 }
 
 .rejected-status {
@@ -12374,6 +12445,16 @@ input:checked + .slider .off {
   font-size: 13px;
   right: 20px;
   z-index: 3;
+}
+
+.textrejected-status {
+  background: #de1a1a;
+  color: #fff;
+  padding: 0px 8px;
+  font-size: 13px;
+  right: 20px;
+  z-index: 3;
+  border-radius: 15px;
 }
 
 .rejected-overlay {

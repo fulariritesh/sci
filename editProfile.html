@@ -60,6 +60,7 @@
                 <div class="col-3 ">
                   <div class="headshotthumnails">
                     <img src="/images/thumbnail.png" />
+                    <span class="headshotapproved-status"><i class="fas fa-check"></i></span>
                     <div class="addphoto-thumb"><i class="fas fa-camera"></i></div>
                   </div>
                 </div>
@@ -67,6 +68,7 @@
                 <div class="col-3">
                   <div class="headshotthumnails">
                     <img src="/images/thumbnail.png" />
+                    <span class="headshotpending-status"><i class="fas fa-question"></i></span>
                     <div class="addphoto-thumb"><i class="fas fa-camera"></i></div>
                   </div>
                 </div>
@@ -74,6 +76,7 @@
                 <div class="col-3 ">
                   <div class="headshotthumnails">
                     <img src="/images/thumbnail.png" />
+                    <span class="headshotrejected-status"><i class="fas fa-exclamation"></i></span>
                     <div class="addphoto-thumb"><i class="fas fa-camera"></i></div>
                   </div>
                 </div>
@@ -445,13 +448,13 @@
               <ul>
                 <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                   et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                  accumsan lacus vel facilisis.<span class="badge categorybadge">Modelling</span></li>
+                  accumsan lacus vel facilisis.<span class="badge categorybadge">Modelling</span><span class="textapproved-status"><i class="fas fa-check"></i></span></li>
+                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore  
+                  et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
+                  accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span><span class="textrejected-status">Rejected</span></li>
                 <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                   et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                  accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                  et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                  accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
+                  accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span><span class="textpending-status">Pending</span></li>
               </ul>
               <div class="hr-text">
                 <span class="credit-title pr-3">
@@ -1122,7 +1125,7 @@
                     <p class="text-muted">Tip: Click and drag photos to change their order or move between columns.</p>
                   </div>
                   <div class="col-sm-2 text-right">
-                    <a id="init-bulkEdit" href="" data-toggle="modal" data-target="#bulkedit">
+                    <a id="init-bulkEdit" href="" data-toggle="modal" data-target="#bulkedit" >
                       <i class="fas fa-pencil-alt  editicon"></i></a>
                       <a id="init-bulkdelete" href="" data-toggle="modal" data-target="#deletephoto">
                         <i class="fas fa-trash-alt  deleteicon"></i></a>
@@ -1144,9 +1147,9 @@
                       </div>
                       <div class="row managephotoicons">
                         <div class="col-4 text-center py-3"><a href="" alt="Edit Image" data-toggle="modal" data-target="#editcaption" data-backdrop="false"><i class="fas fa-pencil-alt"></i></a></div>
-                        <div class="col-4 text-center py-3"><a href="" alt="Rotate" data-toggle="modal" data-target="#rotatephoto" data-backdrop="false" ><i class="fas fa-undo"></i></a>
+                        <div class="col-4 text-center py-3"><a href="" alt="Rotate" data-toggle="modal" data-target="#rotatephoto" data-backdrop="false"  ><i class="fas fa-undo"></i></a>
                         </div>
-                        <div class="col-4 text-center py-3"><a href="" alt="Delete" data-toggle="modal" data-target="#deletephoto" data-backdrop="false"><i class="fas fa-trash-alt"></i></a>
+                        <div class="col-4 text-center py-3"><a href="" alt="Delete" data-toggle="modal" data-target="#deletephoto" ><i class="fas fa-trash-alt"></i></a>
                         </div>
                       </div>
                     </div>
@@ -1585,7 +1588,7 @@
 </div>
 
 <!--Bulk Edit Caption Modal -->
-<div class="modal fade" id="editcaption" tabindex="-1" aria-labelledby="editPhotoCaption" aria-hidden="true">
+<div class="modal fade" id="bulkedit" tabindex="-1" aria-labelledby="bulkedit" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
@@ -1604,22 +1607,34 @@
       <div class="modal-body">
         <form action="">
           <div class="row">
-            <div class="col-sm-12">
-              <div class="col-11 pt-4 mx-auto text-center viewphotodiv">
+           
+              <div class="col-6 pt-4 mx-auto text-center viewphotodiv">
                 <img src="/images/gridimg/1.jpg" />
               </div>
-            </div>
+              <div class="col-6 pt-3 mx-auto px-0">
+                <label class="col-12 pt-3">Add a caption</label>
+                <div class="col-12">
+                  <input type="text" class="form-control" />
+                </div>
+              </div>
+           
           </div>
-          <div class="row">
-            <div class="col-10 pt-3 mx-auto px-0">
 
+          <div class="row">
+           
+            <div class="col-6 pt-4 mx-auto text-center viewphotodiv">
+              <img src="/images/gridimg/2.png" />
+            </div>
+            <div class="col-6 pt-3 mx-auto px-0">
               <label class="col-12 pt-3">Add a caption</label>
               <div class="col-12">
                 <input type="text" class="form-control" />
               </div>
             </div>
-          </div>
-          <div class=" text-center py-3">
+         
+        </div>
+        
+          <div class=" text-right py-3">
             <button class="btn btn-md btn-popup-cancel" data-dismiss="modal">Cancel</button>
             <button class="btn btn-md btn-popup-save px-4">Save</button>
           </div>
