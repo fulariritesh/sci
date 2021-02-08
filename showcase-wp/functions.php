@@ -145,6 +145,7 @@ function showcase_widgets_init() {
 }
 add_action( 'widgets_init', 'showcase_widgets_init' );
 
+
 /**
  * Enqueue scripts and styles.
  */
@@ -201,7 +202,10 @@ function __sci_s($field_group, $field){
 function custom_page_scripts(){
 	if (is_page('edit-profile')) {
 		wp_enqueue_style( 'editable', get_template_directory_uri() . "/sass/components/bootstrap-editable.css", array(), _S_VERSION );
-
+		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'packery', 'https://unpkg.com/packery@2/dist/packery.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'draggabilly', 'https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
 		wp_enqueue_script( 'editable_request', get_template_directory_uri() . '/js/edit-page.js', array(), _S_VERSION, false );
 		$obj_id = wp_get_current_user()->data->ID;
 		wp_localize_script(
@@ -210,8 +214,8 @@ function custom_page_scripts(){
 			array(
 				'request_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'edit_request' ),
-				'locations' => json_encode(__sci_s("USER: Profile details", 'sci_user_location')),
-				'gender' => json_encode(__sci_s("USER: Profile details", 'sci_user_gender')),
+				'locations' => json_encode(__sci_s("USER: Profile details", 'sci_user_location')['choices']),
+				'gender' => json_encode(__sci_s("USER: Profile details", 'sci_user_gender')['choices']),
 				'categories' => json_encode(get_field('profession', 'user_' . $obj_id)),
 			)
 		);
