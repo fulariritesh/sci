@@ -158,6 +158,7 @@ function showcase_scripts() {
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
+	wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -171,6 +172,16 @@ function showcase_scripts() {
 		array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce'    => wp_create_nonce( 'um_raf_nonce' ),
+		)
+	);
+
+	/* Add Headshot */ 
+	wp_localize_script(
+		'headshot',
+		'SCI_HEADSHOT',
+		array(
+			'request_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'headshot_request' ),
 		)
 	);
 }
@@ -224,6 +235,12 @@ function add_stylesheet_attributes( $html, $handle ) {
     return $html;
 }
 add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
+
+/**
+ * Add Headshot 
+ */
+require get_template_directory() . '/inc/ajax-headshot.php';
+
 /**
  * Implement the Custom Header feature.
  */

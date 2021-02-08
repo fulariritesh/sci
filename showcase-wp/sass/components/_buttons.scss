@@ -130,6 +130,42 @@
   background: $btn_details-gen-hoverbg;
   color: $light-color;
 }
+
+.btn-details-cat-subcat {
+  @include buttonstyle(
+    $btn_details-cat-subcat-bg,
+    $btn_details-cat-subcat-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-cat-subcat-color,
+    $btnhoverbg: $btn_details-cat-subcat-hoverbg,
+    $btnhovercolor: $btn_details-cat-subcat-hovercolor
+  );
+  border: 0;
+  border-radius: 1rem;
+  @include media-sm {
+    font-size: 0.7rem !important;
+  }
+}
+.btn-details-cat-subcat.active {
+  background: $btn_details-cat-subcat-hoverbg;
+  color: $btn_details-cat-subcat-hovercolor;
+}
+
+.btn-details-cat-subcat::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f067";
+  padding-right: 0.5rem;
+  float: left;
+}
+.btn-details-cat-subcat.active::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00c";
+  padding-right: 0.5rem;
+  float: left;
+}
+
 .btn-details-bck {
   @include buttonstyle(
     $btn_details-bck-bg,
@@ -148,6 +184,17 @@
     $btnbordercolor: $btn_details-nxt-bg,
     $btnhoverbg: $btn_details-nxt-hoverbg,
     $btnhovercolor: $btn_details-nxt-color
+  );
+}
+
+.btn-details-fileup {
+  @include buttonstyle(
+    $btn_details-fileup-bg,
+    $btn_details-fileup-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-fileup-hoverbg,
+    $btnhoverbg: $btn_details-fileup-hoverbg,
+    $btnhovercolor: $btn_details-fileup-bg
   );
 }
 
@@ -174,6 +221,7 @@
   );
 }
 
+//Physical Attributes skip btn
 .btn-pa-skp {
   @include buttonstyle(
     $btn_socialskip-colorbg,
@@ -197,18 +245,183 @@
     $btn_details-cpt-bg,
     $btn_details-cpt-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $btn_details-cpt-bg,
+    $btnbordercolor: $btn_details-cpt-hoverbg,
     $btnhoverbg: $btn_details-cpt-hoverbg,
-    $btnhovercolor: $btn_details-cpt-color
+    $btnhovercolor: $btn_details-cpt-bg
+  );
+}
+
+.btn-custom-file-upload {
+  @include buttonstyle(
+    $btn_details-brw-bg,
+    $btn_details-brw-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-brw-hoverbg,
+    $btnhoverbg: $btn_details-brw-hoverbg,
+    $btnhovercolor: $btn_details-brw-bg
+  );
+}
+
+//Upload Headshot control btns
+.btn-details-uphs {
+  @include buttonstyle(
+    $btn_details-uphs-bg,
+    $btn_details-uphs-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-uphs-br,
+    $btnhoverbg: $btn_details-uphs-hoverbg,
+    $btnhovercolor: $btn_details-uphs-color
   );
 }
 .btn-details-my-pr {
   @include buttonstyle(
     $btn_details-mypr-bg,
     $btn_details-mypr-color,
-    $btntexttransform: capitalize,
+    $btntexttransform: uppercase,
     $btnbordercolor: $btn_details-mypr-bg,
     $btnhoverbg: $btn_details-mypr-hoverbg,
     $btnhovercolor: $btn_details-mypr-color
   );
+}
+
+//Popup btns
+.btn-popup-cancel {
+  @include buttonstyle(
+    $btn_popup-cancel-bg,
+    $btn_popup-cancel-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-cancel-hoverbg,
+    $btnhoverbg: $btn_popup-cancel-hoverbg,
+    $btnhovercolor: $btn_popup-cancel-color
+  );
+
+}
+.btn-popup-savAddmr {
+  @include buttonstyle(
+    $btn_popup-cancel-bg,
+    $btn_popup-cancel-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-cancel-hoverbg,
+    $btnhoverbg: $btn_popup-cancel-hoverbg,
+    $btnhovercolor: $btn_popup-cancel-color
+  );
+
+}
+.btn-popup-save {
+  @include buttonstyle(
+    $btn_popup-save-bg,
+    $btn_popup-save-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-save-bg,
+    $btnhoverbg: $btn_popup-save-hoverbg,
+    $btnhovercolor: $btn_popup-save-color
+  );
+}
+.btn-plain {
+  @include buttonstyle(
+    $btn_plainBG,
+    $btn_plaincolor,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_plainborder,
+    $btnhoverbg: $btn_plainhoverbg,
+    $btnhovercolor: $btn_plaincolor
+  );
+}
+.btn-edit {
+  @include buttonstyle(
+    $btn_editBG,
+    $btn_editcolor,
+    $btntexttransform: capitalize,
+    $btnbordercolor:$btn_editborder,
+    $btnhoverbg: $btn_edithoverbg,
+    $btnhovercolor: $btn_editcolor
+  );
+  padding-left:20px;
+  padding-right:20px;
+}
+.btn-add {
+  @include buttonstyle(
+    $btn_primaryBG,
+    $btn_primarycolor,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_primaryborder,
+    $btnhoverbg: $btn_primaryhoverbg,
+    $btnhovercolor: $light-color
+  );
+  padding-left:20px;
+  padding-right:20px;
+}
+
+.btn-popup-edit {
+  @include buttonstyle(
+    $btn_popup-edit-bg,
+    $btn_popup-edit-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-edit-bg,
+    $btnhoverbg: $btn_popup-edit-hoverbg,
+    $btnhovercolor: $btn_popup-edit-hovercolor
+  );
+}
+.btn-popup-del {
+  @include buttonstyle(
+    $btn_popup-del-bg,
+    $btn_popup-del-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-del-bg,
+    $btnhoverbg: $btn_popup-del-hoverbg,
+    $btnhovercolor: $btn_popup-del-hovercolor
+  );
+}
+
+.btn-popup-delete {
+  @include buttonstyle(
+    $btn_popup-delete-bg,
+    $btn_popup-delete-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-delete-bg,
+    $btnhoverbg: $btn_popup-delete-hoverbg,
+    $btnhovercolor: $btn_popup-delete-hovercolor
+  );
+}
+.btn-popup-add {
+  @include buttonstyle(
+    $btn_popup-add-bg,
+    $btn_popup-add-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-add-bg,
+    $btnhoverbg: $btn_popup-add-hoverbg,
+    $btnhovercolor: $btn_popup-add-hovercolor
+  );
+}
+.btn-popup-pill {
+  @include buttonstyle(
+    $btn_popup-pill-bg,
+    $btn_popup-pill-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_popup-pill-bg,
+    $btnhoverbg: $btn_popup-pill-hoverbg,
+    $btnhovercolor: $btn_popup-pill-hovercolor
+  );
+  border-radius: 1.5rem !important;
+  margin-bottom: 0.25rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+.btn-popup-pill.active{
+  background: $btn_popup-pill-hoverbg;
+  color: $btn_popup-pill-hovercolor;
+}
+.btn-popup-pill::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f067";
+  padding-right: 0.5rem;
+  float: left;
+}
+.btn-popup-pill.active::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00c";
+  padding-right: 0.5rem;
+  float: left;
 }

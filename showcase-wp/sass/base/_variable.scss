@@ -7,6 +7,7 @@ $primary: #07bb9b;
 $secondary: #00a6d0;
 $warning: #ea4335;
 $dark: #1e1e1e;
+$grey:#efefef;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
@@ -111,6 +112,7 @@ $newjoineesBG: #fff;
 $imagedivbg: #f9f9f9;
 
 $category-smalltext: #7e7e7e;
+
 //personal details
 $btn_details-gen-bg: #ffff;
 $btn_details-gen-color: #444;
@@ -124,9 +126,22 @@ $btn_details-nxt-bg: #28388d;
 $btn_details-nxt-color: #ffff;
 $btn_details-nxt-hoverbg: #19235a;
 
-$btn_details-cpt-bg: #28388d;
-$btn_details-cpt-color: #ffff;
-$btn_details-cpt-hoverbg: #19235a;
+$btn_details-fileup-bg: #ffff;
+$btn_details-fileup-color: #444;
+$btn_details-fileup-hoverbg: #28388d;
+
+$btn_details-cpt-bg: #ffff;
+$btn_details-cpt-color: #444;
+$btn_details-cpt-hoverbg: #28388d;
+
+$btn_details-brw-bg: #ffff;
+$btn_details-brw-color: #444;
+$btn_details-brw-hoverbg: #28388d;
+
+$btn_details-uphs-bg: #ffff;
+$btn_details-uphs-color: #07bb9b;
+$btn_details-uphs-br: #444;
+$btn_details-uphs-hoverbg: #F2F2F2;
 
 $btn_details-mypr-bg: #28388d;
 $btn_details-mypr-color: #ffff;
@@ -161,27 +176,78 @@ $cat-moreColor: #fff;
 
 $font-family-base: "Poppins", sans-serif;
 $font-size-base: 1rem;
-$selectedsubcategorycolor:$primary-color;
-$selectedsubcategorybg:#fcfafa;
 
-$viewprofileGreycolor:#9c9c9c;
+// category sub category accordion
+$accordian-br-color: #dbdbdb;
+
+$btn_details-cat-subcat-bg: #f4f2f3;
+$btn_details-cat-subcat-color: #444;
+$btn_details-cat-subcat-hoverbg: #07bb9b;
+$btn_details-cat-subcat-hovercolor: #ffff;
+
+$header-icon-color: #07bb9b;
+$header-activeicon-color: #ffff;
+
+//Popups!
+$modal-head-color: #ffff;
+$modal-body-color: #f7f7f7;
+$selectedsubcategorycolor: $primary-color;
+$selectedsubcategorybg: #fcfafa;
+
+$btn_popup-cancel-bg:#ffff;
+$btn_popup-cancel-color:#444;
+$btn_popup-cancel-hoverbg:#CCCCCC;
+
+$btn_popup-savAddmr-bg:#ffff;
+$btn_popup-savAddmr-color:#444;
+$btn_popup-savAddmr-hoverbg:#CCCCCC;
+
+$btn_popup-save-bg:#08BB9B;
+$btn_popup-save-color:#fff;
+$btn_popup-save-hoverbg:#058770;
+
+$btn_popup-add-bg:#f7f7f7;
+$btn_popup-add-color:#08BB9B;
+$btn_popup-add-hoverbg:#ffff;
+$btn_popup-add-hovercolor:#08BB9B;
+
+$btn_popup-edit-bg:#f7f7f7;
+$btn_popup-edit-color:#08BB9B;
+$btn_popup-edit-hoverbg:#08BB9B;
+$btn_popup-edit-hovercolor:#ffff;
+
+$btn_popup-del-bg:#f7f7f7;
+$btn_popup-del-color:#08BB9B;
+$btn_popup-del-hoverbg:#ffff;
+$btn_popup-del-hovercolor:#ea4335;
+
+$btn_popup-delete-bg:#eb8475;
+$btn_popup-delete-color:#ffff;
+$btn_popup-delete-hoverbg:#ea4335;
+$btn_popup-delete-hovercolor:#ffff;
+
+$btn_popup-pill-bg:#E7E7E7;
+$btn_popup-pill-color:#444;
+$btn_popup-pill-hoverbg:#2ABBCC;
+$btn_popup-pill-hovercolor:#ffff;
+
+$viewprofileGreycolor: #9c9c9c;
 
 //Physical Attributes color codes
-$p-height:#d3e5fc;
-$p-weight:#fdebd2;
-$p-ethnicity:#fce0e1;
-$p-chest:#dbf6d7;
-$p-skincolor:#e0d8fb;
-$p-waist:#ede5ff;
-$p-eyecolor:#dbf6d7;
-$p-haircolor:#d3e5fc;
-$p-hairlength:#fdebd2;
-$p-hairtype:#fce0e1;
-$p-notset:#efefef;
-
+$p-height: #d3e5fc;
+$p-weight: #fdebd2;
+$p-ethnicity: #fce0e1;
+$p-chest: #dbf6d7;
+$p-skincolor: #e0d8fb;
+$p-waist: #ede5ff;
+$p-eyecolor: #dbf6d7;
+$p-haircolor: #d3e5fc;
+$p-hairlength: #fdebd2;
+$p-hairtype: #fce0e1;
+$p-notset: #efefef;
 
 //View profile page variables
-$viewprofile-hrborder:#c3c3c3;
+$viewprofile-hrborder: #c3c3c3;
 $categorybadgeBG: #d1ecf1;
 $categorybadgeBorder:#86dcec;
 $experiencebadgeBG:#d1ecf1;
@@ -190,3 +256,22 @@ $specialisedbadgeBG:#f8d7da;
 $specialisedbadgeBorder:#e8c1c4;
 $languagebadgeBG:#d4edda;
 $languagebadgeBorder:#a9f0ba;
+
+//edit profile page variables
+$btn_plainBG: #fff;
+$btn_plaincolor: #444;
+$btn_plainhoverbg: #fcfcfc;
+$btn_plainborder: #f3f3f3;
+
+//edit button
+$btn_editBG: #efefef;
+$btn_editcolor: #444;
+$btn_edithoverbg: #e7e6e6;
+$btn_editborder: #d8d8d8;
+
+$approvedBG:#16d011;
+$approveColor:#fff;
+$pendingBG:#ffd800;
+$pendingColor:#fff;
+$rejectedBG:#de1a1a;
+$rejectedColor:#fff;

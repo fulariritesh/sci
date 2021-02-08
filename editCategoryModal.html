@@ -15,7 +15,7 @@
       Edit Category
     </button>
 
-    <!-- Modal -->
+    <!-- category Modal -->
     <div class="modal fade" id="editCat" tabindex="-1" aria-labelledby="editCatModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -106,9 +106,9 @@
                 </div>
                 <div>
                   <!-- btns div -->
-                  <div class="d-flex justify-content-around py-4">
-                    <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancle</button>
-                    <button class="btn btn-lg btn-popup-save px-4">Save</button>
+                  <div class="d-flex justify-content-center py-4">
+                    <button class="btn btn-lg btn-popup-cancel mr-2" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-lg btn-popup-save px-4 ml-2">Save</button>
                   </div>
                 </div>
               </div>
@@ -126,8 +126,8 @@
     <!-- Deselect Category Modal -->
 
     <div class="modal fade" id="deselectCategory" tabindex="-1" aria-labelledby="deselectCategoryLabel"
-      aria-hidden="true">
-      <div class="modal-dialog">
+      aria-hidden="true" data-backdrop="false">
+      <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="deselectCategoryLabel">Confirm</h5>
@@ -142,8 +142,8 @@
               this category in the future.
             </p>
             <!-- btns div -->
-            <div class="d-flex justify-content-around pb-4">
-              <button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancle</button>
+            <div class="d-flex justify-content-end pb-4">
+              <button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
               <button class="btn btn-lg btn-popup-save">Continue</button>
             </div>
           </div>

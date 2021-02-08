@@ -1,6 +1,5 @@
 <?php
 /* Template Name: Category Subcategory Page */
-include('page_ids.php');
 
 $profession_error = NULL;
 $profession = NULL;
@@ -34,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if(!( $profession_error )){
             $_SESSION['user_profession'] = $profession;
-            wp_redirect( get_page_link( $social_links_page )); exit;
+            wp_redirect(get_page_link(get_page_by_path('social-links'))); exit;
         }
     }
 }
@@ -66,9 +65,12 @@ get_header();
                 if(!empty($categories)){
 
                     foreach( $categories as $category ) {
-
-                        //var_dump(in_array($category->term_taxonomy_id,$_SESSION['user_profession']));
-                        $user_selected_category = in_array($category->term_taxonomy_id,$_SESSION['user_profession']);
+                        //var_dump(in_array($category->term_id,$_SESSION['user_profession']));
+                        if(isset($_SESSION['user_profession'])){
+                            $user_selected_category = in_array($category->term_id,$_SESSION['user_profession']);
+                        }else{
+                            $user_selected_category = false;
+                        }
                             ?>
    
                             <!-- CATEGORY -->
@@ -77,12 +79,12 @@ get_header();
                             <!-- collapsed or selected -->
                             <div
                                 class="row card-header p-2 <?php echo ($user_selected_category) ? 'selected' : 'collapsed'; ?>"
-                                id="heading<?php echo $category->term_taxonomy_id; ?>"
+                                id="heading<?php echo $category->term_id; ?>"
                                 type="button"
                                 data-toggle="collapse"
-                                data-target="#collapse<?php echo $category->term_taxonomy_id; ?>"
+                                data-target="#collapse<?php echo $category->term_id; ?>"
                                 aria-expanded="true"
-                                aria-controls="collapse<?php echo $category->term_taxonomy_id; ?>"
+                                aria-controls="collapse<?php echo $category->term_id; ?>"
                                 >
                                 <div class="col-3 pl-md-5">
                                     <svg class="icon">
@@ -90,15 +92,15 @@ get_header();
                                     </svg>                               
                                 </div>
                                 <div class="col-7 col-md-8">
-                                    <p class="text-uppercase my-2 pt-1"><?php echo $category->name; ?></p>
+                                    <p class="text-uppercase my-2 pt-1"><?php echo get_term_meta($category->term_id,'category_name',true); ?></p>
                                 </div>
 
                                 <!-- disabled or '' -->
-                                <input <?php echo ($user_selected_category) ? '' : 'disabled'; ?> type="hidden" name="profession[]" value="<?php echo $category->term_taxonomy_id; ?>">
+                                <input <?php echo ($user_selected_category) ? '' : 'disabled'; ?> type="hidden" name="profession[]" value="<?php echo $category->term_id; ?>">
                             </div>
 
                                 <!-- collapse or collapse show -->
-                                <div id="collapse<?php echo $category->term_taxonomy_id; ?>" class="collapse <?php echo ($user_selected_category) ? 'show' : ''; ?>" aria-labelledby="heading<?php echo $category->name; ?>">
+                                <div id="collapse<?php echo $category->term_id; ?>" class="collapse <?php echo ($user_selected_category) ? 'show' : ''; ?>" aria-labelledby="heading<?php echo $category->name; ?>">
                                     <div class="accordion-inner card-body">
                                         <div class="btn-group-toggle" data-toggle="buttons">
                             <?php
@@ -106,17 +108,21 @@ get_header();
                             $subcategories = get_terms( array(
                                 'taxonomy' => 'jobs',
                                 'hide_empty' => false,
-                                'parent' => $category->term_taxonomy_id
+                                'parent' => $category->term_id
                             ));
                             if(!empty($subcategories)){
                                 foreach( $subcategories as $subcategory ) {
                                     
-                                    //var_dump(in_array($subcategory->term_taxonomy_id,$_SESSION['user_profession']));
-                                    $user_selected_subcategory = in_array($subcategory->term_taxonomy_id,$_SESSION['user_profession']);
+                                    //var_dump(in_array($subcategory->term_id,$_SESSION['user_profession']));
+                                    if(isset($_SESSION['user_profession'])){
+                                        $user_selected_subcategory = in_array($subcategory->term_id,$_SESSION['user_profession']);
+                                    }else{
+                                        $user_selected_subcategory = false;
+                                    }
                                     ?>
                                     <!-- SUB CATEGORY -->
                                     <label class="btn btn-details-cat-subcat mb-1 <?php echo ($user_selected_subcategory) ? 'active' : ''; ?>">
-                                        <input <?php echo ($user_selected_subcategory) ? 'checked' : ''; ?> type="checkbox" value="<?php echo $subcategory->term_taxonomy_id; ?>" name="profession[]"  /> <?php echo $subcategory->name; ?>
+                                        <input <?php echo ($user_selected_subcategory) ? 'checked' : ''; ?> type="checkbox" value="<?php echo $subcategory->term_id; ?>" name="profession[]"  /> <?php echo $subcategory->name; ?>
                                     </label>
 
                                     <?php
@@ -153,11 +159,3 @@ get_header();
 get_sidebar();
 get_footer();
 ?>
-<script>
-    jQuery(document).ready(function () {
-        jQuery(".card-header").click(function () {
-        jQuery(this).toggleClass("selected");
-        jQuery(this).children('input[type="hidden"]').prop('disabled', function(i, v) { return !v; });
-      });
-    });
-</script>
