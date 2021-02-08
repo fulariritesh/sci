@@ -145,6 +145,7 @@ function showcase_widgets_init() {
 }
 add_action( 'widgets_init', 'showcase_widgets_init' );
 
+
 /**
  * Enqueue scripts and styles.
  */
@@ -175,14 +176,46 @@ function showcase_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
-function author_page_scripts(){
-	if (!is_author()) {
-		return;
-	}
-	wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
-	wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+function __sci_s($field_group, $field){
+   $raw_field_groups = acf_get_raw_field_groups();
+   foreach ($raw_field_groups as $key => $value) {
+      if ($value["title"] == $field_group) {
+         foreach (acf_get_fields($value['key']) as $key => $value) {
+            if ($value['name'] == $field) {
+              return $value;
+            }
+         }
+      }
+   }
 }
-add_action('wp_head','author_page_scripts');
+function custom_page_scripts(){
+	if (is_page('edit-profile')) {
+		wp_enqueue_style( 'editable', get_template_directory_uri() . "/sass/components/bootstrap-editable.css", array(), _S_VERSION );
+		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'packery', 'https://unpkg.com/packery@2/dist/packery.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'draggabilly', 'https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'editable_request', get_template_directory_uri() . '/js/edit-page.js', array(), _S_VERSION, false );
+		$obj_id = wp_get_current_user()->data->ID;
+		wp_localize_script(
+			'editable_request',
+			'Edit',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'edit_request' ),
+				'locations' => json_encode(__sci_s("USER: Profile details", 'sci_user_location')['choices']),
+				'gender' => json_encode(__sci_s("USER: Profile details", 'sci_user_gender')['choices']),
+				'categories' => json_encode(get_field('profession', 'user_' . $obj_id)),
+			)
+		);
+
+	}
+	if (is_author()) {
+		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
+		wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+	}
+}
+add_action('wp_head','custom_page_scripts');
 
 function add_stylesheet_attributes( $html, $handle ) {
     if ( 'wp-block-library' === $handle ) {
@@ -195,6 +228,11 @@ add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
+
+/**
+ * Edit profile page
+ */
+require get_template_directory() . '/inc/edit-page.php';
 
 /**
  * Implement the Custom Nav Walker feature.
@@ -585,15 +623,18 @@ function user_lock( $user, $username, $password ){
 }
 
 function hook_header(){
-	if (!is_page('signup')) {
-		return;
+	if (is_page('signup')) {	
+		echo '<style type="text/css">';
+		echo '#main-header{ text-align: center; }';
+		echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
+		echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
+		echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
+		echo '</style>';
 	}
-	echo '<style type="text/css">';
-	echo '#main-header{ text-align: center; }';
-	echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
-	echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
-	echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
-	echo '</style>';
+
+	if(is_page('add-headshot')){
+		echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css" integrity="sha512-w+u2vZqMNUVngx+0GVZYM21Qm093kAexjueWOv9e9nIeYJb1iEfiHC7Y+VvmP/tviQyA5IR32mwN/5hTEJx6Ng==" crossorigin="anonymous" />';
+	}
 }
 add_action('wp_head','hook_header');
 
@@ -627,6 +668,32 @@ function my_registration_complete( $user_id, $args ) {
 		unset($_SESSION['user_social_links']['youtube']);
 	}
 
-
+	if(isset($_SESSION['user_profession'])){
+		update_user_meta( $user_id, 'profession', $_SESSION['user_profession']);
+		unset($_SESSION['user_profession']);
+	}
 }
 add_action( 'um_registration_complete', 'my_registration_complete', 10, 2 );
+
+function my_custom_mime_types( $mimes ) {
+	// New allowed mime types.
+	$mimes['svg'] = 'image/svg+xml';
+	//$mimes['svgz'] = 'image/svg+xml';
+	//$mimes['doc'] = 'application/msword';	 
+	// Optional. Remove a mime type.
+	//unset( $mimes['exe'] );	 
+	return $mimes;
+
+}
+add_filter( 'upload_mimes', 'my_custom_mime_types' );
+
+add_action( 'template_redirect', 'redirect_to_login_page' );
+
+function redirect_to_login_page() {
+
+	if ( is_page('edit-profile') && ! is_user_logged_in() ) {
+
+		wp_redirect( get_site_url() . '/signin', 301 ); 
+  		exit;
+    }
+}

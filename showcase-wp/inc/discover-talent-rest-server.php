@@ -60,7 +60,21 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
     }
 
     if($gender && $gender != "-1"){
-      array_push($meta_queries, array( 'key' => 'sci_user_gender', 'value' => $gender , 'compare' => '='));
+      if($gender == 'custom'){
+
+        $genderChoices = get_acf_field_settings_from_group_sci("USER: Profile details", 'sci_user_gender')['choices'];
+        $i=0; 
+        foreach($genderChoices as $genderChoice){
+          $i++;
+          if($i < count($genderChoices)){
+            array_push($meta_queries, array( 'key' => 'sci_user_gender', 'value' => str_replace(' ', '_', $genderChoice) , 'compare' => '!='));
+          }
+        }
+
+      }else {
+        array_push($meta_queries, array( 'key' => 'sci_user_gender', 'value' => $gender , 'compare' => '='));
+      }
+      
     }
 
     if($age && $age != "-1"){
@@ -108,7 +122,11 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
 
         $user->professions = array();
         foreach($userProfessions as $profession){
-            array_push($user->professions, get_term_meta( $profession, 'category_name_singular', true ));
+            $professionDetails = new stdClass();
+            $professionDetails->singularName = get_term_meta( $profession, 'category_name_singular', true );
+            $professionDetails->badgeColour = get_term_meta( $profession, 'badge_color', true );
+
+            array_push($user->professions, $professionDetails);
         }
 
         $user->href = "/wordpress/profile/" . $user->ID;
@@ -182,7 +200,7 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
         return $data;
       }else{
         $data->result = 2;
-        $data->text = "Sorry! No results found."; //fetch this from DB
+        $data->text = get_field('sci_no_users_in_category', 'option');
         return $data;
       }
       
@@ -193,5 +211,21 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
  
 $discover_talent_rest_server = new Discover_Talent_Rest_Server();
 $discover_talent_rest_server->hook_rest_server();
+
+
+
+function get_acf_field_settings_from_group_sci($field_group, $field){
+  $raw_field_groups = acf_get_raw_field_groups();
+  foreach ($raw_field_groups as $key => $value) {
+      if ($value["title"] == $field_group) {
+          foreach (acf_get_fields($value['key']) as $key => $value) {
+              if ($value['name'] == $field) {
+                  return $value;
+              }
+          }
+      }
+  }
+}
+
 
 ?>
