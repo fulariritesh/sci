@@ -93,20 +93,7 @@ $user_info = get_userdata($obj_id);
 		            <a href="<?php echo get_author_posts_url($obj_id); ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
 		        </div>
 		    </div>
-		   	<div class="row blockBG my-3 progressbar">
-			    <div class="col-sm-11 mx-auto text-center p-3">
-			        <h4 class="text-center font-weight-bold">
-			            Profile Completion: <span class="completevalue">25%</span>
-			            <a href="#" data-toggle="tooltip" title="Hooray!"> <i class="fas fa-info-circle"></i></a>
-			        </h4>
-					<p class="text-center">
-						Good job! Keep adding to your profile to improve it further. 
-					</p>
-			        <div class="progress pr-com-bar">
-			            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>	
-			       	</div>
-			   	</div>	  
-			</div>
+			<?php get_template_part('template-parts/template-profile-completion' ); ?>
 			<div class="row p-3 blockBG mb-3">
 			    <div class="col-12 col-sm-6">
 					<style type="text/css">
@@ -604,145 +591,286 @@ $user_info = get_userdata($obj_id);
 	            </div>
 	          </div>
 
-	        <!--Credit and Experience Block-->
-	        <div class="row mt-3 blockBG p-3 experienceblock">
-	            <div class="col-12 col-sm-6 pt-3">
-	                <h4>Credit and Experience</h4>
-	            </div>
-	            <div class="col-12 col-sm-6">
-	                <select class="form-control">
-	                    <option>Year</option>
-	                    <option>Category</option>
-	                </select>
-	            </div>
-	            <div class="col-12 pt-1 pt-3 pt-sm-0">
-	                <div class="hr-text">
-	                    <span class="credit-title pr-3">
-	                    2020
-	                    </span>
-	                 </div>
-	                 <ul>
-	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Modelling</span></li>
-	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-	                 </ul>
-	                 <div class="hr-text">
-	                    <span class="credit-title pr-3">
-	                    2019
-	                    </span>
-	                 </div>
-	                 <ul>
-	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Music</span></li>
-	                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">Acting</span></li>
-	                 </ul>
-	                 <div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-	            </div>
-	        </div>
+	        <!-- ///////////////////////EXPERIENCE BLOCK//////////////////////////// -->
 
-	        <!--empty Block-->
-	        <div class="row mt-3 blockBG p-3 emptyblock">
-	            <div class="col-12 pt-3 text-center">
-	                <h4>Actors</h4>
-	            </div>
-	            <div class="col-12 text-center">
-	               <p>Completing this section will increase your chances of being noticed by casting professionals.</p>
-	            </div>
-	            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Add Details</button></div>
-	        </div>
+				<?php if (get_field('experience', 'user_' . $obj_id)): ?>
+	                	
 
-	        <!--Actors Block-->
-	        <div class="row mt-3 blockBG p-3 cat-block">
-	            <div class="col-6 col-sm-4 col-lg-5 pt-3">
-	                <h4>Actors</h4>
-	            </div>
-	            <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-	                <button class="btn btn-edit">Edit</button>
-	            </div>
-	            <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6">
-	                <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous acting experience</span>
-	            </div>
-	        </div>
-	        <div class="row  blockBG cat-block pb-3">   
-	           <div class="col-12 pt-3 pt-sm-0">
-	               <div class="specialised-skills">
-	                <div class="hr-text">
-	                    <span class="credit-title pr-3">
-	                    Specialised Skills
-	                    </span>
-	                 </div>
-	                 <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Feature Films</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Short Films</span></p>
-	               </div>
 
-	               <div class="languages">
-	                <div class="hr-text">
-	                    <span class="credit-title pr-3">
-	                    Languages
-	                    </span>
-	                 </div>
-	                 <p class="py-4"><span class="badge languagedbadge"><i class="fas fa-check"></i> Marathi</span><span class="badge languagedbadge"><i class="fas fa-check"></i> English</span></p>
-	               </div>
-	           
-	                <div class="experience">
-	                    <div class="hr-text">
-	                        <span class="credit-title pr-3">
-	                        Acting Experience
-	                        </span>
-	                     </div>
-	                     <ul>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
-	                     </ul>
-	                </div>
-	           </div>
-	            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-	        </div>
+						<!-- //////////////////////// -->
+						<!--Credit and Experience Block-->
 
-	        <!--Modelling Block-->
-	        <div class="row mt-3 blockBG p-3 cat-block">
-	            <div class="col-6 col-sm-4 col-lg-5 pt-3">
-	                <h4>Modelling</h4>
-	            </div>
-	            <div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-	                <button class="btn btn-edit">Edit</button>
-	            </div>
-	            <div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6 ">
-	                <span class="badge experiencedbadge"> <i class="fas fa-check"></i> No previous modelling experience</span>
-	            </div>
-	        </div>
-	        <div class="row  pb-3 cat-block blockBG">
-	           <div class="col-12 pt-3 pt-sm-0">
-	               <div class="specialised-skills">
-	                <div class="hr-text">
-	                    <span class="credit-title pr-3">
-	                    Specialised Skills
-	                    </span>
-	                 </div>
-	                 <p class="py-4"><span class="badge specialisedbadge"><i class="fas fa-check"></i> Cat Walk</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Hair Model</span><span class="badge specialisedbadge"><i class="fas fa-check"></i> Fitting</span></p>
-	               </div>
+							<?php if (get_field('profession', 'user_' . $obj_id)):
+									$arrYear = array();
+									$arrCategory = array();
 
-	               <div class="website">
-	                <div class="hr-text">
-	                    <span class="credit-title pr-3">
-	                    Modelling Website
-	                    </span>
-	                 </div>
-	                 <p class="py-4">abc.com</p>
-	               </div>
-	           
-	                <div class="experience">
-	                    <div class="hr-text">
-	                        <span class="credit-title pr-3">
-	                        Modelling Experience
-	                        </span>
-	                     </div>
-	                     <ul>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2020</span></li>
-	                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.<span class="badge categorybadge">2019</span></li>
-	                     </ul>
-	                </div>
-	           </div>
-	            <div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
-	        </div>
+									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
+										if ($key->parent == 0) {
+											if( have_rows('experience', 'user_' . $obj_id) ):	
+												while ( have_rows('experience', 'user_' . $obj_id) ) : the_row();
+													$catKey = get_sub_field('category')->term_id;
+													if($catKey == $key->term_id){ 
+														if(!array_key_exists($catKey,$arrCategory)){
+															$arrCategory[$catKey] = array();
+														}
+														if( have_rows('sections') ){
+															while ( have_rows('sections') ) : the_row();
+																$experience = new stdClass();
+																$experience->content = strip_tags(get_sub_field('content'));
+																$experience->year = get_sub_field('year');
+																array_push($arrCategory[$catKey], $experience);
+															endwhile;
+
+															usort($arrCategory[$catKey], function ($a, $b) {
+																return -1 * strcmp($a->year, $b->year);
+															});
+														};
+													};
+												endwhile;		
+											endif;
+										}
+									}
+								endif;
+								
+								if($arrCategory){
+									foreach($arrCategory as $key => $obj){
+										foreach($obj as $value){
+											if(!array_key_exists($value->year,$arrYear)){
+												$arrYear[$value->year] = array();
+											}
+
+											$experience = new stdClass();
+											$experience->content = $value->content;
+											$experience->category = $key;
+											array_push($arrYear[$value->year], $experience);
+										}
+									}
+								}
+								if($arrYear){
+									krsort($arrYear);
+								}
+
+								?>
+
+								
+								<?php if($arrCategory && count($arrCategory) > 0 && count($arrYear)> 0 ){ ?>
+									<div class="row mt-3 blockBG p-3 experienceblock">
+										<div class="col-12 col-sm-6 pt-3">
+											<h4>Credit and Experience</h4>
+										</div>
+										<div class="col-12 col-sm-6">
+											<select class="form-control" id="year-category-toggle">
+												<option value="category">Category</option>
+												<option value="year">Year</option>
+											</select>
+										</div>
+										<div class="col-12 pt-1 pt-3 pt-sm-0">
+
+											
+											<div id="experienceblock-category">
+												<?php foreach($arrCategory as $key => $credits){ ?>
+													<div class="hr-text">
+														<span class="credit-title pr-3">
+															<?php echo get_field('category_name_singular', 'term_' . $key); ?> 
+														</span>
+													</div>
+													<ul>
+														<?php foreach($credits as $credit){ ?>
+															<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo $credit->year ?></span></li>
+														<?php } ?>
+													</ul>
+												<?php } ?>	
+											</div>
+
+											<div id="experienceblock-year">
+												<?php foreach($arrYear as $key => $credits){ ?>
+													<div class="hr-text">
+														<span class="credit-title pr-3">
+														<?php echo $key ?> 
+														</span>
+													</div>
+													<ul>
+														<?php foreach($credits as $credit){ ?>
+															<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo get_field('category_name_singular', 'term_' . $credit->category); ?></span></li>
+														<?php } ?>
+													</ul>
+												<?php } ?>	
+											</div>
+
+											<div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
+										</div>
+									</div>
+								<?php } ?>								
+
+								<?php 
+									$allCategories = array();
+									$categoriesWithProfession = array(); 
+								?>
+								<?php if (get_field('profession', 'user_' . $obj_id)): 
+									$formAdditionalFields = get_field('sci_form_additional_fields', 'option');
+									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
+										if ($key->parent == 0) { 
+										array_push($allCategories, $key->term_id);?>
+											<?php if( have_rows('experience', 'user_' . $obj_id) ): ?>	
+												<?php while ( have_rows('experience', 'user_' . $obj_id) ) : the_row(); ?>
+													<?php if(get_sub_field('category')->term_id == $key->term_id){
+														array_push($categoriesWithProfession, $key->term_id);?>
+														<div class="row mt-3 blockBG p-3 cat-block">
+															<div class="col-6 col-sm-4 col-lg-5 pt-3">
+																<h4><?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?></h4>
+															</div>
+															<div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
+																<button class="btn btn-edit btn-add-experience" data-id=<?php echo $key->term_id ?>>Edit</button>
+															</div>
+															<div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6">
+																<?php foreach($formAdditionalFields as $field){
+																	if($field["sci_form_category"] == $key->term_id && in_array('experience_level',$field["sci_form_field"])){
+																		if(get_sub_field('experience_level')) { ?>
+																		<span class="badge experiencedbadge"> <i class="fas fa-check"></i> <?php echo get_sub_field('experience_level')["label"] ?></span>
+																		<?php }
+																	}
+																} ?>
+															</div>
+														</div>
+														<div class="row  blockBG cat-block pb-3">   
+															<div class="col-12 pt-3 pt-sm-0">
+
+																<?php 
+																	$availableSubcategories =0;
+																	foreach (get_field('profession', 'user_' . $obj_id) as $subCatIndex => $subCatkey) {
+																				if ($subCatkey->parent == $key->term_id){
+																					$availableSubcategories += 1;
+																				}
+																			} 
+																	if($availableSubcategories > 0)	{	
+																	?>
+
+																		<div class="specialised-skills">
+																			<div class="hr-text">
+																				<span class="credit-title pr-3">
+																				Specialised Skills
+																				</span>
+																			</div>
+																			<p class="py-4"> 
+																				<?php
+																					foreach (get_field('profession', 'user_' . $obj_id) as $subCatIndex => $subCatkey) {
+																						if ($subCatkey->parent == $key->term_id){ ?>
+																							<span class="badge specialisedbadge"><i class="fas fa-check"></i> <?php echo get_field('category_name_singular', 'term_' . $subCatkey->term_id); ?></span>
+																						<?php }
+																					}
+																				?>
+																				
+																			</p>
+																		</div>
+																	<?php } ?>
+																
+																<?php
+																	foreach($formAdditionalFields as $field){
+																		if($field["sci_form_category"] == $key->term_id){
+																			foreach($field["sci_form_field"] as $fieldOption){
+																				if($fieldOption != 'experience_level'){?>
+																					<?php if(get_sub_field($fieldOption)) {?>
+																						<div class=<?php echo $fieldOption ?>>
+																							<div class="hr-text">
+																								<span class="credit-title pr-3">
+																									<?php 
+																									echo ucfirst(str_replace("_"," ",$fieldOption));
+																									?>
+																								</span>
+																							</div>
+																							<p class="py-4">
+																								
+																									<?php if(get_sub_field($fieldOption)['label']) { ?>
+																										
+																											<span class="badge languagedbadge"><i class="fas fa-check"></i><?php echo get_sub_field($fieldOption)['label'] ?></span>	
+																										 
+																									<?php }else{ 	
+																										foreach(get_sub_field($fieldOption) as $option){ ?>
+																											<?php if(is_string($option)) { ?>
+																												<span class="badge languagedbadge"><i class="fas fa-check"></i><?php echo $option ?></span>
+																											<?php }else{
+																												if($option['label'] != 'Others'){?>
+																													<span class="badge languagedbadge"><i class="fas fa-check"></i><?php echo $option['label'] ?></span>	
+																												<?php } else {
+																													$otherOption = explode(',', get_sub_field($fieldOption. '-other'));
+																													foreach($otherOption as $option){?>
+																														<span class="badge languagedbadge"><i class="fas fa-check"></i><?php echo $option ?></span>
+																													<?php }
+																												} ?>
+																											<?php } ?>
+																									<?php }
+																									} ?>
+																							</p>
+																						</div>
+																					<?php }else{?>
+																						
+																					<?php } ?>
+																				<?php }
+																			}							
+																		}
+																	}
+																?>
+																		
+																<?php if(get_sub_field('website')){ ?>
+																	<div class="website">
+																		<div class="hr-text">
+																			<span class="credit-title pr-3">
+																				<?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?> Website
+																			</span>
+																		</div>
+																		<p class="py-4"><?php echo get_sub_field('website') ?></p>
+																	</div>
+																<?php } ?>
+																
+																<?php if( have_rows('sections') ): ?>
+																	<div class="experience">
+																		<div class="hr-text">
+																			<span class="credit-title pr-3">
+																			<?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?> Experience
+																			</span>
+																		</div> 
+																	
+																		
+																			<ul><?php 
+																			while ( have_rows('sections') ) : the_row(); ?>
+
+																				<li><?php echo strip_tags(get_sub_field('content')) ?><span class="badge categorybadge"><?php echo get_sub_field('year') ?></span></li>
+																			<?php endwhile; ?>
+																			</ul>
+																														
+																	</div>
+																<?php endif;?>			
+															</div>
+															<div class="col-sm-12 loadMore text-center "><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
+														</div>
+													<?php } ?>
+												<?php endwhile; ?>
+															
+											<?php endif; ?>
+										<?php }
+									}
+								endif; ?>
+
+								<?php
+								
+								foreach($allCategories as $category)
+									if(!in_array($category, $categoriesWithProfession)){?>
+										<!--empty Block-->
+										<div class="row mt-3 blockBG p-3 emptyblock">
+											<div class="col-12 pt-3 text-center">
+												<h4><?php echo get_field('category_name_singular', 'term_' . $category) ?></h4>
+											</div>
+											<div class="col-12 text-center">
+											<p>Completing this section will increase your chances of being noticed by casting professionals.</p>
+											</div>
+											<div class="col-sm-12 loadMore text-center ">
+												<button class="btn btn-md btn-full btn-primary px-5 btn-add-experience" data-id=<?php echo $category ?> >Add Details</button></div>
+											</div>
+									<?php }
+								?>
+							<?php endif ?>
+					
+						<!-- ///////////////////////EXPERIENCE BLOCK//////////////////////////// -->
 
 		</div>
 	</section>
@@ -1675,6 +1803,39 @@ aria-hidden="true">
   </div>
 </div>
 	
+<!-- category details Modal -->
+<div class="modal fade" id="catdetailed" tabindex="-1" aria-labelledby="catDetailedModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content" id="experience-modal-content">
+			
+		</div>
+	</div>
+	<!-- Delete Exp Modal -->
+	<div class="modal fade" id="deleteExp" tabindex="-1" aria-labelledby="deleteExpLabel" aria-hidden="true" data-backdrop="false">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deleteExpLabel">Confirm Delete</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="">
+						<p class="px-4 pb-3">
+							Are you sure you want to delete the Experience?
+						</p>
+						<!-- btns div -->
+						<div class="d-flex justify-content-end pb-4">
+							<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+							<button class="btn btn-lg btn-popup-delete">Delete</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <script type="text/javascript">

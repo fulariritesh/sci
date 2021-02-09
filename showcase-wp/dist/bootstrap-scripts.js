@@ -16729,7 +16729,7 @@ $(document).ready(function () {
       fieldOthers.map(function (i, e) {
         var field = $();
         field.efFieldName = $(this).data('other');
-        field.efValue = $(this).val().replace(/,/g, "@");
+        field.efValue = $(this).val();
         otherFields.push(field);
       });
       console.log(otherFields);
@@ -16754,6 +16754,10 @@ $(document).ready(function () {
           location.reload();
         }
       });
+    });
+    $("#add-experience-submit").on("click", function (event) {
+      event.preventDefault();
+      alert('add');
     });
   }
 });

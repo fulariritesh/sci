@@ -272,15 +272,9 @@ function sci_experience_form() {
                                           while ( have_rows('experience', 'user_' . $current_user->ID) ) : the_row();
                                              if(get_sub_field('category')->term_id == $catId){
                                                 $userFieldValue = get_sub_field($field);
+                                                $otherField = get_sub_field($field . '-other');
                                              }
-
-                                             // if(get_sub_field($field . '-other')){
-                                             //    $otherField[$field . '-other'] = get_sub_field($field . '-other');
-                                             // }else{
-                                             //    $otherField[$field . '-other'] = "";
-                                             // }
-                                          endwhile; 
-                                          //var_dump($otherField);  
+                                          endwhile;   
                                        endif;?>
                                        <div class="row px-4 pb-5">
                                           <div class="hr-text col-12 p-0 mb-4">
@@ -322,10 +316,9 @@ function sci_experience_form() {
                                                    </label>
                                                 <?php } ?> 
                                              </div>
-                                             <?php echo $otherField[1] ?>
                                              <div class="form-group row other-selected" <?php if(($key != "Others") || ($key == "Others" && $isSelected == "")){ echo 'style="display:none;"';} ?>>
                                                 <div class="col-12 col-md-6">
-                                                   <input class="form-control" data-other=<?php echo $field . '-other' ?> type="text" placeholder="Enter all the other inputs separated by comma" value=<?php echo $otherField ? str_replace("@",",",$otherField) : "" ?>></input>
+                                                   <input class="form-control" data-other=<?php echo $field . '-other' ?> type="text" placeholder="Enter all the other inputs separated by comma" value="<?php echo $otherField ?>"></input>
                                                    <div class="invalid-feedback">
                                                       Opps error!
                                                    </div>
@@ -370,7 +363,10 @@ function sci_experience_form() {
                                        if(!array_key_exists($year,$arrYear)){
                                           $arrYear[$year] = array();
                                        }
-                                       array_push($arrYear[$year], get_sub_field('content'));
+                                       $data = new stdClass(); 
+                                       $data->row = get_row_index();
+                                       $data->content = get_sub_field('content');
+                                       array_push($arrYear[$year], $data);
                                        krsort($arrYear);
                                        ?>
                                     <?php endwhile;
@@ -379,17 +375,17 @@ function sci_experience_form() {
                                  <div class="accordion col-12 mx-auto" id="accordion">
                                  <?php foreach($arrYear as $key => $yearData){ ?>   
                                     <div class="accordion-group mb-3 card">
-                                       <div class="row card-header collapsed p-2" id="headingOne" type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "year" . $key ?>>
+                                       <div class="row card-header collapsed p-2" id=<?php echo  "row" . $key ?> type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "row" . $key ?>>
                                           <div class="col-11">
                                              <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(<?php echo  $key ?>)</span>
                                              </p>
                                           </div>
                                        </div>
-                                       <div id=<?php echo "year" . $key ?> class="collapse" aria-labelledby="headingOne">
+                                       <div id=<?php echo "year" . $key ?> class="collapse" aria-labelledby=<?php echo  "year" . $key ?>>
                                           <div class="accordion-inner card-body">
-                                             <ul>
+                                             <ul data-year=<?php echo $key ?>>
                                                 <?php foreach($yearData as $data){ ?>
-                                                   <li><?php echo $data ?></li>
+                                                   <li data-row=<?php echo $data->row ?>><?php echo $data->content ?></li>
                                                 <?php } ?>
                                              </ul>
                                           </div>
@@ -410,7 +406,7 @@ function sci_experience_form() {
                      <div class="row px-4 pb-5">
                         <div class="hr-text col-12 p-0 mb-4">
                            <span class="credit-title font-weight-bold pr-3">
-                              Generic experience by Year
+                              Experience by Year
                            </span>
                         </div>
                         <form action="">
@@ -433,7 +429,7 @@ function sci_experience_form() {
                               </div>
                            </div>
                            <div class="d-flex justify-content-start">
-                              <button class="btn btn-lg btn-popup-savAddmr">Save & Add more</button>
+                              <button id="add-experience-submit" class="btn btn-lg btn-popup-savAddmr">Save & Add more</button>
                            </div>
                         </form>
                      </div>
