@@ -247,6 +247,11 @@ require get_template_directory() . '/inc/ajax-headshot.php';
 require get_template_directory() . '/inc/ajax-videos.php';
 
 /**
+ * User Audios
+ */
+require get_template_directory() . '/inc/ajax-audios.php';
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
