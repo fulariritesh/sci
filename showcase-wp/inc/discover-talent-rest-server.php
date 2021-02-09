@@ -131,6 +131,7 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
 
         $user->href = get_author_posts_url($user->ID);
         
+        $user->headshot = home_url() . "/wp-content/uploads/2021/02/unkown-1.jpg";
         if( have_rows('sci_user_headshots', 'user_' . $user->ID) ): ;
 					while ( have_rows('sci_user_headshots', 'user_' . $user->ID) ) : the_row();
             $imageId = get_sub_field('sci_user_headshot');
@@ -140,9 +141,6 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
               }
 					endwhile;
 				endif;
-        if(!$user->headshot){
-          $user->headshot = home_url() . "/wp-content/uploads/2021/02/unkown-1.jpg";
-        }
         
         $user->location = get_field('sci_user_location', 'user_' . $user->ID)['label'];  
     }
