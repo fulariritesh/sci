@@ -266,7 +266,7 @@ jQuery(function($) {
         
         list.forEach(profile => {
             let isProffessionCountMore = false;
-            let listHtml = `<a href="/wordpress/profile/${profile.ID}" class="col-6 col-sm-4 col-md-3 col-lg-2">
+            let listHtml = `<a href="${profile.href}" class="col-6 col-sm-4 col-md-3 col-lg-2">
                         <div class="card h-100">
                         <img class="card-img-top" src=${profile.headshot} alt="Card image cap">
                         <div class="card-body">
