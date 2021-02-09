@@ -279,11 +279,11 @@ jQuery(function($) {
                         isProffessionCountMore = true;
                         return;
                     }
-                    listHtml = listHtml + `<span class="badge" style="background-color: ${profession.badgeColour};">`+profession.singularName+`</span>`;
+                    listHtml = listHtml + `<span class="badge categorybadge" style="background-color: ${profession.badgeColour};">`+profession.singularName+`</span>`;
                 });
                 
                 if(isProffessionCountMore){
-                    listHtml = listHtml + `<span class="badge c-more">+${profile.professions.length - 4}</span>`;
+                    listHtml = listHtml + `<span class="badge categorybadge c-more">+${profile.professions.length - 4}</span>`;
                 }
 
                 listHtml = listHtml + `</p>
