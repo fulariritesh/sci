@@ -16675,7 +16675,12 @@ $(document).ready(function () {
     }
 
     $('.btn-add-experience').on('click', function (e) {
-      e.preventDefault();
+      e.preventDefault(); // $(this).addClass('disabled');
+      // let loading = document.createElement("div");
+      // loading.classList.add("editableform-loading");
+      // $(this).parent().addClass("loading")
+      // $(this).parent()[0].appendChild(loading);
+
       var id = $(this).data('id');
       $.post({
         url: Edit.request_url,
@@ -16686,7 +16691,10 @@ $(document).ready(function () {
         },
         success: function success(res) {
           $('#experience-modal-content').html(res);
-          $('#catdetailed').modal('show'); //$('.other-selected').hide();
+          $('#catdetailed').modal('show'); // $(this).removeClass('disabled');
+          // $(this).parent().removeClass("loading")
+          // $(this).parent()[0].children().last().remove();
+          //$('.other-selected').hide();
         }
       });
     });
@@ -16697,6 +16705,23 @@ $(document).ready(function () {
         } else if ($(this).val() == 'Others' && $(this).parent().hasClass('active')) {
           $(this).closest('.form-additional-fields').find('.other-selected').hide();
         }
+      }
+    });
+    var deletedExperiences = [];
+    $("#catdetailed").on("click", ".delete-experience", function (event) {
+      event.stopPropagation();
+      event.preventDefault();
+
+      if ($(this).closest('li').data('row')) {
+        deletedExperiences.push($(this).closest('li').data('row'));
+      }
+
+      var ul = $(this).closest('ul.list');
+      var group = $(this).closest('.new-experience-group');
+      $(this).closest('li').remove();
+
+      if (ul.children().length <= 0) {
+        group.remove();
       }
     });
     $("#catdetailed").on("click", "#experience-submit", function (event) {
@@ -16733,12 +16758,28 @@ $(document).ready(function () {
         otherFields.push(field);
       });
       console.log(otherFields);
-      var experienceWebsite = $('#experience-website').val();
+      var experienceWebsite = $('#experience-website').val(); /////experiences
+
+      var yearGroup = $(this).closest("#catdetailed").find('div[id^="year"]');
+      var experienceDetails = [];
+      yearGroup.map(function (i, e) {
+        var thisYear = $(this).find('ul.list').data('year');
+        $(this).find('ul.list').children().map(function (i, e) {
+          var experience = $();
+          experience.year = thisYear;
+          experience.rowNumber = $(this).data('row') ? $(this).data('row') : '-1';
+          experience.content = $(this).find('p').text();
+          experienceDetails.push(experience);
+        });
+      }); /////experiences
+
       var dataStringified = JSON.stringify({
         subCats: subCatsIds,
         additionalFields: fields,
         website: experienceWebsite,
-        fieldOtherSpecifications: otherFields
+        fieldOtherSpecifications: otherFields,
+        experiences: experienceDetails,
+        deleted: deletedExperiences
       });
       console.log(dataStringified);
       $.post({
@@ -16750,14 +16791,31 @@ $(document).ready(function () {
           updateData: dataStringified
         },
         success: function success(res) {
-          console.log(res);
-          location.reload();
+          console.log(res); //location.reload();
         }
       });
     });
-    $("#add-experience-submit").on("click", function (event) {
+    $("#catdetailed").on("click", "#add-experience", function (event) {
+      event.stopPropagation();
       event.preventDefault();
-      alert('add');
+      var year = $("#ExpYr").val();
+      var content = $("#experience-content").val();
+
+      if (year != '' && content != '') {
+        $(this).prop('disabled', true);
+        var cardBody = $('#year' + year);
+
+        if (cardBody.length > 0) {
+          cardBody.find('ul[data-year=' + year + ']').append("<li data-new=\"true\"><p>".concat(content, "</p><div class=\"d-flex justify-content-end\">\n\t\t\t\t\t<button class=\"btn btn-popup-del delete-experience\" type=\"button\" data-toggle=\"modal\" data-target=\"#deleteExp\">\n\t\t\t\t\t<i class=\"fas fa-trash-alt fa-lg\"></i>\n\t\t\t\t\t</button>\n\t\t\t\t</div></li>"));
+        } else {
+          var newGroup = "<div class=\"accordion-group mb-3 card new-experience-group\">\n\t\t\t\t\t<div class=\"row card-header collapsed p-2\" id=\"row".concat(year, "\" type=\"button\" data-toggle=\"collapse\" data-target='#year").concat(year, "' aria-expanded=\"true\" aria-controls=\"row").concat(year, "\">\n\t\t\t\t\t   <div class=\"col-11\">\n\t\t\t\t\t\t  <p class=\"text-uppercase my-2 pt-1 ml-2\">Year <span>(").concat(year, ")</span>\n\t\t\t\t\t\t  </p>\n\t\t\t\t\t   </div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div id=\"year").concat(year, "\" class=\"collapse\" aria-labelledby=\"year").concat(year, "\">\n\t\t\t\t\t   <div class=\"accordion-inner card-body\">\n\t\t\t\t\t\t  <ul class=\"list\" data-year=").concat(year, ">\n\t\t\t\t\t\t\t\t<li data-new=\"true\"><p>").concat(content, "</p>\n\t\t\t\t\t\t\t\t<div class=\"d-flex justify-content-end\">\n\t\t\t\t\t\t\t\t\t<button class=\"btn btn-popup-del delete-experience\" type=\"button\" data-toggle=\"modal\" data-target=\"#deleteExp\">\n\t\t\t\t\t\t\t\t\t<i class=\"fas fa-trash-alt fa-lg\"></i>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div></li>\n\t\t\t\t\t\t  </ul>\n\t\t\t\t\t   </div>\n\t\t\t\t\t</div>\n\t\t\t\t </div>");
+          $('#experience-accordion').append($(newGroup));
+        }
+
+        $("#ExpYr").val('');
+        $("#experience-content").val('');
+        $(this).prop('disabled', false);
+      }
     });
   }
 });

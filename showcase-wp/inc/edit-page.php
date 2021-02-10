@@ -372,7 +372,7 @@ function sci_experience_form() {
                                     <?php endwhile;
                                  endif; ?>
 
-                                 <div class="accordion col-12 mx-auto" id="accordion">
+                                 <div class="accordion col-12 mx-auto" id="experience-accordion">
                                  <?php foreach($arrYear as $key => $yearData){ ?>   
                                     <div class="accordion-group mb-3 card">
                                        <div class="row card-header collapsed p-2" id=<?php echo  "row" . $key ?> type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "row" . $key ?>>
@@ -383,9 +383,16 @@ function sci_experience_form() {
                                        </div>
                                        <div id=<?php echo "year" . $key ?> class="collapse" aria-labelledby=<?php echo  "year" . $key ?>>
                                           <div class="accordion-inner card-body">
-                                             <ul data-year=<?php echo $key ?>>
+                                             <ul class="list" data-year=<?php echo $key ?>>
                                                 <?php foreach($yearData as $data){ ?>
-                                                   <li data-row=<?php echo $data->row ?>><?php echo $data->content ?></li>
+                                                   <li data-row=<?php echo $data->row ?>><?php echo $data->content ?>
+                                                      <div class="d-flex justify-content-end">
+                                                         <button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
+                                                            <i class="fas fa-trash-alt fa-lg"></i>
+                                                         </button>
+                                                      </div>
+                                                   </li>
+                                                   
                                                 <?php } ?>
                                              </ul>
                                           </div>
@@ -411,25 +418,25 @@ function sci_experience_form() {
                         </div>
                         <form action="">
                         <div class="col-12 card p-3 mb-3">
-                           <div class="d-flex justify-content-end">
+                           <!-- <div class="d-flex justify-content-end">
                               <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteExp">
                                  <i class="fas fa-trash-alt fa-lg"></i>
                               </button>
-                           </div>
+                           </div> -->
                            <div class="form-group row">
                               <div class="col-12 col-md-6">
                                  <label for="ExpYr">Year</label>
-                                 <input type="text" class="form-control" id="ExpYr">
+                                 <input type="text" class="form-control" id="ExpYr" maxlength="4" pattern="^[0-9]{4}$" required>
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label for="videoDesp">Experience</label>
-                                 <textarea class="form-control justify-content-center" id="videoDesp" rows="4"></textarea>
-                                 <span class="float-right text-muted pt-1">200</span>
+                                 <label for="experience-content">Experience</label>
+                                 <textarea class="form-control justify-content-center" id="experience-content" rows="4" maxlength="500" required></textarea>
+                                 <span class="float-right text-muted pt-1">500</span>
                               </div>
                            </div>
                            <div class="d-flex justify-content-start">
-                              <button id="add-experience-submit" class="btn btn-lg btn-popup-savAddmr">Save & Add more</button>
+                              <button type="submit" id="add-experience" class="btn btn-lg btn-popup-savAddmr">Save & Add more</button>
                            </div>
                         </form>
                      </div>
@@ -464,6 +471,8 @@ function sci_experience_form_submit() {
    $additionalFields = $data->additionalFields;
    $website = $data->website;
    $fieldOtherSpecifications = $data->fieldOtherSpecifications;
+   $experiences = $data->experiences;
+   $deleted = $data->deleted;
 
    $userProfessions = get_field('profession', 'user_' . $current_user->ID);
 
@@ -479,8 +488,7 @@ function sci_experience_form_submit() {
 
    update_field(__sci_s("Profession", 'profession')['key'], $mainCategories, 'user_' . $current_user->ID);
    
-   
-
+   $a;
    //Update additional fields
    if( have_rows('experience', 'user_' . $current_user->ID)):
       while ( have_rows('experience', 'user_' . $current_user->ID) ) : the_row(); 
@@ -494,16 +502,45 @@ function sci_experience_form_submit() {
                update_sub_field($otherFields->efFieldName, $otherFields->efValue);
             }
 
+            
+
+            //    if( have_rows('sections') ) {
+            //       while( have_rows('sections') ) {
+            //           the_row();
+                     
+            //          if(in_array(get_row_index(), $deleted)){
+            //             delete_row('sections',get_row_index(),'user_'.$current_user->ID);
+            //             $a ="deleted".get_row_index();
+            //          }
+                     
+            //       }
+            //   }
+
+            foreach($experiences as $experience){
+
+               if($experience->rowNumber == "-1"){
+                  $row = array(
+                     'content' =>  $experience->content,
+                     'year' => $experience->year
+                  );
+                  add_row('sections', $row, 'user_'.$current_user->ID);
+                  $a=$experience->content . $row;
+               }
+            }
+
+            foreach($deleted as $deletedRow){
+               update_row('sections',$deletedRow,'user_'.$current_user->ID);
+               $a= '$experience->rowNumber'.$deletedRow;
+            }
+
             update_sub_field('website', $website);
          }  
       endwhile;
    endif;
-
-
    
    
 
-   echo $additionalFields[0]->efOptions[0];
+   echo $a;
    wp_die();
 
 }

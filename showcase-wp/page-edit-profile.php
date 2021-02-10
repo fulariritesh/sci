@@ -296,22 +296,22 @@ $user_info = get_userdata($obj_id);
 		        		</button>
 		        	</div>
 					<?php if (get_field('profession', 'user_' . $obj_id)): ?>
-		            <div class="selectedcategories pt-1">
-						<?php
-						$parents = [];
-						foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-							$child = get_term($key);
-							$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
-							array_push($parents, $termParent->term_id);
-						}
-						foreach (array_unique($parents) as $key) { ?>
-							<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
-								<?php echo get_field('category_name_singular', 'term_' . $key); ?>
-							</span>									
-						<?php }
+						<div class="selectedcategories pt-1">
+							<?php
+							$parents = [];
+							foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
+								$child = get_term($key);
+								$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
+								array_push($parents, $termParent->term_id);
+							}
+							foreach (array_unique($parents) as $key) { ?>
+								<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
+									<?php echo get_field('category_name_singular', 'term_' . $key); ?>
+								</span>									
+							<?php }
 
-						?>
-		            </div>
+							?>
+						</div>
 					<?php endif ?>
 		            <div class="selectedsocialmedia pt-1">
 		            	<style type="text/css">
@@ -605,11 +605,12 @@ $user_info = get_userdata($obj_id);
 									$arrCategory = array();
 
 									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-										if ($key->parent == 0) {
+										$child = get_term($key);
+										if ($child->parent == 0) {
 											if( have_rows('experience', 'user_' . $obj_id) ):	
 												while ( have_rows('experience', 'user_' . $obj_id) ) : the_row();
 													$catKey = get_sub_field('category')->term_id;
-													if($catKey == $key->term_id){ 
+													if($catKey == $child->term_id){ 
 														if(!array_key_exists($catKey,$arrCategory)){
 															$arrCategory[$catKey] = array();
 														}
@@ -709,22 +710,23 @@ $user_info = get_userdata($obj_id);
 								<?php if (get_field('profession', 'user_' . $obj_id)): 
 									$formAdditionalFields = get_field('sci_form_additional_fields', 'option');
 									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-										if ($key->parent == 0) { 
-										array_push($allCategories, $key->term_id);?>
+										$child = get_term($key);
+										if ($child->parent == 0) { 
+										array_push($allCategories, $child->term_id);?>
 											<?php if( have_rows('experience', 'user_' . $obj_id) ): ?>	
 												<?php while ( have_rows('experience', 'user_' . $obj_id) ) : the_row(); ?>
-													<?php if(get_sub_field('category')->term_id == $key->term_id){
-														array_push($categoriesWithProfession, $key->term_id);?>
+													<?php if(get_sub_field('category')->term_id == $child->term_id){
+														array_push($categoriesWithProfession, $child->term_id);?>
 														<div class="row mt-3 blockBG p-3 cat-block">
 															<div class="col-6 col-sm-4 col-lg-5 pt-3">
-																<h4><?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?></h4>
+																<h4><?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?></h4>
 															</div>
 															<div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-																<button class="btn btn-edit btn-add-experience" data-id=<?php echo $key->term_id ?>>Edit</button>
+																<button class="btn btn-edit btn-add-experience" data-id=<?php echo $child->term_id ?>>Edit</button>
 															</div>
 															<div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6">
 																<?php foreach($formAdditionalFields as $field){
-																	if($field["sci_form_category"] == $key->term_id && in_array('experience_level',$field["sci_form_field"])){
+																	if($field["sci_form_category"] == $child->term_id && in_array('experience_level',$field["sci_form_field"])){
 																		if(get_sub_field('experience_level')) { ?>
 																		<span class="badge experiencedbadge"> <i class="fas fa-check"></i> <?php echo get_sub_field('experience_level')["label"] ?></span>
 																		<?php }
@@ -738,7 +740,8 @@ $user_info = get_userdata($obj_id);
 																<?php 
 																	$availableSubcategories =0;
 																	foreach (get_field('profession', 'user_' . $obj_id) as $subCatIndex => $subCatkey) {
-																				if ($subCatkey->parent == $key->term_id){
+																		$childSubcat = get_term($subCatkey);
+																				if ($childSubcat->parent == $child->term_id){
 																					$availableSubcategories += 1;
 																				}
 																			} 
@@ -754,7 +757,7 @@ $user_info = get_userdata($obj_id);
 																			<p class="py-4"> 
 																				<?php
 																					foreach (get_field('profession', 'user_' . $obj_id) as $subCatIndex => $subCatkey) {
-																						if ($subCatkey->parent == $key->term_id){ ?>
+																						if ($childSubcat->parent == $child->term_id){ ?>
 																							<span class="badge specialisedbadge"><i class="fas fa-check"></i> <?php echo get_field('category_name_singular', 'term_' . $subCatkey->term_id); ?></span>
 																						<?php }
 																					}
@@ -766,7 +769,7 @@ $user_info = get_userdata($obj_id);
 																
 																<?php
 																	foreach($formAdditionalFields as $field){
-																		if($field["sci_form_category"] == $key->term_id){
+																		if($field["sci_form_category"] == $child->term_id){
 																			foreach($field["sci_form_field"] as $fieldOption){
 																				if($fieldOption != 'experience_level'){?>
 																					<?php if(get_sub_field($fieldOption)) {?>
@@ -780,7 +783,7 @@ $user_info = get_userdata($obj_id);
 																							</div>
 																							<p class="py-4">
 																								
-																									<?php if(get_sub_field($fieldOption)['label']) { ?>
+																									<?php if(array_key_exists('label',get_sub_field($fieldOption))) { ?>
 																										
 																											<span class="badge languagedbadge"><i class="fas fa-check"></i><?php echo get_sub_field($fieldOption)['label'] ?></span>	
 																										 
@@ -815,7 +818,7 @@ $user_info = get_userdata($obj_id);
 																	<div class="website">
 																		<div class="hr-text">
 																			<span class="credit-title pr-3">
-																				<?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?> Website
+																				<?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?> Website
 																			</span>
 																		</div>
 																		<p class="py-4"><?php echo get_sub_field('website') ?></p>
@@ -826,7 +829,7 @@ $user_info = get_userdata($obj_id);
 																	<div class="experience">
 																		<div class="hr-text">
 																			<span class="credit-title pr-3">
-																			<?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?> Experience
+																			<?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?> Experience
 																			</span>
 																		</div> 
 																	
