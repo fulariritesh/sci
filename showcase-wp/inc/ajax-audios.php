@@ -10,26 +10,71 @@ function sci_add_audio() {
    	}   
 
    	if(isset($_REQUEST["audio"])) {
-        // $audio_link = sanitize_text_field($_REQUEST["audio"]);     
-        // $row = array('audio_link' => $audio_link);
-        // if(!empty($_REQUEST["caption"])){
-        //     $audio_caption = sanitize_text_field($_REQUEST["caption"]);
-        //     $row['audio_caption'] = $audio_caption;
-        // }
-        // $success = add_row('audios', $row, 'user_'.$user_id);
-        echo json_encode(array('status' => 'success', 'msg' => 'TEST UPLOAD' ));
-        exit();	
-        if($success){          
-            echo json_encode(array('status' => 'success', 'msg' => 'Success.' ));
-            exit();	
-        }else{         
-            echo json_encode(array('status' => 'danger','msg' => 'Upload failed' ));
-            exit();	
-        }			
-		echo json_encode(array('status' => 'danger','msg' => 'Something went wrong.'));
+    
+		$success = false;
+		$data = $_POST['audio'];
+		$audio_array_1 = explode(";", $data);
+		$audio_array_2 = explode(",", $audio_array_1[1]);
+        $data = base64_decode($audio_array_2[1]);
+        
+        //data:audio/mpeg;base64,SUQzAw...
+        $audio_mime_type = explode(":", $audio_array_1[0])[1];
+
+        function mime2ext($mime) {
+            $mime_map = [
+                'audio/x-acc'                                                               => 'aac',       
+                'audio/x-flac'                                                              => 'flac',   
+                'audio/x-m4a'                                                               => 'm4a',
+                'audio/mp4'                                                                 => 'm4a',                
+                'audio/mpeg'                                                                => 'mp3',
+                'audio/mpg'                                                                 => 'mp3',
+                'audio/mpeg3'                                                               => 'mp3',
+                'audio/mp3'                                                                 => 'mp3',  
+                'audio/ogg'                                                                 => 'ogg',   
+                'audio/x-wav'                                                               => 'wav',
+                'audio/wave'                                                                => 'wav',
+                'audio/wav'                                                                 => 'wav',
+                'audio/x-ms-wma'                                                            => 'wma',
+            ];
+        
+            return isset($mime_map[$mime]) ? $mime_map[$mime] : false;
+        }
+
+        $audio_ext = mime2ext($audio_mime_type);
+
+		$wordpress_upload_dir = wp_upload_dir();
+		$new_file_path = $wordpress_upload_dir['path'] . '/' .$user_id.'_audio_'.time().'.'.$audio_ext;
+
+		if( file_put_contents($new_file_path , $data ) ) {
+
+			$upload_id = wp_insert_attachment( array(
+				'guid'           => $new_file_path, 
+				'post_mime_type' => $audio_mime_type,
+				'post_title'     => preg_replace( '/\.[^.]+$/', '', $user_id.'_audio_'.time().'.'.$audio_ext),
+				'post_content'   => '',
+				'post_status'    => 'inherit'
+			), $new_file_path );
+		
+		}
+
+		if((!is_wp_error($upload_id)) || ($upload_id !== 0)){		
+		
+			$row = array('audio_file' => $upload_id);
+			$success = add_row('audios', $row, 'user_'.$user_id);
+			
+			
+			if($success){
+				echo json_encode(array('status' => 'success','msg' => "Success"));
+				exit();	
+			}else{
+				echo json_encode(array('status' => 'danger','msg' => "Upload Failed"));
+				exit();	
+			}			
+		}
+		echo json_encode(array('status' => 'danger','msg' => "Something went wrong"));
 		exit();	
 	}else{
-		echo json_encode(array('status' => 'warning','msg' => 'Please enter a audio link'));
+		echo json_encode(array('status' => 'danger','msg' => "Bad Request :("));
 		exit();
    	}
     wp_die();
@@ -56,13 +101,13 @@ function sci_edit_audio() {
         $success = update_row('audios', $index, $row, 'user_'.$user_id);
   
         if($success){
-            echo json_encode(array('status' => 'success','msg' =>  'Success.' ));
+            echo json_encode(array('status' => 'success','msg' =>  'Success' ));
             exit();	
         }else{
             echo json_encode(array('status' => 'danger','msg' => 'Edit failed' ));
             exit();	
         }		
-		echo json_encode(array('status' => 'danger','msg' => 'Something went wrong.'));
+		echo json_encode(array('status' => 'danger','msg' => 'Something went wrong'));
 		exit();	
 	}else{
 		echo json_encode(array('status' => 'warning','msg' => 'Please enter a title'));
@@ -86,13 +131,13 @@ function sci_delete_audio() {
         $success = delete_row('audios', $index, 'user_'.$user_id);
      
         if($success){
-            echo json_encode(array('status' => 'success','msg' =>  'Success.' ));
+            echo json_encode(array('status' => 'success','msg' =>  'Success' ));
             exit();	
         }else{
             echo json_encode(array('status' => 'danger','msg' => 'Delete failed' ));
             exit();	
         }
-		echo json_encode(array('status' => 'danger','msg' => 'Something went wrong.'));
+		echo json_encode(array('status' => 'danger','msg' => 'Something went wrong'));
 		exit();	
 	}else{
 		echo json_encode(array('status' => 'danger','msg' => 'Invalid audio index'));

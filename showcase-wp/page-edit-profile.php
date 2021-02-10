@@ -151,15 +151,7 @@ $user_info = get_userdata($obj_id);
 							padding-right: 28px;
 							margin-right: 2px;
 							margin-bottom: 5px;
-						}
-						.defaultHeadshot{
-							text-align:center;
-							background:#f2f2f2;
-						}
-						.defaultHeadshot i.fas.fa-user{
-							font-size:100px;
-							padding-top:5px;
-						}
+						}						
 						@media (max-width: 575px){
 							#image-slider .splide__slide {
 								height: calc(100vw - 60px);
@@ -200,14 +192,17 @@ $user_info = get_userdata($obj_id);
 									    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
 									        // Load sub field value.
 									        $sub_value = get_sub_field('sci_user_headshot'); ?>
-									        <li  class="splide__slide">
+									        <li  class="splide__slide" >
 												<img src="<?php echo $sub_value['url']; ?>">
+												<div class="float-left">
+													<?php echo (get_row_index() == 1) ? '<span class="text-primary m-2"  data-toggle="tooltip" data-placement="left" title="This is your profile picture." > <i class="fas fa-info-circle"></i></span>' : ''; ?>
+												</div>
 												<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
 													<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
-														<i class="fas fa-pen fa-lg"></i>
+														<i class="fas fa-pen"></i>
 													</button>
 													<button class="btn btn-popup-del" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
-														<i class="fas fa-trash-alt fa-lg"></i>
+														<i class="fas fa-trash-alt"></i>
 													</button>
 												</div>
 											</li>
@@ -220,7 +215,7 @@ $user_info = get_userdata($obj_id);
 														<i class="fas fa-user"></i>
 														<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
 															<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot="'.$i.'">
-																<i class="fas fa-pen fa-lg"></i>
+																<i class="fas fa-pen"></i>
 															</button>
 														</div>			
 													</li>';

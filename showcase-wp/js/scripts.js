@@ -869,7 +869,7 @@ $(document).ready(function () {
 			const reader = new FileReader();
 			reader.addEventListener("load", function () {
 				audio_src = this.result;
-				console.log(audio_src);
+				//console.log(audio_src);
 				$.ajax({
 					url: Edit.request_url,
 					method:'POST',

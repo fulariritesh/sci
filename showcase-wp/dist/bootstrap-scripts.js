@@ -17276,8 +17276,8 @@ $(document).ready(function () {
     if (file) {
       var reader = new FileReader();
       reader.addEventListener("load", function () {
-        audio_src = this.result;
-        console.log(audio_src);
+        audio_src = this.result; //console.log(audio_src);
+
         $.ajax({
           url: Edit.request_url,
           method: 'POST',
