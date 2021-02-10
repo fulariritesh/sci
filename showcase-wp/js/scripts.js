@@ -447,52 +447,52 @@ $(document).ready(function(){
 	}
 });
 
-$(".card-header").click(function () {
-	$(this).toggleClass("selected");
-});
-var video = document.querySelector("#videoElement");
-const inpFile = document.getElementById("hsFile");
-const previewContainer = document.getElementById("img-preview");
-const previewImg = document.querySelector(".img-preview-img");
-const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
-const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+// $(".card-header").click(function () {
+// 	$(this).toggleClass("selected");
+// });
+// var video = document.querySelector("#videoElement");
+// const inpFile = document.getElementById("hsFile");
+// const previewContainer = document.getElementById("img-preview");
+// const previewImg = document.querySelector(".img-preview-img");
+// const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+// const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
 
-if (inpFile) inpFile.addEventListener("change", function () {
-  const file = this.files[0];
-  if (file) {
-    const reader = new FileReader();
-    previewDefaultTxt.style.display = "none";
-    previewImg.style.display = "block";
+// if (inpFile) inpFile.addEventListener("change", function () {
+//   const file = this.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     previewDefaultTxt.style.display = "none";
+//     previewImg.style.display = "block";
 
-    reader.addEventListener("load", function () {
-      console.log(this);
-      previewImg.setAttribute("src", this.result);
-    });
-    reader.readAsDataURL(file);
-  }
-})
+//     reader.addEventListener("load", function () {
+//       console.log(this);
+//       previewImg.setAttribute("src", this.result);
+//     });
+//     reader.readAsDataURL(file);
+//   }
+// })
 
-if (navigator.mediaDevices) {
-  navigator.mediaDevices
-    .getUserMedia({ video: true })
-    .then(function (stream) {
-      previewDefaultTxtCam.style.display = "none";
-      video.style.display = "block";
-      video.srcObject = stream;
-    })
-    .catch(function (err0r) {
-      console.log("Something went wrong!");
-    });
-}
-$(document).ready(function () {
-	$(".upload-div").hide();
-	$(".file-edit-btns").hide();
-	$(".btn-details-fileup").click(function () {
-		$(".capture-div").hide();
-		$(".upload-div").show();
-		$(".file-edit-btns").show();
-	});
-});
+// if (navigator.mediaDevices) {
+//   navigator.mediaDevices
+//     .getUserMedia({ video: true })
+//     .then(function (stream) {
+//       previewDefaultTxtCam.style.display = "none";
+//       video.style.display = "block";
+//       video.srcObject = stream;
+//     })
+//     .catch(function (err0r) {
+//       console.log("Something went wrong!");
+//     });
+// }
+// $(document).ready(function () {
+// 	$(".upload-div").hide();
+// 	$(".file-edit-btns").hide();
+// 	$(".btn-details-fileup").click(function () {
+// 		$(".capture-div").hide();
+// 		$(".upload-div").show();
+// 		$(".file-edit-btns").show();
+// 	});
+// });
 
 $(document).ready(function(){
 	// Check if element exists
@@ -908,6 +908,137 @@ $(document).ready(function () {
 				res = JSON.parse(response);
 				$('#resdeletevideoWrapper').empty();
 				$('#resdeletevideoWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+});
+
+//sid
+/* User Audios */
+$(document).ready(function () {
+
+	var indexAudio = 1;
+	$(".manageAudio").find("button").click(function(){
+		var index = $(this).attr("data-indexaudio");
+		var res;
+		if(index){
+			indexAudio = index;
+			console.log('Audio: '+indexAudio);
+		}
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexAudio,
+				nonce: Edit.nonce,
+				action:'sci_get_audio',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#editaudiotitle_input').val(res.title);					
+				$('#editaudiodescription_input').val(res.description)
+			}
+		});
+	});
+	  
+	// ADD AUDIO
+	$('#addaudiosave_submit').click(function () {
+		var res;
+		// var fd = new FormData(); 
+        // var files = $('#addaudiofile_input')[0].files[0]; 
+		// fd.append('file', files);
+		// fd.append('nonce')
+		const file = $('#addaudiofile_input')[0].files[0];
+		var audio_src;
+		if (file) {
+			const reader = new FileReader();
+			reader.addEventListener("load", function () {
+				audio_src = this.result;
+				//console.log(audio_src);
+				$.ajax({
+					url: Edit.request_url,
+					method:'POST',
+					data:{
+						audio: audio_src,
+						nonce: Edit.nonce,
+						action:'sci_add_audio',
+					},
+					success: function(response, status, xhr){
+						res = JSON.parse(response);
+						$('#resaddaudioWrapper').empty();
+						$('#resaddaudioWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+																	<button type="button" class="close" data-dismiss="alert">&times;</button> \
+																	'+ res.msg +'. \
+																</div>');
+						if(res.status === 'success'){
+							window.location.reload();
+						}								
+					},
+					error :function(xhr,status,error){
+						console.log(xhr,status,error);
+					},
+				});
+			});
+			reader.readAsDataURL(file);	
+		}				
+	});
+
+	// EDIT AUDIO
+	$('#editaudiosave_submit').click(function () {
+		var res;
+		var title = $('#editaudiotitle_input').val();
+		var description = $('#editaudiodescription_input').val();
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				title: title,
+				description: description,
+				index: indexAudio,
+				nonce: Edit.nonce,
+				action:'sci_edit_audio',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#reseditaudioWrapper').empty();
+				$('#reseditaudioWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	// DELETE AUDIO
+	$('#deleteaudiosave_submit').click(function () {
+		var res;
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexAudio,
+				nonce: Edit.nonce,
+				action:'sci_delete_audio',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#resdeleteaudioWrapper').empty();
+				$('#resdeleteaudioWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
 															<button type="button" class="close" data-dismiss="alert">&times;</button> \
 															'+ res.msg +'. \
 														</div>');
