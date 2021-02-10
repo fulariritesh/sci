@@ -252,6 +252,11 @@ $(document).ready(function(){
 
 		$('.btn-add-experience').on('click', function(e){
 			e.preventDefault();
+			// $(this).addClass('disabled');
+			// let loading = document.createElement("div");
+			// loading.classList.add("editableform-loading");
+			// $(this).parent().addClass("loading")
+			// $(this).parent()[0].appendChild(loading);
 			
 			let id = $(this).data('id');
 			$.post({
@@ -264,6 +269,9 @@ $(document).ready(function(){
 			    success : function(res){
 					$('#experience-modal-content').html(res);
 					$('#catdetailed').modal('show');
+					// $(this).removeClass('disabled');
+					// $(this).parent().removeClass("loading")
+					// $(this).parent()[0].children().last().remove();
 					//$('.other-selected').hide();
 			    }
 			})
@@ -281,6 +289,23 @@ $(document).ready(function(){
 				}
 			}
 		});
+
+		let deletedExperiences = [];
+		$("#catdetailed").on("click", ".delete-experience", function(event){
+			event.stopPropagation();
+			event.preventDefault();
+			if($(this).closest('li').data('row')){
+				deletedExperiences.push($(this).closest('li').data('row'));
+			}
+
+				let ul = $(this).closest('ul.list');
+				let group = $(this).closest('.new-experience-group');
+				$(this).closest('li').remove();
+				if(ul.children().length <=0){
+					group.remove();
+				}
+		});
+
 
 		$("#catdetailed").on("click", "#experience-submit", function(event){
 			event.preventDefault();
@@ -329,7 +354,30 @@ $(document).ready(function(){
 
 			let experienceWebsite = $('#experience-website').val();
 
-			let dataStringified = JSON.stringify({subCats : subCatsIds, additionalFields : fields, website : experienceWebsite, fieldOtherSpecifications : otherFields});
+
+
+			/////experiences
+			let yearGroup = $(this).closest("#catdetailed").find('div[id^="year"]');
+			let experienceDetails = [];
+			yearGroup.map(function(i, e){
+				
+				let thisYear = $(this).find('ul.list').data('year');
+				
+				$(this).find('ul.list').children().map(function(i, e){
+					let experience = $();
+					experience.year = thisYear;
+					experience.rowNumber = $(this).data('row')?$(this).data('row'):'-1';
+					experience.content = $(this).find('p').text();
+
+					experienceDetails.push(experience);
+				});
+				
+			});
+			/////experiences
+
+
+
+			let dataStringified = JSON.stringify({subCats : subCatsIds, additionalFields : fields, website : experienceWebsite, fieldOtherSpecifications : otherFields, experiences : experienceDetails, deleted : deletedExperiences });
 			console.log(dataStringified);
 			$.post({
 			    url: Edit.request_url,
@@ -341,14 +389,60 @@ $(document).ready(function(){
 			    },
 			    success : function(res){
 					console.log(res);
-			    	location.reload();
+			    	//location.reload();
 			    }
 			})
 		});
 
-		$("#add-experience-submit").on("click", function(event){
+		
+
+		$("#catdetailed").on("click", "#add-experience", function(event){
+			event.stopPropagation();
 			event.preventDefault();
-			alert('add');
+			
+			
+			let year = $("#ExpYr").val();
+			let content = $("#experience-content").val();
+
+			if(year != '' && content !=''){
+				$(this).prop('disabled', true);
+				let cardBody = $('#year'+year);
+				if(cardBody.length > 0){
+					cardBody.find('ul[data-year='+year+']').append(`<li data-new="true"><p>${content}</p><div class="d-flex justify-content-end">
+					<button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
+					<i class="fas fa-trash-alt fa-lg"></i>
+					</button>
+				</div></li>`);
+				}else{
+					let newGroup = `<div class="accordion-group mb-3 card new-experience-group">
+					<div class="row card-header collapsed p-2" id="row${year}" type="button" data-toggle="collapse" data-target='#year${year}' aria-expanded="true" aria-controls="row${year}">
+					   <div class="col-11">
+						  <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(${year})</span>
+						  </p>
+					   </div>
+					</div>
+					<div id="year${year}" class="collapse" aria-labelledby="year${year}">
+					   <div class="accordion-inner card-body">
+						  <ul class="list" data-year=${year}>
+								<li data-new="true"><p>${content}</p>
+								<div class="d-flex justify-content-end">
+									<button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
+									<i class="fas fa-trash-alt fa-lg"></i>
+									</button>
+								</div></li>
+						  </ul>
+					   </div>
+					</div>
+				 </div>`;
+	
+				 $('#experience-accordion').append($(newGroup));
+				}
+				
+				$("#ExpYr").val('');
+				$("#experience-content").val('');
+				$(this).prop('disabled', false);	
+			}
+			
 		});
 	}
 });
