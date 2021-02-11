@@ -73,8 +73,6 @@ update_user_meta( $current_user->ID, "_liked", [$user_that_they_liked]);
                 	<?php endif ?>
                     <div class="col-12 col-sm-6 profile-personaldetails pt-5 ">
                         <h1><a href="<?php echo get_author_posts_url($obj_id); ?>"><?php echo $data['first_name'][0] . " " . $data['last_name'][0]; ?>	</a></h1>
-                        <h5><i class="fas fa-envelope"></i> <?php echo $user_info->data->user_email; ?></h5>
-                        <h5><i class="fas fa-phone-alt pr-2"></i> <?php echo get_field('sci_user_mobile', 'user_' . $obj_id); ?></h5>
                         <h5><i class="fas fa-map-marker-alt pr-2"></i> <?php echo get_field('sci_user_location', 'user_' . $obj_id), false; ?>, India</h5>
                         <h5><i class="fas fa-venus-mars"></i> <?php echo get_field('sci_user_gender', 'user_' . $obj_id); ?></h5>
 						<?php if (get_field('profession', 'user_' . $obj_id)): ?>
