@@ -372,6 +372,11 @@ function sci_experience_form() {
                                     <?php endwhile;
                                  endif; ?>
 
+                                 <div class="hr-text col-12 p-0 mb-4">
+                                    <span class="credit-title font-weight-bold pr-3">
+                                       Experience by Year
+                                    </span>
+                                 </div>
                                  <div class="accordion col-12 mx-auto" id="experience-accordion">
                                  <?php foreach($arrYear as $key => $yearData){ ?>   
                                     <div class="accordion-group mb-3 card new-experience-group">
@@ -385,8 +390,8 @@ function sci_experience_form() {
                                           <div class="accordion-inner card-body">
                                              <ul class="list" data-year=<?php echo $key ?>>
                                                 <?php foreach($yearData as $data){ ?>
-                                                   <li data-row=<?php echo $data->row ?>><?php echo $data->content ?>
-                                                      <div class="d-flex justify-content-end">
+                                                   <li data-row=<?php echo $data->row ?> style="display: flex;padding-bottom: 5px;"><span contenteditable="true"><?php echo $data->content ?></span>
+                                                      <div class="d-flex justify-content-end" style="flex: auto;">
                                                          <button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
                                                             <i class="fas fa-trash-alt fa-lg"></i>
                                                          </button>
@@ -413,7 +418,7 @@ function sci_experience_form() {
                      <div class="row px-4 pb-5">
                         <div class="hr-text col-12 p-0 mb-4">
                            <span class="credit-title font-weight-bold pr-3">
-                              Experience by Year
+                              Add new Experience
                            </span>
                         </div>
                         <form action="">
@@ -511,6 +516,17 @@ function sci_experience_form_submit() {
                   $sectionRow += 1;
                   if(in_array($sectionRow, $deleted)){
                      unset($newSections[$key]);
+                  }
+
+               }
+
+               foreach($experiences as $experience){
+                  if($experience->rowNumber != "-1"){
+                     $newSection = array(
+                        "content" => $experience->content,
+                        "year" => (string)$experience->year
+                     );
+                     $newSections[$experience->rowNumber-1] = $newSection;
                   }
                }
             }

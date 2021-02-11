@@ -16768,7 +16768,7 @@ $(document).ready(function () {
           var experience = $();
           experience.year = thisYear;
           experience.rowNumber = $(this).data('row') ? $(this).data('row') : '-1';
-          experience.content = $(this).find('p').text();
+          experience.content = $(this).find('span').text();
           experienceDetails.push(experience);
         });
       }); /////experiences
@@ -16807,9 +16807,9 @@ $(document).ready(function () {
         var cardBody = $('#year' + year);
 
         if (cardBody.length > 0) {
-          cardBody.find('ul[data-year=' + year + ']').append("<li data-new=\"true\"><p>".concat(content, "</p><div class=\"d-flex justify-content-end\">\n\t\t\t\t\t<button class=\"btn btn-popup-del delete-experience\" type=\"button\" data-toggle=\"modal\" data-target=\"#deleteExp\">\n\t\t\t\t\t<i class=\"fas fa-trash-alt fa-lg\"></i>\n\t\t\t\t\t</button>\n\t\t\t\t</div></li>"));
+          cardBody.find('ul[data-year=' + year + ']').append("<li data-new=\"true\" style=\"display: flex;padding-bottom: 5px;\"><span contenteditable=\"true\">".concat(content, "</span><div class=\"d-flex justify-content-end\" style=\"flex: auto;\">\n\t\t\t\t\t<button class=\"btn btn-popup-del delete-experience\" type=\"button\" data-toggle=\"modal\" data-target=\"#deleteExp\">\n\t\t\t\t\t<i class=\"fas fa-trash-alt fa-lg\"></i>\n\t\t\t\t\t</button>\n\t\t\t\t</div></li>"));
         } else {
-          var newGroup = "<div class=\"accordion-group mb-3 card new-experience-group\">\n\t\t\t\t\t<div class=\"row card-header collapsed p-2\" id=\"row".concat(year, "\" type=\"button\" data-toggle=\"collapse\" data-target='#year").concat(year, "' aria-expanded=\"true\" aria-controls=\"row").concat(year, "\">\n\t\t\t\t\t   <div class=\"col-11\">\n\t\t\t\t\t\t  <p class=\"text-uppercase my-2 pt-1 ml-2\">Year <span>(").concat(year, ")</span>\n\t\t\t\t\t\t  </p>\n\t\t\t\t\t   </div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div id=\"year").concat(year, "\" class=\"collapse\" aria-labelledby=\"year").concat(year, "\">\n\t\t\t\t\t   <div class=\"accordion-inner card-body\">\n\t\t\t\t\t\t  <ul class=\"list\" data-year=").concat(year, ">\n\t\t\t\t\t\t\t\t<li data-new=\"true\"><p>").concat(content, "</p>\n\t\t\t\t\t\t\t\t<div class=\"d-flex justify-content-end\">\n\t\t\t\t\t\t\t\t\t<button class=\"btn btn-popup-del delete-experience\" type=\"button\" data-toggle=\"modal\" data-target=\"#deleteExp\">\n\t\t\t\t\t\t\t\t\t<i class=\"fas fa-trash-alt fa-lg\"></i>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div></li>\n\t\t\t\t\t\t  </ul>\n\t\t\t\t\t   </div>\n\t\t\t\t\t</div>\n\t\t\t\t </div>");
+          var newGroup = "<div class=\"accordion-group mb-3 card new-experience-group\">\n\t\t\t\t\t<div class=\"row card-header collapsed p-2\" id=\"row".concat(year, "\" type=\"button\" data-toggle=\"collapse\" data-target='#year").concat(year, "' aria-expanded=\"true\" aria-controls=\"row").concat(year, "\">\n\t\t\t\t\t   <div class=\"col-11\">\n\t\t\t\t\t\t  <p class=\"text-uppercase my-2 pt-1 ml-2\">Year <span>(").concat(year, ")</span>\n\t\t\t\t\t\t  </p>\n\t\t\t\t\t   </div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div id=\"year").concat(year, "\" class=\"collapse\" aria-labelledby=\"year").concat(year, "\">\n\t\t\t\t\t   <div class=\"accordion-inner card-body\">\n\t\t\t\t\t\t  <ul class=\"list\" data-year=").concat(year, ">\n\t\t\t\t\t\t\t\t<li data-new=\"true\" style=\"display: flex;padding-bottom: 5px;\"><span contenteditable=\"true\">").concat(content, "</span>\n\t\t\t\t\t\t\t\t<div class=\"d-flex justify-content-end\" style=\"flex: auto;\">\n\t\t\t\t\t\t\t\t\t<button class=\"btn btn-popup-del delete-experience\" type=\"button\" data-toggle=\"modal\" data-target=\"#deleteExp\">\n\t\t\t\t\t\t\t\t\t<i class=\"fas fa-trash-alt fa-lg\"></i>\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div></li>\n\t\t\t\t\t\t  </ul>\n\t\t\t\t\t   </div>\n\t\t\t\t\t</div>\n\t\t\t\t </div>");
           $('#experience-accordion').append($(newGroup));
         }
 
