@@ -93,7 +93,7 @@ $user_info = get_userdata($obj_id);
 		            <a href="<?php echo get_author_posts_url($obj_id); ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
 		        </div>
 		    </div>
-			<?php get_template_part('template-parts/template-profile-completion' ); ?>
+			<?php //get_template_part('template-parts/template-profile-completion' ); ?>
 			<div class="row p-3 blockBG mb-3">
 			    <div class="col-12 col-sm-6">
 					<style type="text/css">
@@ -394,36 +394,31 @@ $user_info = get_userdata($obj_id);
 	        </div>
 
 			<!-- Navigation Bar-->
-	        <div class="row blockBG profilenavigation mt-3 ">
-	            <nav id="navbar" class="navbar navbar-expand navbar-light navbarcolors  ">
+	        <!-- <div class="row blockBG mt-3 "> -->
+	            <nav id="navbar" class="navbar navbar-expand navbar-light navbarcolors sticky-top ">
 	                <div class="" id="navbarNav">
 	                  <ul class="navbar-nav">
 	                    <li class="nav-item active">
-	                      <a class="nav-link" href="#">Photo </a>
+	                      <a class="nav-link" href="#photos">Photo </a>
 	                    </li>
 	                    <li class="nav-item">
-	                      <a class="nav-link" href="#">Video</a>
+	                      <a class="nav-link" href="#videos">Video</a>
 	                    </li>
 	                    <li class="nav-item">
-	                      <a class="nav-link" href="#">Audio</a>
+	                      <a class="nav-link" href="#audios">Audio</a>
 	                    </li>
 	                    <li class="nav-item">
-	                        <a class="nav-link" href="#">Physical Attributes</a>
+	                        <a class="nav-link" href="#physical-attributes">Physical Attributes</a>
 	                    </li>
 	                    <li class="nav-item">
-	                        <a class="nav-link" href="#">Credit and Experience</a>
+	                        <a class="nav-link" href="#credit-and-experience">Credit and Experience</a>
 	                    </li>
-	                    <li class="nav-item">
-	                        <a class="nav-link" href="#">Acting</a>
-	                    </li>
-	                    <li class="nav-item">
-	                        <a class="nav-link" href="#">Modelling</a>
-	                      </li>
 	                  </ul>
 	                </div>
 	            </nav>
-	        </div>
+	        <!-- </div> -->
 
+			<div id="photos"></div>
 			<div class="photogrid">
 			    <?php if (get_field('photos', 'user_' . $obj_id)): ?>
 				<div class="row">
@@ -465,6 +460,7 @@ $user_info = get_userdata($obj_id);
 			    <?php endif; ?>
 			</div>
 			
+			<div id="videos"></div>
 			<!--Videos block-->
 	        <div class="row mt- blockBG p-3">
 				<style type="text/css">
@@ -499,6 +495,7 @@ $user_info = get_userdata($obj_id);
 				?>
 			</div>
 
+			<div id="audios"></div>
 	        <!--Audio block-->
 	        <div class="row mt-3 blockBG p-3 audioblock">
 	            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (<?php echo count(get_field('audios', 'user_' . $obj_id)); ?>)</h4></div>
@@ -528,6 +525,7 @@ $user_info = get_userdata($obj_id);
 				?>
 	        </div>
 
+			<div id="physical-attributes"></div>
 	        <!--Physical Attributes-->
 	        <div class="row mt-3 physicalattribs">
 	            <div class="col-9 col-sm-6 pt-3 px-0"><h4>Physical Attributes</h4></div>
@@ -620,6 +618,7 @@ $user_info = get_userdata($obj_id);
 	            </div>
 	        </div>
 
+			<div id="credit-and-experience"></div>
 	        <!-- ///////////////////////EXPERIENCE BLOCK//////////////////////////// -->
 
 				<?php if (get_field('experience', 'user_' . $obj_id)): ?>
@@ -2039,7 +2038,7 @@ aria-hidden="true">
 			<img src="/images/footer-logo-grey.png" alt="logo">
 		</div>
 		<div class="col-10 col-md-6">
-			<h5 class="modal-title text-lg-center" id="editIntroModalLabel">Manage Physical Attributes</h5>
+			<h5 class="modal-title text-lg-center" id="editIntroModalLabel">Physical Features</h5>
 		</div>
 		<div class="col-2 col-md-3">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2051,6 +2050,7 @@ aria-hidden="true">
 		<div class="row">
 			<div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
 			<div class="card-body">
+				<p class="text-muted">Fill in all the details relevant to your skillset for better chances of being scouted.</p>
 
 				<!-- HEIGHT -->
 				<div class="form-group">
@@ -2105,6 +2105,46 @@ aria-hidden="true">
 					<div class="invalid-feedback">Please enter a valid weight</div>
 				</div>
 
+				<!-- CHEST -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_chest_in = acf_get_field('sci_user_chest_in');				
+					?>
+					<label for="<?php echo $acf_chest_in['name']; ?>"><?php echo $acf_chest_in['label']; ?>: </label>
+					<input 
+					    name="<?php echo $acf_chest_in['name']; ?>" 
+						value="<?php echo ($user_chest_in) ? $user_chest_in : ''; ?>"
+						type="<?php echo $acf_chest_in['type']; ?>"
+						placeholder="<?php echo $acf_chest_in['placeholder']; ?>"
+						class="form-control" 
+						min="<?php echo $acf_chest_in['min']; ?>" 
+						max="<?php echo $acf_chest_in['max']; ?>"
+						step="<?php echo $acf_chest_in['step']; ?>"
+					>
+					<div class="invalid-feedback">Please enter a valid chest size</div>
+				</div>
+
+				<!-- WAIST -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_waist_in = acf_get_field('sci_user_waist_in');				
+					?>
+					<label for="<?php echo $acf_waist_in['name']; ?>"><?php echo $acf_waist_in['label']; ?>: </label>
+					<input 
+					    name="<?php echo $acf_waist_in['name']; ?>" 
+						value="<?php echo ($user_waist_in) ? $user_waist_in : ''; ?>"
+						type="<?php echo $acf_waist_in['type']; ?>"
+						placeholder="<?php echo $acf_waist_in['placeholder']; ?>"
+						class="form-control" 
+						min="<?php echo $acf_waist_in['min']; ?>" 
+						max="<?php echo $acf_waist_in['max']; ?>"
+						step="<?php echo $acf_waist_in['step']; ?>"
+					>
+					<div class="invalid-feedback">Please enter a valid waist size</div>
+				</div>
+
 				<!-- EYE COLOR -->
 				<div class="form-group">
 					<?php
@@ -2152,71 +2192,7 @@ aria-hidden="true">
 						<?php endforeach; ?>
 					</div>
 				</div>
-
-				<!-- CHEST -->
-				<div class="form-group">
-					<?php
-						//get values from ACF plugin
-						$acf_chest_in = acf_get_field('sci_user_chest_in');				
-					?>
-					<label for="<?php echo $acf_chest_in['name']; ?>"><?php echo $acf_chest_in['label']; ?>: </label>
-					<input 
-					    name="<?php echo $acf_chest_in['name']; ?>" 
-						value="<?php echo ($user_chest_in) ? $user_chest_in : ''; ?>"
-						type="<?php echo $acf_chest_in['type']; ?>"
-						placeholder="<?php echo $acf_chest_in['placeholder']; ?>"
-						class="form-control" 
-						min="<?php echo $acf_chest_in['min']; ?>" 
-						max="<?php echo $acf_chest_in['max']; ?>"
-						step="<?php echo $acf_chest_in['step']; ?>"
-					>
-					<div class="invalid-feedback">Please enter a valid chest size</div>
-				</div>
-
-				<!-- WAIST -->
-				<div class="form-group">
-					<?php
-						//get values from ACF plugin
-						$acf_waist_in = acf_get_field('sci_user_waist_in');				
-					?>
-					<label for="<?php echo $acf_waist_in['name']; ?>"><?php echo $acf_waist_in['label']; ?>: </label>
-					<input 
-					    name="<?php echo $acf_waist_in['name']; ?>" 
-						value="<?php echo ($user_waist_in) ? $user_waist_in : ''; ?>"
-						type="<?php echo $acf_waist_in['type']; ?>"
-						placeholder="<?php echo $acf_waist_in['placeholder']; ?>"
-						class="form-control" 
-						min="<?php echo $acf_waist_in['min']; ?>" 
-						max="<?php echo $acf_waist_in['max']; ?>"
-						step="<?php echo $acf_waist_in['step']; ?>"
-					>
-					<div class="invalid-feedback">Please enter a valid waist size</div>
-				</div>
-
-				<!-- HAIR LENGTH -->
-				<div class="form-group">
-					<?php
-						//get values from ACF plugin
-						$acf_hair_length = acf_get_field('sci_user_hair_length');		
-					?>
-					<div>
-					<label for="<?php echo $acf_hair_length['name']; ?>"><?php echo $acf_hair_length['label']; ?>:</label>
-					</div>
-					<div class="btn-group btn-group-toggle" data-toggle="buttons">
-						<?php foreach($acf_hair_length['choices'] as $value => $label): ?>
-							<label class="btn btn-details-gen">
-								<input 
-								type="<?php echo $acf_hair_length['type']; ?>" 
-							    name="<?php echo $acf_hair_length['name']; ?>"
-								value="<?php echo $value; ?>"
-								<?php echo ($user_hair_length == $label) ? 'checked' : '' ?>
-								/>
-								<?php echo $label; ?>
-							</label>
-						<?php endforeach; ?>
-					</div>
-				</div>
-
+		
 				<!-- HAIR COLOR -->
 				<div class="form-group">
 					<?php
@@ -2280,6 +2256,30 @@ aria-hidden="true">
 						}
 					}
 				?>
+				
+				<!-- HAIR LENGTH -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_hair_length = acf_get_field('sci_user_hair_length');		
+					?>
+					<div>
+					<label for="<?php echo $acf_hair_length['name']; ?>"><?php echo $acf_hair_length['label']; ?>:</label>
+					</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<?php foreach($acf_hair_length['choices'] as $value => $label): ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_hair_length['type']; ?>" 
+							    name="<?php echo $acf_hair_length['name']; ?>"
+								value="<?php echo $value; ?>"
+								<?php echo ($user_hair_length == $label) ? 'checked' : '' ?>
+								/>
+								<?php echo $label; ?>
+							</label>
+						<?php endforeach; ?>
+					</div>
+				</div>
 
 				<!-- HAIR TYPE -->
 				<div class="form-group">

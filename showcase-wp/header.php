@@ -134,7 +134,7 @@
             </div>
             <div class="navbar-btn">
               <a
-				 href="/signin"
+				 href="/login"
                 class="btn btn-signIn"
                 type="button"
               >

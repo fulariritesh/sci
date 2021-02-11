@@ -182,7 +182,7 @@ include('join-pagination.php');
 							class="form-control <?php echo ($dob_er) ? "is-invalid" : ""; ?>" 
 							id=dob 
 							name="dob" 
-							value="<?php $d = get_user_meta( $user_id, 'sci_user_dob', true);  echo ($d) ?  $d : ""; ?>"
+							value="<?php echo get_field('sci_user_dob','user_'.$user_id); ?>"
 							required 
 						/>
 						<div class="invalid-feedback">Please enter a valid date</div>

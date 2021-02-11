@@ -17009,25 +17009,28 @@ $(document).ready(function () {
       console.log('Headshot: ' + indexHeadshot);
     }
   });
-  inpFile.addEventListener("change", function () {
-    var file = this.files[0];
 
-    if (file) {
-      var reader = new FileReader();
-      reader.addEventListener("load", function () {
-        //console.log(this);
-        previewDefaultTxt.style.display = "none";
-        previewImg.setAttribute("src", this.result);
-        previewImg.style.display = "block";
-        cropper = new (cropperjs__WEBPACK_IMPORTED_MODULE_2___default())(previewImg, {
-          viewMode: 1,
-          aspectRatio: 1,
-          initialAspectRatio: 1
+  if (inpFile) {
+    inpFile.addEventListener("change", function () {
+      var file = this.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+        reader.addEventListener("load", function () {
+          //console.log(this);
+          previewDefaultTxt.style.display = "none";
+          previewImg.setAttribute("src", this.result);
+          previewImg.style.display = "block";
+          cropper = new (cropperjs__WEBPACK_IMPORTED_MODULE_2___default())(previewImg, {
+            viewMode: 1,
+            aspectRatio: 1,
+            initialAspectRatio: 1
+          });
         });
-      });
-      reader.readAsDataURL(file);
-    }
-  });
+        reader.readAsDataURL(file);
+      }
+    });
+  }
 
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({
@@ -17504,6 +17507,22 @@ $(document).ready(function () {
       }
     });
   });
+}); //sid
+
+/* UM Form Override css */
+
+$(document).ready(function () {
+  //login
+  $('a.um-link-alt').parent().hide();
+  $('span.um-field-checkbox-option').text('Remember me'); //reset-password
+
+  $('div.um-field.um-field-block.um-field-type_block').hide();
+  $('input#username_b.um-form-field').attr("placeholder", 'Email');
+  var isresetpwdbtn = $('input#um-submit-btn.um-button').val();
+
+  if (isresetpwdbtn === 'Reset my password') {
+    $('input#um-submit-btn.um-button').val('Send Reset Link');
+  }
 });
 
 /***/ }),
