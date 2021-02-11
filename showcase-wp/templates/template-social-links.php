@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     unset($_SESSION['user_social_links']['instagram']);
                     $ig_error = true;
                 }else{
-                    unset($ig_error);
                     $_SESSION['user_social_links']['instagram'] =  $ig_url;
                 }
             }

@@ -526,58 +526,99 @@ $user_info = get_userdata($obj_id);
 					$display_audios = array_reverse($display_audios);
 					echo implode($display_audios);
 				?>
-	         </div>
+	        </div>
 
-	          <!--Physical Attributes-->
-	         <div class="row mt-3 physicalattribs">
-	            <div class="col-9 col-sm-6 pt-3 px-0"> <h4>Physical Attributes</h4></div>
-	                <div class="col-3 col-sm-6 pt-3 px-0 text-right">
-	                    <button class="btn btn-edit">Edit</button>
-	                </div>
+	        <!--Physical Attributes-->
+	        <div class="row mt-3 physicalattribs">
+	            <div class="col-9 col-sm-6 pt-3 px-0"><h4>Physical Attributes</h4></div>
+				<div class="col-3 col-sm-6 pt-3 px-0 text-right">
+					<button data-toggle="modal" data-target="#editPhysicalAttributes" class="btn btn-edit">Edit</button>
+				</div>
 	        </div>
 	        <div class="row physicalfeatures justify-content-center pt-3">
 	            <div class=" card">
-	             <div class="pa-height"><div class='sprite height-c'></div></div>
-	             <div class="card-title">Height<span>180cms/5ft 11in</span></div>
+	             	<div class="pa-height"><div class='sprite height-c'></div></div>
+	             	<div class="card-title">
+						Height<span>
+						<?php $user_height_ft = get_field('sci_user_height_ft', 'user_' . $obj_id); echo ($user_height_ft) ? $user_height_ft.'ft' : 'Not Set';
+							$user_height_in = get_field('sci_user_height_in', 'user_' . $obj_id); echo ($user_height_ft && $user_height_in) ? $user_height_in.'in' : '';
+						?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-weight"><div class='sprite weight-c'></div></div>
-	                <div class="card-title">Weight<span>68kg/149lbs</span></div>
+					<div class="card-title">
+						Weight<span>
+						<?php $user_weight_kg = get_field('sci_user_weight_kg', 'user_' . $obj_id); echo ($user_weight_kg) ? $user_weight_kg.'kg' : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-ethnicity"><div class='sprite ethnicity-c'></div></div>
-	                <div class="card-title">Ethnicity<span>Indian</span></div>
+	                <div class="card-title">
+						Ethnicity<span>
+						<?php $user_ethnicity = get_field('sci_user_ethnicity', 'user_' . $obj_id); echo ($user_ethnicity) ? $user_ethnicity : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-chest"><div class='sprite chest-c'></div></div>
-	                <div class="card-title">Chest<span>36cms</span></div>
+	                <div class="card-title">
+						Chest<span>
+						<?php $user_chest_in = get_field('sci_user_chest_in', 'user_' . $obj_id); echo ($user_chest_in) ? $user_chest_in.'in' : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-skincolor"><div class='sprite skincolor-c'></div></div>
-	                <div class="card-title">Skin Color<span>Brown</span></div>
-	            </div>
-	        
+	                <div class="card-title">
+						Skin Color<span>
+						<?php $user_skin_color = get_field('sci_user_skin_color', 'user_' . $obj_id); echo ($user_skin_color) ? $user_skin_color : 'Not Set'; ?>
+						</span>
+					</div>
+	            </div>	        
 	            <div class=" card">
 	                <div class="pa-notset"><div class='sprite waist'></div></div>
-	                <div class="card-title">Waist<span>Not Set</span></div>
+	                <div class="card-title">
+						Waist<span>
+						<?php $user_waist_in = get_field('sci_user_waist_in', 'user_' . $obj_id); echo ($user_waist_in) ? $user_waist_in.'in' : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-notset"><div class='sprite eyecolor'></div></div>
-	                <div class="card-title">Eye Color<span>Not Set</span></div>
+	                <div class="card-title">
+						Eye Color<span>
+						<?php $user_eye_color = get_field('sci_user_eye_color', 'user_' . $obj_id); echo ($user_eye_color) ? $user_eye_color : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-notset"><div class='sprite hair-dye'></div></div>
-	                <div class="card-title">Hair Color<span>Not Set</span></div>
+	                <div class="card-title">
+						Hair Color<span>
+						<?php $user_hair_color = get_field('sci_user_hair_color', 'user_' . $obj_id); echo ($user_hair_color) ? $user_hair_color : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-notset"><div class='sprite hair-length'></div></div>
-	                <div class="card-title">Hair Length<span>Not Set</span></div>
+	                <div class="card-title">
+						Hair Length<span>
+						<?php $user_hair_length = get_field('sci_user_hair_length', 'user_' . $obj_id); echo ($user_hair_length) ? $user_hair_length : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
 	            <div class=" card">
 	                <div class="pa-notset"><div class='sprite hair'></div></div>
-	                <div class="card-title">Hair Type<span>Not Set</span></div>
+	                <div class="card-title">
+						Hair Type<span>
+						<?php $user_hair_type = get_field('sci_user_hair_type', 'user_' . $obj_id); echo ($user_hair_type) ? $user_hair_type : 'Not Set'; ?>
+						</span>
+					</div>
 	            </div>
-	          </div>
+	        </div>
 
 	        <!-- ///////////////////////EXPERIENCE BLOCK//////////////////////////// -->
 
@@ -1984,6 +2025,361 @@ aria-hidden="true">
 
 			<!-- response message -->
 			<div id="resdeleteaudioWrapper"></div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<!--PhysicalAttributes Modal -->
+<div class="modal fade" id="editPhysicalAttributes" tabindex="-1" aria-labelledby="editPhysicalAttributesModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+	<div class="modal-content">
+		<div class="modal-header">
+		<div class="col-md-3 d-none d-lg-block">
+			<img src="/images/footer-logo-grey.png" alt="logo">
+		</div>
+		<div class="col-10 col-md-6">
+			<h5 class="modal-title text-lg-center" id="editIntroModalLabel">Manage Physical Attributes</h5>
+		</div>
+		<div class="col-2 col-md-3">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		</div>
+		<div class="modal-body">
+		<div class="row">
+			<div class="card col-12 col-lg-8 mx-auto shadow-sm py-4">
+			<div class="card-body">
+
+				<!-- HEIGHT -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_height_ft = acf_get_field('sci_user_height_ft');
+                        $acf_height_in = acf_get_field('sci_user_height_in');						
+					?>
+					<label for="<?php echo $acf_height_ft['name']; ?>"><?php echo $acf_height_ft['label']; ?>:</label>
+					<div class="d-flex justify-content-between">
+						<input 
+                            name="<?php echo $acf_height_ft['name']; ?>" 
+                            value="<?php echo ($user_height_ft) ? $user_height_ft : ''; ?>"
+							type="<?php echo $acf_height_ft['type']; ?>"
+							placeholder="<?php echo $acf_height_ft['placeholder']; ?>"
+                            class="form-control mr-2" 
+                            min="<?php echo $acf_height_ft['min']; ?>" 
+                            max="<?php echo $acf_height_ft['max']; ?>"
+                            step="<?php echo $acf_height_ft['step']; ?>"
+                        >
+                        <input 
+							name="<?php echo $acf_height_in['name']; ?>" 
+                            value="<?php echo ($user_height_in) ? $user_height_in : ''; ?>"
+							type="<?php echo $acf_height_in['type']; ?>"
+							placeholder="<?php echo $acf_height_in['placeholder']; ?>"
+                            class="form-control ml-2" 
+                            min="<?php echo $acf_height_in['min']; ?>" 
+                            max="<?php echo $acf_height_in['max']; ?>"
+                            step="<?php echo $acf_height_in['step']; ?>"
+						>
+						<div class="text-danger d-none" style="font-size: 80%;">Please enter a valid height</div>
+					</div>				
+				</div>
+
+				<!-- WEIGHT -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_weight_kg = acf_get_field('sci_user_weight_kg');				
+					?>
+					<label for="<?php echo $acf_weight_kg['name']; ?>"><?php echo $acf_weight_kg['label']; ?>: </label>
+					<input 
+					    name="<?php echo $acf_weight_kg['name']; ?>" 
+						value="<?php echo ($user_weight_kg) ? $user_weight_kg : ''; ?>"
+						type="<?php echo $acf_weight_kg['type']; ?>"
+						placeholder="<?php echo $acf_weight_kg['placeholder']; ?>"
+						class="form-control" 
+						min="<?php echo $acf_weight_kg['min']; ?>" 
+						max="<?php echo $acf_weight_kg['max']; ?>"
+						step="<?php echo $acf_weight_kg['step']; ?>"
+					>
+					<div class="invalid-feedback">Please enter a valid weight</div>
+				</div>
+
+				<!-- EYE COLOR -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_eye_color = acf_get_field('sci_user_eye_color');		
+					?>
+					<div>
+					<label for="<?php echo $acf_eye_color['name']; ?>"><?php echo $acf_eye_color['label']; ?>:</label>
+					</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<?php foreach($acf_eye_color['choices'] as $value => $label): ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_eye_color['type']; ?>" 
+							    name="<?php echo $acf_eye_color['name']; ?>"
+								value="<?php echo $value; ?>"
+								<?php echo ($user_eye_color == $label) ? 'checked' : '' ?>
+								/>
+								<?php echo $label; ?>
+							</label>
+						<?php endforeach; ?>
+					</div>
+				</div>
+
+				<!-- SKIN COLOR -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_skin_color = acf_get_field('sci_user_skin_color');		
+					?>
+					<div>
+					<label for="<?php echo $acf_skin_color['name']; ?>"><?php echo $acf_skin_color['label']; ?>:</label>
+					</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<?php foreach($acf_skin_color['choices'] as $value => $label): ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_skin_color['type']; ?>" 
+							    name="<?php echo $acf_skin_color['name']; ?>"
+								value="<?php echo $value; ?>"
+								<?php echo ($user_skin_color == $label) ? 'checked' : '' ?>
+								/>
+								<?php echo $label; ?>
+							</label>
+						<?php endforeach; ?>
+					</div>
+				</div>
+
+				<!-- CHEST -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_chest_in = acf_get_field('sci_user_chest_in');				
+					?>
+					<label for="<?php echo $acf_chest_in['name']; ?>"><?php echo $acf_chest_in['label']; ?>: </label>
+					<input 
+					    name="<?php echo $acf_chest_in['name']; ?>" 
+						value="<?php echo ($user_chest_in) ? $user_chest_in : ''; ?>"
+						type="<?php echo $acf_chest_in['type']; ?>"
+						placeholder="<?php echo $acf_chest_in['placeholder']; ?>"
+						class="form-control" 
+						min="<?php echo $acf_chest_in['min']; ?>" 
+						max="<?php echo $acf_chest_in['max']; ?>"
+						step="<?php echo $acf_chest_in['step']; ?>"
+					>
+					<div class="invalid-feedback">Please enter a valid chest size</div>
+				</div>
+
+				<!-- WAIST -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_waist_in = acf_get_field('sci_user_waist_in');				
+					?>
+					<label for="<?php echo $acf_waist_in['name']; ?>"><?php echo $acf_waist_in['label']; ?>: </label>
+					<input 
+					    name="<?php echo $acf_waist_in['name']; ?>" 
+						value="<?php echo ($user_waist_in) ? $user_waist_in : ''; ?>"
+						type="<?php echo $acf_waist_in['type']; ?>"
+						placeholder="<?php echo $acf_waist_in['placeholder']; ?>"
+						class="form-control" 
+						min="<?php echo $acf_waist_in['min']; ?>" 
+						max="<?php echo $acf_waist_in['max']; ?>"
+						step="<?php echo $acf_waist_in['step']; ?>"
+					>
+					<div class="invalid-feedback">Please enter a valid waist size</div>
+				</div>
+
+				<!-- HAIR LENGTH -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_hair_length = acf_get_field('sci_user_hair_length');		
+					?>
+					<div>
+					<label for="<?php echo $acf_hair_length['name']; ?>"><?php echo $acf_hair_length['label']; ?>:</label>
+					</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<?php foreach($acf_hair_length['choices'] as $value => $label): ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_hair_length['type']; ?>" 
+							    name="<?php echo $acf_hair_length['name']; ?>"
+								value="<?php echo $value; ?>"
+								<?php echo ($user_hair_length == $label) ? 'checked' : '' ?>
+								/>
+								<?php echo $label; ?>
+							</label>
+						<?php endforeach; ?>
+					</div>
+				</div>
+
+				<!-- HAIR COLOR -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_hair_color = acf_get_field('sci_user_hair_color');		
+					?>
+					<div>
+					<label for="<?php echo $acf_hair_color['name']; ?>"><?php echo $acf_hair_color['label']; ?>:</label>
+					</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<?php foreach($acf_hair_color['choices'] as $value => $label): ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_hair_color['type']; ?>" 
+							    name="<?php echo $acf_hair_color['name']; ?>"
+								value="<?php echo $value; ?>"
+								<?php echo ($user_hair_color == $label) ? 'checked' : '' ?>
+								/>
+								<?php echo $label; ?>
+							</label>
+						<?php endforeach; ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_hair_color['type']; ?>" 
+							    name="<?php echo $acf_hair_color['name']; ?>"
+								value="<?php echo $user_hair_color; ?>"
+								id="sci_user_custom_hair_color_radio"
+								<?php 
+								if($user_hair_color){
+									echo (!array_search($user_hair_color,array_values($acf_hair_color['choices']),true)) ? 'checked' : ''; 
+								}
+								?>
+								/>
+								Other
+							</label>
+					</div>
+				</div>
+				<?php 
+					if($user_hair_color){
+						if(!array_search($user_hair_color,array_values($acf_hair_color['choices']),true)){ ?>
+							<div id="sci_user_custom_hair_color_wapper" class="form-group">
+								<input 
+									type="text" 
+									class="form-control" 
+									placeholder="Enter hair color" 
+									value="<?php echo $user_hair_color; ?>"
+									id="sci_user_custom_hair_color_text"
+								/>
+							</div>
+								<?php
+						}else{
+							echo '<div id="sci_user_custom_hair_color_wapper" class="form-group d-none">
+									<input 
+										type="text" 
+										class="form-control" 
+										placeholder="Enter hair color" 
+										value=""
+										id="sci_user_custom_hair_color_text"
+									/>
+								</div>';
+						}
+					}
+				?>
+
+				<!-- HAIR TYPE -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_hair_type = acf_get_field('sci_user_hair_type');		
+					?>
+					<div>
+					<label for="<?php echo $acf_hair_type['name']; ?>"><?php echo $acf_hair_type['label']; ?>:</label>
+					</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<?php foreach($acf_hair_type['choices'] as $value => $label): ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_hair_type['type']; ?>" 
+							    name="<?php echo $acf_hair_type['name']; ?>"
+								value="<?php echo $value; ?>"
+								<?php echo ($user_hair_type == $label) ? 'checked' : '' ?>
+								/>
+								<?php echo $label; ?>
+							</label>
+						<?php endforeach; ?>
+					</div>
+				</div>
+
+				<!-- ETHNICITY -->
+				<div class="form-group">
+					<?php
+						//get values from ACF plugin
+						$acf_ethnicity = acf_get_field('sci_user_ethnicity');		
+					?>
+					<div>
+					<label for="<?php echo $acf_ethnicity['name']; ?>"><?php echo $acf_ethnicity['label']; ?>:</label>
+					</div>
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<?php foreach($acf_ethnicity['choices'] as $value => $label): ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_ethnicity['type']; ?>" 
+							    name="<?php echo $acf_ethnicity['name']; ?>"
+								value="<?php echo $value; ?>"
+								<?php echo ($user_ethnicity == $label) ? 'checked' : '' ?>
+								/>
+								<?php echo $label; ?>
+							</label>
+						<?php endforeach; ?>
+							<label class="btn btn-details-gen">
+								<input 
+								type="<?php echo $acf_ethnicity['type']; ?>" 
+							    name="<?php echo $acf_ethnicity['name']; ?>"
+								value="<?php echo $user_ethnicity; ?>"
+								id="sci_user_custom_ethnicity_radio"
+								<?php 
+								if($user_ethnicity){
+									echo (!array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true)) ? 'checked' : ''; 
+								}
+								?>
+								/>
+								Other
+							</label>
+					</div>
+				</div>
+				<?php 
+					if($user_ethnicity){
+						if(!array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true)){ ?>
+							<div id="sci_user_custom_ethnicity_wapper" class="form-group">
+								<input 
+									type="text" 
+									class="form-control" 
+									placeholder="Enter ethnicity" 
+									value="<?php echo $user_ethnicity; ?>"
+									id="sci_user_custom_ethnicity_text"
+								/>
+							</div>
+							<?php
+						}else{
+							echo '<div id="sci_user_custom_ethnicity_wapper" class="form-group d-none">
+									<input 
+										type="text" 
+										class="form-control" 
+										placeholder="Enter ethnicity" 
+										value=""
+										id="sci_user_custom_ethnicity_text"
+									/>
+								</div>';
+						}
+					}
+				?>
+
+				<div class="d-flex justify-content-center py-4">
+					<button class="btn btn-lg btn-popup-cancel mr-2" data-dismiss="modal">Cancel</button>
+					<button id="editphysicalattributessave_submit" class="btn btn-lg btn-popup-save px-4 ml-2">Save</button>
+				</div>
+
+				<!-- Response message -->
+				<div id="reseditphysicalattributesWrapper"></div>
+		
+			</div>
+			</div>
+		</div>
 		</div>
 	</div>
 	</div>

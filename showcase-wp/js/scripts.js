@@ -588,7 +588,7 @@ $(document).ready(function () {
 		!!! --- Use conditional fields in acf --- !!! ~ Wiseman 
 
 	*/
-	$("input[type='radio']").on('click', function (e){
+	$('input[type=radio][name=gender]').change(function (e){
 		var genvalue = $("input[name='gender']:checked").val();
 		if(genvalue === 'custom'){
 			$('#custom_gender').removeClass('d-none');
@@ -1051,4 +1051,91 @@ $(document).ready(function () {
 			},
 		});
 	});
+});
+
+//sid
+/* User Physical Attributes */
+$(document).ready(function () {
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_ethnicity_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_ethnicity_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_ethnicity]').change(function () {
+		if ($('#sci_user_custom_ethnicity_radio:checked').val()) {
+			$("#sci_user_custom_ethnicity_wapper").removeClass('d-none');
+		}else{
+			$("#sci_user_custom_ethnicity_wapper").addClass('d-none');
+		}
+	});
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_hair_color_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_hair_color_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_hair_color]').change(function () {
+		if ($('#sci_user_custom_hair_color_radio:checked').val()) {
+			$("#sci_user_custom_hair_color_wapper").removeClass('d-none');
+		}else{
+			$("#sci_user_custom_hair_color_wapper").addClass('d-none');
+		}
+	});
+
+	// EDIT PHYSICAL ATTRIBUTES
+	$('#editphysicalattributessave_submit').click(function () {
+		var res;
+		var sci_user_height_ft = $('input[name=sci_user_height_ft]').val();
+		var sci_user_height_in = $('input[name=sci_user_height_in]').val();
+		var sci_user_weight_kg = $('input[name=sci_user_weight_kg]').val();
+		var sci_user_chest_in = $('input[name=sci_user_chest_in]').val();
+		var sci_user_waist_in = $('input[name=sci_user_waist_in]').val();
+		var sci_user_eye_color = $('input[name=sci_user_eye_color]:checked').val();
+		var sci_user_skin_color = $('input[name=sci_user_skin_color]:checked').val();
+		var sci_user_hair_length = $('input[name=sci_user_hair_length]:checked').val();
+		var sci_user_hair_color = $('input[name=sci_user_hair_color]:checked').val();
+		var sci_user_hair_type = $('input[name=sci_user_hair_type]:checked').val();
+		var sci_user_ethnicity = $('input[name=sci_user_ethnicity]:checked').val();
+
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				sci_user_height_ft: sci_user_height_ft,
+				sci_user_height_in: sci_user_height_in,
+				sci_user_weight_kg: sci_user_weight_kg,
+				sci_user_eye_color: sci_user_eye_color,
+				sci_user_skin_color: sci_user_skin_color,
+				sci_user_chest_in: sci_user_chest_in,
+				sci_user_waist_in: sci_user_waist_in,
+				sci_user_hair_length: sci_user_hair_length,
+				sci_user_hair_color: sci_user_hair_color,
+				sci_user_hair_type: sci_user_hair_type,
+				sci_user_ethnicity: sci_user_ethnicity,
+				nonce: Edit.nonce,
+				action:'sci_edit_physical_attributes',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#reseditphysicalattributesWrapper').empty();
+				$('#reseditphysicalattributesWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	
 });

@@ -252,6 +252,11 @@ require get_template_directory() . '/inc/ajax-videos.php';
 require get_template_directory() . '/inc/ajax-audios.php';
 
 /**
+ * User Physical Attributes
+ */
+require get_template_directory() . '/inc/ajax-physcial-attributes.php';
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
