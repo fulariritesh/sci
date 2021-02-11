@@ -12891,3 +12891,31 @@ input:checked + .slider .off {
   width: 18px;
 }
 
+.profileStatus {
+  background: #f5f5f5;
+}
+
+.btn-pending.active {
+  background: #ffd800;
+}
+
+.btn-rejected.active {
+  background: #de1a1a;
+  color: #fff;
+}
+
+.btn-approved.active {
+  background: #16d011;
+  color: #fff;
+}
+
+.history-accordion .card {
+  border-radius: 0;
+  border-top: 0;
+}
+
+.history-accordion .card .card-header {
+  border-bottom: 0;
+  padding: 0;
+}
+

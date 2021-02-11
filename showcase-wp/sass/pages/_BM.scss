@@ -66,3 +66,27 @@
       width:18px;
     }
 }
+.profileStatus{
+    background: $profileStatusBG;
+}
+.btn-pending.active{
+    background: $pendingBG;
+}
+.btn-rejected.active{
+    background: $rejectedBG;
+    color:$light-color;
+}
+.btn-approved.active{
+    background: $approvedBG;
+    color:$light-color;
+}
+.history-accordion{
+    .card{
+        border-radius:0;
+        border-top:0;
+        .card-header{
+            border-bottom:0;
+            padding:0;
+        }
+    }
+}
