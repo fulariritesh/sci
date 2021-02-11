@@ -388,8 +388,8 @@ $(document).ready(function(){
 			        updateData: dataStringified,
 			    },
 			    success : function(res){
-					console.log(res);
-			    	//location.reload();
+					//console.log(JSON.parse(res));
+			    	location.reload();
 			    }
 			})
 		});

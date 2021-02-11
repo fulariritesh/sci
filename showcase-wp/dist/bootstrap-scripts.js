@@ -16791,7 +16791,8 @@ $(document).ready(function () {
           updateData: dataStringified
         },
         success: function success(res) {
-          console.log(res); //location.reload();
+          //console.log(JSON.parse(res));
+          location.reload();
         }
       });
     });
