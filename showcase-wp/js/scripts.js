@@ -367,7 +367,7 @@ $(document).ready(function(){
 					let experience = $();
 					experience.year = thisYear;
 					experience.rowNumber = $(this).data('row')?$(this).data('row'):'-1';
-					experience.content = $(this).find('p').text();
+					experience.content = $(this).find('span').text();
 
 					experienceDetails.push(experience);
 				});
@@ -408,7 +408,7 @@ $(document).ready(function(){
 				$(this).prop('disabled', true);
 				let cardBody = $('#year'+year);
 				if(cardBody.length > 0){
-					cardBody.find('ul[data-year='+year+']').append(`<li data-new="true"><p>${content}</p><div class="d-flex justify-content-end">
+					cardBody.find('ul[data-year='+year+']').append(`<li data-new="true" style="display: flex;padding-bottom: 5px;"><span contenteditable="true">${content}</span><div class="d-flex justify-content-end" style="flex: auto;">
 					<button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
 					<i class="fas fa-trash-alt fa-lg"></i>
 					</button>
@@ -424,8 +424,8 @@ $(document).ready(function(){
 					<div id="year${year}" class="collapse" aria-labelledby="year${year}">
 					   <div class="accordion-inner card-body">
 						  <ul class="list" data-year=${year}>
-								<li data-new="true"><p>${content}</p>
-								<div class="d-flex justify-content-end">
+								<li data-new="true" style="display: flex;padding-bottom: 5px;"><span contenteditable="true">${content}</span>
+								<div class="d-flex justify-content-end" style="flex: auto;">
 									<button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
 									<i class="fas fa-trash-alt fa-lg"></i>
 									</button>
