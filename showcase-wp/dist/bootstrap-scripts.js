@@ -17110,6 +17110,29 @@ $(document).ready(function () {
       }
     });
   });
+}); //Spotlight toggle
+
+$(document).ready(function () {
+  $(".switch.toggle-spotlight input[type='checkbox']").on("change", function () {
+    var $this = $(this);
+    clearInterval(window.jsTimeout);
+    window.jsTimeout = setInterval(function () {
+      $.post({
+        url: Edit.request_url,
+        data: {
+          action: 'sci_toggle_spotlight',
+          nonce: Edit.nonce,
+          toggle_spotlight: !!$this.is(':checked'),
+          user_id: $this.attr('data-id')
+        },
+        success: function success(res) {
+          console.log(res);
+        }
+      });
+      clearInterval(window.jsTimeout);
+      delete window.jsTimeout;
+    }, 1000);
+  });
 }); //sid
 
 /* User Videos */
