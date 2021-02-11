@@ -104,9 +104,9 @@ $genderSelected;
               </div>
               <div class="col-12 col-sm-6 col-md-2 py-3">
                 <select placeholder="Select Location" class="form-control">
-                  <option value="-1" <?php echo ($selected == "-1")?  'selected="selected"' : '' ?>>Experience</option>
-                  <option value="value1" <?php echo ($selected == "value1")?  'selected="selected"' : '' ?>>A</option>
-                  <option value="value2" <?php echo ($selected == "value2")?  'selected="selected"' : '' ?>>B</option>
+                  <option value="-1">Experience</option>
+                  <option value="value1">A</option>
+                  <option value="value2">B</option>
                 </select>
               </div>
               <div class="col-12 col-sm-6 col-md-2 py-3">

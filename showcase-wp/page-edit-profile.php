@@ -151,15 +151,7 @@ $user_info = get_userdata($obj_id);
 							padding-right: 28px;
 							margin-right: 2px;
 							margin-bottom: 5px;
-						}
-						.defaultHeadshot{
-							text-align:center;
-							background:#f2f2f2;
-						}
-						.defaultHeadshot i.fas.fa-user{
-							font-size:100px;
-							padding-top:5px;
-						}
+						}						
 						@media (max-width: 575px){
 							#image-slider .splide__slide {
 								height: calc(100vw - 60px);
@@ -200,14 +192,17 @@ $user_info = get_userdata($obj_id);
 									    while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
 									        // Load sub field value.
 									        $sub_value = get_sub_field('sci_user_headshot'); ?>
-									        <li  class="splide__slide">
+									        <li  class="splide__slide" >
 												<img src="<?php echo $sub_value['url']; ?>">
+												<div class="float-left">
+													<?php echo (get_row_index() == 1) ? '<span class="text-primary m-2"  data-toggle="tooltip" data-placement="left" title="This is your profile picture." > <i class="fas fa-info-circle"></i></span>' : ''; ?>
+												</div>
 												<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
 													<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
-														<i class="fas fa-pen fa-lg"></i>
+														<i class="fas fa-pen"></i>
 													</button>
 													<button class="btn btn-popup-del" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
-														<i class="fas fa-trash-alt fa-lg"></i>
+														<i class="fas fa-trash-alt"></i>
 													</button>
 												</div>
 											</li>
@@ -220,7 +215,7 @@ $user_info = get_userdata($obj_id);
 														<i class="fas fa-user"></i>
 														<div class="float-right manageHeadshot" style="position: absolute; bottom: 0; right: 0;">
 															<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot="'.$i.'">
-																<i class="fas fa-pen fa-lg"></i>
+																<i class="fas fa-pen"></i>
 															</button>
 														</div>			
 													</li>';
@@ -274,7 +269,7 @@ $user_info = get_userdata($obj_id);
 		                    <h5>
 		                    	<i class="fas fa-map-marker-alt pr-2"></i>
 		                    	<a id="country" data-type="select" data-title="Select location" class="editable editable-click">
-		                    		<?php echo get_field('sci_user_location', 'user_' . $obj_id); ?>
+		                    		<?php echo get_field('sci_user_location', 'user_' . $obj_id, false); ?>
 		                    	</a>
 		                    </h5>
 		                </div>
@@ -284,7 +279,7 @@ $user_info = get_userdata($obj_id);
 		                    <h5>
 		                    	<i class="fas fa-venus-mars"></i> 
 		                    	<a href="#" id="gender" data-type="select" data-pk="1" data-title="Select gender" class="editable editable-click" data-abc="true">
-		                    		<?php echo get_field('sci_user_gender', 'user_' . $obj_id); ?>
+		                    		<?php echo get_field('sci_user_gender', 'user_' . $obj_id, false); ?>
 		                    	</a> 
 		                    </h5>
 		                	<?php endif; ?>
@@ -296,22 +291,22 @@ $user_info = get_userdata($obj_id);
 		        		</button>
 		        	</div>
 					<?php if (get_field('profession', 'user_' . $obj_id)): ?>
-		            <div class="selectedcategories pt-1">
-						<?php
-						$parents = [];
-						foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-							$child = get_term($key);
-							$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
-							array_push($parents, $termParent->term_id);
-						}
-						foreach (array_unique($parents) as $key) { ?>
-							<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
-								<?php echo get_field('category_name_singular', 'term_' . $key); ?>
-							</span>									
-						<?php }
+						<div class="selectedcategories pt-1">
+							<?php
+							$parents = [];
+							foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
+								$child = get_term($key);
+								$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
+								array_push($parents, $termParent->term_id);
+							}
+							foreach (array_unique($parents) as $key) { ?>
+								<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
+									<?php echo get_field('category_name_singular', 'term_' . $key); ?>
+								</span>									
+							<?php }
 
-						?>
-		            </div>
+							?>
+						</div>
 					<?php endif ?>
 		            <div class="selectedsocialmedia pt-1">
 		            	<style type="text/css">
@@ -506,38 +501,31 @@ $user_info = get_userdata($obj_id);
 
 	        <!--Audio block-->
 	        <div class="row mt-3 blockBG p-3 audioblock">
-	            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (3)</h4></div>
+	            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (<?php echo count(get_field('audios', 'user_' . $obj_id)); ?>)</h4></div>
 	            <div class="col-6 col-sm-6 pt-3  text-right">
-	                <button class="btn btn-edit">Edit</button>
-	                <button class="btn btn-add">Add</button>
-	            </div>
-	            <div class="col-12 pt-1  row">
-	                <div class="col-sm-6">
-	                    <h5 class="pt-2">Audio Title</h5>
-	                    <h6>audio description</h6>
-	                </div>
-	                <div class="col-sm-6 pt-3">
-	                    <audio controls>
-	                        <source src="horse.ogg" type="audio/ogg">
-	                        <source src="horse.mp3" type="audio/mpeg">
-	                        Your browser does not support the audio element.
-	                      </audio>
-	                </div>
-	                <hr>
-	            </div>
-	            <div class="col-12 pt-1  row">
-	                <div class="col-sm-6">
-	                    <h5 class="pt-2">Audio Title</h5>
-	                    <h6>audio description</h6>
-	                </div>
-	                <div class="col-sm-6 pt-3">
-	                    <audio controls>
-	                        <source src="horse.ogg" type="audio/ogg">
-	                        <source src="horse.mp3" type="audio/mpeg">
-	                        Your browser does not support the audio element.
-	                      </audio>
-	                </div>
-	            </div>
+	                <button class="btn btn-edit" data-toggle="modal" data-target="#manageAudio">Edit</button>
+	                <button class="btn btn-add" data-toggle="modal" data-target="#addaudio">Add</button>
+				</div>
+				<!-- Display user audios in reverse order  -->
+				<?php $display_audios = array(); if( have_rows('audios', 'user_' . $obj_id) ): $a = 1; ?>
+						<?php while ( have_rows('audios', 'user_' . $obj_id) ) : the_row(); ob_start(); $a++; ?>
+							<div class="col-12 pt-1  row">
+								<div class="col-sm-6">
+									<h5 class="pt-2"><?php echo get_sub_field('audio_title'); ?></h5>
+									<h6><?php echo get_sub_field('audio_description'); ?></h6>														
+								</div>
+								<div class="col-sm-6 pt-3">
+									<audio controls preload="metadata">
+										<source src="<?php echo get_sub_field('audio_file')['url']; ?>" type="<?php echo get_sub_field('audio_file')['mime_type']; ?>">
+										Your browser does not support the audio element.
+									</audio>
+								</div>
+							</div>
+						<?php $display_audios[] = ob_get_clean(); endwhile; ?>
+				<?php endif; 
+					$display_audios = array_reverse($display_audios);
+					echo implode($display_audios);
+				?>
 	         </div>
 
 	          <!--Physical Attributes-->
@@ -605,11 +593,12 @@ $user_info = get_userdata($obj_id);
 									$arrCategory = array();
 
 									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-										if ($key->parent == 0) {
+										$child = get_term($key);
+										if ($child->parent == 0) {
 											if( have_rows('experience', 'user_' . $obj_id) ):	
 												while ( have_rows('experience', 'user_' . $obj_id) ) : the_row();
 													$catKey = get_sub_field('category')->term_id;
-													if($catKey == $key->term_id){ 
+													if($catKey == $child->term_id){ 
 														if(!array_key_exists($catKey,$arrCategory)){
 															$arrCategory[$catKey] = array();
 														}
@@ -632,7 +621,7 @@ $user_info = get_userdata($obj_id);
 									}
 								endif;
 								
-								if($arrCategory){
+								if(!empty($arrCategory)){
 									foreach($arrCategory as $key => $obj){
 										foreach($obj as $value){
 											if(!array_key_exists($value->year,$arrYear)){
@@ -646,14 +635,14 @@ $user_info = get_userdata($obj_id);
 										}
 									}
 								}
-								if($arrYear){
+								if(!empty($arrYear)){
 									krsort($arrYear);
 								}
 
 								?>
 
 								
-								<?php if($arrCategory && count($arrCategory) > 0 && count($arrYear)> 0 ){ ?>
+								<?php if(count($arrCategory) > 0 && count($arrYear)> 0 ){ ?>
 									<div class="row mt-3 blockBG p-3 experienceblock">
 										<div class="col-12 col-sm-6 pt-3">
 											<h4>Credit and Experience</h4>
@@ -668,18 +657,20 @@ $user_info = get_userdata($obj_id);
 
 											
 											<div id="experienceblock-category">
-												<?php foreach($arrCategory as $key => $credits){ ?>
-													<div class="hr-text">
-														<span class="credit-title pr-3">
-															<?php echo get_field('category_name_singular', 'term_' . $key); ?> 
-														</span>
-													</div>
-													<ul>
-														<?php foreach($credits as $credit){ ?>
-															<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo $credit->year ?></span></li>
-														<?php } ?>
-													</ul>
-												<?php } ?>	
+												<?php foreach($arrCategory as $key => $credits){ 
+													if(!empty($credits)){ ?>
+														<div class="hr-text">
+															<span class="credit-title pr-3">
+																<?php echo get_field('category_name_singular', 'term_' . $key); ?> 
+															</span>
+														</div>
+														<ul>
+															<?php foreach($credits as $credit){ ?>
+																<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo $credit->year ?></span></li>
+															<?php } ?>
+														</ul>
+													<?php }
+												} ?>	
 											</div>
 
 											<div id="experienceblock-year">
@@ -705,26 +696,28 @@ $user_info = get_userdata($obj_id);
 								<?php 
 									$allCategories = array();
 									$categoriesWithProfession = array(); 
+									$categoriesWithSubcategories = array();
 								?>
 								<?php if (get_field('profession', 'user_' . $obj_id)): 
 									$formAdditionalFields = get_field('sci_form_additional_fields', 'option');
 									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-										if ($key->parent == 0) { 
-										array_push($allCategories, $key->term_id);?>
+										$child = get_term($key);
+										if ($child->parent == 0) { 
+											array_push($allCategories, $child->term_id);?>
 											<?php if( have_rows('experience', 'user_' . $obj_id) ): ?>	
 												<?php while ( have_rows('experience', 'user_' . $obj_id) ) : the_row(); ?>
-													<?php if(get_sub_field('category')->term_id == $key->term_id){
-														array_push($categoriesWithProfession, $key->term_id);?>
+													<?php if(get_sub_field('category')->term_id == $child->term_id){
+														array_push($categoriesWithProfession, $child->term_id);?>
 														<div class="row mt-3 blockBG p-3 cat-block">
 															<div class="col-6 col-sm-4 col-lg-5 pt-3">
-																<h4><?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?></h4>
+																<h4><?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?></h4>
 															</div>
 															<div class="col-6 col-sm-2  col-lg-1 pt-3 text-right order-sm-11 ">
-																<button class="btn btn-edit btn-add-experience" data-id=<?php echo $key->term_id ?>>Edit</button>
+																<button class="btn btn-edit btn-add-experience" data-id=<?php echo $child->term_id ?>>Edit</button>
 															</div>
 															<div class="col-12 col-sm-6 col-lg-6 pt-3 text-left text-sm-right order-sm-6">
 																<?php foreach($formAdditionalFields as $field){
-																	if($field["sci_form_category"] == $key->term_id && in_array('experience_level',$field["sci_form_field"])){
+																	if($field["sci_form_category"] == $child->term_id && in_array('experience_level',$field["sci_form_field"])){
 																		if(get_sub_field('experience_level')) { ?>
 																		<span class="badge experiencedbadge"> <i class="fas fa-check"></i> <?php echo get_sub_field('experience_level')["label"] ?></span>
 																		<?php }
@@ -738,7 +731,8 @@ $user_info = get_userdata($obj_id);
 																<?php 
 																	$availableSubcategories =0;
 																	foreach (get_field('profession', 'user_' . $obj_id) as $subCatIndex => $subCatkey) {
-																				if ($subCatkey->parent == $key->term_id){
+																		$childSubcat = get_term($subCatkey);
+																				if ($childSubcat->parent == $child->term_id){
 																					$availableSubcategories += 1;
 																				}
 																			} 
@@ -754,8 +748,9 @@ $user_info = get_userdata($obj_id);
 																			<p class="py-4"> 
 																				<?php
 																					foreach (get_field('profession', 'user_' . $obj_id) as $subCatIndex => $subCatkey) {
-																						if ($subCatkey->parent == $key->term_id){ ?>
-																							<span class="badge specialisedbadge"><i class="fas fa-check"></i> <?php echo get_field('category_name_singular', 'term_' . $subCatkey->term_id); ?></span>
+																						$childSubcat = get_term($subCatkey);
+																						if ($childSubcat->parent == $child->term_id){ ?>
+																							<span class="badge specialisedbadge"><i class="fas fa-check"></i> <?php echo get_field('category_name_singular', 'term_' . $childSubcat->term_id); ?></span>
 																						<?php }
 																					}
 																				?>
@@ -766,7 +761,7 @@ $user_info = get_userdata($obj_id);
 																
 																<?php
 																	foreach($formAdditionalFields as $field){
-																		if($field["sci_form_category"] == $key->term_id){
+																		if($field["sci_form_category"] == $child->term_id){
 																			foreach($field["sci_form_field"] as $fieldOption){
 																				if($fieldOption != 'experience_level'){?>
 																					<?php if(get_sub_field($fieldOption)) {?>
@@ -780,7 +775,7 @@ $user_info = get_userdata($obj_id);
 																							</div>
 																							<p class="py-4">
 																								
-																									<?php if(get_sub_field($fieldOption)['label']) { ?>
+																									<?php if(array_key_exists('label',get_sub_field($fieldOption))) { ?>
 																										
 																											<span class="badge languagedbadge"><i class="fas fa-check"></i><?php echo get_sub_field($fieldOption)['label'] ?></span>	
 																										 
@@ -815,7 +810,7 @@ $user_info = get_userdata($obj_id);
 																	<div class="website">
 																		<div class="hr-text">
 																			<span class="credit-title pr-3">
-																				<?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?> Website
+																				<?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?> Website
 																			</span>
 																		</div>
 																		<p class="py-4"><?php echo get_sub_field('website') ?></p>
@@ -826,7 +821,7 @@ $user_info = get_userdata($obj_id);
 																	<div class="experience">
 																		<div class="hr-text">
 																			<span class="credit-title pr-3">
-																			<?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?> Experience
+																			<?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?> Experience
 																			</span>
 																		</div> 
 																	
@@ -848,13 +843,17 @@ $user_info = get_userdata($obj_id);
 															
 											<?php endif; ?>
 										<?php }
+										else{
+											if(!in_array($child->parent, $categoriesWithSubcategories)){
+												array_push($categoriesWithSubcategories, $child->parent);
+											}
+										}
 									}
 								endif; ?>
 
 								<?php
-								
 								foreach($allCategories as $category)
-									if(!in_array($category, $categoriesWithProfession)){?>
+									if(!in_array($category, $categoriesWithProfession) && !in_array($category, $categoriesWithSubcategories)){?>
 										<!--empty Block-->
 										<div class="row mt-3 blockBG p-3 emptyblock">
 											<div class="col-12 pt-3 text-center">
@@ -1837,6 +1836,166 @@ aria-hidden="true">
 	</div>
 </div>
 
+<!--Manage audio Modal -->
+<div class="modal fade" id="manageAudio" tabindex="-1" aria-labelledby="manageAudioModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+	<div class="modal-content">
+		<div class="modal-header">
+		<div class="col-md-3 d-none d-lg-block">
+			<img src="/images/footer-logo-grey.png" alt="logo">
+		</div>
+		<div class="col-10 col-md-6">
+			<h5 class="modal-title text-lg-center" id="manageAudioModalLabel">Manage Audio</h5>
+		</div>
+		<div class="col-2 col-md-3">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		</div>
+		<div class="modal-body">
+			<!--Audio block-->
+			<div class="row justify-content-end pb-3">
+				<button type="button" class="btn btn-popup-add mx-4" data-toggle="modal" data-target="#addaudio"><i
+					class="fas fa-plus-circle fa-2x"></i></button>
+			</div>
+			<div class="row">
+
+				<?php if( have_rows('audios', 'user_' . $obj_id) ): ?>
+						<?php while ( have_rows('audios', 'user_' . $obj_id) ) : the_row(); ?>
+
+							<div class="col-lg-4 audioblock pb-5">
+
+								<div class="col-sm-12 card mb-2">
+									<div class="col-sm-12 pb-3">
+										<h5 class="pt-2"><?php echo get_sub_field('audio_title'); ?></h5>
+										<h6><?php echo get_sub_field('audio_description'); ?></h6>
+									</div>
+									<div class="col-12 col-sm-12 mb-3">
+										<audio controls preload="metadata">
+											<source src="<?php echo get_sub_field('audio_file')['url']; ?>" type="<?php echo get_sub_field('audio_file')['mime_type']; ?>">
+											Your browser does not support the audio element.
+										</audio>
+									</div>
+								</div>
+
+								<div class="float-right manageAudio">
+									<button data-indexaudio="<?php echo get_row_index(); ?>" class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editaudio">
+									<i class="fas fa-pen fa-lg"></i>
+									</button>
+									<button data-indexaudio="<?php echo get_row_index(); ?>" class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteaudio">
+									<i class="fas fa-trash-alt fa-lg"></i>
+									</button>
+								</div>
+
+							</div>
+
+						<?php endwhile; ?>
+				<?php endif; ?>
+			
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<!--add audio Modal -->
+<div class="modal fade" id="addaudio" tabindex="-1" aria-labelledby="addAudioModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-header">
+		<div class="col-md-3 d-none d-lg-block">
+			<img src="/images/footer-logo-grey.png" alt="logo">
+		</div>
+		<div class="col-10 col-md-6">
+			<h5 class="modal-title text-lg-center" id="addAudioModalLabel">Add Audio</h5>
+		</div>
+		<div class="col-2 col-md-3">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		</div>
+		<div class="modal-body">
+		<div class="row">
+			<div class="col-12 col-sm-10 mx-auto py-4">
+				<p class="pb-2">You can upload MP3, WAV and OGG files</p>
+				<label class="btn btn-popup-save">
+				<input id="addaudiofile_input" type="file" name="audio" accept="audio/*"/>
+				Choose file to upload
+				</label>
+				<div class="invalid-feedback">
+				Opps error!
+				</div>
+				<div class="d-flex justify-content-end py-2">
+				<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+				<button id="addaudiosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+				</div>
+
+				<!-- response message -->
+				<div id="resaddaudioWrapper"></div>
+			</div>	
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+<!--edit audio details Modal -->
+<div class="modal fade" id="editaudio" tabindex="-1" aria-labelledby="editAudioModalLabel" aria-hidden="true" data-backdrop="false">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-header">
+		<h5 class="modal-title" id="editAudioModalLabel">Edit Audio Details</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+			<label for="audioTitle">Title</label>
+			<input id="editaudiotitle_input" type="text" class="form-control">
+			</div>
+			<div class="form-group">
+			<label for="audioDesp">Description</label>
+			<textarea id="editaudiodescription_input" class="form-control justify-content-end"></textarea>
+			</div>
+			<!-- btns div -->
+			<div class="d-flex justify-content-end py-4">
+			<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+			<button id="editaudiosave_submit" class="btn btn-lg btn-popup-save px-4">Save</button>
+			</div>
+
+			<!-- response message -->
+			<div id="reseditaudioWrapper"></div>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- Delete audio Modal -->
+<div class="modal fade" id="deleteaudio" tabindex="-1" aria-labelledby="deleteAudioLabel" aria-hidden="true" data-backdrop="false">
+	<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-header">
+		<h5 class="modal-title" id="deleteAudioLabel">Confirm Delete</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+		<div class="modal-body">
+			<p class="px-4 pb-3">
+			Are you sure you want to delete the audio?
+			</p>
+			<!-- btns div -->
+			<div class="d-flex justify-content-end pb-4">
+			<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
+			<button id="deleteaudiosave_submit" class="btn btn-lg btn-popup-delete">Delete</button>
+			</div>
+
+			<!-- response message -->
+			<div id="resdeleteaudioWrapper"></div>
+		</div>
+	</div>
+	</div>
+</div>
 
 <script type="text/javascript">
 (function(on){

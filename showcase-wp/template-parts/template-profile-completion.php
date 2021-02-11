@@ -21,7 +21,7 @@
  $weightage_physical_attributes;
  $weightage_category_outline;
 
- $attribute_checked;
+ $attribute_checked = 0;
  $attribute_count = 0;
 
  foreach($categoriesrequiringAttributesObj as $key => $value){
@@ -78,14 +78,16 @@ foreach($data as $key => $value){
             $subCategories = array();
 
             foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-                
-                if($key->parent == 0){
-                    array_push($mainCategories, $key->term_id);
+                $child = get_term($key);
+
+                if($child->parent == 0){
+                    array_push($mainCategories, $key);
                 }else{
-                    if(!in_array($key->parent, $subCategories, true)){
-                        array_push($subCategories, $key->parent);
+                    if(!in_array($child->parent, $subCategories, true)){
+                        array_push($subCategories, $child->parent);
                     }
                 }
+
             }
 
             $singlesubcategoryWeightage;  
@@ -127,7 +129,7 @@ foreach($data as $key => $value){
         if($allApprovedPhotos && count($allApprovedPhotos) >= 3){
             $completionPercent += $weightage_minimum_photos;
         };
-    }else if(!$attribute_checked && ($key == 'sci_user_eye_color' || $key == 'sci_user_skin_color' || $key == 'sci_user_chest_in' || $key == 'sci_user_weight_kg' || $key == 'sci_user_height_ft')){
+    }else if($attribute_checked == 0 && ($key == 'sci_user_eye_color' || $key == 'sci_user_skin_color' || $key == 'sci_user_chest_in' || $key == 'sci_user_weight_kg' || $key == 'sci_user_height_ft')){
         
 
         if(!empty(array_intersect($mainCategories, $categoriesrequiringAttributes))){
@@ -149,11 +151,11 @@ foreach($data as $key => $value){
 
 
 if(get_field('sci_user_headshots','user_'.$obj_id)){
-    $approvedHeadshotCount;
+    $approvedHeadshotCount = 0;
     foreach(get_field('sci_user_headshots','user_'.$obj_id) as $headShot){
         $image = $headShot["sci_user_headshot"];
 
-        if(!empty($image) && !$approvedHeadshotCount){
+        if(!empty($image) && $approvedHeadshotCount == 0){
             $isApproved = $isModeratorApprovalRequired? get_post_meta( (int)$image["ID"], 'is_approved', true ) : 1;
 
             if($isApproved){
@@ -168,7 +170,7 @@ if(get_field('sci_user_headshots','user_'.$obj_id)){
 }
 
 
-if($mainCategories && !$attribute_checked && empty(array_intersect($mainCategories, $categoriesrequiringAttributes))){
+if($mainCategories && $attribute_checked == 0 && empty(array_intersect($mainCategories, $categoriesrequiringAttributes))){
     $attribute_checked = 1;
     $completionPercent += $weightage_physical_attributes;
 }

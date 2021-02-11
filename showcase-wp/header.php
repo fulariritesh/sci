@@ -89,10 +89,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="">
           <ul class="tb-right navbar-nav">
-            <!-- <li class="nav-item">
-              <a class="nav-link tb-text" href=""><i class="tb-icon1 fas fa-phone pr-2"></i>+91 65194 62646</a>
-            </li> -->
-            <li class="nav-item dropdown">
+            <li class="nav-item">
+              <a class="nav-link tb-text" href="tel:<?php echo get_field('sci_helpline_number', 'option'); ?>"><i class="tb-icon1 fas fa-phone pr-2"></i><?php echo get_field('sci_helpline_number', 'option'); ?></a>
+            </li>
+            <li class="nav-item dropdown">     
               <a
                 class="nav-link tb-text dropdown-toggle"
                 href="#"
