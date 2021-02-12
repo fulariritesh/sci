@@ -37,7 +37,7 @@ get_header();
                         echo 'For a strong password, try to use a combination of text, numbers and symbols. Also, make sure your password is at least 8-10 characters long.';
                     }
                 }else{
-                    echo 'Enter your registered email address below and we will send you a link that you can follow to reset </br>your password.';
+                    echo 'Enter your registered email address below and we will send you a link that you can follow to reset your password.';
                 }
             ?>    
             </p>

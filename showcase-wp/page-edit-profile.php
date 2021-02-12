@@ -93,7 +93,7 @@ $user_info = get_userdata($obj_id);
 		            <a href="<?php echo get_author_posts_url($obj_id); ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
 		        </div>
 		    </div>
-			<?php //get_template_part('template-parts/template-profile-completion' ); ?>
+			<?php  //get_template_part('template-parts/template-profile-completion' ); ?>
 			<div class="row p-3 blockBG mb-3">
 			    <div class="col-12 col-sm-6">
 					<style type="text/css">
@@ -413,6 +413,22 @@ $user_info = get_userdata($obj_id);
 	                    <li class="nav-item">
 	                        <a class="nav-link" href="#credit-and-experience">Credit and Experience</a>
 	                    </li>
+						<?php if (get_field('profession', 'user_' . $obj_id)): ?>
+								<?php
+								$parents = [];
+								foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
+									$child = get_term($key);
+									$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
+									array_push($parents, $termParent->term_id);
+								}
+								foreach (array_unique($parents) as $key) { ?>
+									<li class="nav-item">
+									<a class="nav-link" href="#<?php echo get_field('category_name_singular', 'term_' . $key); ?>"><?php echo get_field('category_name_singular', 'term_' . $key); ?></a>
+									</li>								
+								<?php 
+								}
+								?>				
+						<?php endif ?>
 	                  </ul>
 	                </div>
 	            </nav>
@@ -618,7 +634,7 @@ $user_info = get_userdata($obj_id);
 	            </div>
 	        </div>
 
-			<div id="credit-and-experience"></div>
+
 	        <!-- ///////////////////////EXPERIENCE BLOCK//////////////////////////// -->
 
 				<?php if (get_field('experience', 'user_' . $obj_id)): ?>
@@ -685,6 +701,7 @@ $user_info = get_userdata($obj_id);
 								<?php if($arrCategory && count($arrCategory) > 0 && count($arrYear)> 0 ){ ?>
 									<div class="row mt-3 blockBG p-3 experienceblock">
 										<div class="col-12 col-sm-6 pt-3">
+											<div id="credit-and-experience"></div>
 											<h4>Credit and Experience</h4>
 										</div>
 										<div class="col-12 col-sm-6">
@@ -746,6 +763,7 @@ $user_info = get_userdata($obj_id);
 													<?php if(get_sub_field('category')->term_id == $child->term_id){
 														array_push($categoriesWithProfession, $child->term_id);?>
 														<div class="row mt-3 blockBG p-3 cat-block">
+															<div id="<?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?>"></div>
 															<div class="col-6 col-sm-4 col-lg-5 pt-3">
 																<h4><?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?></h4>
 															</div>

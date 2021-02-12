@@ -184,7 +184,7 @@ $user_info = get_userdata($obj_id);
 	                        <?php if (get_field('sci_user_location', 'user_' . $obj_id)): ?>
 	                        <span>
 	                        	<i class="fas fa-map-marker-alt pr-2"></i> 
-	                        	<?php echo get_field('sci_user_location', 'user_' . $obj_id); ?>, India
+	                        	<?php echo get_field('sci_user_location', 'user_' . $obj_id, false); ?>, India
 	                        </span>
 	                        <?php endif; ?>
 
@@ -436,12 +436,12 @@ $user_info = get_userdata($obj_id);
 	                		<?php while ( have_rows('audios', 'user_' . $obj_id) ) : the_row(); ?>
 			                    <div class="col-12 py-3 row">
 			                        <div class="col-sm-6">
-			                            <h5 class="pt-2"><?php echo get_sub_field('audio')['title']; ?></h5>
-			                            <h6>audio description</h6>
+			                            <h5 class="pt-2"><?php echo get_sub_field('audio_title'); ?></h5>
+			                            <h6><?php echo get_sub_field('audio_description'); ?></h6>
 			                        </div>
 			                        <div class="col-sm-6">
 			                            <audio controls>
-			                                <source src="<?php echo get_sub_field('audio')['url']; ?>" type="audio/mpeg">
+			                                <source src="<?php echo get_sub_field('audio_file')['url']; ?>" type="<?php echo get_sub_field('audio_file')['mime_type']; ?>">
 			                                Your browser does not support the audio element.
 			                              </audio>
 			                        </div>

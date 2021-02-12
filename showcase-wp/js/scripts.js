@@ -1148,7 +1148,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 	//login
 	$('a.um-link-alt').parent().hide();
-	$('span.um-field-checkbox-option').text('Remember me');
+	$('span.um-field-checkbox-option').text('Keep me logged in');
 
 	//reset-password
 	$('div.um-field.um-field-block.um-field-type_block').hide();
