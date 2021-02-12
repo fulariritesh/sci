@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="row pt-3">
-        <div class="col-sm-4 ourlinks"> 
+        <div class="col-12 col-lg-4 pt-3 pt-lg-0 ourlinks"> 
           <h5 class="blockTitle">Our Links</h5>
           <div class="line"><span class="color-1"></span><span class="color-2"></span></div>
           <?php
@@ -32,7 +32,7 @@
                 );
               ?>
         </div>
-        <div class="col-sm-4">
+        <div class="col-12 col-lg-4 pt-5 pt-lg-0 d-none d-lg-block">
           <h5 class="blockTitle">Our Latest News</h5>
           <div class="line pb-2">
           	<span class="color-1"></span>
@@ -55,19 +55,20 @@
           	</div>
           <?php endforeach ?>
         </div>
-        <div class="col-12  col-md-4">
+        <div class="col-12  col-lg-4 pt-5 pt-lg-0">
           <h5 class="blockTitle">Subscribe</h5>
           <div class="line"><span class="color-1"></span><span class="color-2"></span></div>
           <div class="subscribe">Subscribe for a newsletter</div>
-          <div class="subscribesmalltext pb-4">Want to be notified about new locations? <br/>Just sign up.</div>
+          <div class="subscribesmalltext pb-3">Want to be notified about new locations? <br/>Just sign up.</div>
           <form>
             <input type="text" name="" class="form-control" placeholder="Enter your email" />
             <div class="pt-3 subscribesmalltext">
             <input type="checkbox" name="" value="agree" class=""> I agree with the <a href="">Privacy Policy</a>
           </div>
+          <button class="btn btn-sm btn-add mt-2">Submit</button>
           </form>
 
-          <div class="socialmedia pt-5 text-center text-md-left">
+          <div class="socialmedia pt-4 text-center text-lg-left">
             <ul class="">
               <li class="">
                 <a class="" href="#"
@@ -101,15 +102,10 @@
       </div>
     </div>
   </div>
-    <div class="container-fluid footerBottom">
+    <div class="container-fluid footerBottom pb-3">
       <div class="container">
         <div class="row">
-          <div class="col-sm-6">
-          	<a href="<?php echo esc_url( __( get_site_url('/'), 'showcase' ) ); ?>">
-				<?php printf( esc_html__( '© Showcaseindia 2021', 'showcase' ) ); ?>
-			</a>
-          </div>
-          <div class="col-sm-6 text-right">
+          <div class="col-sm-8 text-left text-sm-right order-sm-8 p-2">
             <ul>
               <li>
               	<a href="#">
@@ -128,6 +124,11 @@
               </li>
             </ul>
           </div>
+          <div class="col-sm-4 prder-sm-1 p-2">
+          	<a href="<?php echo esc_url( __( get_site_url('/'), 'showcase' ) ); ?>">
+				      <?php printf( esc_html__( '© Showcaseindia 2021', 'showcase' ) ); ?>
+			      </a>
+          </div>
         </div>
       </div>
     </div>
@@ -135,6 +136,6 @@
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
-
+</div>
 </body>
 </html>

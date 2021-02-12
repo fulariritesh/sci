@@ -25,7 +25,7 @@ $testimonials_count = get_fields()['testimonials'];
 						        <div class="col-sm-12 newjoineescard">
 						            <div class="row box-shadow">
 						                <div class="col-4 imgdiv">
-						                    <img src="<?php echo get_the_post_thumbnail_url(get_sub_field('testimonial')->ID); ?>" loading="lazy" />
+						                    <img class="img-fluid" src="<?php echo get_the_post_thumbnail_url(get_sub_field('testimonial')->ID); ?>" loading="lazy" />
 						                </div>
 						                <div class="col-8 text-center p-3 pt-5">
 						                    <div class="secondaryCircle">

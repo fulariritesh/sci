@@ -7,10 +7,7 @@
     background-position: center;
     height: $bannerHeight;
   }
-  .banner-info{
-    width:46%;
-    // padding-top:5%;
-  }
+
   .bannerheading-text{
     font-size: 3rem;
     color: $light-color;
@@ -32,7 +29,7 @@
 }
 
 .gfb {
-  padding-bottom: 4rem;
+  padding-bottom: 2.5rem;
   padding-top: 4rem;
 
   // img {
@@ -99,7 +96,7 @@
       width: 46.5%;
   }
     @include  media-xs{
-      width: 47.2%;
+      width: 47%;
       margin-left: 5px;
       margin-right: 5px;
       margin-bottom: 10px;
@@ -169,8 +166,9 @@
     @include droplet($profile-gradient1, $profile-gradient2, $width:126px, $height:142px );
     border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
     z-index: 5;
-    left: 95px;
+    left:0px;
     bottom:0;
+
     @include media-lg{
       width:100px;
       height:110px;
@@ -180,13 +178,13 @@
     @include media-md{
       width:86px;
       height:97px;
-      left:-30px;
-      bottom:-45px;
+      left:63px;
+      bottom:83px;
   }
   @include media-sm{
     width:86px;
     height:97px;
-    left:0px;
+    left:186px;
     bottom:0px;
 }
    @include media-xs{
@@ -202,7 +200,7 @@
   border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
   z-index: 5;
   left: 36px;
-  top:-60px;
+  top:-33px;
   @include media-lg{
     left: 36px;
     top:-35px;
@@ -226,11 +224,12 @@
   z-index: 8;
   right: 49px;
   bottom: 27px;
+
   @include media-lg{
     width:100px;
     height:80px;
-    right: 0px;
-    bottom: 300px;
+    right: 20px;
+    bottom: 30px;
   }
   @include media-md{
     width:100px;
@@ -241,8 +240,8 @@
   @include media-sm{
     width:100px;
     height:80px;
-    right: 0px;
-    bottom: 160px;
+    right: 22px;
+    bottom: 80px;
   }
   @include media-xs{
     width:100px;
@@ -290,15 +289,15 @@
   bottom: 4px;
   @include media-lg{
     right: 130px;
-  bottom: 260px;
+  bottom: 60px;
   }
   @include media-md{
     right: 130px;
   bottom: 160px;
   }
   @include media-sm{
-    right: 130px;
-  bottom: 160px;
+    right: 97px;
+  bottom: 34px;
   }
   @include media-xs{
     right: 140px;
@@ -335,16 +334,16 @@
   right: 185px;
   bottom: 4px;
   @include media-lg{
-    right: 160px;
-    bottom: 260px;
+    right: 60px;
+    bottom: 60px;
   }
   @include media-md{
-    right: 160px;
-    bottom: 160px;
+    right: 60px;
+    bottom: 60px;
   }
   @include media-sm{
-    right: 160px;
-    bottom: 160px;
+    right: 60px;
+    bottom: 60px;
 
   }
   @include media-xs{
@@ -357,24 +356,24 @@
   border-radius: 40% 76% 54% 68% / 60% 60% 40% 40%;
   z-index: 8;
   right: 49px;
-  bottom: 27px;
+  bottom: 65px;
   @include media-lg{
     width: 84px;
     height: 61px;
-    right: 49px;
-bottom: 300px;
+    right: 0px;
+    bottom: 97px;
   }
   @include media-md{
     width: 84px;
     height: 61px;
-    right: 49px;
-bottom: 200px;
+    right: 0px;
+    bottom: 97px;
   }
   @include media-sm{
     width: 84px;
     height: 61px;
-    right: 49px;
-bottom: 200px;
+    right: 0px;
+    bottom: 97px;
   }
   @include media-xs{
     width: 84px;
@@ -387,8 +386,8 @@ bottom: 200px;
   @include droplet($block3-gradient1, $block3-gradient2, $width:95px, $height:66px );
   border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
   z-index: 5;
-  left: -22px;
-  top:135px;
+  left: 0px;
+  top:0px;
   @include media-lg{
     left: 0px;
     top: 36px;
@@ -398,7 +397,7 @@ bottom: 200px;
     top: 0px;
   }
   @include media-sm{
-    left: 0px;
+    left: 100px;
     top: 0px;
   }
   @include media-xs{
@@ -437,7 +436,7 @@ bottom: 200px;
 }
 .profileImage{
   height:auto;
-  @include media-xs{
+  @include media-sm{
     height:350px;
   }
 }
@@ -445,7 +444,7 @@ bottom: 200px;
 .artist-block{
   // height:700px;
   padding-top:6rem;
-  padding-bottom:6rem;
+  padding-bottom:4rem;
   @include media-xs{
     padding-top:3rem;
     padding-bottom:3rem;
@@ -454,8 +453,8 @@ bottom: 200px;
 }
 .influencer-block, .talent-block{
   // height:730px;
-  padding-top:6rem;
-  padding-bottom:6rem;
+  padding-top:4rem;
+  padding-bottom:4rem;
 }
 .allcategories{
   background-color: $greyBG;
@@ -464,52 +463,52 @@ bottom: 200px;
 
 #imageBlock {
   display: block;
-  width:780px;
-  height: 730px;
+  // width:780px;
+  // height: 730px;
   // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
-  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  // border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
   position: absolute;
   z-index: 5;
   left: 0;
   top:0;
-  clip-path: ellipse(39% 35% at 35% 33%);
+  clip-path: ellipse(34% 33% at 35% 33%);
   @include media-lg{
     width:630px;
     height: 560px;
-    clip-path: ellipse(39% 35% at 35% 33%);
+    clip-path: ellipse(35% 32% at 35% 33%);
   }
   @include media-md{
     width:460px;
     height: 480px;
-    clip-path: ellipse(39% 35% at 35% 33%);
+    clip-path: ellipse(34% 29% at 35% 33%);
   }
   @include media-sm{
     width:460px;
     height: 480px;
-    clip-path: ellipse(39% 35% at 35% 33%);
+    clip-path: ellipse(44% 34% at 56% 35%);
   }
   @include media-xs{
-    width:520px;
+     width:410px;
     height: 480px;
-    clip-path: ellipse(42% 35% at 60% 34%);
+    clip-path: ellipse(43% 32% at 42% 35%);
   }
  
 }
 
-#imageBlock-influencers {
+#imageBlock-influencers, #imageBlock-profile {
   display: block;
-  width:705px;
-  height: 730px;
+  // width:705px;
+  // height: 730px;
   // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
-  border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+  // border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
   position: absolute;
   z-index: 5;
-  right: 0;
+ 
   top:0;
-  clip-path: ellipse(42% 35% at 60% 34%);
+  clip-path: ellipse(42% 35% at 43% 34%);
   @include media-lg{
-    width: 560px;
-height: 560px;
+    width: 440px;
+    height: 560px;
   }
   @include media-md{
     width:450px;
@@ -518,10 +517,13 @@ height: 560px;
   @include media-sm{
     width:450px;
     height: 420px;
+    right: 0;
   }
   @include media-xs{
-    width:450px;
+    width:410px;
     height: 420px;
+    right: 0;
+    clip-path: ellipse(42% 35% at 58% 34%);
   }
 }
 
@@ -552,11 +554,11 @@ height: 560px;
       background:$imagedivbg;
       img{
         border-radius: 50%;
-        width:90%;
+        // width:90%;
         background:$light-color;
         margin-top:2rem;
         @include media-xs{
-          width:50%;
+          // width:50%;
         }
       }
     }
@@ -592,4 +594,19 @@ height: 560px;
 
 
   }
+}
+
+.blockInfo-profile {
+  padding-top: 4rem;
+  padding-bottom: 4.5rem;
+  @include media-sm{
+    padding-top:0px;
+  }
+}
+.blockInfo-artist {
+  // padding-top: 6.5rem;
+  padding-bottom: 3rem;
+}
+.blockInfo-influencer{
+  padding-bottom: 3rem;
 }

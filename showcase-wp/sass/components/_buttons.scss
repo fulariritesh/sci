@@ -58,12 +58,12 @@
 }
 .btn-categoryblock3 {
   @include buttonstyle(
-    $btn_categoryBG,
-    $block3-gradient1,
+    $btn-categoryblock3-BG,
+    $btn-categoryblock3-color,
     $btntexttransform: capitalize,
-    $btnbordercolor: $block3-gradient1,
-    $btnhoverbg: $btn_categoryhoverbg,
-    $btnhovercolor: $light-color
+    $btnbordercolor:$btn-categoryblock3-borderCol,
+    $btnhoverbg:$btn-categoryblock3-hoverCol,
+    $btnhovercolor: $btn-categoryblock3-color
   );
 }
 .btn-signup-gen {
