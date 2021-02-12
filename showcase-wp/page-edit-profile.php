@@ -2107,8 +2107,11 @@ aria-hidden="true">
                             max="<?php echo $acf_height_in['max']; ?>"
                             step="<?php echo $acf_height_in['step']; ?>"
 						>
-						<div class="text-danger d-none" style="font-size: 80%;">Please enter a valid height</div>
+						<button id="clear_<?php echo $acf_height_ft['name']; ?>" class="btn btn-popup-del ml-2" type="button">
+							<i class="fas fa-trash-alt"></i>
+						</button>
 					</div>				
+					<div class="text-danger d-none" style="font-size: 80%;">Please enter a valid height</div>
 				</div>
 
 				<!-- WEIGHT -->
@@ -2118,16 +2121,21 @@ aria-hidden="true">
 						$acf_weight_kg = acf_get_field('sci_user_weight_kg');				
 					?>
 					<label for="<?php echo $acf_weight_kg['name']; ?>"><?php echo $acf_weight_kg['label']; ?>: </label>
-					<input 
-					    name="<?php echo $acf_weight_kg['name']; ?>" 
-						value="<?php echo ($user_weight_kg) ? $user_weight_kg : ''; ?>"
-						type="<?php echo $acf_weight_kg['type']; ?>"
-						placeholder="<?php echo $acf_weight_kg['placeholder']; ?>"
-						class="form-control" 
-						min="<?php echo $acf_weight_kg['min']; ?>" 
-						max="<?php echo $acf_weight_kg['max']; ?>"
-						step="<?php echo $acf_weight_kg['step']; ?>"
-					>
+					<div class="d-flex justify-content-between">
+						<input 
+							name="<?php echo $acf_weight_kg['name']; ?>" 
+							value="<?php echo ($user_weight_kg) ? $user_weight_kg : ''; ?>"
+							type="<?php echo $acf_weight_kg['type']; ?>"
+							placeholder="<?php echo $acf_weight_kg['placeholder']; ?>"
+							class="form-control" 
+							min="<?php echo $acf_weight_kg['min']; ?>" 
+							max="<?php echo $acf_weight_kg['max']; ?>"
+							step="<?php echo $acf_weight_kg['step']; ?>"
+						>
+						<button id="clear_<?php echo $acf_weight_kg['name']; ?>" class="btn btn-popup-del ml-2" type="button">
+							<i class="fas fa-trash-alt"></i>
+						</button>
+					</div>
 					<div class="invalid-feedback">Please enter a valid weight</div>
 				</div>
 
@@ -2138,16 +2146,21 @@ aria-hidden="true">
 						$acf_chest_in = acf_get_field('sci_user_chest_in');				
 					?>
 					<label for="<?php echo $acf_chest_in['name']; ?>"><?php echo $acf_chest_in['label']; ?>: </label>
-					<input 
-					    name="<?php echo $acf_chest_in['name']; ?>" 
-						value="<?php echo ($user_chest_in) ? $user_chest_in : ''; ?>"
-						type="<?php echo $acf_chest_in['type']; ?>"
-						placeholder="<?php echo $acf_chest_in['placeholder']; ?>"
-						class="form-control" 
-						min="<?php echo $acf_chest_in['min']; ?>" 
-						max="<?php echo $acf_chest_in['max']; ?>"
-						step="<?php echo $acf_chest_in['step']; ?>"
-					>
+					<div class="d-flex justify-content-between">
+						<input 
+							name="<?php echo $acf_chest_in['name']; ?>" 
+							value="<?php echo ($user_chest_in) ? $user_chest_in : ''; ?>"
+							type="<?php echo $acf_chest_in['type']; ?>"
+							placeholder="<?php echo $acf_chest_in['placeholder']; ?>"
+							class="form-control" 
+							min="<?php echo $acf_chest_in['min']; ?>" 
+							max="<?php echo $acf_chest_in['max']; ?>"
+							step="<?php echo $acf_chest_in['step']; ?>"
+						>
+						<button id="clear_<?php echo $acf_chest_in['name']; ?>" class="btn btn-popup-del ml-2" type="button">
+							<i class="fas fa-trash-alt"></i>
+						</button>
+					</div>
 					<div class="invalid-feedback">Please enter a valid chest size</div>
 				</div>
 
@@ -2158,16 +2171,21 @@ aria-hidden="true">
 						$acf_waist_in = acf_get_field('sci_user_waist_in');				
 					?>
 					<label for="<?php echo $acf_waist_in['name']; ?>"><?php echo $acf_waist_in['label']; ?>: </label>
-					<input 
-					    name="<?php echo $acf_waist_in['name']; ?>" 
-						value="<?php echo ($user_waist_in) ? $user_waist_in : ''; ?>"
-						type="<?php echo $acf_waist_in['type']; ?>"
-						placeholder="<?php echo $acf_waist_in['placeholder']; ?>"
-						class="form-control" 
-						min="<?php echo $acf_waist_in['min']; ?>" 
-						max="<?php echo $acf_waist_in['max']; ?>"
-						step="<?php echo $acf_waist_in['step']; ?>"
-					>
+					<div class="d-flex justify-content-between">
+						<input 
+							name="<?php echo $acf_waist_in['name']; ?>" 
+							value="<?php echo ($user_waist_in) ? $user_waist_in : ''; ?>"
+							type="<?php echo $acf_waist_in['type']; ?>"
+							placeholder="<?php echo $acf_waist_in['placeholder']; ?>"
+							class="form-control" 
+							min="<?php echo $acf_waist_in['min']; ?>" 
+							max="<?php echo $acf_waist_in['max']; ?>"
+							step="<?php echo $acf_waist_in['step']; ?>"
+						>
+						<button id="clear_<?php echo $acf_waist_in['name']; ?>" class="btn btn-popup-del ml-2" type="button">
+							<i class="fas fa-trash-alt"></i>
+						</button>
+					</div>
 					<div class="invalid-feedback">Please enter a valid waist size</div>
 				</div>
 
@@ -2193,6 +2211,9 @@ aria-hidden="true">
 							</label>
 						<?php endforeach; ?>
 					</div>
+					<button id="clear_<?php echo $acf_eye_color['name']; ?>" class="btn btn-popup-del" type="button">
+						<i class="fas fa-trash-alt"></i>
+					</button>
 				</div>
 
 				<!-- SKIN COLOR -->
@@ -2217,13 +2238,17 @@ aria-hidden="true">
 							</label>
 						<?php endforeach; ?>
 					</div>
+					<button id="clear_<?php echo $acf_skin_color['name']; ?>" class="btn btn-popup-del" type="button">
+						<i class="fas fa-trash-alt"></i>
+					</button>
 				</div>
 		
 				<!-- HAIR COLOR -->
 				<div class="form-group">
 					<?php
 						//get values from ACF plugin
-						$acf_hair_color = acf_get_field('sci_user_hair_color');		
+						$acf_hair_color = acf_get_field('sci_user_hair_color');	
+						$user_hair_color_custom = false;		
 					?>
 					<div>
 					<label for="<?php echo $acf_hair_color['name']; ?>"><?php echo $acf_hair_color['label']; ?>:</label>
@@ -2244,44 +2269,31 @@ aria-hidden="true">
 								<input 
 								type="<?php echo $acf_hair_color['type']; ?>" 
 							    name="<?php echo $acf_hair_color['name']; ?>"
-								value="<?php echo $user_hair_color; ?>"
 								id="sci_user_custom_hair_color_radio"
-								<?php 
+								<?php 						
 								if($user_hair_color){
-									echo (!array_search($user_hair_color,array_values($acf_hair_color['choices']),true)) ? 'checked' : ''; 
+									$user_hair_color_custom = !array_search($user_hair_color,array_values($acf_hair_color['choices']),true);
+									echo ($user_hair_color_custom) ? 'checked' : ''; 
 								}
 								?>
+								value="<?php echo ($user_hair_color) ? $user_hair_color : 'other'; ?>"
 								/>
 								Other
 							</label>
 					</div>
+					<button id="clear_<?php echo $acf_hair_color['name']; ?>" class="btn btn-popup-del" type="button">
+						<i class="fas fa-trash-alt"></i>
+					</button>
 				</div>
-				<?php 
-					if($user_hair_color){
-						if(!array_search($user_hair_color,array_values($acf_hair_color['choices']),true)){ ?>
-							<div id="sci_user_custom_hair_color_wapper" class="form-group">
-								<input 
-									type="text" 
-									class="form-control" 
-									placeholder="Enter hair color" 
-									value="<?php echo $user_hair_color; ?>"
-									id="sci_user_custom_hair_color_text"
-								/>
-							</div>
-								<?php
-						}else{
-							echo '<div id="sci_user_custom_hair_color_wapper" class="form-group d-none">
-									<input 
-										type="text" 
-										class="form-control" 
-										placeholder="Enter hair color" 
-										value=""
-										id="sci_user_custom_hair_color_text"
-									/>
-								</div>';
-						}
-					}
-				?>
+				<div id="sci_user_custom_hair_color_wapper" class="form-group <?php echo ($user_hair_color_custom) ? '' : 'd-none'; ?>">
+					<input 
+						type="text" 
+						class="form-control" 
+						placeholder="Enter hair color" 
+						value="<?php echo ($user_hair_color_custom) ? $user_hair_color : ''; ?>"
+						id="sci_user_custom_hair_color_text"
+					/>
+				</div>
 				
 				<!-- HAIR LENGTH -->
 				<div class="form-group">
@@ -2305,6 +2317,9 @@ aria-hidden="true">
 							</label>
 						<?php endforeach; ?>
 					</div>
+					<button id="clear_<?php echo $acf_hair_length['name']; ?>" class="btn btn-popup-del" type="button">
+						<i class="fas fa-trash-alt"></i>
+					</button>
 				</div>
 
 				<!-- HAIR TYPE -->
@@ -2329,13 +2344,17 @@ aria-hidden="true">
 							</label>
 						<?php endforeach; ?>
 					</div>
+					<button id="clear_<?php echo $acf_hair_type['name']; ?>" class="btn btn-popup-del" type="button">
+						<i class="fas fa-trash-alt"></i>
+					</button>
 				</div>
 
 				<!-- ETHNICITY -->
 				<div class="form-group">
 					<?php
 						//get values from ACF plugin
-						$acf_ethnicity = acf_get_field('sci_user_ethnicity');		
+						$acf_ethnicity = acf_get_field('sci_user_ethnicity');
+						$user_ethnicity_custom = false;		
 					?>
 					<div>
 					<label for="<?php echo $acf_ethnicity['name']; ?>"><?php echo $acf_ethnicity['label']; ?>:</label>
@@ -2356,44 +2375,31 @@ aria-hidden="true">
 								<input 
 								type="<?php echo $acf_ethnicity['type']; ?>" 
 							    name="<?php echo $acf_ethnicity['name']; ?>"
-								value="<?php echo $user_ethnicity; ?>"
 								id="sci_user_custom_ethnicity_radio"
-								<?php 
+								<?php 						
 								if($user_ethnicity){
-									echo (!array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true)) ? 'checked' : ''; 
+									$user_ethnicity_custom = !array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true);
+									echo ($user_ethnicity_custom) ? 'checked' : ''; 
 								}
 								?>
+								value="<?php echo ($user_ethnicity) ? $user_ethnicity : 'other'; ?>"
 								/>
 								Other
 							</label>
 					</div>
+					<button id="clear_<?php echo $acf_ethnicity['name']; ?>" class="btn btn-popup-del" type="button">
+						<i class="fas fa-trash-alt"></i>
+					</button>
 				</div>
-				<?php 
-					if($user_ethnicity){
-						if(!array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true)){ ?>
-							<div id="sci_user_custom_ethnicity_wapper" class="form-group">
-								<input 
-									type="text" 
-									class="form-control" 
-									placeholder="Enter ethnicity" 
-									value="<?php echo $user_ethnicity; ?>"
-									id="sci_user_custom_ethnicity_text"
-								/>
-							</div>
-							<?php
-						}else{
-							echo '<div id="sci_user_custom_ethnicity_wapper" class="form-group d-none">
-									<input 
-										type="text" 
-										class="form-control" 
-										placeholder="Enter ethnicity" 
-										value=""
-										id="sci_user_custom_ethnicity_text"
-									/>
-								</div>';
-						}
-					}
-				?>
+				<div id="sci_user_custom_ethnicity_wapper" class="form-group <?php echo ($user_ethnicity_custom) ? '' : 'd-none'; ?>">
+					<input 
+						type="text" 
+						class="form-control" 
+						placeholder="Enter ethnicity" 
+						value="<?php echo ($user_ethnicity_custom) ? $user_ethnicity : ''; ?>"
+						id="sci_user_custom_ethnicity_text"
+					/>
+				</div>
 
 				<div class="d-flex justify-content-center py-4">
 					<button class="btn btn-lg btn-popup-cancel mr-2" data-dismiss="modal">Cancel</button>

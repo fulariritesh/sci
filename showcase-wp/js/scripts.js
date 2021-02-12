@@ -1060,6 +1060,49 @@ $(document).ready(function () {
 /* User Physical Attributes */
 $(document).ready(function () {
 
+	//clear radio buttons
+	$('#clear_sci_user_eye_color').click(function () {
+		$('input[type=radio][name=sci_user_eye_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_eye_color]').removeAttr('checked');
+	});
+	$('#clear_sci_user_skin_color').click(function () {
+		$('input[type=radio][name=sci_user_skin_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_skin_color]').removeAttr('checked');
+	});
+	$('#clear_sci_user_hair_length').click(function () {
+		$('input[type=radio][name=sci_user_hair_length]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_length]').removeAttr('checked');
+	});
+	$('#clear_sci_user_hair_color').click(function () {
+		$('input[type=radio][name=sci_user_hair_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_color]').removeAttr('checked');
+		$("#sci_user_custom_hair_color_wapper").addClass('d-none');
+	});
+	$('#clear_sci_user_hair_type').click(function () {
+		$('input[type=radio][name=sci_user_hair_type]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_type]').removeAttr('checked');
+	});
+	$('#clear_sci_user_ethnicity').click(function () {
+		$('input[type=radio][name=sci_user_ethnicity]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_ethnicity]').removeAttr('checked');
+		$("#sci_user_custom_ethnicity_wapper").addClass('d-none');
+	});
+
+	//clear input fields
+	$('#clear_sci_user_height_ft').click(function () {
+		$('input[name=sci_user_height_ft]').val('');
+		$('input[name=sci_user_height_in]').val('');
+	});
+	$('#clear_sci_user_weight_kg').click(function () {
+		$('input[name=sci_user_weight_kg]').val('');
+	});
+	$('#clear_sci_user_chest_in').click(function () {
+		$('input[name=sci_user_chest_in]').val('');
+	});
+	$('#clear_sci_user_waist_in').click(function () {
+		$('input[name=sci_user_waist_in]').val('');
+	});
+
 	//sync custom text field with 'other' radio value
 	$("#sci_user_custom_ethnicity_text").keyup(function() {
 		console.log($(this).val());
@@ -1148,7 +1191,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 	//login
 	$('a.um-link-alt').parent().hide();
-	$('span.um-field-checkbox-option').text('Keep me logged in');
+	$('span.um-field-checkbox-option').text('Keep me logged on this device');
 
 	//reset-password
 	$('div.um-field.um-field-block.um-field-type_block').hide();
