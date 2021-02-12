@@ -677,7 +677,7 @@ $user_info = get_userdata($obj_id);
 									}
 								endif;
 								
-								if($arrCategory){
+								if(!empty($arrCategory)){
 									foreach($arrCategory as $key => $obj){
 										foreach($obj as $value){
 											if(!array_key_exists($value->year,$arrYear)){
@@ -691,14 +691,14 @@ $user_info = get_userdata($obj_id);
 										}
 									}
 								}
-								if($arrYear){
+								if(!empty($arrYear)){
 									krsort($arrYear);
 								}
 
 								?>
 
 								
-								<?php if($arrCategory && count($arrCategory) > 0 && count($arrYear)> 0 ){ ?>
+								<?php if(count($arrCategory) > 0 && count($arrYear)> 0 ){ ?>
 									<div class="row mt-3 blockBG p-3 experienceblock">
 										<div class="col-12 col-sm-6 pt-3">
 											<div id="credit-and-experience"></div>
@@ -714,18 +714,20 @@ $user_info = get_userdata($obj_id);
 
 											
 											<div id="experienceblock-category">
-												<?php foreach($arrCategory as $key => $credits){ ?>
-													<div class="hr-text">
-														<span class="credit-title pr-3">
-															<?php echo get_field('category_name_singular', 'term_' . $key); ?> 
-														</span>
-													</div>
-													<ul>
-														<?php foreach($credits as $credit){ ?>
-															<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo $credit->year ?></span></li>
-														<?php } ?>
-													</ul>
-												<?php } ?>	
+												<?php foreach($arrCategory as $key => $credits){ 
+													if(!empty($credits)){ ?>
+														<div class="hr-text">
+															<span class="credit-title pr-3">
+																<?php echo get_field('category_name_singular', 'term_' . $key); ?> 
+															</span>
+														</div>
+														<ul>
+															<?php foreach($credits as $credit){ ?>
+																<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo $credit->year ?></span></li>
+															<?php } ?>
+														</ul>
+													<?php }
+												} ?>	
 											</div>
 
 											<div id="experienceblock-year">
@@ -751,13 +753,14 @@ $user_info = get_userdata($obj_id);
 								<?php 
 									$allCategories = array();
 									$categoriesWithProfession = array(); 
+									$categoriesWithSubcategories = array();
 								?>
 								<?php if (get_field('profession', 'user_' . $obj_id)): 
 									$formAdditionalFields = get_field('sci_form_additional_fields', 'option');
 									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
 										$child = get_term($key);
 										if ($child->parent == 0) { 
-										array_push($allCategories, $child->term_id);?>
+											array_push($allCategories, $child->term_id);?>
 											<?php if( have_rows('experience', 'user_' . $obj_id) ): ?>	
 												<?php while ( have_rows('experience', 'user_' . $obj_id) ) : the_row(); ?>
 													<?php if(get_sub_field('category')->term_id == $child->term_id){
@@ -803,8 +806,9 @@ $user_info = get_userdata($obj_id);
 																			<p class="py-4"> 
 																				<?php
 																					foreach (get_field('profession', 'user_' . $obj_id) as $subCatIndex => $subCatkey) {
+																						$childSubcat = get_term($subCatkey);
 																						if ($childSubcat->parent == $child->term_id){ ?>
-																							<span class="badge specialisedbadge"><i class="fas fa-check"></i> <?php echo get_field('category_name_singular', 'term_' . $subCatkey->term_id); ?></span>
+																							<span class="badge specialisedbadge"><i class="fas fa-check"></i> <?php echo get_field('category_name_singular', 'term_' . $childSubcat->term_id); ?></span>
 																						<?php }
 																					}
 																				?>
@@ -897,13 +901,17 @@ $user_info = get_userdata($obj_id);
 															
 											<?php endif; ?>
 										<?php }
+										else{
+											if(!in_array($child->parent, $categoriesWithSubcategories)){
+												array_push($categoriesWithSubcategories, $child->parent);
+											}
+										}
 									}
 								endif; ?>
 
 								<?php
-								
 								foreach($allCategories as $category)
-									if(!in_array($category, $categoriesWithProfession)){?>
+									if(!in_array($category, $categoriesWithProfession) && !in_array($category, $categoriesWithSubcategories)){?>
 										<!--empty Block-->
 										<div class="row mt-3 blockBG p-3 emptyblock">
 											<div class="col-12 pt-3 text-center">

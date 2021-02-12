@@ -372,9 +372,14 @@ function sci_experience_form() {
                                     <?php endwhile;
                                  endif; ?>
 
+                                 <div class="hr-text col-12 p-0 mb-4">
+                                    <span class="credit-title font-weight-bold pr-3">
+                                       Experience by Year
+                                    </span>
+                                 </div>
                                  <div class="accordion col-12 mx-auto" id="experience-accordion">
                                  <?php foreach($arrYear as $key => $yearData){ ?>   
-                                    <div class="accordion-group mb-3 card">
+                                    <div class="accordion-group mb-3 card new-experience-group">
                                        <div class="row card-header collapsed p-2" id=<?php echo  "row" . $key ?> type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "row" . $key ?>>
                                           <div class="col-11">
                                              <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(<?php echo  $key ?>)</span>
@@ -385,8 +390,8 @@ function sci_experience_form() {
                                           <div class="accordion-inner card-body">
                                              <ul class="list" data-year=<?php echo $key ?>>
                                                 <?php foreach($yearData as $data){ ?>
-                                                   <li data-row=<?php echo $data->row ?>><?php echo $data->content ?>
-                                                      <div class="d-flex justify-content-end">
+                                                   <li data-row=<?php echo $data->row ?> style="display: flex;padding-bottom: 5px;"><span contenteditable="true"><?php echo $data->content ?></span>
+                                                      <div class="d-flex justify-content-end" style="flex: auto;">
                                                          <button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
                                                             <i class="fas fa-trash-alt fa-lg"></i>
                                                          </button>
@@ -413,7 +418,7 @@ function sci_experience_form() {
                      <div class="row px-4 pb-5">
                         <div class="hr-text col-12 p-0 mb-4">
                            <span class="credit-title font-weight-bold pr-3">
-                              Experience by Year
+                              Add new Experience
                            </span>
                         </div>
                         <form action="">
@@ -478,8 +483,9 @@ function sci_experience_form_submit() {
 
    $mainCategories = [];
    foreach($userProfessions as $userProfession){
-      if($userProfession->parent == 0){
-         array_push($mainCategories, strval($userProfession->term_id));
+      $child = get_term($userProfession);
+      if($child->parent == 0 || $child->parent != $categoryId){
+         array_push($mainCategories, strval($child->term_id));
       }
    }
    foreach($subCats as $cat){
@@ -488,59 +494,112 @@ function sci_experience_form_submit() {
 
    update_field(__sci_s("Profession", 'profession')['key'], $mainCategories, 'user_' . $current_user->ID);
    
-   $a;
-   //Update additional fields
-   if( have_rows('experience', 'user_' . $current_user->ID)):
-      while ( have_rows('experience', 'user_' . $current_user->ID) ) : the_row(); 
-         if(get_sub_field('category')->term_id == $categoryId){
+
+
+   $experienceField = get_field('experience', 'user_' . $current_user->ID);
+   
+   $categoryExperiencePresent = false;
+
+   if(!empty($experienceField)){
+      $experienceRow =0;
+      foreach($experienceField as $experience){
+         
+         if($experience['category']->term_id == $categoryId){
+            $categoryExperiencePresent = true;
+
+            $sectionRow = 0;
+            $newSections = array();
+            if(!empty($experience['sections'])){
+               $newSections = $experience['sections'];
+
+               foreach($newSections as $key => $section){
+                  $sectionRow += 1;
+                  if(in_array($sectionRow, $deleted)){
+                     unset($newSections[$key]);
+                  }
+
+               }
+
+               foreach($experiences as $experience){
+                  if($experience->rowNumber != "-1"){
+                     $newSection = array(
+                        "content" => $experience->content,
+                        "year" => (string)$experience->year
+                     );
+                     $newSections[$experience->rowNumber-1] = $newSection;
+                  }
+               }
+            }
             
+            foreach($experiences as $experience){
+                if($experience->rowNumber == "-1"){
+                  $newSection = array(
+                     "content" => $experience->content,
+                     "year" => (string)$experience->year
+                  );
+                  $newSections[count($newSections)] = $newSection;
+                }
+            }
+            $experienceField[$experienceRow]['sections'] = $newSections;
+
+
+            //////////////////////////////
             foreach($additionalFields as $fields){
-               update_sub_field($fields->efFieldName, $fields->efOptions);
+               $experienceField[$experienceRow][$fields->efFieldName] = $fields->efOptions;
             }
 
             foreach($fieldOtherSpecifications as $otherFields){
-               update_sub_field($otherFields->efFieldName, $otherFields->efValue);
+               $experienceField[$experienceRow][$otherFields->efFieldName] = $otherFields->efValue;
             }
 
-            
+            $experienceField[$experienceRow]['website'] = $website;
+            //////////////////////////////
 
-            //    if( have_rows('sections') ) {
-            //       while( have_rows('sections') ) {
-            //           the_row();
-                     
-            //          if(in_array(get_row_index(), $deleted)){
-            //             delete_row('sections',get_row_index(),'user_'.$current_user->ID);
-            //             $a ="deleted".get_row_index();
-            //          }
-                     
-            //       }
-            //   }
-
-            foreach($experiences as $experience){
-
-               if($experience->rowNumber == "-1"){
-                  $row = array(
-                     'content' =>  $experience->content,
-                     'year' => $experience->year
-                  );
-                  add_row('sections', $row, 'user_'.$current_user->ID);
-                  $a=$experience->content . $row;
-               }
-            }
-
-            foreach($deleted as $deletedRow){
-               update_row('sections',$deletedRow,'user_'.$current_user->ID);
-               $a= '$experience->rowNumber'.$deletedRow;
-            }
-
-            update_sub_field('website', $website);
-         }  
-      endwhile;
-   endif;
+         }
+         $experienceRow += 1;
+ 
+      }
+      
+   }
    
-   
+   if(empty($experienceField) || !$categoryExperiencePresent){
+      //create experience for category with details
+      
 
-   echo $a;
+      $experienceRow = [];
+
+      $category = get_term($categoryId);
+      $experienceRow["category"] = $category;
+
+      foreach($additionalFields as $fields){
+         $experienceRow[$fields->efFieldName] = $fields->efOptions;
+      }
+
+      foreach($fieldOtherSpecifications as $otherFields){
+         $experienceRow[$otherFields->efFieldName] = $otherFields->efValue;
+      }
+
+      $experienceRow['website'] = $website;
+
+      $newSections = array();
+      foreach($experiences as $experience){
+         if($experience->rowNumber == "-1"){
+           $newSection = array(
+              "content" => $experience->content,
+              "year" => (string)$experience->year
+           );
+           $newSections[count($newSections)] = $newSection;
+         }
+     }
+     $experienceRow['sections'] = $newSections;
+
+     $experienceField[count($experienceField)] = $experienceRow;
+
+   }
+   
+   update_field(__sci_s("USER: Profile details", 'experience')['key'],  $experienceField , 'user_' . $current_user->ID );
+   
+   echo 'Ok';
    wp_die();
 
 }
