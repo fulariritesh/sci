@@ -520,7 +520,7 @@ function sci_toggle_spotlight() {
    }   
 
    if (!!$_REQUEST["toggle_spotlight"]) {
-      $temp_state = 0;
+         $temp_state = 0;
       if($_REQUEST["toggle_spotlight"]=="true"){
          $temp_state = 1;
       }

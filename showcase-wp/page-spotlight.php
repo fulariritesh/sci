@@ -14,7 +14,6 @@
 
 get_header();
 $current_user = wp_get_current_user();
-update_user_meta( $current_user->ID, "_liked", [$user_that_they_liked]);
 ?>
 	<style text="text/css">
 		.selectedcategories span.badge {
@@ -26,6 +25,10 @@ update_user_meta( $current_user->ID, "_liked", [$user_that_they_liked]);
 				margin-right: 2px;
 				margin-bottom: 5px;
 			}
+			.liked{
+			color:blue;
+			}
+						
 	</style>
   <div class="bodyBG">
   <?php $args = array( 'role' => 'subscriber',
@@ -134,13 +137,20 @@ update_user_meta( $current_user->ID, "_liked", [$user_that_they_liked]);
                         </a>
                     </div>
                     <div class="col-6 col-sm-6 py-2 text-right">
-                    	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        	<i class="fas fa-thumbs-up"></i>
-                        	<?php if (in_array($obj_id, get_user_meta( $current_user->ID, "_liked"))): ?>
-                        		User has already liked
-                        	<?php endif ?>
-                        	<?php echo get_field('likes', 'user_' . $obj_id) ?> likes
-                    	</form>
+						<?php
+						 $liked_by = get_field('likes', 'user_'. $obj_id);
+						if (in_array($current_user->ID, $liked_by)) : ?>
+							<span class="profile-like-box" data-user="<?php echo $obj_id;?>">
+							<i class="fas fa-thumbs-up liked"></i>
+							<?php echo (count($liked_by)); ?> 
+							</span>
+							<?php else : ?>
+							<span class="profile-like-box" data-user="<?php echo $obj_id;?>">
+							<i class="fas fa-thumbs-up"></i>
+							<?php echo (count($liked_by)); ?> 
+							</span>
+						<?php endif ?>
+						<span>likes</span>
                     </div>
                 </div>
 				<?php endforeach; ?>

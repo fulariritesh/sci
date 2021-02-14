@@ -358,7 +358,8 @@ const previewImg = document.querySelector(".img-preview-img");
 const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
 const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
 
-if (inpFile) inpFile.addEventListener("change", function () {
+if (inpFile) {
+  inpFile.addEventListener("change", function () {
   const file = this.files[0];
   if (file) {
     const reader = new FileReader();
@@ -371,7 +372,8 @@ if (inpFile) inpFile.addEventListener("change", function () {
     });
     reader.readAsDataURL(file);
   }
-})
+});
+}
 
 if (navigator.mediaDevices) {
   navigator.mediaDevices
@@ -725,6 +727,39 @@ $(document).ready(function(){
 		}, 1000)
 	})
 });
+
+// Like toggle
+$(document).ready(function(){
+	$('.profile-like-box').on('click', function(){
+		console.log("like cliked!");
+		var res;
+		$.ajax({
+			url: LIKE.request_url,
+			method:'POST',
+			data:{
+				user_id: $(this).attr('data-user'),
+				nonce: LIKE.nonce,
+				action:'sci_toggle_like',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				console.log(res.status);
+				if(res.status === 'like'){
+					$('i.fas.fa-thumbs-up').addClass('liked');
+					$('span.profile-like-box').text(res.count);
+				}
+				else if(res.status === 'dislike'){
+					$('i.fas.fa-thumbs-up').removeClass('liked');
+					$('span.profile-like-box').text(res.count);
+				}
+				else{
+					console.log('error')
+				}					
+			}
+		});
+	});
+});
+
 //sid
 /* User Videos */
 $(document).ready(function () {

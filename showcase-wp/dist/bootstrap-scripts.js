@@ -16766,20 +16766,23 @@ var previewContainer = document.getElementById("img-preview");
 var previewImg = document.querySelector(".img-preview-img");
 var previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
 var previewDefaultTxt = document.querySelector(".img-preview-default-txt");
-if (inpFile) inpFile.addEventListener("change", function () {
-  var file = this.files[0];
 
-  if (file) {
-    var reader = new FileReader();
-    previewDefaultTxt.style.display = "none";
-    previewImg.style.display = "block";
-    reader.addEventListener("load", function () {
-      console.log(this);
-      previewImg.setAttribute("src", this.result);
-    });
-    reader.readAsDataURL(file);
-  }
-});
+if (inpFile) {
+  inpFile.addEventListener("change", function () {
+    var file = this.files[0];
+
+    if (file) {
+      var reader = new FileReader();
+      previewDefaultTxt.style.display = "none";
+      previewImg.style.display = "block";
+      reader.addEventListener("load", function () {
+        console.log(this);
+        previewImg.setAttribute("src", this.result);
+      });
+      reader.readAsDataURL(file);
+    }
+  });
+}
 
 if (navigator.mediaDevices) {
   navigator.mediaDevices.getUserMedia({
@@ -17132,6 +17135,36 @@ $(document).ready(function () {
       clearInterval(window.jsTimeout);
       delete window.jsTimeout;
     }, 1000);
+  });
+}); // Like toggle
+
+$(document).ready(function () {
+  $('.profile-like-box').on('click', function () {
+    console.log("like cliked!");
+    var res;
+    $.ajax({
+      url: LIKE.request_url,
+      method: 'POST',
+      data: {
+        user_id: $(this).attr('data-user'),
+        nonce: LIKE.nonce,
+        action: 'sci_toggle_like'
+      },
+      success: function success(response, status, xhr) {
+        res = JSON.parse(response);
+        console.log(res.status);
+
+        if (res.status === 'like') {
+          $('i.fas.fa-thumbs-up').addClass('liked');
+          $('span.profile-like-box').text(res.count);
+        } else if (res.status === 'dislike') {
+          $('i.fas.fa-thumbs-up').removeClass('liked');
+          $('span.profile-like-box').text(res.count);
+        } else {
+          console.log('error');
+        }
+      }
+    });
   });
 }); //sid
 

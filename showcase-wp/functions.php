@@ -236,6 +236,17 @@ function custom_page_scripts(){
 			)
 		);
 	}
+	if (is_page( 'spotlight' )){
+		wp_enqueue_script( 'like', get_template_directory_uri() . '/js/like.js', array(), _S_VERSION, false );
+		wp_localize_script(
+			'like',
+			'LIKE',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'edit_like' ),
+			)
+		);
+	}
 }
 add_action('wp_head','custom_page_scripts');
 
@@ -266,6 +277,11 @@ require get_template_directory() . '/inc/custom-header.php';
  * Edit profile page
  */
 require get_template_directory() . '/inc/edit-page.php';
+
+/**
+ * Edit profile likes
+ */
+require get_template_directory() . '/inc/ajax-like.php';
 
 /**
  * Implement the Custom Nav Walker feature.
