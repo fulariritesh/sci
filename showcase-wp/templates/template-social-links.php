@@ -70,7 +70,7 @@ get_header();
         <div class="card-body">
 
         <h4 class="text-center font-weight-bold py-4">
-            Social links & Websites
+            Social Media Links
         </h4>
 
         <h6 class="text-center">

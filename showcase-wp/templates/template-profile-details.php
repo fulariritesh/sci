@@ -34,69 +34,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			}
 		}
 
-		if(empty($_POST['dob'])){
+		if(empty($_POST['sci_user_dob'])){
 			$dob_er = true;
 		}else{
-			$dob = sanitize_text_field( $_POST['dob']);
+			$dob = sanitize_text_field( $_POST['sci_user_dob']);
 			// checks date format YYYY-MM-DD 
 			if (!preg_match("/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/",$dob)) {
 				$dob_er = true;
 			}
 		}
 
-		if(empty($_POST['gender'])){
+		if(empty($_POST['sci_user_gender'])){
 			$gen_er = true;
 		}
 		else{
-			$gendervalue = sanitize_text_field( $_POST['gender']);
-			//get values from ACF plugin
-			$acf_gender = acf_get_field('sci_user_gender');
-			$verify_gen = array_search($gendervalue,array_keys($acf_gender['choices']),true);		
-
-			if($verify_gen !== false){
-				if($gendervalue == 'custom'){
-
-					//if custom gender selected check custom gender text field
-					if(empty($_POST['custom_gender'])){
-						$gen_er = true;
-					}else{
-						$custom_gender = sanitize_text_field( $_POST['custom_gender']);
-						// checks for number and special characters | min:1 max:20 | Multilang kept in mind
-						if (!preg_match("/^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,\d\-]{1,20}$/",$custom_gender)) {
-							$gen_er = true;
-						}
-						$gender = $custom_gender;
-					}
-				}else{
-					$gender = $gendervalue;
-				}
-			}else{
-				$gen_er = true;
-			}		
+			$gender = sanitize_text_field($_POST['sci_user_gender']);
+			//user clicked custom but did not enter value in textbox hence default value will be custom. 
+			if($gender == 'custom'){
+				$gen_er = true;		
+			}			
 		}
 
-		if(empty($_POST['mobile'])){
+		if(empty($_POST['sci_user_mobile'])){
 			$mob_er = true;
 		}else{
-			$mobile = sanitize_text_field( $_POST['mobile']);
+			$mobile = sanitize_text_field( $_POST['sci_user_mobile']);
 			// checks 10 digit number | accepts country code (optional)
 			if (!preg_match("/^(\+\d{1,3}[- ]?)?\d{10}$/",$mobile)) {
 				$mob_er = true;
 			}
 		}
 
-		if(empty($_POST['location'])){
+		if(empty($_POST['sci_user_location'])){
 			$loc_er = true;
 		}else{
-			$locationvalue = sanitize_text_field($_POST['location']);
-			//get values from ACF plugin
-			$acf_location = acf_get_field('sci_user_location');
-			$verify_loc = array_search($locationvalue,array_keys($acf_location['choices']),true);
-			if($verify_loc !== false){
-				$location = $locationvalue;
-			}else{
-				$loc_er = true;
-			}
+			$location = sanitize_text_field($_POST['sci_user_location']);
 		}
 
 		if(!($fn_er || $ln_er || $dob_er || $gen_er || $mob_er || $loc_er)){		
@@ -111,10 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$user = wp_update_user( $userdata );
 
 			if(!is_wp_error($user)){
-				$success_dob = update_user_meta( $user_id, 'sci_user_dob', $dob);
-				$success_gen = update_user_meta( $user_id, 'sci_user_gender', $gender);
-				$success_mob = update_user_meta( $user_id, 'sci_user_mobile', $mobile);
-				$success_loc = update_user_meta( $user_id, 'sci_user_location', $location);
+				$success_dob = update_field('sci_user_dob', $dob, 'user_'.$user_id);
+				$success_gen = update_field('sci_user_gender', $gender, 'user_'.$user_id);
+				$success_mob = update_field('sci_user_mobile', $mobile, 'user_'.$user_id);
+				$success_loc = update_field('sci_user_location', $location, 'user_'.$user_id);
 
 				$profile_detail_complete = update_user_meta( $user_id, 'sci_user_profile_detail_complete', true);
 
@@ -141,7 +113,7 @@ include('join-pagination.php');
 					<div class="form-row">
 						<!-- FIRSTNAME -->
 						<div class="col-md-6 mb-3">
-							<label for="FirstName">
+							<label for="firstName">
 								First name<span class="float-right text-danger pl-1">*</span>
 							</label>
 							<input
@@ -157,7 +129,7 @@ include('join-pagination.php');
 
 						<!-- LASTNAME -->
 						<div class="col-md-6 mb-3">
-							<label for="LastName">
+							<label for="lastName">
 								Last name<span class="float-right text-danger pl-1">*</span>
 							</label>
 							<input
@@ -174,15 +146,19 @@ include('join-pagination.php');
 
 					<!-- DOB -->
 					<div class="form-group">
-						<label for="DOB">
-							Birth Date<span class="float-right text-danger pl-1">*</span>
+						<?php
+							$user_dob = get_field('sci_user_dob','user_'.$user_id);
+							$acf_dob = acf_get_field('sci_user_dob');	
+						?>
+						<label for="<?php echo $acf_dob['name']; ?>">
+							<?php echo $acf_dob['label']; ?><span class="float-right text-danger pl-1">*</span>
 						</label>
 						<input 
 							type="date" 
 							class="form-control <?php echo ($dob_er) ? "is-invalid" : ""; ?>" 
-							id=dob 
-							name="dob" 
-							value="<?php echo get_field('sci_user_dob','user_'.$user_id); ?>"
+							id="<?php echo $acf_dob['name']; ?>"
+							name="<?php echo $acf_dob['name']; ?>"
+							value="<?php echo ($user_dob) ? $user_dob : ''; ?>"
 							required 
 						/>
 						<div class="invalid-feedback">Please enter a valid date</div>
@@ -190,49 +166,76 @@ include('join-pagination.php');
 
 					<!-- GENDER -->
 					<div class="form-group">
+						<?php
+							$user_gender = get_field('sci_user_gender','user_'.$user_id);
+							$acf_gender = acf_get_field('sci_user_gender');
+							$user_gender_custom = false;
+						?>
 						<div>
-							<label for="Gender">
-								Gender<span class="float-right text-danger pl-1">*</span>
+							<label for="<?php echo $acf_gender['name']; ?>">
+								<?php echo $acf_gender['label']; ?><span class="float-right text-danger pl-1">*</span>
 							</label>
 						</div>
 						<div class="btn-group btn-group-toggle" data-toggle="buttons">
 							<?php 
-								//get values from ACF plugin
-								$genderf = acf_get_field('sci_user_gender');
-								$g = get_user_meta( $user_id, 'sci_user_gender', true);
-								foreach($genderf['choices'] as $genvalue => $genlabel){	
-									echo '<label class="btn btn-details-gen">';	
-									echo '<input type="radio" name="gender" value="'.$genvalue.'" '.(($g == $genvalue ) ? "checked":"").' />'.$genlabel.'</label>';		
-								}
-							?>
+								foreach($acf_gender['choices'] as $value => $label): ?>
+									<label class="btn btn-details-gen">	
+									<input 
+									type="<?php echo $acf_gender['type']; ?>" 
+									name="<?php echo $acf_gender['name']; ?>" 
+									value="<?php echo $value; ?>" 
+									<?php echo ($user_gender == $value ) ? "checked" : ""; ?> 
+									/>
+									<?php echo $label; ?>
+									</label>	
+							<?php 	endforeach;	?>
+								<label class="btn btn-details-gen">
+									<input 
+									type="<?php echo $acf_gender['type']; ?>" 
+									name="<?php echo $acf_gender['name']; ?>"
+									id="sci_user_custom_gender_radio"
+									<?php 						
+									if($user_gender){
+										if(array_search($user_gender,array_keys($acf_gender['choices']),true) == false){
+											$user_gender_custom = true;
+										}
+										echo ($user_gender_custom) ? 'checked' : ''; 
+									}
+									?>
+									value="<?php echo ($user_gender_custom) ? $user_gender : 'custom'; ?>"
+									/>
+									Custom
+								</label>
 						</div>
 						<input type="hidden" class="form-control <?php echo ($gen_er) ? "is-invalid" : ""; ?>">
 						<div class="invalid-feedback">Please enter a valid gender</div>
-
-						<!-- CUSTOM GENDER (text field) -->
-						<div id="custom_gender_wrapper" class="form-group">
-							<input 
-								type="text" 
-								placeholder="Enter custom gender" 
-								id="custom_gender" 
-								name="custom_gender" 
-								value="<?php $cg = get_user_meta( $user_id, 'sci_user_gender', true);  echo ($cg) ?  $cg : ""; ?>"
-								class="form-control  mt-3 d-none"
-							/>
-						</div>
+					</div>
+					<div id="sci_user_custom_gender_wapper" class="form-group <?php echo ($user_gender_custom) ? '' : 'd-none'; ?>">
+						<input 
+							type="text" 
+							class="form-control" 
+							placeholder="Enter custom gender" 
+							value="<?php echo ($user_gender_custom) ? $user_gender : ''; ?>"
+							id="sci_user_custom_gender_text"
+						/>
 					</div>
 
 					<!-- MOBILE -->
 					<div class="form-group">
-						<label for="Mobile">
-							Mobile<span class="float-right text-danger pl-1">*</span>
+						<?php
+							$user_mobile = get_field('sci_user_mobile','user_'.$user_id);
+							$acf_mobile = acf_get_field('sci_user_mobile');	
+						?>
+						<label for="<?php echo $acf_mobile['name']; ?>">
+							<?php echo $acf_mobile['label']; ?><span class="float-right text-danger pl-1">*</span>
 						</label>
 						<input 
-							type="text" 
+							type="<?php echo $acf_mobile['type']; ?>" 
 							class="form-control <?php echo ($mob_er) ? "is-invalid" : ""; ?>" 
-							id="mobile" 
-							name="mobile" 
-							value="<?php $m = get_user_meta( $user_id, 'sci_user_mobile', true);  echo ($m) ?  $m : ""; ?>"
+							id="<?php echo $acf_mobile['name']; ?>"
+							name="<?php echo $acf_mobile['name']; ?>"
+							name="<?php echo $acf_mobile['placeholder']; ?>"
+							value="<?php echo ($user_mobile) ? $user_mobile : ''; ?>"
 							required 
 						/>
 						<div class="invalid-feedback">Please enter a valid mobile number</div>
@@ -240,16 +243,22 @@ include('join-pagination.php');
 
 					<!-- LOCATION -->
 					<div class="form-group">
-						<label for="Location">
-							Location<span class="float-right text-danger pl-1">*</span>
+						<?php
+							$user_location_array = get_field('sci_user_location','user_'.$user_id);
+							$acf_location = acf_get_field('sci_user_location');	
+							$user_location = $user_location_array['label'];
+						?>
+						<label for="<?php echo $acf_location['name']; ?>">
+							<?php echo $acf_location['label']; ?><span class="float-right text-danger pl-1">*</span>
 						</label>
-						<select class="form-control <?php echo ($loc_er) ? "is-invalid" : ""; ?>" id="location" name="location">
+						<select 
+							class="form-control <?php echo ($loc_er) ? "is-invalid" : ""; ?>" 
+							id="<?php echo $acf_location['name']; ?>" 
+							name="<?php echo $acf_location['name']; ?>"
+						>
 						<?php 
-							//get values from ACF plugin
-							$locationf = acf_get_field('sci_user_location');
-							$l = get_user_meta( $user_id, 'sci_user_location', true);
-							foreach($locationf['choices'] as $locvalue => $loclabel){		
-								echo '<option class="dropdown-item" value="'.$locvalue.'" '.(($l==$locvalue)?'selected="selected"':"").'>'.$loclabel.'</option>';		
+							foreach($acf_location['choices'] as $value => $label){		
+								echo '<option class="dropdown-item" value="'.$value.'" '.(($user_location==$label)?'selected="selected"':"").'>'.$label.'</option>';		
 							}
 						?>
 						</select>

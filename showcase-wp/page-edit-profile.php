@@ -544,7 +544,7 @@ $user_info = get_userdata($obj_id);
 			<div id="physical-attributes"></div>
 	        <!--Physical Attributes-->
 	        <div class="row mt-3 physicalattribs">
-	            <div class="col-9 col-sm-6 pt-3 px-0"><h4>Physical Attributes</h4></div>
+	            <div class="col-9 col-sm-6 pt-3 px-0"><h4>Physical Features</h4></div>
 				<div class="col-3 col-sm-6 pt-3 px-0 text-right">
 					<button data-toggle="modal" data-target="#editPhysicalAttributes" class="btn btn-edit">Edit</button>
 				</div>
@@ -2272,11 +2272,13 @@ aria-hidden="true">
 								id="sci_user_custom_hair_color_radio"
 								<?php 						
 								if($user_hair_color){
-									$user_hair_color_custom = !array_search($user_hair_color,array_values($acf_hair_color['choices']),true);
+									if(array_search($user_hair_color,array_values($acf_hair_color['choices']),true) == false){
+										$user_hair_color_custom = true;
+									}
 									echo ($user_hair_color_custom) ? 'checked' : ''; 
 								}
 								?>
-								value="<?php echo ($user_hair_color) ? $user_hair_color : 'other'; ?>"
+								value="<?php echo ($user_hair_color_custom) ? $user_hair_color : 'other'; ?>"
 								/>
 								Other
 							</label>
@@ -2378,11 +2380,13 @@ aria-hidden="true">
 								id="sci_user_custom_ethnicity_radio"
 								<?php 						
 								if($user_ethnicity){
-									$user_ethnicity_custom = !array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true);
+									if(array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true) == false){
+										$user_ethnicity_custom = true;
+									}
 									echo ($user_ethnicity_custom) ? 'checked' : ''; 
 								}
 								?>
-								value="<?php echo ($user_ethnicity) ? $user_ethnicity : 'other'; ?>"
+								value="<?php echo ($user_ethnicity_custom) ? $user_ethnicity : 'other'; ?>"
 								/>
 								Other
 							</label>

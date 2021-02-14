@@ -16946,6 +16946,8 @@ $(document).ready(function () {
   }
 }); //sid
 
+/* User Profile Details and Category Subcategory */
+
 $(document).ready(function () {
   /* Category Subcategory Page */
   $(".card-header").click(function () {
@@ -16961,14 +16963,26 @@ $(document).ready(function () {
   	!!! --- Use conditional fields in acf --- !!! ~ Wiseman 
   
   */
+  // $('input[type=radio][name=gender]').change(function (e){
+  // 	var genvalue = $("input[name='gender']:checked").val();
+  // 	if(genvalue === 'custom'){
+  // 		$('#custom_gender').removeClass('d-none');
+  // 	}else{
+  // 		$('#custom_gender').addClass('d-none');
+  // 	}
+  // });
+  //sync custom text field with 'other' radio value
 
-  $('input[type=radio][name=gender]').change(function (e) {
-    var genvalue = $("input[name='gender']:checked").val();
+  $("#sci_user_custom_gender_text").keyup(function () {
+    console.log($(this).val());
+    $("#sci_user_custom_gender_radio").val($(this).val());
+  }); //toggle custom text field with 'other' radio select
 
-    if (genvalue === 'custom') {
-      $('#custom_gender').removeClass('d-none');
+  $('input[type=radio][name=sci_user_gender]').change(function () {
+    if ($('#sci_user_custom_gender_radio:checked').val()) {
+      $("#sci_user_custom_gender_wapper").removeClass('d-none');
     } else {
-      $('#custom_gender').addClass('d-none');
+      $("#sci_user_custom_gender_wapper").addClass('d-none');
     }
   });
 }); // sid

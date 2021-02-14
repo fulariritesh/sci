@@ -17,7 +17,7 @@ get_header();
                     }
                 }elseif(isset($_GET["act"])){
                     if($_GET["act"] == 'reset_password'){
-                        echo 'Reset your password';
+                        echo 'Reset Your Password';
                     }
                 }
                 else{
@@ -30,7 +30,7 @@ get_header();
             <?php
                 if(isset($_GET["updated"])){
                     if( $_GET["updated"] == 'checkemail'){
-                        echo 'We have sent you a password reset link to your e-mail. Please check your inbox.';
+                        echo 'We have sent you a password reset link to your email address. Please check your inbox and spam folders. This link is valid only for 24 hours. ';
                     }
                 }elseif(isset($_GET["act"])){
                     if($_GET["act"] == 'reset_password'){
