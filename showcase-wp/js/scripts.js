@@ -822,3 +822,11 @@ $(document).ready(function () {
 		});
 	});
 });
+
+//main menu for mobile
+$(document).ready(function(){
+    $(".hidemenu").on('click', function(){
+        $(".main-menu").removeClass("show");
+        $(".main-menu").addClass("hide");
+    });
+}); 
