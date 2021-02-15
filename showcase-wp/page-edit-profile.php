@@ -93,7 +93,7 @@ $user_info = get_userdata($obj_id);
 		            <a href="<?php echo get_author_posts_url($obj_id); ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
 		        </div>
 		    </div>
-			<?php //get_template_part('template-parts/template-profile-completion' ); ?>
+			<?php get_template_part('template-parts/template-profile-completion' ); ?>
 			<div class="row p-3 blockBG mb-3">
 			    <div class="col-12 col-sm-6">
 					<style type="text/css">
