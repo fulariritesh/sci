@@ -159,8 +159,9 @@ function showcase_scripts() {
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
 	wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );
+	if(is_page("email-verification")){
 	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap'), _S_VERSION, true );
-
+	}
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -222,8 +223,29 @@ function custom_page_scripts(){
 
 	}
 	if (is_author()) {
+		wp_enqueue_script( 'editable_request', get_template_directory_uri() . '/js/edit-page.js', array(), _S_VERSION, false );
 		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
 		wp_enqueue_script( 'imagesloaded', 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), false, true );
+		wp_localize_script(
+			'editable_request',
+			'Edit',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'edit_request' ),
+
+			)
+		);
+	}
+	if (is_page( 'spotlight' )){
+		wp_enqueue_script( 'like', get_template_directory_uri() . '/js/like.js', array(), _S_VERSION, false );
+		wp_localize_script(
+			'like',
+			'LIKE',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'edit_like' ),
+			)
+		);
 	}
 }
 add_action('wp_head','custom_page_scripts');
@@ -267,6 +289,11 @@ require get_template_directory() . '/inc/custom-header.php';
 require get_template_directory() . '/inc/edit-page.php';
 
 /**
+ * Edit profile likes
+ */
+require get_template_directory() . '/inc/ajax-like.php';
+
+/**
  * Implement the Custom Nav Walker feature.
  */
 require get_template_directory() . '/inc/class-wp-bootstrap-navwalker.php';
@@ -304,6 +331,30 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 }
 
 // My code here
+
+// Custom user role: Spotlight Manager
+add_action('after_setup_theme',function(){
+	if ( ! get_option('wpc_roles_created')){
+		$spotlight_manager_caps = get_role ('administrator')->capabilities;
+		$unwanted_caps = [
+			'activate_plugins'=> 1,
+			'delete_plugins'=> 1,
+			'install_plugins'=> 1,
+			'update_plugins'=> 1,
+		];
+		$spotlight_manager_caps = array_diff_key ($spotlight_manager_caps,$unwanted_caps);
+		add_role('spotlight_manager','Spotlight Manager',$spotlight_manager_caps);
+		update_option( 'wpc_roles_created',true);
+	}
+});
+
+add_action( 'init' , function(){
+		$spotlight_manager_caps = get_role( 'spotlight_manager' );
+		$spotlight_manager_caps-> add_cap ('toggle_spotlight_btn');
+		$admin = get_role ('administrator');
+		$admin-> add_cap ('toggle_spotlight_btn');
+} );
+
 if( function_exists('acf_add_options_page') ) {
 	
 	acf_add_options_page(array(

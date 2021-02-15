@@ -40,18 +40,18 @@ $user_info = get_userdata($obj_id);
 	            	<!-- Nav tabs -->
 		            <ul class="nav findtalent-tabs">
 		                <li class="nav-item">
-		                	<a class="nav-link select" data-toggle="tab" href="">Find Talent</a>
+		                	<!-- <a class="nav-link select" data-toggle="tab" href="">Find Talent</a> -->
 		                </li>
 		            </ul>
 	            </div>
 	            <div class="col-6 col-sm-4 pt-3 scibreadcrumb">
 		            <ul class="nav float-right">
 		                <li class="nav-item">
-		                	<a class="nav-link select" href="/find-talent/">Find Talent</a>
+		                	<!-- <a class="nav-link select" href="/find-talent/">Find Talent</a> -->
 		                </li>
-		                <li class="pt-2"><i class="fas fa-chevron-right"></i></li>
+		                <!-- <li class="pt-2"><i class="fas fa-chevron-right"></i></li> -->
 		                <li class="nav-item">
-		                    <a class="nav-link select">View Profile</a>
+		                    <!-- <a class="nav-link select">View Profile</a> -->
 		                </li>
 		            </ul>
 	            </div>
@@ -182,6 +182,21 @@ $user_info = get_userdata($obj_id);
 							if($personalInfoVisible){
 						?>
 							<div class="col-6 profile-personaldetails">
+								<div class="row justify-content-end pr-md-4">
+									<?php if (current_user_can('toggle_spotlight_btn')){?>
+										<h5 class="pt-1">Spotlight</h5>
+										<label class="switch toggle-spotlight ml-4">
+										<input type="checkbox" data-id="<?php echo $obj_id;?>" id="togBtn" <?php echo !!get_field('spotlight-toggle', 'user_' . $obj_id) ? 'checked' : ''; ?>>
+										<div class="slider round">
+										<!--ADDED HTML -->
+										<span class="on">Show</span>
+										<span class="off">Hide</span>
+										<!--END-->
+										</div>
+										</label>
+									<?php }?>
+									
+								</div>
 								<h1>
 									<?php echo $data['first_name'][0] . " " . $data['last_name'][0]; ?>	
 								</h1>
@@ -819,6 +834,9 @@ $user_info = get_userdata($obj_id);
 		document.addEventListener("scroll", function(event){
 			let nav = document.querySelector(".profilenavigation nav");
 			let navContainer = document.querySelector(".profilenavigation");
+			if(!navContainer){
+				return
+			}
 			if (window.scrollY > navContainer.offsetTop + navContainer.offsetHeight) {
 				nav.classList.add("fixed");
 			}

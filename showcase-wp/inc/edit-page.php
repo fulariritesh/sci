@@ -603,4 +603,22 @@ function sci_experience_form_submit() {
    wp_die();
 
 }
- ?>
+ 
+add_action("wp_ajax_sci_toggle_spotlight", "sci_toggle_spotlight");
+function sci_toggle_spotlight() {
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+
+   if (!!$_REQUEST["toggle_spotlight"]) {
+         $temp_state = 0;
+      if($_REQUEST["toggle_spotlight"]=="true"){
+         $temp_state = 1;
+      }
+      update_field(__sci_s("USER: Profile details", 'spotlight-toggle')['key'], $temp_state, 'user_' . $_REQUEST['user_id']);
+      echo "ok";
+   }
+   wp_die();
+
+}?>

@@ -821,6 +821,60 @@ $(document).ready(function () {
 	});
 
 });
+//Spotlight toggle
+$(document).ready(function(){
+	$(".switch.toggle-spotlight input[type='checkbox']").on("change", function(){
+		var $this = $(this);
+		clearInterval(window.jsTimeout);
+		window.jsTimeout = setInterval(function(){
+			$.post({
+				url: Edit.request_url,
+				data: {
+					action: 'sci_toggle_spotlight',
+					nonce: Edit.nonce,
+					toggle_spotlight: !!$this.is(':checked'),
+					user_id: $this.attr('data-id')
+				},
+				success : function(res){
+					console.log(res)
+				}
+			})
+			clearInterval(window.jsTimeout);
+			delete window.jsTimeout;
+		}, 1000)
+	})
+});
+
+// Like toggle
+$(document).ready(function(){
+	$('.profile-like-box').on('click', function(){
+		var $this = $(this);
+		var res;
+		$.ajax({
+			url: LIKE.request_url,
+			method:'POST',
+			data:{
+				user_id: $this.attr('data-user'),
+				nonce: LIKE.nonce,
+				action:'sci_toggle_like',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				if(res.status === 'like'){
+					$this.find('i.fas.fa-thumbs-up').addClass('liked');
+					$this.find('span.profile-like-count').text(res.count);
+				}
+				else if(res.status === 'dislike'){
+					$this.find('i.fas.fa-thumbs-up').removeClass('liked');
+					$this.find('span.profile-like-count').text(res.count);
+				}
+				else{
+					console.log('error')
+				}					
+			}
+		});
+	});
+});
 
 //sid
 /* User Videos */

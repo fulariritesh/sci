@@ -491,7 +491,7 @@ $user_info = get_userdata($obj_id);
 					}
 	            </style>
 				<div class="col-6 col-sm-6 pt-3 ">
-					<h4>Videos (<?php echo count(get_field('videos', 'user_' . $obj_id)); ?>)</h4>
+					<h4>Videos (<?php echo get_field('videos', 'user_' . $obj_id)?count(get_field('videos', 'user_' . $obj_id)): 0; ?>)</h4>
 				</div>
 				<div class="col-6 col-sm-6 pt-3 text-right">
 					<button class="btn btn-edit" data-toggle="modal" data-target="#manageVideos">Edit</button>
@@ -514,7 +514,7 @@ $user_info = get_userdata($obj_id);
 			<div id="audios" class="pt-5"></div>
 	        <!--Audio block-->
 	        <div class="row mt-3 blockBG p-3 audioblock">
-	            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (<?php echo count(get_field('audios', 'user_' . $obj_id)); ?>)</h4></div>
+	            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (<?php echo get_field('audios', 'user_' . $obj_id)?count(get_field('audios', 'user_' . $obj_id)): 0; ?>)</h4></div>
 	            <div class="col-6 col-sm-6 pt-3  text-right">
 	                <button class="btn btn-edit" data-toggle="modal" data-target="#manageAudio">Edit</button>
 	                <button class="btn btn-add" data-toggle="modal" data-target="#addaudio">Add</button>
