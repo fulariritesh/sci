@@ -575,6 +575,7 @@ $(document).ready(function(){
 });
 
 //sid
+/* User Profile Details and Category Subcategory */ 
 $(document).ready(function () {
 	/* Category Subcategory Page */
 	$(".card-header").click(function () {
@@ -588,14 +589,30 @@ $(document).ready(function () {
 		!!! --- Use conditional fields in acf --- !!! ~ Wiseman 
 
 	*/
-	$("input[type='radio']").on('click', function (e){
-		var genvalue = $("input[name='gender']:checked").val();
-		if(genvalue === 'custom'){
-			$('#custom_gender').removeClass('d-none');
+	// $('input[type=radio][name=gender]').change(function (e){
+	// 	var genvalue = $("input[name='gender']:checked").val();
+	// 	if(genvalue === 'custom'){
+	// 		$('#custom_gender').removeClass('d-none');
+	// 	}else{
+	// 		$('#custom_gender').addClass('d-none');
+	// 	}
+	// });
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_gender_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_gender_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_gender]').change(function () {
+		if ($('#sci_user_custom_gender_radio:checked').val()) {
+			$("#sci_user_custom_gender_wapper").removeClass('d-none');
 		}else{
-			$('#custom_gender').addClass('d-none');
+			$("#sci_user_custom_gender_wapper").addClass('d-none');
 		}
 	});
+
 });
 
 // sid
@@ -638,25 +655,28 @@ $(document).ready(function () {
 		}
 	});
 
-	inpFile.addEventListener("change", function () {
-		const file = this.files[0];
-		if (file) {
-			const reader = new FileReader();
-			
-			reader.addEventListener("load", function () {
-				//console.log(this);
-				previewDefaultTxt.style.display = "none";
-				previewImg.setAttribute("src", this.result);
-				previewImg.style.display = "block";
-				cropper = new Cropper(previewImg, {
-						viewMode: 1,
-						aspectRatio: 1,
-						initialAspectRatio: 1
+	if(inpFile){
+		inpFile.addEventListener("change", function () {
+			const file = this.files[0];
+			if (file) {
+				const reader = new FileReader();
+				
+				reader.addEventListener("load", function () {
+					//console.log(this);
+					previewDefaultTxt.style.display = "none";
+					previewImg.setAttribute("src", this.result);
+					previewImg.style.display = "block";
+					cropper = new Cropper(previewImg, {
+							viewMode: 1,
+							aspectRatio: 1,
+							initialAspectRatio: 1
+						});
 					});
-				});
-			reader.readAsDataURL(file);	
-		}
-	});	
+				reader.readAsDataURL(file);	
+			}
+		});	
+	}
+	
 
 	if (navigator.mediaDevices.getUserMedia) {
 		navigator.mediaDevices
@@ -1051,4 +1071,152 @@ $(document).ready(function () {
 			},
 		});
 	});
+});
+
+//sid
+/* User Physical Attributes */
+$(document).ready(function () {
+
+	//clear radio buttons
+	$('#clear_sci_user_eye_color').click(function () {
+		$('input[type=radio][name=sci_user_eye_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_eye_color]').removeAttr('checked');
+	});
+	$('#clear_sci_user_skin_color').click(function () {
+		$('input[type=radio][name=sci_user_skin_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_skin_color]').removeAttr('checked');
+	});
+	$('#clear_sci_user_hair_length').click(function () {
+		$('input[type=radio][name=sci_user_hair_length]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_length]').removeAttr('checked');
+	});
+	$('#clear_sci_user_hair_color').click(function () {
+		$('input[type=radio][name=sci_user_hair_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_color]').removeAttr('checked');
+		$("#sci_user_custom_hair_color_wapper").addClass('d-none');
+	});
+	$('#clear_sci_user_hair_type').click(function () {
+		$('input[type=radio][name=sci_user_hair_type]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_type]').removeAttr('checked');
+	});
+	$('#clear_sci_user_ethnicity').click(function () {
+		$('input[type=radio][name=sci_user_ethnicity]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_ethnicity]').removeAttr('checked');
+		$("#sci_user_custom_ethnicity_wapper").addClass('d-none');
+	});
+
+	//clear input fields
+	$('#clear_sci_user_height_ft').click(function () {
+		$('input[name=sci_user_height_ft]').val('');
+		$('input[name=sci_user_height_in]').val('');
+	});
+	$('#clear_sci_user_weight_kg').click(function () {
+		$('input[name=sci_user_weight_kg]').val('');
+	});
+	$('#clear_sci_user_chest_in').click(function () {
+		$('input[name=sci_user_chest_in]').val('');
+	});
+	$('#clear_sci_user_waist_in').click(function () {
+		$('input[name=sci_user_waist_in]').val('');
+	});
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_ethnicity_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_ethnicity_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_ethnicity]').change(function () {
+		if ($('#sci_user_custom_ethnicity_radio:checked').val()) {
+			$("#sci_user_custom_ethnicity_wapper").removeClass('d-none');
+		}else{
+			$("#sci_user_custom_ethnicity_wapper").addClass('d-none');
+		}
+	});
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_hair_color_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_hair_color_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_hair_color]').change(function () {
+		if ($('#sci_user_custom_hair_color_radio:checked').val()) {
+			$("#sci_user_custom_hair_color_wapper").removeClass('d-none');
+		}else{
+			$("#sci_user_custom_hair_color_wapper").addClass('d-none');
+		}
+	});
+
+	// EDIT PHYSICAL ATTRIBUTES
+	$('#editphysicalattributessave_submit').click(function () {
+		var res;
+		var sci_user_height_ft = $('input[name=sci_user_height_ft]').val();
+		var sci_user_height_in = $('input[name=sci_user_height_in]').val();
+		var sci_user_weight_kg = $('input[name=sci_user_weight_kg]').val();
+		var sci_user_chest_in = $('input[name=sci_user_chest_in]').val();
+		var sci_user_waist_in = $('input[name=sci_user_waist_in]').val();
+		var sci_user_eye_color = $('input[name=sci_user_eye_color]:checked').val();
+		var sci_user_skin_color = $('input[name=sci_user_skin_color]:checked').val();
+		var sci_user_hair_length = $('input[name=sci_user_hair_length]:checked').val();
+		var sci_user_hair_color = $('input[name=sci_user_hair_color]:checked').val();
+		var sci_user_hair_type = $('input[name=sci_user_hair_type]:checked').val();
+		var sci_user_ethnicity = $('input[name=sci_user_ethnicity]:checked').val();
+
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				sci_user_height_ft: sci_user_height_ft,
+				sci_user_height_in: sci_user_height_in,
+				sci_user_weight_kg: sci_user_weight_kg,
+				sci_user_eye_color: sci_user_eye_color,
+				sci_user_skin_color: sci_user_skin_color,
+				sci_user_chest_in: sci_user_chest_in,
+				sci_user_waist_in: sci_user_waist_in,
+				sci_user_hair_length: sci_user_hair_length,
+				sci_user_hair_color: sci_user_hair_color,
+				sci_user_hair_type: sci_user_hair_type,
+				sci_user_ethnicity: sci_user_ethnicity,
+				nonce: Edit.nonce,
+				action:'sci_edit_physical_attributes',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#reseditphysicalattributesWrapper').empty();
+				$('#reseditphysicalattributesWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	
+});
+
+//sid
+/* UM Form Override css */
+$(document).ready(function () {
+	//login
+	$('a.um-link-alt').parent().hide();
+	$('span.um-field-checkbox-option').text('Keep me logged on this device');
+
+	//reset-password
+	$('div.um-field.um-field-block.um-field-type_block').hide();
+	$('input#username_b.um-form-field').attr("placeholder", 'Email');
+
+	var isresetpwdbtn = $('input#um-submit-btn.um-button').val();
+	if(isresetpwdbtn === 'Reset my password'){
+		$('input#um-submit-btn.um-button').val('Send Reset Link');
+	}
+
 });

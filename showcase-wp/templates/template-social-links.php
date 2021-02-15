@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     unset($_SESSION['user_social_links']['instagram']);
                     $ig_error = true;
                 }else{
-                    unset($ig_error);
                     $_SESSION['user_social_links']['instagram'] =  $ig_url;
                 }
             }
@@ -71,7 +70,7 @@ get_header();
         <div class="card-body">
 
         <h4 class="text-center font-weight-bold py-4">
-            Social links & Websites
+            Social Media Links
         </h4>
 
         <h6 class="text-center">

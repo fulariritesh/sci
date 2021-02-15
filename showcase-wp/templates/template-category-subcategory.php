@@ -51,7 +51,7 @@ get_header();
             id="accordion"
         >
             <h4 class="text-center font-weight-bold py-4">
-            Select your main skills and specialised skills 
+            Select your skillset and specialised skills 
             </h4>
 
             <?php

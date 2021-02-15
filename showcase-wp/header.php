@@ -89,9 +89,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="">
           <ul class="tb-right navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link tb-text" href="tel:<?php echo get_field('sci_helpline_number', 'option'); ?>"><i class="tb-icon1 fas fa-phone pr-2"></i><?php echo get_field('sci_helpline_number', 'option'); ?></a>
-            </li>
+            <?php
+              $sci_helpline_number = get_field('sci_helpline_number', 'option');
+              if($sci_helpline_number){
+                ?>
+                <li class="nav-item">
+                  <a class="nav-link tb-text" href="tel:<?php echo $sci_helpline_number; ?>"><i class="tb-icon1 fas fa-phone pr-2"></i><?php echo $sci_helpline_number; ?></a>
+                </li>
+                <?php
+              }
+            ?>
+            
             <li class="nav-item dropdown">     
               <a
                 class="nav-link tb-text dropdown-toggle"
@@ -145,7 +153,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="navbar-btn">
               <a
-				 href="/signin"
+				 href="/login"
                 class="btn btn-signIn"
                 type="button"
               >

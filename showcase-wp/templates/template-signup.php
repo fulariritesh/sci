@@ -30,7 +30,7 @@ get_header();
 			?>
 
 			<p class="text-center mt-4">
-				Already a member? <a href="<?php echo get_page_link(get_page_by_path('signin')); ?>">Log In</a>
+				Already a member? <a href="<?php echo get_page_link(get_page_by_path('login')); ?>">Log In</a>
 			</p>
 			</div>
 		</div>
