@@ -41,6 +41,11 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
       'key'     => 'profession',
       'value'   => array(''),
       'compare' => 'NOT IN',
+    ),
+    array(
+      'key'     => 'profile_visibility_status',
+      'value'   => 1,
+      'compare' => '=',
     ));
 
     
