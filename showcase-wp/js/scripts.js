@@ -252,6 +252,11 @@ $(document).ready(function(){
 
 		$('.btn-add-experience').on('click', function(e){
 			e.preventDefault();
+			// $(this).addClass('disabled');
+			// let loading = document.createElement("div");
+			// loading.classList.add("editableform-loading");
+			// $(this).parent().addClass("loading")
+			// $(this).parent()[0].appendChild(loading);
 			
 			let id = $(this).data('id');
 			$.post({
@@ -264,6 +269,9 @@ $(document).ready(function(){
 			    success : function(res){
 					$('#experience-modal-content').html(res);
 					$('#catdetailed').modal('show');
+					// $(this).removeClass('disabled');
+					// $(this).parent().removeClass("loading")
+					// $(this).parent()[0].children().last().remove();
 					//$('.other-selected').hide();
 			    }
 			})
@@ -281,6 +289,23 @@ $(document).ready(function(){
 				}
 			}
 		});
+
+		let deletedExperiences = [];
+		$("#catdetailed").on("click", ".delete-experience", function(event){
+			event.stopPropagation();
+			event.preventDefault();
+			if($(this).closest('li').data('row')){
+				deletedExperiences.push($(this).closest('li').data('row'));
+			}
+
+				let ul = $(this).closest('ul.list');
+				let group = $(this).closest('.new-experience-group');
+				$(this).closest('li').remove();
+				if(ul.children().length <=0){
+					group.remove();
+				}
+		});
+
 
 		$("#catdetailed").on("click", "#experience-submit", function(event){
 			event.preventDefault();
@@ -321,7 +346,7 @@ $(document).ready(function(){
 			fieldOthers.map(function(i, e){
 				let field = $();
 				field.efFieldName = $(this).data('other');
-				field.efValue = $(this).val().replace(/,/g, "@");
+				field.efValue = $(this).val();
 				
 				otherFields.push(field);
 			});
@@ -329,7 +354,30 @@ $(document).ready(function(){
 
 			let experienceWebsite = $('#experience-website').val();
 
-			let dataStringified = JSON.stringify({subCats : subCatsIds, additionalFields : fields, website : experienceWebsite, fieldOtherSpecifications : otherFields});
+
+
+			/////experiences
+			let yearGroup = $(this).closest("#catdetailed").find('div[id^="year"]');
+			let experienceDetails = [];
+			yearGroup.map(function(i, e){
+				
+				let thisYear = $(this).find('ul.list').data('year');
+				
+				$(this).find('ul.list').children().map(function(i, e){
+					let experience = $();
+					experience.year = thisYear;
+					experience.rowNumber = $(this).data('row')?$(this).data('row'):'-1';
+					experience.content = $(this).find('span').text();
+
+					experienceDetails.push(experience);
+				});
+				
+			});
+			/////experiences
+
+
+
+			let dataStringified = JSON.stringify({subCats : subCatsIds, additionalFields : fields, website : experienceWebsite, fieldOtherSpecifications : otherFields, experiences : experienceDetails, deleted : deletedExperiences });
 			console.log(dataStringified);
 			$.post({
 			    url: Edit.request_url,
@@ -340,62 +388,111 @@ $(document).ready(function(){
 			        updateData: dataStringified,
 			    },
 			    success : function(res){
-					console.log(res);
+					//console.log(JSON.parse(res));
 			    	location.reload();
 			    }
 			})
 		});
+
+		
+
+		$("#catdetailed").on("click", "#add-experience", function(event){
+			event.stopPropagation();
+			event.preventDefault();
+			
+			
+			let year = $("#ExpYr").val();
+			let content = $("#experience-content").val();
+
+			if(year != '' && content !=''){
+				$(this).prop('disabled', true);
+				let cardBody = $('#year'+year);
+				if(cardBody.length > 0){
+					cardBody.find('ul[data-year='+year+']').append(`<li data-new="true" style="display: flex;padding-bottom: 5px;"><span contenteditable="true">${content}</span><div class="d-flex justify-content-end" style="flex: auto;">
+					<button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
+					<i class="fas fa-trash-alt fa-lg"></i>
+					</button>
+				</div></li>`);
+				}else{
+					let newGroup = `<div class="accordion-group mb-3 card new-experience-group">
+					<div class="row card-header collapsed p-2" id="row${year}" type="button" data-toggle="collapse" data-target='#year${year}' aria-expanded="true" aria-controls="row${year}">
+					   <div class="col-11">
+						  <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(${year})</span>
+						  </p>
+					   </div>
+					</div>
+					<div id="year${year}" class="collapse" aria-labelledby="year${year}">
+					   <div class="accordion-inner card-body">
+						  <ul class="list" data-year=${year}>
+								<li data-new="true" style="display: flex;padding-bottom: 5px;"><span contenteditable="true">${content}</span>
+								<div class="d-flex justify-content-end" style="flex: auto;">
+									<button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
+									<i class="fas fa-trash-alt fa-lg"></i>
+									</button>
+								</div></li>
+						  </ul>
+					   </div>
+					</div>
+				 </div>`;
+	
+				 $('#experience-accordion').append($(newGroup));
+				}
+				
+				$("#ExpYr").val('');
+				$("#experience-content").val('');
+				$(this).prop('disabled', false);	
+			}
+			
+		});
 	}
 });
 
-$(".card-header").click(function () {
-	$(this).toggleClass("selected");
-});
-var video = document.querySelector("#videoElement");
-const inpFile = document.getElementById("hsFile");
-const previewContainer = document.getElementById("img-preview");
-const previewImg = document.querySelector(".img-preview-img");
-const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
-const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+// $(".card-header").click(function () {
+// 	$(this).toggleClass("selected");
+// });
+// var video = document.querySelector("#videoElement");
+// const inpFile = document.getElementById("hsFile");
+// const previewContainer = document.getElementById("img-preview");
+// const previewImg = document.querySelector(".img-preview-img");
+// const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+// const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
 
-if (inpFile) {
-  inpFile.addEventListener("change", function () {
-  const file = this.files[0];
-  if (file) {
-    const reader = new FileReader();
-    previewDefaultTxt.style.display = "none";
-    previewImg.style.display = "block";
+// if (inpFile) inpFile.addEventListener("change", function () {
+//   const file = this.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     previewDefaultTxt.style.display = "none";
+//     previewImg.style.display = "block";
 
-    reader.addEventListener("load", function () {
-      console.log(this);
-      previewImg.setAttribute("src", this.result);
-    });
-    reader.readAsDataURL(file);
-  }
-});
-}
+//     reader.addEventListener("load", function () {
+//       console.log(this);
+//       previewImg.setAttribute("src", this.result);
+//     });
+//     reader.readAsDataURL(file);
+//   }
+// })
 
-if (navigator.mediaDevices) {
-  navigator.mediaDevices
-    .getUserMedia({ video: true })
-    .then(function (stream) {
-      previewDefaultTxtCam.style.display = "none";
-      video.style.display = "block";
-      video.srcObject = stream;
-    })
-    .catch(function (err0r) {
-      console.log("Something went wrong!");
-    });
-}
-$(document).ready(function () {
-	$(".upload-div").hide();
-	$(".file-edit-btns").hide();
-	$(".btn-details-fileup").click(function () {
-		$(".capture-div").hide();
-		$(".upload-div").show();
-		$(".file-edit-btns").show();
-	});
-});
+// if (navigator.mediaDevices) {
+//   navigator.mediaDevices
+//     .getUserMedia({ video: true })
+//     .then(function (stream) {
+//       previewDefaultTxtCam.style.display = "none";
+//       video.style.display = "block";
+//       video.srcObject = stream;
+//     })
+//     .catch(function (err0r) {
+//       console.log("Something went wrong!");
+//     });
+// }
+// $(document).ready(function () {
+// 	$(".upload-div").hide();
+// 	$(".file-edit-btns").hide();
+// 	$(".btn-details-fileup").click(function () {
+// 		$(".capture-div").hide();
+// 		$(".upload-div").show();
+// 		$(".file-edit-btns").show();
+// 	});
+// });
 
 $(document).ready(function(){
 	// Check if element exists
@@ -478,6 +575,7 @@ $(document).ready(function(){
 });
 
 //sid
+/* User Profile Details and Category Subcategory */ 
 $(document).ready(function () {
 	/* Category Subcategory Page */
 	$(".card-header").click(function () {
@@ -491,14 +589,30 @@ $(document).ready(function () {
 		!!! --- Use conditional fields in acf --- !!! ~ Wiseman 
 
 	*/
-	$("input[type='radio']").on('click', function (e){
-		var genvalue = $("input[name='gender']:checked").val();
-		if(genvalue === 'custom'){
-			$('#custom_gender').removeClass('d-none');
+	// $('input[type=radio][name=gender]').change(function (e){
+	// 	var genvalue = $("input[name='gender']:checked").val();
+	// 	if(genvalue === 'custom'){
+	// 		$('#custom_gender').removeClass('d-none');
+	// 	}else{
+	// 		$('#custom_gender').addClass('d-none');
+	// 	}
+	// });
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_gender_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_gender_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_gender]').change(function () {
+		if ($('#sci_user_custom_gender_radio:checked').val()) {
+			$("#sci_user_custom_gender_wapper").removeClass('d-none');
 		}else{
-			$('#custom_gender').addClass('d-none');
+			$("#sci_user_custom_gender_wapper").addClass('d-none');
 		}
 	});
+
 });
 
 // sid
@@ -541,25 +655,28 @@ $(document).ready(function () {
 		}
 	});
 
-	inpFile.addEventListener("change", function () {
-		const file = this.files[0];
-		if (file) {
-			const reader = new FileReader();
-			
-			reader.addEventListener("load", function () {
-				//console.log(this);
-				previewDefaultTxt.style.display = "none";
-				previewImg.setAttribute("src", this.result);
-				previewImg.style.display = "block";
-				cropper = new Cropper(previewImg, {
-						viewMode: 1,
-						aspectRatio: 1,
-						initialAspectRatio: 1
+	if(inpFile){
+		inpFile.addEventListener("change", function () {
+			const file = this.files[0];
+			if (file) {
+				const reader = new FileReader();
+				
+				reader.addEventListener("load", function () {
+					//console.log(this);
+					previewDefaultTxt.style.display = "none";
+					previewImg.setAttribute("src", this.result);
+					previewImg.style.display = "block";
+					cropper = new Cropper(previewImg, {
+							viewMode: 1,
+							aspectRatio: 1,
+							initialAspectRatio: 1
+						});
 					});
-				});
-			reader.readAsDataURL(file);	
-		}
-	});	
+				reader.readAsDataURL(file);	
+			}
+		});	
+	}
+	
 
 	if (navigator.mediaDevices.getUserMedia) {
 		navigator.mediaDevices
@@ -877,4 +994,292 @@ $(document).ready(function () {
 			},
 		});
 	});
+});
+
+//main menu for mobile
+$(document).ready(function(){
+    $(".hidemenu").on('click', function(){
+        $(".main-menu").removeClass("show");
+        $(".main-menu").addClass("hide");
+    });
+});
+
+
+//sid
+/* User Audios */
+$(document).ready(function () {
+
+	var indexAudio = 1;
+	$(".manageAudio").find("button").click(function(){
+		var index = $(this).attr("data-indexaudio");
+		var res;
+		if(index){
+			indexAudio = index;
+			console.log('Audio: '+indexAudio);
+		}
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexAudio,
+				nonce: Edit.nonce,
+				action:'sci_get_audio',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#editaudiotitle_input').val(res.title);					
+				$('#editaudiodescription_input').val(res.description)
+			}
+		});
+	});
+	  
+	// ADD AUDIO
+	$('#addaudiosave_submit').click(function () {
+		var res;
+		// var fd = new FormData(); 
+        // var files = $('#addaudiofile_input')[0].files[0]; 
+		// fd.append('file', files);
+		// fd.append('nonce')
+		const file = $('#addaudiofile_input')[0].files[0];
+		var audio_src;
+		if (file) {
+			const reader = new FileReader();
+			reader.addEventListener("load", function () {
+				audio_src = this.result;
+				//console.log(audio_src);
+				$.ajax({
+					url: Edit.request_url,
+					method:'POST',
+					data:{
+						audio: audio_src,
+						nonce: Edit.nonce,
+						action:'sci_add_audio',
+					},
+					success: function(response, status, xhr){
+						res = JSON.parse(response);
+						$('#resaddaudioWrapper').empty();
+						$('#resaddaudioWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+																	<button type="button" class="close" data-dismiss="alert">&times;</button> \
+																	'+ res.msg +'. \
+																</div>');
+						if(res.status === 'success'){
+							window.location.reload();
+						}								
+					},
+					error :function(xhr,status,error){
+						console.log(xhr,status,error);
+					},
+				});
+			});
+			reader.readAsDataURL(file);	
+		}				
+	});
+
+	// EDIT AUDIO
+	$('#editaudiosave_submit').click(function () {
+		var res;
+		var title = $('#editaudiotitle_input').val();
+		var description = $('#editaudiodescription_input').val();
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				title: title,
+				description: description,
+				index: indexAudio,
+				nonce: Edit.nonce,
+				action:'sci_edit_audio',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#reseditaudioWrapper').empty();
+				$('#reseditaudioWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	// DELETE AUDIO
+	$('#deleteaudiosave_submit').click(function () {
+		var res;
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexAudio,
+				nonce: Edit.nonce,
+				action:'sci_delete_audio',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#resdeleteaudioWrapper').empty();
+				$('#resdeleteaudioWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+});
+
+//sid
+/* User Physical Attributes */
+$(document).ready(function () {
+
+	//clear radio buttons
+	$('#clear_sci_user_eye_color').click(function () {
+		$('input[type=radio][name=sci_user_eye_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_eye_color]').removeAttr('checked');
+	});
+	$('#clear_sci_user_skin_color').click(function () {
+		$('input[type=radio][name=sci_user_skin_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_skin_color]').removeAttr('checked');
+	});
+	$('#clear_sci_user_hair_length').click(function () {
+		$('input[type=radio][name=sci_user_hair_length]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_length]').removeAttr('checked');
+	});
+	$('#clear_sci_user_hair_color').click(function () {
+		$('input[type=radio][name=sci_user_hair_color]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_color]').removeAttr('checked');
+		$("#sci_user_custom_hair_color_wapper").addClass('d-none');
+	});
+	$('#clear_sci_user_hair_type').click(function () {
+		$('input[type=radio][name=sci_user_hair_type]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_hair_type]').removeAttr('checked');
+	});
+	$('#clear_sci_user_ethnicity').click(function () {
+		$('input[type=radio][name=sci_user_ethnicity]').parent('label').removeClass('active');
+		$('input[type=radio][name=sci_user_ethnicity]').removeAttr('checked');
+		$("#sci_user_custom_ethnicity_wapper").addClass('d-none');
+	});
+
+	//clear input fields
+	$('#clear_sci_user_height_ft').click(function () {
+		$('input[name=sci_user_height_ft]').val('');
+		$('input[name=sci_user_height_in]').val('');
+	});
+	$('#clear_sci_user_weight_kg').click(function () {
+		$('input[name=sci_user_weight_kg]').val('');
+	});
+	$('#clear_sci_user_chest_in').click(function () {
+		$('input[name=sci_user_chest_in]').val('');
+	});
+	$('#clear_sci_user_waist_in').click(function () {
+		$('input[name=sci_user_waist_in]').val('');
+	});
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_ethnicity_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_ethnicity_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_ethnicity]').change(function () {
+		if ($('#sci_user_custom_ethnicity_radio:checked').val()) {
+			$("#sci_user_custom_ethnicity_wapper").removeClass('d-none');
+		}else{
+			$("#sci_user_custom_ethnicity_wapper").addClass('d-none');
+		}
+	});
+
+	//sync custom text field with 'other' radio value
+	$("#sci_user_custom_hair_color_text").keyup(function() {
+		console.log($(this).val());
+		$("#sci_user_custom_hair_color_radio").val($(this).val());
+	});
+
+	//toggle custom text field with 'other' radio select
+	$('input[type=radio][name=sci_user_hair_color]').change(function () {
+		if ($('#sci_user_custom_hair_color_radio:checked').val()) {
+			$("#sci_user_custom_hair_color_wapper").removeClass('d-none');
+		}else{
+			$("#sci_user_custom_hair_color_wapper").addClass('d-none');
+		}
+	});
+
+	// EDIT PHYSICAL ATTRIBUTES
+	$('#editphysicalattributessave_submit').click(function () {
+		var res;
+		var sci_user_height_ft = $('input[name=sci_user_height_ft]').val();
+		var sci_user_height_in = $('input[name=sci_user_height_in]').val();
+		var sci_user_weight_kg = $('input[name=sci_user_weight_kg]').val();
+		var sci_user_chest_in = $('input[name=sci_user_chest_in]').val();
+		var sci_user_waist_in = $('input[name=sci_user_waist_in]').val();
+		var sci_user_eye_color = $('input[name=sci_user_eye_color]:checked').val();
+		var sci_user_skin_color = $('input[name=sci_user_skin_color]:checked').val();
+		var sci_user_hair_length = $('input[name=sci_user_hair_length]:checked').val();
+		var sci_user_hair_color = $('input[name=sci_user_hair_color]:checked').val();
+		var sci_user_hair_type = $('input[name=sci_user_hair_type]:checked').val();
+		var sci_user_ethnicity = $('input[name=sci_user_ethnicity]:checked').val();
+
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				sci_user_height_ft: sci_user_height_ft,
+				sci_user_height_in: sci_user_height_in,
+				sci_user_weight_kg: sci_user_weight_kg,
+				sci_user_eye_color: sci_user_eye_color,
+				sci_user_skin_color: sci_user_skin_color,
+				sci_user_chest_in: sci_user_chest_in,
+				sci_user_waist_in: sci_user_waist_in,
+				sci_user_hair_length: sci_user_hair_length,
+				sci_user_hair_color: sci_user_hair_color,
+				sci_user_hair_type: sci_user_hair_type,
+				sci_user_ethnicity: sci_user_ethnicity,
+				nonce: Edit.nonce,
+				action:'sci_edit_physical_attributes',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#reseditphysicalattributesWrapper').empty();
+				$('#reseditphysicalattributesWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	
+});
+
+//sid
+/* UM Form Override css */
+$(document).ready(function () {
+	//login
+	$('a.um-link-alt').parent().hide();
+	$('span.um-field-checkbox-option').text('Keep me logged on this device');
+
+	//reset-password
+	$('div.um-field.um-field-block.um-field-type_block').hide();
+	$('input#username_b.um-form-field').attr("placeholder", 'Email');
+
+	var isresetpwdbtn = $('input#um-submit-btn.um-button').val();
+	if(isresetpwdbtn === 'Reset my password'){
+		$('input#um-submit-btn.um-button').val('Send Reset Link');
+	}
+
 });

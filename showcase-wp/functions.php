@@ -269,6 +269,16 @@ require get_template_directory() . '/inc/ajax-headshot.php';
 require get_template_directory() . '/inc/ajax-videos.php';
 
 /**
+ * User Audios
+ */
+require get_template_directory() . '/inc/ajax-audios.php';
+
+/**
+ * User Physical Attributes
+ */
+require get_template_directory() . '/inc/ajax-physcial-attributes.php';
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
@@ -307,6 +317,11 @@ require get_template_directory() . '/inc/customizer.php';
  * Add Discover Talent PHP functions.
  */
 require get_template_directory() . '/inc/functions-discover-talent.php';
+
+/**
+ * Add Discover Talent PHP functions.
+ */
+require get_template_directory() . '/inc/functions-business-moderator.php';
 
 /**
  * Load Jetpack compatibility file.
@@ -700,14 +715,20 @@ function hook_header(){
 		echo '<style type="text/css">';
 		echo '#main-header{ text-align: center; }';
 		echo '#main-header #logo { text-align: center; float: none; margin: 0 auto; display:block; }';
-		echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b;}';
+		echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b; width: 100% !important;}';
 		echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
 		echo '</style>';
 	}
 
-	if(is_page('add-headshot')){
-		echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css" integrity="sha512-w+u2vZqMNUVngx+0GVZYM21Qm093kAexjueWOv9e9nIeYJb1iEfiHC7Y+VvmP/tviQyA5IR32mwN/5hTEJx6Ng==" crossorigin="anonymous" />';
+	if (is_page('login') || is_page('reset-password')) {	
+		echo '<style type="text/css">';
+		echo '.um input[type=submit].um-button {background: #07bb9b;color: #fff;text-transform: capitalize;border: 1px solid #07bb9b; width: 100% !important;}';
+		echo '.um input[type=submit].um-button:hover {background: #035445;color: #fff; }';
+		echo '</style>';
 	}
+	// if(is_page('add-headshot')){
+	// 	echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css" integrity="sha512-w+u2vZqMNUVngx+0GVZYM21Qm093kAexjueWOv9e9nIeYJb1iEfiHC7Y+VvmP/tviQyA5IR32mwN/5hTEJx6Ng==" crossorigin="anonymous" />';
+	// }
 }
 add_action('wp_head','hook_header');
 
@@ -766,7 +787,7 @@ function redirect_to_login_page() {
 
 	if ( is_page('edit-profile') && ! is_user_logged_in() ) {
 
-		wp_redirect( get_site_url() . '/signin', 301 ); 
+		wp_redirect( get_site_url() . '/login', 301 ); 
   		exit;
     }
 }

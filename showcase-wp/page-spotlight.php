@@ -139,21 +139,32 @@ $current_user = wp_get_current_user();
                     <div class="col-6 col-sm-6 py-2 text-right">
 						<?php
 						 $liked_by = get_field('likes', 'user_'. $obj_id);
-						if (in_array($current_user->ID, $liked_by)) : ?>
-							<span class="profile-like-box" data-user="<?php echo $obj_id;?>" id="<?php echo $obj_id;?>">
-							<i class="fas fa-thumbs-up liked"></i>
-							<span class="profile-like-count">
-								<?php echo (count($liked_by)); ?> 
-							</span>
-							</span>
-							<?php else : ?>
-							<span class="profile-like-box" data-user="<?php echo $obj_id;?>">
-							<i class="fas fa-thumbs-up"></i>
-							<span class="profile-like-count">
-								<?php echo (count($liked_by)); ?> 
-							</span>
-							</span>
-						<?php endif ?>
+						 if ($liked_by):
+							if (in_array($current_user->ID, $liked_by)) : ?>
+								<span class="profile-like-box" data-user="<?php echo $obj_id;?>" id="<?php echo $obj_id;?>">
+								<i class="fas fa-thumbs-up liked"></i>
+								<span class="profile-like-count">
+									<?php echo $liked_by?(count($liked_by)):0; ?> 
+								</span>
+								</span>
+								<?php else : ?>
+								<span class="profile-like-box" data-user="<?php echo $obj_id;?>">
+								<i class="fas fa-thumbs-up"></i>
+								<span class="profile-like-count">
+									<?php echo $liked_by?(count($liked_by)):0; ?> 
+								</span>
+								</span>
+							<?php endif;
+						 
+						 else :
+							 echo '<span class="profile-like-box" data-user=" ' . $obj_id . '">
+							 <i class="fas fa-thumbs-up"></i>
+							 <span class="profile-like-count">
+								0
+							 </span>
+							 </span>';
+						 endif;
+ 						?>
 						<span>likes</span>
                     </div>
                 </div>

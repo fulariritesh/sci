@@ -18,14 +18,14 @@ function sci_add_headshot() {
 		$image_array_2 = explode(",", $image_array_1[1]);
 		$data = base64_decode($image_array_2[1]);
 		$wordpress_upload_dir = wp_upload_dir();
-		$new_file_path = $wordpress_upload_dir['path'] . '/' .$user_id.'_'.time().'.png';
+		$new_file_path = $wordpress_upload_dir['path'] . '/' .$user_id.'_headshot_'.time().'.png';
 
 		if( file_put_contents($new_file_path , $data ) ) {
 
 			$upload_id = wp_insert_attachment( array(
 				'guid'           => $new_file_path, 
 				'post_mime_type' => 'image/png',
-				'post_title'     => preg_replace( '/\.[^.]+$/', '', $user_id.'_'.time().'.png'),
+				'post_title'     => preg_replace( '/\.[^.]+$/', '', $user_id.'_headshot_'.time().'.png'),
 				'post_content'   => '',
 				'post_status'    => 'inherit'
 			), $new_file_path );
