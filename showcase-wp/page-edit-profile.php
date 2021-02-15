@@ -93,7 +93,7 @@ $user_info = get_userdata($obj_id);
 		            <a href="<?php echo get_author_posts_url($obj_id); ?>" class="btn btn-plain btn-sm shadow-sm" >View as Public</a>
 		        </div>
 		    </div>
-			<?php get_template_part('template-parts/template-profile-completion' ); ?>
+			<?php //get_template_part('template-parts/template-profile-completion' ); ?>
 			<div class="row p-3 blockBG mb-3">
 			    <div class="col-12 col-sm-6">
 					<style type="text/css">
@@ -434,7 +434,7 @@ $user_info = get_userdata($obj_id);
 	            </nav>
 	        <!-- </div> -->
 
-			<div id="photos"></div>
+			<div id="photos" class="pt-5"></div>
 			<div class="photogrid">
 			    <?php if (get_field('photos', 'user_' . $obj_id)): ?>
 				<div class="row">
@@ -476,7 +476,7 @@ $user_info = get_userdata($obj_id);
 			    <?php endif; ?>
 			</div>
 			
-			<div id="videos"></div>
+			<div id="videos" class="pt-5"></div>
 			<!--Videos block-->
 	        <div class="row mt- blockBG p-3">
 				<style type="text/css">
@@ -511,7 +511,7 @@ $user_info = get_userdata($obj_id);
 				?>
 			</div>
 
-			<div id="audios"></div>
+			<div id="audios" class="pt-5"></div>
 	        <!--Audio block-->
 	        <div class="row mt-3 blockBG p-3 audioblock">
 	            <div class="col-6 col-sm-6 pt-3 "> <h4>Audio (<?php echo count(get_field('audios', 'user_' . $obj_id)); ?>)</h4></div>
@@ -541,7 +541,7 @@ $user_info = get_userdata($obj_id);
 				?>
 	        </div>
 
-			<div id="physical-attributes"></div>
+			<div id="physical-attributes" class="pt-5"></div>
 	        <!--Physical Attributes-->
 	        <div class="row mt-3 physicalattribs">
 	            <div class="col-9 col-sm-6 pt-3 px-0"><h4>Physical Features</h4></div>
@@ -643,7 +643,7 @@ $user_info = get_userdata($obj_id);
 
 						<!-- //////////////////////// -->
 						<!--Credit and Experience Block-->
-
+						    <div id="credit-and-experience" class="pt-5"></div>
 							<?php if (get_field('profession', 'user_' . $obj_id)):
 									$arrYear = array();
 									$arrCategory = array();
@@ -701,7 +701,7 @@ $user_info = get_userdata($obj_id);
 								<?php if(count($arrCategory) > 0 && count($arrYear)> 0 ){ ?>
 									<div class="row mt-3 blockBG p-3 experienceblock">
 										<div class="col-12 col-sm-6 pt-3">
-											<div id="credit-and-experience"></div>
+											<!-- <div id="credit-and-experience" class="pt-5"></div> -->
 											<h4>Credit and Experience</h4>
 										</div>
 										<div class="col-12 col-sm-6">
@@ -765,8 +765,8 @@ $user_info = get_userdata($obj_id);
 												<?php while ( have_rows('experience', 'user_' . $obj_id) ) : the_row(); ?>
 													<?php if(get_sub_field('category')->term_id == $child->term_id){
 														array_push($categoriesWithProfession, $child->term_id);?>
+														<div id="<?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?>" class="pt-5"></div>
 														<div class="row mt-3 blockBG p-3 cat-block">
-															<div id="<?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?>"></div>
 															<div class="col-6 col-sm-4 col-lg-5 pt-3">
 																<h4><?php echo get_field('category_name_singular', 'term_' . $child->term_id); ?></h4>
 															</div>
