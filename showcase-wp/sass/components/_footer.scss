@@ -6,36 +6,45 @@
         color:$footerTopColor;
         padding-top: 4rem;
 
-        a{
-            color:$light-color;
-            text-decoration: none;
-            &:hover{
-                color:$primary;
-            }
-        }
+        // a{
+        //     color:$light-color;
+        //     text-decoration: none;
+        //     &:hover{
+        //         color:$primary;
+        //     }
+        // }
       
+    }
+    a{
+        color:$light-color;
+        text-decoration: none;
+        &:hover{
+            color:$primary;
+        }
     }
     .footerBottom{
         background:$footerBottomBG;
         color:$footerTopColor;
         font-size:13px;
-        height:50px;
+        // height:50px;
         @include  media-sm{
-            height:60px;
+            // height:60px;
         }
-        padding-top: 16px;
+        padding-top: 16px;  
 
-     
-
-        ul li{
-            list-style: none;
-            display:inline; 
-            a{
-                color:$light-color;
-                text-decoration: none;
-                &:hover{
+        ul{
+            padding-left:0px;  
+            margin-bottom:0px;      
+            li{
+                list-style: none;
+                display:inline; 
+                a{
                     color:$light-color;
                     text-decoration: none;
+                    &:hover{
+                        color:$light-color;
+                        text-decoration: none;
+                    }
                 }
             }
         }
@@ -102,6 +111,21 @@
 
         a{
             font-size:30px;
+        }
+    }
+    @include media-lg{
+        li{
+            padding:15px;
+        }
+    }
+    @include media-md{
+        li{
+            padding:20px;
+        }
+    }
+    @include media-sm{
+        li{
+            padding:20px;
         }
     }
     li:first-child{

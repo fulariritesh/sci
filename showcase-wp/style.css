@@ -118,8 +118,8 @@ img {
 }
 div.banner .banner-info {
     width: 50%;
-    padding-top: 0;
-    display: table-cell;
+    padding-top: 4%;
+    /* display: table-cell; */
     vertical-align: middle;
 }
 div.banner .bannerheading-text {
@@ -144,26 +144,33 @@ div.banner .banner-btn {
 
 }
 .artist-block, .influencer-block, .talent-block {
-	padding-bottom: 1.5rem;
+	padding-bottom: 2.5rem;
 }
 div.newjoinees {	
     margin-bottom: 3rem;
 }
 .subscribesmalltext + form>input{
 	padding: 25px 20px;
-	border-radius: 50px;
+	border-radius: 7px;
 }
     
 
 @media (max-width: 992px) {
+	div.banner .banner-info {
+		width: 60%;
+		padding-top: 8%;
+	}
 	div.banner .bannerheading-text {
-		font-size: 2rem;
+		font-size: 1.5rem;
 	}
 	div.banner .bannerText {
-		font-size: 1.5rem;
+		font-size: 1rem;
+		padding-bottom:0px;
+
 	}
 	div.banner .banner-btn {
 		font-size: 1rem;
+		padding: .3em 1em;
 	}
 	.carousel-item.banner::after {
 		

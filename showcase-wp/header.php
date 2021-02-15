@@ -43,6 +43,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 
 <body <?php body_class(); ?>>
+<div class="wrapper hidemenu">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PG5R9HB"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -51,8 +52,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="page" class="site">
     <header>
       <section class="container-fluid topbar navbar navbar-expand-sm">
-        <div class="container">
-        <div class="col">
+        <div class="container px-0 px-lg-3">
+        <div class="col-4 col-lg-8 px-0">
           <ul class="tb-left navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="#"
@@ -79,7 +80,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 ><i class="tb-icon fab fa-linkedin"></i
               ></a>
             </li>
-            <li class="nav-item hide-search-bar pl-4 pt-2">
+            <li class="nav-item pl-4 pt-2 d-none d-lg-block">
               <form class="tb-search-bg px-3">
                 <input class="tb-search-bg searchBox " type="" placeholder="search..." />
                 <i class="tb-icon1 fa fa-search"></i>
@@ -87,21 +88,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </li>
           </ul>
         </div>
-        <div class="">
-          <ul class="tb-right navbar-nav">
+        <div class="col-8 col-lg-4 px-0 ">
+          <ul class="contactinfo text-right pl-0">
+            <!-- <li class=""> -->
+              <!-- <a class="nav-link tb-text" href=""> -->
+              <!-- <i class="tb-icon1 fas fa-phone-alt pr-2"></i>+91 65194 62646 -->
+              <!-- </a> -->
+            <!-- </li> -->
             <?php
               $sci_helpline_number = get_field('sci_helpline_number', 'option');
               if($sci_helpline_number){
                 ?>
-                <li class="nav-item">
-                  <a class="nav-link tb-text" href="tel:<?php echo $sci_helpline_number; ?>"><i class="tb-icon1 fas fa-phone pr-2"></i><?php echo $sci_helpline_number; ?></a>
+                <li class="">
+                <a href="tel:<?php echo $sci_helpline_number; ?>">
+                  <i class="tb-icon1 fas fa-phone-alt pr-2"></i><?php echo $sci_helpline_number; ?>
+                </a>
                 </li>
                 <?php
               }
             ?>
-            
-            <li class="nav-item dropdown">     
-              <a
+            <li class=" pr-0">
+              <!-- <a
                 class="nav-link tb-text dropdown-toggle"
                 href="#"
                 id="navbarDropdown"
@@ -109,37 +116,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                ><i class="tb-icon1 fas fa-globe pr-2"></i>
+                > -->
+                <i class="tb-icon1 fas fa-globe pr-2"></i>
                 EN
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <!-- </a> -->
+              <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">lang0</a>
                 <a class="dropdown-item" href="#">lang1</a>
                 <a class="dropdown-item" href="#">lang2</a>
-              </div>
+              </div> -->
             </li>
           </ul>
         </div>
       </div>
       </section>
       <div class="container-fluid headerbar">
-        <div class="container">
-          <nav class="navbar navbar-expand-lg px-0">
-            <button
-              class="navbar-toggler"
-              type="button"
+        <div class="container px-0">
+          <nav class="navbar navbar-expand-md px-0">
+           
+            <div class="col-7 col-md-4 col-lg-3 logo px-0 px-lg-3 text-nowrap pr-3">
+            <button class="navbar-toggler px-0" type="button"
               data-toggle="collapse"
               data-target="#navcollpse"
               aria-controls="navcollpse"
               aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
+              aria-label="Toggle navigation" >
               <span class="fa fa-bars"></span>
             </button>
-            <div class="col-4 logo px-0">
               <?php the_custom_logo(); ?>
             </div>
-            <div class="collapse navbar-collapse" id="navcollpse">
+            <div class="collapse navbar-collapse pl-lg-5 main-menu" id="navcollpse">
+              <div class="col-12 d-md-none mobilemenu-header px-0">
+                  <?php the_custom_logo(); ?>
+              </div>
+             
+              <div class="pt-4 px-3 d-clock d-md-none pb-4">
+                <form class="tb-search-bg px-3">
+                  <input class="tb-search-bg searchBox " type="text" placeholder="search..." />
+                  <i class="tb-icon1 fa fa-search"></i>
+                </form>
+              </div>
+              
               <?php
                 wp_nav_menu(
                   array(
@@ -151,23 +168,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 );
               ?>
             </div>
-            <div class="navbar-btn">
-              <a
-				 href="/login"
-                class="btn btn-signIn"
-                type="button"
-              >
-                Log in
-              </a>
-              <a
-				 href="/category-subcategory/"
-                class="btn btn-join"
-                type="button"
-              >
-               Sign up
-              </a>
+            <div class="col-5 col-md-3 px-0">
+              <!-- When user not signed in -->
+              <div class="navbar-btn float-right">
+                <a href="/login" class="btn btn-signIn" type="button" >
+                  Log in
+                </a>
+                <a href="/category-subcategory/" class="btn btn-join" type="button">
+                Sign up
+                </a>
+              </div>
+              <!-- not signed in end -->
+              <!-- When Signed in -->
+              <!-- <div class="dropdown loginuser-DD float-right">
+                <button class="btn btn-add dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle usericon1"></i> [User First Name]
+                </button>
+                <div class="dropdown-menu dropdown-menu-right pb-3" aria-labelledby="dropdownMenuButton">
+                  <div class="pt-5 pb-4 px-3">
+                  <h2><i class="fas fa-user-circle usericon-dd"></i> [User First Name]</h2>
+                  <h5>[User email id]</h5>
+                  
+                  </div>
+                  <hr/>
+                  <a class="dropdown-item" href="#"><i class="fas fa-unlock-alt"></i> Reset Password</a>
+                  <hr>
+                  <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Edit Personal Details</a>
+                  <hr>
+                  <a class="dropdown-item" href="#"><i class="fas fa-cube"></i> View/Manage Profile</a>
+                  <hr>
+                  <a class="dropdown-item" href="#"><i class="fas fa-eye-slash"></i> Hide/Show Entire Profile</a>
+                  <hr>
+                  <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+              </div> -->
+              <!-- Signed in end-->
             </div>
-            <div class="overlay"></div>
+            <!-- <div class="overlay"></div> -->
           </nav>
         </div>
       </div>
