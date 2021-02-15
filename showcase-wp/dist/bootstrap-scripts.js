@@ -17140,7 +17140,6 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.profile-like-box').on('click', function () {
-    console.log("like cliked!");
     var $this = $(this);
     var res;
     $.ajax({
@@ -17153,15 +17152,13 @@ $(document).ready(function () {
       },
       success: function success(response, status, xhr) {
         res = JSON.parse(response);
-        console.log(res.status);
 
         if (res.status === 'like') {
-          console.log($this);
-          $('i.fas.fa-thumbs-up').addClass('liked');
-          $('span.profile-like-count').text(res.count);
+          $this.find('i.fas.fa-thumbs-up').addClass('liked');
+          $this.find('span.profile-like-count').text(res.count);
         } else if (res.status === 'dislike') {
-          $('i.fas.fa-thumbs-up').removeClass('liked');
-          $('span.profile-like-count').text(res.count);
+          $this.find('i.fas.fa-thumbs-up').removeClass('liked');
+          $this.find('span.profile-like-count').text(res.count);
         } else {
           console.log('error');
         }
