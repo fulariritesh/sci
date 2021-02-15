@@ -272,15 +272,9 @@ function sci_experience_form() {
                                           while ( have_rows('experience', 'user_' . $current_user->ID) ) : the_row();
                                              if(get_sub_field('category')->term_id == $catId){
                                                 $userFieldValue = get_sub_field($field);
+                                                $otherField = get_sub_field($field . '-other');
                                              }
-
-                                             // if(get_sub_field($field . '-other')){
-                                             //    $otherField[$field . '-other'] = get_sub_field($field . '-other');
-                                             // }else{
-                                             //    $otherField[$field . '-other'] = "";
-                                             // }
-                                          endwhile; 
-                                          //var_dump($otherField);  
+                                          endwhile;   
                                        endif;?>
                                        <div class="row px-4 pb-5">
                                           <div class="hr-text col-12 p-0 mb-4">
@@ -322,10 +316,9 @@ function sci_experience_form() {
                                                    </label>
                                                 <?php } ?> 
                                              </div>
-                                             <?php echo $otherField[1] ?>
                                              <div class="form-group row other-selected" <?php if(($key != "Others") || ($key == "Others" && $isSelected == "")){ echo 'style="display:none;"';} ?>>
                                                 <div class="col-12 col-md-6">
-                                                   <input class="form-control" data-other=<?php echo $field . '-other' ?> type="text" placeholder="Enter all the other inputs separated by comma" value=<?php echo $otherField ? str_replace("@",",",$otherField) : "" ?>></input>
+                                                   <input class="form-control" data-other=<?php echo $field . '-other' ?> type="text" placeholder="Enter all the other inputs separated by comma" value="<?php echo $otherField ?>"></input>
                                                    <div class="invalid-feedback">
                                                       Opps error!
                                                    </div>
@@ -370,26 +363,41 @@ function sci_experience_form() {
                                        if(!array_key_exists($year,$arrYear)){
                                           $arrYear[$year] = array();
                                        }
-                                       array_push($arrYear[$year], get_sub_field('content'));
+                                       $data = new stdClass(); 
+                                       $data->row = get_row_index();
+                                       $data->content = get_sub_field('content');
+                                       array_push($arrYear[$year], $data);
                                        krsort($arrYear);
                                        ?>
                                     <?php endwhile;
                                  endif; ?>
 
-                                 <div class="accordion col-12 mx-auto" id="accordion">
+                                 <div class="hr-text col-12 p-0 mb-4">
+                                    <span class="credit-title font-weight-bold pr-3">
+                                       Experience by Year
+                                    </span>
+                                 </div>
+                                 <div class="accordion col-12 mx-auto" id="experience-accordion">
                                  <?php foreach($arrYear as $key => $yearData){ ?>   
-                                    <div class="accordion-group mb-3 card">
-                                       <div class="row card-header collapsed p-2" id="headingOne" type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "year" . $key ?>>
+                                    <div class="accordion-group mb-3 card new-experience-group">
+                                       <div class="row card-header collapsed p-2" id=<?php echo  "row" . $key ?> type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "row" . $key ?>>
                                           <div class="col-11">
                                              <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(<?php echo  $key ?>)</span>
                                              </p>
                                           </div>
                                        </div>
-                                       <div id=<?php echo "year" . $key ?> class="collapse" aria-labelledby="headingOne">
+                                       <div id=<?php echo "year" . $key ?> class="collapse" aria-labelledby=<?php echo  "year" . $key ?>>
                                           <div class="accordion-inner card-body">
-                                             <ul>
+                                             <ul class="list" data-year=<?php echo $key ?>>
                                                 <?php foreach($yearData as $data){ ?>
-                                                   <li><?php echo $data ?></li>
+                                                   <li data-row=<?php echo $data->row ?> style="display: flex;padding-bottom: 5px;"><span contenteditable="true"><?php echo $data->content ?></span>
+                                                      <div class="d-flex justify-content-end" style="flex: auto;">
+                                                         <button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
+                                                            <i class="fas fa-trash-alt fa-lg"></i>
+                                                         </button>
+                                                      </div>
+                                                   </li>
+                                                   
                                                 <?php } ?>
                                              </ul>
                                           </div>
@@ -410,30 +418,30 @@ function sci_experience_form() {
                      <div class="row px-4 pb-5">
                         <div class="hr-text col-12 p-0 mb-4">
                            <span class="credit-title font-weight-bold pr-3">
-                              Generic experience by Year
+                              Add new Experience
                            </span>
                         </div>
                         <form action="">
                         <div class="col-12 card p-3 mb-3">
-                           <div class="d-flex justify-content-end">
+                           <!-- <div class="d-flex justify-content-end">
                               <button class="btn btn-popup-del" type="button" data-toggle="modal" data-target="#deleteExp">
                                  <i class="fas fa-trash-alt fa-lg"></i>
                               </button>
-                           </div>
+                           </div> -->
                            <div class="form-group row">
                               <div class="col-12 col-md-6">
                                  <label for="ExpYr">Year</label>
-                                 <input type="text" class="form-control" id="ExpYr">
+                                 <input type="text" class="form-control" id="ExpYr" maxlength="4" pattern="^[0-9]{4}$" required>
                                  </div>
                               </div>
                               <div class="form-group">
-                                 <label for="videoDesp">Experience</label>
-                                 <textarea class="form-control justify-content-center" id="videoDesp" rows="4"></textarea>
-                                 <span class="float-right text-muted pt-1">200</span>
+                                 <label for="experience-content">Experience</label>
+                                 <textarea class="form-control justify-content-center" id="experience-content" rows="4" maxlength="500" required></textarea>
+                                 <span class="float-right text-muted pt-1">500</span>
                               </div>
                            </div>
                            <div class="d-flex justify-content-start">
-                              <button class="btn btn-lg btn-popup-savAddmr">Save & Add more</button>
+                              <button type="submit" id="add-experience" class="btn btn-lg btn-popup-savAddmr">Save & Add more</button>
                            </div>
                         </form>
                      </div>
@@ -468,13 +476,16 @@ function sci_experience_form_submit() {
    $additionalFields = $data->additionalFields;
    $website = $data->website;
    $fieldOtherSpecifications = $data->fieldOtherSpecifications;
+   $experiences = $data->experiences;
+   $deleted = $data->deleted;
 
    $userProfessions = get_field('profession', 'user_' . $current_user->ID);
 
    $mainCategories = [];
    foreach($userProfessions as $userProfession){
-      if($userProfession->parent == 0){
-         array_push($mainCategories, strval($userProfession->term_id));
+      $child = get_term($userProfession);
+      if($child->parent == 0 || $child->parent != $categoryId){
+         array_push($mainCategories, strval($child->term_id));
       }
    }
    foreach($subCats as $cat){
@@ -483,31 +494,112 @@ function sci_experience_form_submit() {
 
    update_field(__sci_s("Profession", 'profession')['key'], $mainCategories, 'user_' . $current_user->ID);
    
-   
 
-   //Update additional fields
-   if( have_rows('experience', 'user_' . $current_user->ID)):
-      while ( have_rows('experience', 'user_' . $current_user->ID) ) : the_row(); 
-         if(get_sub_field('category')->term_id == $categoryId){
+
+   $experienceField = get_field('experience', 'user_' . $current_user->ID);
+   
+   $categoryExperiencePresent = false;
+
+   if(!empty($experienceField)){
+      $experienceRow =0;
+      foreach($experienceField as $experience){
+         
+         if($experience['category']->term_id == $categoryId){
+            $categoryExperiencePresent = true;
+
+            $sectionRow = 0;
+            $newSections = array();
+            if(!empty($experience['sections'])){
+               $newSections = $experience['sections'];
+
+               foreach($newSections as $key => $section){
+                  $sectionRow += 1;
+                  if(in_array($sectionRow, $deleted)){
+                     unset($newSections[$key]);
+                  }
+
+               }
+
+               foreach($experiences as $experience){
+                  if($experience->rowNumber != "-1"){
+                     $newSection = array(
+                        "content" => $experience->content,
+                        "year" => (string)$experience->year
+                     );
+                     $newSections[$experience->rowNumber-1] = $newSection;
+                  }
+               }
+            }
             
+            foreach($experiences as $experience){
+                if($experience->rowNumber == "-1"){
+                  $newSection = array(
+                     "content" => $experience->content,
+                     "year" => (string)$experience->year
+                  );
+                  $newSections[count($newSections)] = $newSection;
+                }
+            }
+            $experienceField[$experienceRow]['sections'] = $newSections;
+
+
+            //////////////////////////////
             foreach($additionalFields as $fields){
-               update_sub_field($fields->efFieldName, $fields->efOptions);
+               $experienceField[$experienceRow][$fields->efFieldName] = $fields->efOptions;
             }
 
             foreach($fieldOtherSpecifications as $otherFields){
-               update_sub_field($otherFields->efFieldName, $otherFields->efValue);
+               $experienceField[$experienceRow][$otherFields->efFieldName] = $otherFields->efValue;
             }
 
-            update_sub_field('website', $website);
-         }  
-      endwhile;
-   endif;
+            $experienceField[$experienceRow]['website'] = $website;
+            //////////////////////////////
 
-
+         }
+         $experienceRow += 1;
+ 
+      }
+      
+   }
    
-   
+   if(empty($experienceField) || !$categoryExperiencePresent){
+      //create experience for category with details
+      
 
-   echo $additionalFields[0]->efOptions[0];
+      $experienceRow = [];
+
+      $category = get_term($categoryId);
+      $experienceRow["category"] = $category;
+
+      foreach($additionalFields as $fields){
+         $experienceRow[$fields->efFieldName] = $fields->efOptions;
+      }
+
+      foreach($fieldOtherSpecifications as $otherFields){
+         $experienceRow[$otherFields->efFieldName] = $otherFields->efValue;
+      }
+
+      $experienceRow['website'] = $website;
+
+      $newSections = array();
+      foreach($experiences as $experience){
+         if($experience->rowNumber == "-1"){
+           $newSection = array(
+              "content" => $experience->content,
+              "year" => (string)$experience->year
+           );
+           $newSections[count($newSections)] = $newSection;
+         }
+     }
+     $experienceRow['sections'] = $newSections;
+
+     $experienceField[count($experienceField)] = $experienceRow;
+
+   }
+   
+   update_field(__sci_s("USER: Profile details", 'experience')['key'],  $experienceField , 'user_' . $current_user->ID );
+   
+   echo 'Ok';
    wp_die();
 
 }

@@ -12809,10 +12809,10 @@ input:checked + .slider .off {
 
 .defaultHeadshot {
   text-align: center;
-  background: #f2fafd;
+  background: #f2f2f2;
 }
 
-.defaultHeadshot i {
+.defaultHeadshot i.fas.fa-user {
   font-size: 100px;
   padding-top: 5px;
 }

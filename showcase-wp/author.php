@@ -123,138 +123,150 @@ $user_info = get_userdata($obj_id);
 									}
 								}
 							</style>
-	     					<div class="headshot">
-								<div id="image-slider" class="splide slider_headshot">
-									<div class="splide__track">
-										<ul class="splide__list">
-											<?php
-											// Check rows exists.
-											if( have_rows('sci_user_headshots', 'user_' . $obj_id) ):
-												// Loop through rows.
-												while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
-													// Load sub field value.
-													$sub_value = get_sub_field('sci_user_headshot'); ?>
-													<li  class="splide__slide">
-														<img src="<?php echo $sub_value['url']; ?>">
-													</li>
+							<?php
+							$headshotsVisible = get_user_meta($obj_id, 'sections_visibility_headshots', true);
+							if($headshotsVisible){ ?>
+								<div class="headshot">
+									<div id="image-slider" class="splide slider_headshot">
+										<div class="splide__track">
+											<ul class="splide__list">
+												<?php
+												// Check rows exists.
+												if( have_rows('sci_user_headshots', 'user_' . $obj_id) ):
+													// Loop through rows.
+													while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+														// Load sub field value.
+														$sub_value = get_sub_field('sci_user_headshot'); ?>
+														<li  class="splide__slide">
+															<img src="<?php echo $sub_value['url']; ?>">
+														</li>
+													<?php // End loop.
+													endwhile;
+												// No value.
+												else :
+													// Do something...
+												endif;
+												?>
+											</ul>
+										</div>
+									</div>
+							
+									<?php 
+									// Check rows exists.
+									if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
+									<div id="secondary-slider" class="splide slider_headshot_thumbnail">
+										<div class="splide__track">
+											<ul class="splide__list">
+												<?php
+													// Loop through rows.												
+													while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+														// Load sub field value.
+														$sub_value = get_sub_field('sci_user_headshot'); ?>
+														<li  class="splide__slide">
+															<img src="<?php echo $sub_value['url']; ?>">
+														</li>
 												<?php // End loop.
-												endwhile;
-											// No value.
-											else :
-												// Do something...
-											endif;
-											?>
-										</ul>
+													endwhile;?>
+											</ul>
+										</div>
 									</div>
+									<?php // No value.
+									else :
+										// Do something...
+									endif; ?>
 								</div>
-						
-								<?php 
-								// Check rows exists.
-								if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
-								<div id="secondary-slider" class="splide slider_headshot_thumbnail">
-									<div class="splide__track">
-										<ul class="splide__list">
-											<?php
-												// Loop through rows.												
-												while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
-													// Load sub field value.
-													$sub_value = get_sub_field('sci_user_headshot'); ?>
-													<li  class="splide__slide">
-														<img src="<?php echo $sub_value['url']; ?>">
-													</li>
-											<?php // End loop.
-												endwhile;?>
-										</ul>
-									</div>
-								</div>
-								<?php // No value.
-								else :
-									// Do something...
-								endif; ?>
-							</div>
+							<?php } ?>
 						</div>
-	                    <div class="col-6 profile-personaldetails">
-	                        <h1>
-	                        	<?php echo $data['first_name'][0] . " " . $data['last_name'][0]; ?>	
-	                        </h1>
-	                        <span>
-	                        	<i class="fas fa-envelope pr-2"></i> 
-	                        	<?php echo $user_info->data->user_email; ?>
-	                        </span>
-	                        <?php if (get_field('sci_user_location', 'user_' . $obj_id)): ?>
-	                        <span>
-	                        	<i class="fas fa-map-marker-alt pr-2"></i> 
-	                        	<?php echo get_field('sci_user_location', 'user_' . $obj_id); ?>, India
-	                        </span>
-	                        <?php endif; ?>
+						<?php
+							$personalInfoVisible = get_user_meta($obj_id, 'sections_visibility_personal_details', true);
+							if($personalInfoVisible){
+						?>
+							<div class="col-6 profile-personaldetails">
+								<h1>
+									<?php echo $data['first_name'][0] . " " . $data['last_name'][0]; ?>	
+								</h1>
+								<span>
+									<i class="fas fa-envelope pr-2"></i> 
+									<?php echo $user_info->data->user_email; ?>
+								</span>
+								<?php if (get_field('sci_user_location', 'user_' . $obj_id, false)): ?>
+								<span>
+									<i class="fas fa-map-marker-alt pr-2"></i> 
+									<?php echo get_field('sci_user_location', 'user_' . $obj_id, false); ?>, India
+								</span>
+								<?php endif; ?>
 
-	                        <?php if (get_field('hide_number', 'user_' . $obj_id) && get_field('sci_user_mobile', 'user_' . $obj_id)): ?>
-	                        <span>
-	                        	<i class="fas fa-phone-alt pr-2"></i> 
-	                        	<?php echo get_field('sci_user_mobile', 'user_' . $obj_id); ?>
-	                        </span>
-	                        <?php endif; ?>
+								<?php if (get_field('hide_number', 'user_' . $obj_id) && get_field('sci_user_mobile', 'user_' . $obj_id, false)): ?>
+								<span>
+									<i class="fas fa-phone-alt pr-2"></i> 
+									<?php echo get_field('sci_user_mobile', 'user_' . $obj_id, false); ?>
+								</span>
+								<?php endif; ?>
 
-	                        <?php if (get_field('sci_user_gender', 'user_' . $obj_id)): ?>
-	                        <span>
-	                        	<i class="fas fa-venus-mars pr-2"></i> 
-	                        	<?php echo get_field('sci_user_gender', 'user_' . $obj_id); ?>
-	                        </span>
-	                        <?php endif; ?>
-		
-							<?php if (get_field('profession', 'user_' . $obj_id)): ?>
-	                        <div class="selectedcategories">
-								<?php
-								$parents = [];
-								foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-									$child = get_term($key);
-									$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
-									array_push($parents, $termParent->term_id);
-								}
-								foreach (array_unique($parents) as $key) { ?>
-									<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
-										<?php echo get_field('category_name_singular', 'term_' . $key); ?>
-									</span>									
-								<?php }
+								<?php if (get_field('sci_user_gender', 'user_' . $obj_id, false)): ?>
+								<span>
+									<i class="fas fa-venus-mars pr-2"></i> 
+									<?php echo get_field('sci_user_gender', 'user_' . $obj_id, false); ?>
+								</span>
+								<?php endif; ?>
+			
+								<?php if (get_field('profession', 'user_' . $obj_id)): ?>
+								<div class="selectedcategories">
+									<?php
+									$parents = [];
+									foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
+										$child = get_term($key);
+										$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
+										array_push($parents, $termParent->term_id);
+									}
+									foreach (array_unique($parents) as $key) { ?>
+										<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
+											<?php echo get_field('category_name_singular', 'term_' . $key); ?>
+										</span>									
+									<?php }
 
-								?>
-	                        </div>
-							<?php endif; ?>
+									?>
+								</div>
+								<?php endif; ?>
 
-	                        <div class="selectedsocialmedia pt-3">
-	                        	<style type="text/css">
-	                        		.sci-icon {
-										font-size: 1.5rem;
-										padding: 5px;
-										border-radius: 3px;
-										color: #002f43;
-	                        		}
-	                        	</style>
-	                        	<?php if (get_field('sci_user_social_links_instagram', 'user_' . $obj_id)): ?>
-	                            <a href="<?php echo get_field('sci_user_social_links_instagram', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
-	                            	<i class="sci-icon fab fa-instagram" aria-hidden="true"></i>
-	                            </a>
-	                        	<?php endif; ?>
-	                        	<?php if (get_field('sci_user_social_links_facebook', 'user_' . $obj_id)): ?>
-	                            <a href="<?php echo get_field('sci_user_social_links_facebook', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
-	                            	<i class="sci-icon fab fa-facebook" aria-hidden="true"></i>
-	                            </a>
-	                        	<?php endif; ?>
-	                        	<?php if (get_field('sci_user_social_links_twitter', 'user_' . $obj_id)): ?>
-	                            <a href="<?php echo get_field('sci_user_social_links_twitter', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
-	                            	<i class="sci-icon fab fa-twitter" aria-hidden="true"></i>
-	                            </a>
-	                        	<?php endif; ?>
-	                        	<?php if (get_field('sci_user_social_links_youtube', 'user_' . $obj_id)): ?>
-	                            <a href="<?php echo get_field('sci_user_social_links_youtube', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
-	                            	<i class="sci-icon fab fa-youtube" aria-hidden="true"></i>
-	                            </a>
-	                        	<?php endif; ?>
-	                        </div>
-	                    </div>
+								<div class="selectedsocialmedia pt-3">
+									<style type="text/css">
+										.sci-icon {
+											font-size: 1.5rem;
+											padding: 5px;
+											border-radius: 3px;
+											color: #002f43;
+										}
+									</style>
+									<?php if (get_field('sci_user_social_links_instagram', 'user_' . $obj_id)): ?>
+									<a href="<?php echo get_field('sci_user_social_links_instagram', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
+										<i class="sci-icon fab fa-instagram" aria-hidden="true"></i>
+									</a>
+									<?php endif; ?>
+									<?php if (get_field('sci_user_social_links_facebook', 'user_' . $obj_id)): ?>
+									<a href="<?php echo get_field('sci_user_social_links_facebook', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
+										<i class="sci-icon fab fa-facebook" aria-hidden="true"></i>
+									</a>
+									<?php endif; ?>
+									<?php if (get_field('sci_user_social_links_twitter', 'user_' . $obj_id)): ?>
+									<a href="<?php echo get_field('sci_user_social_links_twitter', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
+										<i class="sci-icon fab fa-twitter" aria-hidden="true"></i>
+									</a>
+									<?php endif; ?>
+									<?php if (get_field('sci_user_social_links_youtube', 'user_' . $obj_id)): ?>
+									<a href="<?php echo get_field('sci_user_social_links_youtube', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
+										<i class="sci-icon fab fa-youtube" aria-hidden="true"></i>
+									</a>
+									<?php endif; ?>
+								</div>
+							</div>
+						<?php } ?>
 	                </div>
 	                <!-- Introdustion  Block-->
-	                <?php if (get_field('intro_text', 'user_' . $obj_id)): ?>
+	                <?php 
+					$IntroductionVisible = get_user_meta($obj_id, 'sections_visibility_introduction', true);
+					
+					if (get_field('intro_text', 'user_' . $obj_id) && $IntroductionVisible): ?>
 	                <div class="row mb-3 p-3 blockBG">
 	                	<style type="text/css">
 	                		.introvideo {
@@ -311,20 +323,26 @@ $user_info = get_userdata($obj_id);
 								bottom: 0;
 	                		}
 	                	</style>
+						<?php
+							$photosVisible = get_user_meta($obj_id, 'sections_visibility_photos', true);
+							$videosVisible = get_user_meta($obj_id, 'sections_visibility_videos', true);
+							$audiosVisible = get_user_meta($obj_id, 'sections_visibility_audios', true);
+							$experienceVisible = get_user_meta($obj_id, 'sections_visibility_experience', true);
+						?>
 		                <nav class="navbar-expand-lg navbar-light navbarcolors container" id="myScrollspy">
 							<div class="" id="navbarNav">
 							  <ul class="navbar-nav">
-	                			<?php if (get_field('photos', 'user_' . $obj_id)): ?>
+	                			<?php if (get_field('photos', 'user_' . $obj_id) && $photosVisible): ?>
 							    <li class="nav-item active">
 							      <a class="nav-link" href="#photos">Photos</a>
 							    </li>
 	                			<?php endif ?>
-	                			<?php if (get_field('audios', 'user_' . $obj_id)): ?>
+	                			<?php if (get_field('audios', 'user_' . $obj_id) && $audiosVisible): ?>
 							    <li class="nav-item">
 							      <a class="nav-link" href="#audios">Audio</a>
 							    </li>
 	                			<?php endif ?>
-	                			<?php if (get_field('videos', 'user_' . $obj_id)): ?>
+	                			<?php if (get_field('videos', 'user_' . $obj_id) && $videosVisible): ?>
 							    <li class="nav-item">
 							      <a class="nav-link" href="#videos">Video</a>
 							    </li>
@@ -332,11 +350,11 @@ $user_info = get_userdata($obj_id);
 							    <li class="nav-item">
 							      <a class="nav-link" href="#attributes">Physical Attributes</a>
 							    </li>
-	                			<?php if (get_field('experience', 'user_' . $obj_id)): ?>
+	                			<?php if (get_field('experience', 'user_' . $obj_id) && $experienceVisible): ?>
 							    <li class="nav-item">
 							      <a class="nav-link" href="#credits">Credit and Experience</a>
 							    </li>
-			                	<?php if( have_rows('experience', 'user_' . $obj_id) ): ?>
+			                	<?php if( have_rows('experience', 'user_' . $obj_id) && $experienceVisible ): ?>
 			                		<?php while ( have_rows('experience', 'user_' . $obj_id) ) : the_row(); ?>
 								    <li class="nav-item">
 								      <a class="nav-link" href="#<?php echo get_sub_field('category')->slug; ?>"><?php echo get_sub_field('category')->name; ?></a>
@@ -349,7 +367,7 @@ $user_info = get_userdata($obj_id);
 		                </nav>
 	                </div>
 	                <?php endif ?>
-	                <?php if (get_field('photos', 'user_' . $obj_id)): ?>
+	                <?php if (get_field('photos', 'user_' . $obj_id) && $photosVisible): ?>
 	                <!-- Photo Grid-->
 	                <div class="row photogrid mb-3" id="photos">
 		                <div class="col-12 pt-3">
@@ -389,7 +407,7 @@ $user_info = get_userdata($obj_id);
 	                </div>
 	                <?php endif ?>
 	                <!--Videos block-->
-	                <?php if (get_field('videos', 'user_' . $obj_id)): ?>
+	                <?php if (get_field('videos', 'user_' . $obj_id) && $videosVisible): ?>
 	                <div class="row mb-3 blockBG p-3" id="videos">
 	                    <div class="col-12 pt-3">
 	                    	<h4>Videos (<?php echo count(get_field('videos', 'user_' . $obj_id)); ?>)</h4>
@@ -426,7 +444,7 @@ $user_info = get_userdata($obj_id);
 						</script>
 	                </div>
 	                <?php endif ?>
-	                <?php if (get_field('audios', 'user_' . $obj_id)): ?>
+	                <?php if (get_field('audios', 'user_' . $obj_id) && $audiosVisible): ?>
 	                <!--Audio block-->
 	                <div class="row mb-3 blockBG p-3 audioblock" id="audios">
 	                    <div class="col-12 pt-3">
@@ -436,12 +454,12 @@ $user_info = get_userdata($obj_id);
 	                		<?php while ( have_rows('audios', 'user_' . $obj_id) ) : the_row(); ?>
 			                    <div class="col-12 py-3 row">
 			                        <div class="col-sm-6">
-			                            <h5 class="pt-2"><?php echo get_sub_field('audio')['title']; ?></h5>
-			                            <h6>audio description</h6>
+			                            <h5 class="pt-2"><?php echo get_sub_field('audio_title'); ?></h5>
+			                            <h6><?php echo get_sub_field('audio_description'); ?></h6>
 			                        </div>
 			                        <div class="col-sm-6">
 			                            <audio controls>
-			                                <source src="<?php echo get_sub_field('audio')['url']; ?>" type="audio/mpeg">
+			                                <source src="<?php echo get_sub_field('audio_file')['url']; ?>" type="<?php echo get_sub_field('audio_file')['mime_type']; ?>">
 			                                Your browser does not support the audio element.
 			                              </audio>
 			                        </div>
@@ -606,7 +624,7 @@ $user_info = get_userdata($obj_id);
 	                        </div>
 	                    </div>
 	                </div>
-	                <?php if (get_field('experience', 'user_' . $obj_id)): ?>
+	                <?php if (get_field('experience', 'user_' . $obj_id) && $photosVisible): ?>
 	                	<style type="text/css">
 	                		.cat-title {
 								padding-left: 41px;

@@ -13,6 +13,13 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PG5R9HB');</script>
+<!-- End Google Tag Manager -->
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +44,10 @@
 
 <body <?php body_class(); ?>>
 <div class="wrapper hidemenu">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PG5R9HB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <?php wp_body_open(); ?>
 <div id="page" class="site">
     <header>
@@ -79,11 +90,23 @@
         </div>
         <div class="col-8 col-lg-4 px-0 ">
           <ul class="contactinfo text-right pl-0">
-            <li class="">
+            <!-- <li class=""> -->
               <!-- <a class="nav-link tb-text" href=""> -->
-              <i class="tb-icon1 fas fa-phone-alt pr-2"></i>+91 65194 62646
+              <!-- <i class="tb-icon1 fas fa-phone-alt pr-2"></i>+91 65194 62646 -->
               <!-- </a> -->
-            </li>
+            <!-- </li> -->
+            <?php
+              $sci_helpline_number = get_field('sci_helpline_number', 'option');
+              if($sci_helpline_number){
+                ?>
+                <li class="">
+                <a href="tel:<?php echo $sci_helpline_number; ?>">
+                  <i class="tb-icon1 fas fa-phone-alt pr-2"></i><?php echo $sci_helpline_number; ?>
+                </a>
+                </li>
+                <?php
+              }
+            ?>
             <li class=" pr-0">
               <!-- <a
                 class="nav-link tb-text dropdown-toggle"
@@ -148,7 +171,7 @@
             <div class="col-5 col-md-3 px-0">
               <!-- When user not signed in -->
               <div class="navbar-btn float-right">
-                <a href="/signin" class="btn btn-signIn" type="button" >
+                <a href="/login" class="btn btn-signIn" type="button" >
                   Log in
                 </a>
                 <a href="/category-subcategory/" class="btn btn-join" type="button">
