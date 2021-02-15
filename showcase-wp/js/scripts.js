@@ -732,12 +732,13 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$('.profile-like-box').on('click', function(){
 		console.log("like cliked!");
+		var $this = $(this);
 		var res;
 		$.ajax({
 			url: LIKE.request_url,
 			method:'POST',
 			data:{
-				user_id: $(this).attr('data-user'),
+				user_id: $this.attr('data-user'),
 				nonce: LIKE.nonce,
 				action:'sci_toggle_like',
 			},
@@ -745,12 +746,13 @@ $(document).ready(function(){
 				res = JSON.parse(response);
 				console.log(res.status);
 				if(res.status === 'like'){
+					console.log($this);
 					$('i.fas.fa-thumbs-up').addClass('liked');
-					$('span.profile-like-box').text(res.count);
+					$('span.profile-like-count').text(res.count);
 				}
 				else if(res.status === 'dislike'){
 					$('i.fas.fa-thumbs-up').removeClass('liked');
-					$('span.profile-like-box').text(res.count);
+					$('span.profile-like-count').text(res.count);
 				}
 				else{
 					console.log('error')

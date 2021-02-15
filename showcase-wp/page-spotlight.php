@@ -140,14 +140,18 @@ $current_user = wp_get_current_user();
 						<?php
 						 $liked_by = get_field('likes', 'user_'. $obj_id);
 						if (in_array($current_user->ID, $liked_by)) : ?>
-							<span class="profile-like-box" data-user="<?php echo $obj_id;?>">
+							<span class="profile-like-box" data-user="<?php echo $obj_id;?>" id="<?php echo $obj_id;?>">
 							<i class="fas fa-thumbs-up liked"></i>
-							<?php echo (count($liked_by)); ?> 
+							<span class="profile-like-count">
+								<?php echo (count($liked_by)); ?> 
+							</span>
 							</span>
 							<?php else : ?>
 							<span class="profile-like-box" data-user="<?php echo $obj_id;?>">
 							<i class="fas fa-thumbs-up"></i>
-							<?php echo (count($liked_by)); ?> 
+							<span class="profile-like-count">
+								<?php echo (count($liked_by)); ?> 
+							</span>
 							</span>
 						<?php endif ?>
 						<span>likes</span>
