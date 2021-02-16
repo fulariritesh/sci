@@ -332,10 +332,13 @@ function sci_experience_form() {
                            }
                         } 
 
-                        if( have_rows('experience', 'user_' . $current_user->ID) ):
+                        $experienceExistsForCategory = false;
+
+                        if( have_rows('experience', 'user_' . $current_user->ID) ) {
                            while ( have_rows('experience', 'user_' . $current_user->ID) ) : the_row();
                            
                               if(get_sub_field('category')->term_id == $catId){
+                                 $experienceExistsForCategory = true;
                                  $userFieldValue = get_sub_field($field); ?>
                               
                                  <div class="row px-4 pb-5">
@@ -378,38 +381,62 @@ function sci_experience_form() {
                                     </span>
                                  </div>
                                  <div class="accordion col-12 mx-auto" id="experience-accordion">
-                                 <?php foreach($arrYear as $key => $yearData){ ?>   
-                                    <div class="accordion-group mb-3 card new-experience-group">
-                                       <div class="row card-header collapsed p-2" id=<?php echo  "row" . $key ?> type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "row" . $key ?>>
-                                          <div class="col-11">
-                                             <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(<?php echo  $key ?>)</span>
-                                             </p>
+                                    <?php foreach($arrYear as $key => $yearData){ ?>   
+                                       <div class="accordion-group mb-3 card new-experience-group">
+                                          <div class="row card-header collapsed p-2" id=<?php echo  "row" . $key ?> type="button" data-toggle="collapse" data-target=<?php echo  '#year' . $key ?> aria-expanded="true" aria-controls=<?php echo "row" . $key ?>>
+                                             <div class="col-11">
+                                                <p class="text-uppercase my-2 pt-1 ml-2">Year <span>(<?php echo  $key ?>)</span>
+                                                </p>
+                                             </div>
+                                          </div>
+                                          <div id=<?php echo "year" . $key ?> class="collapse" aria-labelledby=<?php echo  "year" . $key ?>>
+                                             <div class="accordion-inner card-body">
+                                                <ul class="list" data-year=<?php echo $key ?>>
+                                                   <?php foreach($yearData as $data){ ?>
+                                                      <li data-row=<?php echo $data->row ?> style="display: flex;padding-bottom: 5px;"><span contenteditable="true"><?php echo $data->content ?></span>
+                                                         <div class="d-flex justify-content-end" style="flex: auto;">
+                                                            <button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
+                                                               <i class="fas fa-trash-alt fa-lg"></i>
+                                                            </button>
+                                                         </div>
+                                                      </li>
+                                                      
+                                                   <?php } ?>
+                                                </ul>
+                                             </div>
                                           </div>
                                        </div>
-                                       <div id=<?php echo "year" . $key ?> class="collapse" aria-labelledby=<?php echo  "year" . $key ?>>
-                                          <div class="accordion-inner card-body">
-                                             <ul class="list" data-year=<?php echo $key ?>>
-                                                <?php foreach($yearData as $data){ ?>
-                                                   <li data-row=<?php echo $data->row ?> style="display: flex;padding-bottom: 5px;"><span contenteditable="true"><?php echo $data->content ?></span>
-                                                      <div class="d-flex justify-content-end" style="flex: auto;">
-                                                         <button class="btn btn-popup-del delete-experience" type="button" data-toggle="modal" data-target="#deleteExp">
-                                                            <i class="fas fa-trash-alt fa-lg"></i>
-                                                         </button>
-                                                      </div>
-                                                   </li>
-                                                   
-                                                <?php } ?>
-                                             </ul>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 <?php } ?>  
+                                    <?php } ?>  
                                  </div>
                               <?php };
                            endwhile;   
-                        endif;
+                        }; 
+                        if(!$experienceExistsForCategory) { ?>
+                           <div class="row px-4 pb-5">
+                              <div class="hr-text col-12 p-0 mb-4">
+                                 <span class="credit-title font-weight-bold pr-3">
+                                    <?php echo get_field('category_name_singular', 'term_' . $catId); ?> Website
+                                 </span>
+                              </div>
+                              <div class="col-12">
+                                 <div class="form-group">
+                                    <input id="experience-website" class="form-control" type="text" placeholder="Enter website:" ?></input>
+                                    <div class="invalid-feedback">
+                                       Opps error!
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="hr-text col-12 p-0 mb-4">
+                                    <span class="credit-title font-weight-bold pr-3">
+                                       Experience by Year
+                                    </span>
+                           </div>
+                           <div class="accordion col-12 mx-auto" id="experience-accordion">
+                              
+                           </div>
+                        <?php }
 
-                        
                      ?>
                      
                      
