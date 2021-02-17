@@ -1,8 +1,9 @@
 <?php
 add_action("wp_ajax_sci_toggle_like", "sci_toggle_like");
 function sci_toggle_like() {
+
     $current_user = get_current_user_id();
-   
+
    if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_like")) {
       exit("No naughty business please");
    }   

@@ -183,7 +183,7 @@ $user_info = get_userdata($obj_id);
 						?>
 							<div class="col-6 profile-personaldetails">
 								<div class="row justify-content-end pr-md-4">
-									<?php if (current_user_can('toggle_spotlight_btn')){?>
+									<?php if (current_user_can('toggle_spotlight_btn')):?>
 										<h5 class="pt-1">Spotlight</h5>
 										<label class="switch toggle-spotlight ml-4">
 										<input type="checkbox" data-id="<?php echo $obj_id;?>" id="togBtn" <?php echo !!get_field('spotlight-toggle', 'user_' . $obj_id) ? 'checked' : ''; ?>>
@@ -194,7 +194,7 @@ $user_info = get_userdata($obj_id);
 										<!--END-->
 										</div>
 										</label>
-									<?php }?>
+									<?php endif;?>
 									
 								</div>
 								<h1>
