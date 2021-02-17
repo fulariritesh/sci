@@ -46,6 +46,11 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
       'key'     => 'profile_visibility_status',
       'value'   => 1,
       'compare' => '=',
+    ),
+    array(
+      'key'     => 'profile_status',
+      'value'   => "Pending",
+      'compare' => '!=',
     ));
 
     
@@ -109,6 +114,7 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
         'meta_query'    => $meta_queries
     );
     $userList = get_users($args);
+    $data = new stdClass();
 
     if( !empty( $userList ) ){
       
@@ -148,79 +154,94 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
           endif;
           
           $user->location = get_field('sci_user_location', 'user_' . $user->ID)['label'];  
+          $user->accountIsActive =  get_user_meta($user->ID, 'profile_status',true) != "Rejected" ? 1 : 0;
       }
     
-      $data = new stdClass();
+      
       $data->userList = array($userList);
+      $data->result = 0;
+      
 
-      if($pageNumber == 1){
-          $totalUsersArgs = array(
-              'role'          => 'subscriber',
-              'orderby'       => 'user_registered',
-              'order'         => 'DESC',
-              'fields'        => array( 'ID','display_name' ),
-              'meta_query'     => $meta_queries
-          );
-
-          $totalUsers = get_users($totalUsersArgs);
-          
-          $data->totalCount = count($totalUsers);
-
-          $categoriesFound = get_terms( array(
-              'taxonomy'      => 'jobs',
-              'hide_empty'    => false,
-              'parent'        => $categoryId? $categoryId :0,
-              'fields'        => 'id=>name'
-          ) );
-
-          $categories = array();
-          foreach($categoriesFound as $key => $value){
-              $category = new stdClass();
-              $category->id = $key;
-              $category->name = get_term_meta( $key, 'category_name', true );
-              $category->image = get_field('sci_category_image', 'jobs_' . $key);
-              $category->singularName = get_term_meta( $key, 'category_name_singular', true );
-              
-              $args = array(
-                'role'          => 'subscriber',
-                'orderby'       => 'user_registered',
-                'order'         => 'DESC',
-                'fields'        => array( 'ID','display_name' ),
-                'meta_query'     => [
-                  'relation' => 'AND',
-                  [
-                      'key'     => 'profession',
-                      'value'   => array(''),
-                      'compare' => 'NOT IN',
-                  ],
-                  [
-                      'key'     => 'profession',
-                      'value'   => sprintf(':"%s";', $key),
-                      'compare' => 'LIKE',
-                  ],
-              ],
-            );
-            $category->count = count(get_users($args));
-
-              array_push($categories, $category);
-          }
-          $data->result = 0;
-          $data->categories = $categories;
-      }
-
-      return $data;
+      
     }else{
       $data = new stdClass();
       if(($location && $location != "-1") || ($gender && $gender != '-1') || ($age && $age != '-1')){
         $data->result = 1;
-        return $data;
+        
       }else{
         $data->result = 2;
         $data->text = get_field('sci_no_users_in_category', 'option');
-        return $data;
+        
       }
       
     }
+
+      if($pageNumber == 1){
+        $totalUsersArgs = array(
+            'role'          => 'subscriber',
+            'orderby'       => 'user_registered',
+            'order'         => 'DESC',
+            'fields'        => array( 'ID','display_name' ),
+            'meta_query'     => $meta_queries
+        );
+
+        $totalUsers = get_users($totalUsersArgs);
+        
+        $data->totalCount = count($totalUsers);
+
+        $categoriesFound = get_terms( array(
+            'taxonomy'      => 'jobs',
+            'hide_empty'    => false,
+            'parent'        => $categoryId? $categoryId :0,
+            'fields'        => 'id=>name'
+        ) );
+
+        $categories = array();
+        foreach($categoriesFound as $key => $value){
+            $category = new stdClass();
+            $category->id = $key;
+            $category->name = get_term_meta( $key, 'category_name', true );
+            $category->image = get_field('sci_category_image', 'jobs_' . $key);
+            $category->singularName = get_term_meta( $key, 'category_name_singular', true );
+            
+            $args = array(
+              'role'          => 'subscriber',
+              'orderby'       => 'user_registered',
+              'order'         => 'DESC',
+              'fields'        => array( 'ID','display_name' ),
+              'meta_query'     => [
+                'relation' => 'AND',
+                [
+                    'key'     => 'profession',
+                    'value'   => array(''),
+                    'compare' => 'NOT IN',
+                ],
+                [
+                    'key'     => 'profession',
+                    'value'   => sprintf(':"%s";', $key),
+                    'compare' => 'LIKE',
+                ],
+                [
+                    'key'     => 'profile_visibility_status',
+                    'value'   => 1, 
+                    'compare' => '=',
+                ],
+                [
+                    'key'     => 'profile_status',
+                    'value'   => "Pending", 
+                    'compare' => '!=',
+                ]
+            ],
+          );
+          $category->count = count(get_users($args));
+
+            array_push($categories, $category);
+        }
+        
+        $data->categories = $categories;
+      }
+
+      return $data;
   }
  
 }

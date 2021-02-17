@@ -7,7 +7,6 @@
  * @package Showcase
  */
 
-get_header();
 
 ?>
 <?php 
@@ -15,6 +14,16 @@ get_header();
 $obj_id = get_queried_object_id();
 $data = get_user_meta($obj_id);
 $user_info = get_userdata($obj_id);
+
+$profileVisibility = get_user_meta($obj_id, 'profile_visibility_status', true);
+$profileStatus = get_user_meta($obj_id, 'profile_status', true);
+
+if(!$profileVisibility || $profileStatus == "Pending"){
+	wp_safe_redirect(get_site_url()); 
+	exit;
+}
+
+get_header();
 ?>
 <style type="text/css">
 	.bodyBG {
@@ -124,8 +133,9 @@ $user_info = get_userdata($obj_id);
 								}
 							</style>
 							<?php
+							$isHeadshotUpdated = get_user_meta($obj_id, 'content_approval_headshots_updated', true);
 							$headshotsVisible = get_user_meta($obj_id, 'sections_visibility_headshots', true);
-							if($headshotsVisible){ ?>
+							if($headshotsVisible && !$isHeadshotUpdated){ ?>
 								<div class="headshot">
 									<div id="image-slider" class="splide slider_headshot">
 										<div class="splide__track">
@@ -178,8 +188,9 @@ $user_info = get_userdata($obj_id);
 							<?php } ?>
 						</div>
 						<?php
+							$isPersonalDetailsUpdated = get_user_meta($obj_id, 'content_approval_personal_details_updated', true);
 							$personalInfoVisible = get_user_meta($obj_id, 'sections_visibility_personal_details', true);
-							if($personalInfoVisible){
+							if($personalInfoVisible && !$isPersonalDetailsUpdated){
 						?>
 							<div class="col-6 profile-personaldetails">
 								<div class="row justify-content-end pr-md-4">
@@ -279,9 +290,10 @@ $user_info = get_userdata($obj_id);
 	                </div>
 	                <!-- Introdustion  Block-->
 	                <?php 
+					$IntroductionUpdated = get_user_meta($obj_id, 'content_approval_introduction_updated', true);
 					$IntroductionVisible = get_user_meta($obj_id, 'sections_visibility_introduction', true);
 					
-					if (get_field('intro_text', 'user_' . $obj_id) && $IntroductionVisible): ?>
+					if (get_field('intro_text', 'user_' . $obj_id) && $IntroductionVisible && !$IntroductionUpdated): ?>
 	                <div class="row mb-3 p-3 blockBG">
 	                	<style type="text/css">
 	                		.introvideo {
@@ -343,21 +355,26 @@ $user_info = get_userdata($obj_id);
 							$videosVisible = get_user_meta($obj_id, 'sections_visibility_videos', true);
 							$audiosVisible = get_user_meta($obj_id, 'sections_visibility_audios', true);
 							$experienceVisible = get_user_meta($obj_id, 'sections_visibility_experience', true);
+
+							$isPhotoUpdated = get_user_meta($obj_id, 'content_approval_photos_updated', true);
+							$isVideoUpdated = get_user_meta($obj_id, 'content_approval_videos_updated', true);
+							$isAudioUpdated = get_user_meta($obj_id, 'content_approval_audios_updated', true);
+							$isExperienceUpdated = get_user_meta($obj_id, 'content_approval_experience_updated', true);
 						?>
 		                <nav class="navbar-expand-lg navbar-light navbarcolors container" id="myScrollspy">
 							<div class="" id="navbarNav">
 							  <ul class="navbar-nav">
-	                			<?php if (get_field('photos', 'user_' . $obj_id) && $photosVisible): ?>
+	                			<?php if (get_field('photos', 'user_' . $obj_id) && $photosVisible && !$isPhotoUpdated): ?>
 							    <li class="nav-item active">
 							      <a class="nav-link" href="#photos">Photos</a>
 							    </li>
 	                			<?php endif ?>
-	                			<?php if (get_field('audios', 'user_' . $obj_id) && $audiosVisible): ?>
+	                			<?php if (get_field('audios', 'user_' . $obj_id) && $audiosVisible && !$isAudioUpdated): ?>
 							    <li class="nav-item">
 							      <a class="nav-link" href="#audios">Audio</a>
 							    </li>
 	                			<?php endif ?>
-	                			<?php if (get_field('videos', 'user_' . $obj_id) && $videosVisible): ?>
+	                			<?php if (get_field('videos', 'user_' . $obj_id) && $videosVisible && !$isVideoUpdated): ?>
 							    <li class="nav-item">
 							      <a class="nav-link" href="#videos">Video</a>
 							    </li>
@@ -365,11 +382,11 @@ $user_info = get_userdata($obj_id);
 							    <li class="nav-item">
 							      <a class="nav-link" href="#attributes">Physical Attributes</a>
 							    </li>
-	                			<?php if (get_field('experience', 'user_' . $obj_id) && $experienceVisible): ?>
+	                			<?php if (get_field('experience', 'user_' . $obj_id) && $experienceVisible && !$isExperienceUpdated): ?>
 							    <li class="nav-item">
 							      <a class="nav-link" href="#credits">Credit and Experience</a>
 							    </li>
-			                	<?php if( have_rows('experience', 'user_' . $obj_id) && $experienceVisible ): ?>
+			                	<?php if( have_rows('experience', 'user_' . $obj_id) && $experienceVisible && !$isExperienceUpdated): ?>
 			                		<?php while ( have_rows('experience', 'user_' . $obj_id) ) : the_row(); ?>
 								    <li class="nav-item">
 								      <a class="nav-link" href="#<?php echo get_sub_field('category')->slug; ?>"><?php echo get_sub_field('category')->name; ?></a>
@@ -382,7 +399,7 @@ $user_info = get_userdata($obj_id);
 		                </nav>
 	                </div>
 	                <?php endif ?>
-	                <?php if (get_field('photos', 'user_' . $obj_id) && $photosVisible): ?>
+	                <?php if (get_field('photos', 'user_' . $obj_id) && $photosVisible && !$isPhotoUpdated): ?>
 	                <!-- Photo Grid-->
 	                <div class="row photogrid mb-3" id="photos">
 		                <div class="col-12 pt-3">
@@ -422,7 +439,7 @@ $user_info = get_userdata($obj_id);
 	                </div>
 	                <?php endif ?>
 	                <!--Videos block-->
-	                <?php if (get_field('videos', 'user_' . $obj_id) && $videosVisible): ?>
+	                <?php if (get_field('videos', 'user_' . $obj_id) && $videosVisible && !$isVideoUpdated): ?>
 	                <div class="row mb-3 blockBG p-3" id="videos">
 	                    <div class="col-12 pt-3">
 	                    	<h4>Videos (<?php echo count(get_field('videos', 'user_' . $obj_id)); ?>)</h4>
@@ -459,7 +476,7 @@ $user_info = get_userdata($obj_id);
 						</script>
 	                </div>
 	                <?php endif ?>
-	                <?php if (get_field('audios', 'user_' . $obj_id) && $audiosVisible): ?>
+	                <?php if (get_field('audios', 'user_' . $obj_id) && $audiosVisible && !$isAudioUpdated): ?>
 	                <!--Audio block-->
 	                <div class="row mb-3 blockBG p-3 audioblock" id="audios">
 	                    <div class="col-12 pt-3">
@@ -639,7 +656,7 @@ $user_info = get_userdata($obj_id);
 	                        </div>
 	                    </div>
 	                </div>
-	                <?php if (get_field('experience', 'user_' . $obj_id) && $photosVisible): ?>
+	                <?php if (get_field('experience', 'user_' . $obj_id) && $experienceVisible && !$isExperienceUpdated): ?>
 	                	<style type="text/css">
 	                		.cat-title {
 								padding-left: 41px;

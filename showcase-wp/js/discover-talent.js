@@ -266,7 +266,7 @@ jQuery(function($) {
         
         list.forEach(profile => {
             let isProffessionCountMore = false;
-            let listHtml = `<a href="${profile.href}" class="col-6 col-sm-4 col-md-3 col-lg-2">
+            let listHtml = `<a href="${profile.href}" class="col-6 col-sm-4 col-md-3 col-lg-2" data-status="${profile.accountIsActive}">
                         <div class="card h-100">
                         <img class="card-img-top" src=${profile.headshot} alt="Card image cap">
                         <div class="card-body">
@@ -292,6 +292,10 @@ jQuery(function($) {
                     </a>`;
 
                     $displayList.append(listHtml);
+
+                    let a = $displayList.find('a[data-status="0"]');
+                    a.remove();
+                    $displayList.append(a);
         });
 
         if($('.displayList a').length == totalMatchingProfiles){
