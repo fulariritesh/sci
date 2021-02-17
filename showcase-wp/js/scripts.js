@@ -1,5 +1,6 @@
 import Splide from '@splidejs/splide';
 import Lightbox from 'lightbox2';
+import Cropper from 'cropperjs'; //sid
 
 // Edit Profile scripts
 require("./bootstrap-editable.min.js");
@@ -16,6 +17,127 @@ $(document).ready(function(){
 		'<button type="button" class="btn btn-warning btn-sm editable-cancel">' +
 	    	'<i class="fa fa-fw fa-times"></i>' +
 	    '</button>';
+	$('#managephotos').on('show.bs.modal', function (e) {
+		setTimeout(function(){
+			$drag.layout();
+		}, 200);
+		$(".rotate-image").on('click', function(){
+			$(this).parents(".packery-item").find("img").css({
+			    transform: "rotate(-90deg)"
+			})
+		})
+		$(".delete-image").on('click', function(){
+			$(this).parents(".packery-item").remove();
+			$drag.layout();
+		})
+	})
+	$("#delete-photos").on("submit", function(){
+		$(".bulkselect-radio input:checked").parents(".packery-item").remove();
+		$drag.layout();
+		$("#deletephoto").modal('hide');
+	})
+	$('#editcaption').on('show.bs.modal', function (e) {
+		$(this).find('.caption-value').val($(e.relatedTarget).parents('[data-caption]').attr('data-caption'));
+		$(this).find('.caption-value').attr("data-media-id", $(e.relatedTarget).parents('[data-media-id]').attr('data-media-id'));
+	})
+	$('#editcaption, #deletephoto').on('hidden.bs.modal', function(){
+		$('body').addClass('modal-open');
+	})
+	$("#saveCaption").on("submit", function(event){
+		event.preventDefault();
+		$("[data-media-id='" + $(this).find('.caption-value').attr('data-media-id') + "']").attr('data-caption', $(this).find('.caption-value').val());
+		$('#managephotos').modal('handleUpdate');
+		$("#editcaption").modal("hide");
+		$('#managephotos').modal("show");
+	})
+	$("#managephotos-form").on("submit", function(event){
+		event.preventDefault();
+		let order = [];
+
+		jQuery('[data-order]').each(function(i, ele){
+			let $item = jQuery('[data-order=' + (i + 1) + ']');
+			console.log($item);
+			console.log('[data-order=' + (i + 1) + ']');
+
+            order.push({id : $item.attr("data-media-id"), caption :  $item.attr("data-caption")});
+        })
+
+		$("#managephotos-form .btn-popup-save").addClass('disabled');
+		let loading = document.createElement("div");
+		loading.classList.add("editableform-loading");
+		$("#managephotos-form .btn-popup-save").parent().addClass("loading")
+		$("#managephotos-form .btn-popup-save").parent()[0].appendChild(loading);
+
+		$.post({
+		    url: Edit.request_url,
+		    data: {
+		        action: 'sci_manage_photos',
+		        nonce: Edit.nonce,
+		        order: order
+		    },
+		    success : function(res){
+		    	//location.reload();
+		    }
+		})
+	})
+	$('#addphotos').on('hide.bs.modal', function (e) {
+		$(this).find('#uploadImage').attr('src', '');
+		$(this).find('.uploadimage').removeClass("d-none");
+	})
+	$("#file-input").on('change', function(){
+		let file = $(this)[0].files[0];
+		let previewDefaultTxt = $("#uploadImage");
+		if (file) {
+			const reader = new FileReader();
+			reader.addEventListener("load", function () {
+				$(".uploadimage").addClass('d-none');
+				previewDefaultTxt.hide();
+				previewDefaultTxt.attr('src', this.result)
+				previewDefaultTxt.fadeIn('slow');
+			});
+			reader.readAsDataURL(file);	
+		}
+	})
+	$("#addphoto-form").on("submit", function(event){
+		event.preventDefault();
+
+		$("#addphoto-form .btn-popup-save").addClass('disabled');
+
+		let loading = document.createElement("div");
+		loading.classList.add("editableform-loading");
+
+		//$("#addphoto-form .btn-popup-save").parent().addClass("loading")
+		//$("#addphoto-form .btn-popup-save").parent()[0].appendChild(loading);
+
+		var fd = {};
+	    var fileInput = $('#file-input').prop('files')[0];
+
+	    var caption = $('#addPhotosCaption');
+
+		const reader = new FileReader();
+		
+		reader.readAsDataURL(fileInput);
+		
+		reader.onloadend = function () {
+			fd.photo = reader.result;
+		};
+
+	    fd.caption = caption.val();
+	    fd.action = 'sci_add_photos';  
+	    fd.nonce = Edit.nonce;  
+
+	    console.log(fd);
+
+	    $.ajax({
+	        url: Edit.request_url,
+	        method: "POST",
+	        data: fd,
+	        success: function(response){
+	            console.log(response);
+	        }
+	    });
+	})
+
 	if (!!$('#edit-profile .profile-personaldetails').length) {
 		$('#name').editable({
 	 		type: 'text',
@@ -95,69 +217,6 @@ $(document).ready(function(){
 				sci.classList.add("active");
 			})
 		})
-		$('#managephotos').on('show.bs.modal', function (e) {
-			setTimeout(function(){
-				$drag.layout();
-			}, 200);
-			$(".rotate-image").on('click', function(){
-				$(this).parents(".packery-item").find("img").css({
-				    transform: "rotate(-90deg)"
-				})
-			})
-			$(".delete-image").on('click', function(){
-				$(this).parents(".packery-item").remove();
-				$drag.layout();
-			})
-		})
-		$("#delete-photos").on("submit", function(){
-			$(".bulkselect-radio input:checked").parents(".packery-item").remove();
-			$drag.layout();
-			$("#deletephoto").modal('hide');
-		})
-		$('#editcaption').on('show.bs.modal', function (e) {
-			$(this).find('.caption-value').val($(e.relatedTarget).parents('[data-caption]').attr('data-caption'));
-			$(this).find('.caption-value').attr("data-media-id", $(e.relatedTarget).parents('[data-media-id]').attr('data-media-id'));
-		})
-		$('#editcaption, #deletephoto').on('hidden.bs.modal', function(){
-			$('body').addClass('modal-open');
-		})
-		$("#saveCaption").on("submit", function(event){
-			event.preventDefault();
-			$("[data-media-id='" + $(this).find('.caption-value').attr('data-media-id') + "']").attr('data-caption', $(this).find('.caption-value').val());
-			$('#managephotos').modal('handleUpdate');
-			$("#editcaption").modal("hide");
-			$('#managephotos').modal("show");
-		})
-		$("#managephotos-form").on("submit", function(event){
-			event.preventDefault();
-			let order = [];
-
-			jQuery('[data-order]').each(function(i, ele){
-				let $item = jQuery('[data-order=' + (i + 1) + ']');
-				console.log($item);
-				console.log('[data-order=' + (i + 1) + ']');
-
-                order.push({id : $item.attr("data-media-id"), caption :  $item.attr("data-caption")});
-            })
-
-			$("#managephotos-form .btn-popup-save").addClass('disabled');
-			let loading = document.createElement("div");
-			loading.classList.add("editableform-loading");
-			$("#managephotos-form .btn-popup-save").parent().addClass("loading")
-			$("#managephotos-form .btn-popup-save").parent()[0].appendChild(loading);
-
-			$.post({
-			    url: Edit.request_url,
-			    data: {
-			        action: 'sci_manage_photos',
-			        nonce: Edit.nonce,
-			        order: order
-			    },
-			    success : function(res){
-			    	location.reload();
-			    }
-			})
-		})
 		$("#manage-category").on("submit", function(event){
 			event.preventDefault();
 			let categories = [];
@@ -229,46 +288,158 @@ $(document).ready(function(){
 			    }
 			})
 		})
+		let $experienceBlock = $('#experienceblock');
+		if($experienceBlock){
+			let $drpExperienceBlockToggle = $('#year-category-toggle');
+			let $experienceBlockCategory = $('#experienceblock-category');
+			let $experienceBlockYear = $('#experienceblock-year');
+			
+			$experienceBlockYear.hide();
+			$drpExperienceBlockToggle.on('change', function(e) {
+				let toggleValue = this.options[e.target.selectedIndex].value;
+				if(toggleValue === 'category'){
+					$experienceBlockYear.hide();
+					$experienceBlockCategory.show();
+				}else{
+					$experienceBlockCategory.hide();
+					$experienceBlockYear.show();
+				}
+			});
+		}
+		$('.btn-add-experience').on('click', function(e){
+			e.preventDefault();
+			
+			let id = $(this).data('id');
+			$.post({
+			    url: Edit.request_url,
+			    data: {
+			        action: 'sci_experience_form',
+					nonce: Edit.nonce,
+					catid: id,
+			    },
+			    success : function(res){
+					$('#experience-modal-content').html(res);
+					$('#catdetailed').modal('show');
+					//$('.other-selected').hide();
+			    }
+			})
+		});
+		$("#catdetailed").on('click','.other-fields', function() {
+			if($(this).closest('.btn-group-toggle').data('type') == 'checkbox'){
+				if($(this).val() == 'Others' && !$(this).parent().hasClass('active')){
+					$(this).closest('.form-additional-fields').find('.other-selected').show();
+				}else if($(this).val() == 'Others' && $(this).parent().hasClass('active')){
+					$(this).closest('.form-additional-fields').find('.other-selected').hide();
+				}
+			}
+		});
+
+		$("#catdetailed").on("click", "#experience-submit", function(event){
+			event.preventDefault();
+
+			$("#form-experience .btn-popup-save").addClass('disabled');
+			let loading = document.createElement("div");
+			loading.classList.add("editableform-loading");
+			$("#form-experience .btn-popup-save").parent().addClass("loading")
+			$("#form-experience .btn-popup-save").parent()[0].appendChild(loading);
+
+			let $categoryModal = $(this).closest("#catdetailed");
+
+						
+			let catId = $categoryModal.find(".modal-header").data('id').toString();
+
+			let subCatsIds = [];
+			$categoryModal.find("#experience-specialized-skills").find(".btn-popup-pill.active").map(function(i, e){
+				subCatsIds.push($(e).find('input').val());
+			});
+
+			let extraFields = $(this).closest("#catdetailed").find(".form-additional-fields");
+			let fields = [];
+			extraFields.map(function(i, e){
+				let field = $();
+				field.efType = $(this).find('.btn-group-toggle').data('type');
+				field.efFieldName =  $(this).data('name');
+				field.efOptions = []
+				$(this).find(".btn-popup-pill.active").map(function(i, e){
+					field.efOptions.push($(e).find('input').val().replace(/-/g, " "));
+				});
+				fields.push(field);
+			});
+
+
+
+			let fieldOthers = $(this).closest("#catdetailed").find('input[data-other$="-other"]');
+			let otherFields = [];
+			fieldOthers.map(function(i, e){
+				let field = $();
+				field.efFieldName = $(this).data('other');
+				field.efValue = $(this).val().replace(/,/g, "@");
+				
+				otherFields.push(field);
+			});
+			console.log(otherFields);
+
+			let experienceWebsite = $('#experience-website').val();
+
+			let dataStringified = JSON.stringify({subCats : subCatsIds, additionalFields : fields, website : experienceWebsite, fieldOtherSpecifications : otherFields});
+			console.log(dataStringified);
+			$.post({
+			    url: Edit.request_url,
+			    data: {
+			        action: 'sci_experience_form_submit',
+					nonce: Edit.nonce,
+					category : catId, 
+			        updateData: dataStringified,
+			    },
+			    success : function(res){
+					console.log(res);
+			    	location.reload();
+			    }
+			})
+		});
 	}
 });
 
 $(".card-header").click(function () {
 	$(this).toggleClass("selected");
 });
-var video = document.querySelector("#videoElement");
-const inpFile = document.getElementById("hsFile");
-const previewContainer = document.getElementById("img-preview");
-const previewImg = document.querySelector(".img-preview-img");
-const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
-const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+$(document).ready(function () {
+	var video = document.querySelector("#videoElement");
+	const inpFile = document.getElementById("hsFile");
+	const previewContainer = document.getElementById("img-preview");
+	const previewImg = document.querySelector(".img-preview-img");
+	const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+	const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
 
-if (inpFile) inpFile.addEventListener("change", function () {
-  const file = this.files[0];
-  if (file) {
-    const reader = new FileReader();
-    previewDefaultTxt.style.display = "none";
-    previewImg.style.display = "block";
+	if (inpFile) inpFile.addEventListener("change", function () {
+	  const file = this.files[0];
+	  if (file) {
+	    const reader = new FileReader();
+	    previewDefaultTxt.style.display = "none";
+	    previewImg.style.display = "block";
 
-    reader.addEventListener("load", function () {
-      console.log(this);
-      previewImg.setAttribute("src", this.result);
-    });
-    reader.readAsDataURL(file);
-  }
-})
+	    reader.addEventListener("load", function () {
+	      console.log(this);
+	      previewImg.setAttribute("src", this.result);
+	    });
+	    reader.readAsDataURL(file);
+	  }
+	})
 
-if (navigator.mediaDevices) {
-  navigator.mediaDevices
-    .getUserMedia({ video: true })
-    .then(function (stream) {
-      previewDefaultTxtCam.style.display = "none";
-      video.style.display = "block";
-      video.srcObject = stream;
-    })
-    .catch(function (err0r) {
-      console.log("Something went wrong!");
-    });
-}
+	if (navigator.mediaDevices) {
+	  navigator.mediaDevices
+	    .getUserMedia({ video: true })
+	    .then(function (stream) {
+	      previewDefaultTxtCam.style.display = "none";
+	      video.style.display = "block";
+	      video.srcObject = stream;
+	    })
+	    .catch(function (err0r) {
+	      console.log("Something went wrong!");
+	    });
+	}
+
+});
 $(document).ready(function () {
 	$(".upload-div").hide();
 	$(".file-edit-btns").hide();
@@ -357,7 +528,15 @@ $(document).ready(function(){
 			}
 		} ).mount();
 	}
+});
 
+//sid
+$(document).ready(function () {
+	/* Category Subcategory Page */
+	$(".card-header").click(function () {
+		$(this).toggleClass("selected");
+		$(this).children('input[type="hidden"]').prop('disabled', function(i, v) { return !v; });
+  	});
 
 	/* Profile details page - dynamically show custom gender text field */
 	/* 
@@ -373,4 +552,328 @@ $(document).ready(function(){
 			$('#custom_gender').addClass('d-none');
 		}
 	});
-})
+});
+
+// sid
+/* Add Headshot(s) */ 
+$(document).ready(function () {
+	$(".upload-div").hide();
+	$(".file-edit-btns").hide();
+
+	$(".btn-details-fileup").click(function () {
+		$(".capture-div").hide();
+		$(".upload-div").show();
+		$(".file-edit-btns").show();
+	});
+
+	var cropper;
+	var data;
+	var res;
+	var redirectFunction = '';
+	var indexHeadshot = 1;
+	var canvas = document.querySelector("#canvas");
+	var video = document.querySelector("#videoElement");
+	const inpFile = document.getElementById("hsFile");
+	const previewContainer = document.getElementById("img-preview");
+	const previewImg = document.querySelector(".img-preview-img");
+	const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+	const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
+
+	// $('li.splide__slide').click(function () {
+	// 	var index = $(this).attr("data-index");
+	// 	if(index){
+	// 		indexHeadshot = index;
+	// 		console.log('Headshot: '+indexHeadshot);
+	// 	}	
+	// });
+	$(".manageHeadshot").find("button").click(function(){
+		var index = $(this).attr("data-indexheadshot");
+		if(index){
+			indexHeadshot = index;
+			console.log('Headshot: '+indexHeadshot);
+		}
+	});
+
+	if (inpFile) inpFile.addEventListener("change", function () {
+		const file = this.files[0];
+		if (file) {
+			const reader = new FileReader();
+			
+			reader.addEventListener("load", function () {
+				//console.log(this);
+				previewDefaultTxt.style.display = "none";
+				previewImg.setAttribute("src", this.result);
+				previewImg.style.display = "block";
+				cropper = new Cropper(previewImg, {
+						viewMode: 1,
+						aspectRatio: 1,
+						initialAspectRatio: 1
+					});
+				});
+			reader.readAsDataURL(file);	
+		}
+	});	
+
+	if (navigator.mediaDevices) {
+		navigator.mediaDevices
+		.getUserMedia({ video: true })
+		.then(function (stream) {
+		previewDefaultTxtCam.style.display = "none";
+		video.style.display = "block";
+		video.srcObject = stream;
+		})
+		.catch(function (error) {
+			console.log("Looks like your device has no camera.");
+			$('#resHeadshotWrapper').empty();
+			$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+													<button type="button" class="close" data-dismiss="alert">&times;</button> \
+													Looks like your device has no camera. \
+												</div>');
+		});
+	}
+
+	function takepicture(height,width) {
+		var context = canvas.getContext('2d');
+		if (width && height) {
+			canvas.width = width;
+			canvas.height = height;
+			context.drawImage(video, 0, 0, width, height);
+			data = canvas.toDataURL('image/png');
+			previewDefaultTxt.style.display = "none";
+			previewImg.style.display = "block";
+			previewImg.setAttribute('src', data);
+			cropper = new Cropper(previewImg, {
+						viewMode: 1,
+						aspectRatio: 1,
+						initialAspectRatio: 1
+					});
+			//console.log(data);
+		} 
+	}
+
+	$(".btn-details-cptr").click(function (e) {
+		e.preventDefault();
+		console.log('capturing...');
+		$(".upload-div").show();
+		$(".file-edit-btns").show();
+		//console.log(video.offsetHeight,video.offsetWidth);
+		takepicture(video.offsetHeight,video.offsetWidth);
+		$(".capture-div").hide();
+	});
+
+	$('#rotate-anticlock').on('click', function(){
+		console.log('rotate anticlock');
+		if(cropper){			
+			cropper.rotate(-90);
+		}
+	});
+
+	$('#rotate-clock').on('click', function(){
+		console.log('rotate clock');
+		if(cropper){
+			cropper.rotate(90);
+		}
+	});
+
+	// ADD/EDIT HEADSHOT
+	$('#saveHeadshot').on('click', function(){
+		console.log('uploading...');
+		if(cropper){
+			canvas = cropper.getCroppedCanvas({
+				width:400,
+				height:400
+			});
+			canvas.toBlob(function(blob){
+				URL.createObjectURL(blob);
+				var reader = new FileReader();
+				reader.readAsDataURL(blob);
+				reader.onloadend = function(){
+					var base64data = reader.result;
+					//console.log(base64data);
+					$.ajax({
+						url: SCI_HEADSHOT.request_url,
+						method:'POST',
+						data:{
+							headshot: base64data,
+							nonce: SCI_HEADSHOT.nonce,
+							action:'sci_add_headshot',
+							index: indexHeadshot
+						},
+						success:function(response, status, xhr)
+						{
+							res = JSON.parse(response);
+							//console.log(response, status, xhr.status);
+							cropper.destroy();
+							cropper = null;
+
+							if(res.status === 'success'){
+								redirectFunction = 'onclick="headshotSuccess()"';
+							}
+							$('#resHeadshotWrapper').empty();
+							$('#resHeadshotWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+																		<button '+ redirectFunction +' type="button" class="close" data-dismiss="alert">&times;</button> \
+																		'+ res.msg +'. \
+																	</div>');						
+						}
+					});
+				};
+			});
+		}else{
+			console.log('please capture or upload a headshot');
+			$('#resHeadshotWrapper').empty();
+			$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+														<button type="button" class="close" data-dismiss="alert">&times;</button> \
+														Please capture or upload a headshot. \
+													</div>');
+		}	
+	});
+
+	// DELETE HEADSHOT
+	$('#deleteheadshotsave_submit').click(function () {
+		var res;
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexHeadshot,
+				nonce: Edit.nonce,
+				action:'sci_delete_headshot',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#resdeleteheadshotWrapper').empty();
+				$('#resdeleteheadshotWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+});
+
+//sid
+/* User Videos */
+$(document).ready(function () {
+
+	var indexVideo = 1;
+	$(".manageVideo").find("button").click(function(){
+		var index = $(this).attr("data-indexvideo");
+		var res;
+		if(index){
+			indexVideo = index;
+			console.log('Video: '+indexVideo);
+		}
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexVideo,
+				nonce: Edit.nonce,
+				action:'sci_get_video',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#editvideolink_input').val(res.video)
+				$('#editvideocaption_input').val(res.caption);					
+			}
+		});
+	});
+	  
+	// ADD VIDEO
+	$('#addvideosave_submit').click(function () {
+		var res;
+		var video = $('#addvideolink_input').val();
+		var caption = $('#addvideocaption_input').val();
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				video: video,
+				caption: caption,
+				nonce: Edit.nonce,
+				action:'sci_add_video',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#resaddvideoWrapper').empty();
+				$('#resaddvideoWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}								
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	// EDIT VIDEO
+	$('#editvideosave_submit').click(function () {
+		var res;
+		var video = $('#editvideolink_input').val();
+		var caption = $('#editvideocaption_input').val();
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				video: video,
+				caption: caption,
+				index: indexVideo,
+				nonce: Edit.nonce,
+				action:'sci_edit_video',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#reseditvideoWrapper').empty();
+				$('#reseditvideoWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+
+	// DELETE VIDEO
+	$('#deletevideosave_submit').click(function () {
+		var res;
+		$.ajax({
+			url: Edit.request_url,
+			method:'POST',
+			data:{
+				index: indexVideo,
+				nonce: Edit.nonce,
+				action:'sci_delete_video',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#resdeletevideoWrapper').empty();
+				$('#resdeletevideoWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				if(res.status === 'success'){
+					window.location.reload();
+				}	
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
+});

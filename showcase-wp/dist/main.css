@@ -9746,6 +9746,10 @@ input {
   outline: 0;
 }
 
+input[type="file"] {
+  display: none;
+}
+
 .gradient-bg {
   background-image: linear-gradient(#fff, #f1fafc, #f1fafc, #fff);
 }
@@ -9820,6 +9824,14 @@ input {
   .xs-txt {
     font-size: 0.75rem;
   }
+}
+
+.icon::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
 }
 
 @font-face {
@@ -10325,7 +10337,7 @@ hr.new2 {
 
 .btn-details-cat-subcat:hover {
   background: #07bb9b;
-  color: #fff;
+  color: #ffff;
 }
 
 @media screen and (max-width: 768px) {
@@ -10336,7 +10348,23 @@ hr.new2 {
 
 .btn-details-cat-subcat.active {
   background: #07bb9b;
-  color: #fff;
+  color: #ffff;
+}
+
+.btn-details-cat-subcat::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f067";
+  padding-right: 0.5rem;
+  float: left;
+}
+
+.btn-details-cat-subcat.active::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00c";
+  padding-right: 0.5rem;
+  float: left;
 }
 
 .btn-details-bck {
@@ -10477,6 +10505,18 @@ hr.new2 {
   color: #444;
 }
 
+.btn-popup-savAddmr {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #CCCCCC;
+}
+
+.btn-popup-savAddmr:hover {
+  background: #CCCCCC;
+  color: #444;
+}
+
 .btn-popup-save {
   background: #08BB9B;
   color: #fff;
@@ -10539,6 +10579,91 @@ hr.new2 {
 .btn-rotate:hover {
   background: #fcfcfc;
   color: #07bb9b;
+}
+
+.btn-popup-edit {
+  background: #f7f7f7;
+  color: #08BB9B;
+  text-transform: capitalize;
+  border: 1px solid #f7f7f7;
+}
+
+.btn-popup-edit:hover {
+  background: #08BB9B;
+  color: #ffff;
+}
+
+.btn-popup-del {
+  background: #f7f7f7;
+  color: #08BB9B;
+  text-transform: capitalize;
+  border: 1px solid #f7f7f7;
+}
+
+.btn-popup-del:hover {
+  background: #ffff;
+  color: #ea4335;
+}
+
+.btn-popup-delete {
+  background: #eb8475;
+  color: #ffff;
+  text-transform: capitalize;
+  border: 1px solid #eb8475;
+}
+
+.btn-popup-delete:hover {
+  background: #ea4335;
+  color: #ffff;
+}
+
+.btn-popup-add {
+  background: #f7f7f7;
+  color: #08BB9B;
+  text-transform: capitalize;
+  border: 1px solid #f7f7f7;
+}
+
+.btn-popup-add:hover {
+  background: #ffff;
+  color: #08BB9B;
+}
+
+.btn-popup-pill {
+  background: #E7E7E7;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #E7E7E7;
+  border-radius: 1.5rem !important;
+  margin-bottom: 0.25rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+
+.btn-popup-pill:hover {
+  background: #2ABBCC;
+  color: #ffff;
+}
+
+.btn-popup-pill.active {
+  background: #2ABBCC;
+  color: #ffff;
+}
+
+.btn-popup-pill::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f067";
+  padding-right: 0.5rem;
+  float: left;
+}
+
+.btn-popup-pill.active::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00c";
+  padding-right: 0.5rem;
+  float: left;
 }
 
 .jp-nav {
@@ -12249,7 +12374,7 @@ input:checked + .slider .off {
 }
 
 .categorybadge {
-  background: transparent;
+  background: #d1ecf1;
   border: 1px solid #86dcec;
   font-weight: normal;
   padding-left: 10px;
@@ -12351,6 +12476,68 @@ input:checked + .slider .off {
   padding-top: 3px;
 }
 
+.headshotapproved-status {
+  background: #16d011;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 5px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.headshotpending-status {
+  background: #ffd800;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 6px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.headshotrejected-status {
+  background: #de1a1a;
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 10px;
+  padding-top: 1px;
+  top: 10px;
+  bottom: 0;
+  right: 25px;
+}
+
+.textapproved-status {
+  background: #16d011;
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  padding-left: 5px;
+  padding-top: 1px;
+  display: inline-block;
+}
+
 .pending-status {
   background: #ffd800;
   color: #fff;
@@ -12361,6 +12548,15 @@ input:checked + .slider .off {
   padding: 0px 8px;
   font-size: 13px;
   right: 20px;
+}
+
+.textpending-status {
+  background: #ffd800;
+  color: #fff;
+  padding: 0px 8px;
+  font-size: 13px;
+  display: inline-block;
+  border-radius: 15px;
 }
 
 .rejected-status {
@@ -12374,6 +12570,16 @@ input:checked + .slider .off {
   font-size: 13px;
   right: 20px;
   z-index: 3;
+}
+
+.textrejected-status {
+  background: #de1a1a;
+  color: #fff;
+  padding: 0px 8px;
+  font-size: 13px;
+  right: 20px;
+  z-index: 3;
+  border-radius: 15px;
 }
 
 .rejected-overlay {
@@ -12525,14 +12731,6 @@ input:checked + .slider .off {
   position: relative;
 }
 
-.icon::before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-}
-
 .accordion {
   background-color: #fff;
 }
@@ -12567,22 +12765,6 @@ input:checked + .slider .off {
 
 .accordion .card .card-header.selected .icon {
   fill: #ffff;
-}
-
-.accordion .card .btn-details-cat-subcat::after {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f067";
-  padding-right: 0.5rem;
-  float: left;
-}
-
-.accordion .card .btn-details-cat-subcat.active::after {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f00c";
-  padding-right: 0.5rem;
-  float: left;
 }
 
 .accordion .icon {

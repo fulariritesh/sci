@@ -12,6 +12,21 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '1.0.0' );
 }
 
+// define the wpcf7_submit callback 
+function action_wpcf7_submit( $instance, $result ) { 
+    // make action magic happen here... 
+ 	$submission = WPCF7_Submission::get_instance();
+ 
+   if ( $submission ) {
+      $posted_data = $submission->get_posted_data();
+     var_dump( $posted_data );
+   } 
+    wp_die();
+}; 
+         
+// add the action 
+add_action( 'wpcf7_submit', 'action_wpcf7_submit', 10, 2 ); 
+
 if ( ! function_exists( 'showcase_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
@@ -158,6 +173,7 @@ function showcase_scripts() {
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
+	wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -171,6 +187,16 @@ function showcase_scripts() {
 		array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce'    => wp_create_nonce( 'um_raf_nonce' ),
+		)
+	);
+
+	/* Add Headshot */ 
+	wp_localize_script(
+		'headshot',
+		'SCI_HEADSHOT',
+		array(
+			'request_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'headshot_request' ),
 		)
 	);
 }
@@ -189,7 +215,7 @@ function __sci_s($field_group, $field){
    }
 }
 function custom_page_scripts(){
-	if (is_page('edit-profile')) {
+	if (is_page('edit-profile') || is_page('manage-photos')) {
 		wp_enqueue_style( 'editable', get_template_directory_uri() . "/sass/components/bootstrap-editable.css", array(), _S_VERSION );
 		wp_enqueue_script( 'isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), false, true );
 		wp_enqueue_script( 'packery', 'https://unpkg.com/packery@2/dist/packery.pkgd.min.js', array(), false, true );
@@ -224,6 +250,20 @@ function add_stylesheet_attributes( $html, $handle ) {
     return $html;
 }
 add_filter( 'style_loader_tag', 'add_stylesheet_attributes', 10, 2 );
+/**
+ * Edit photots
+ */
+require get_template_directory() . '/inc/ajax-photos.php';
+/**
+ * Add Headshot 
+ */
+require get_template_directory() . '/inc/ajax-headshot.php';
+
+/**
+ * User Videos 
+ */
+require get_template_directory() . '/inc/ajax-videos.php';
+
 /**
  * Implement the Custom Header feature.
  */

@@ -124,66 +124,55 @@ $user_info = get_userdata($obj_id);
 								}
 							</style>
 	     					<div class="headshot">
-	     						<?php if (get_field('sci_user_headshot', 'user_' . $obj_id)): ?>
 								<div id="image-slider" class="splide slider_headshot">
 									<div class="splide__track">
 										<ul class="splide__list">
-											<li class="splide__slide">
-								     			<img src="<?php echo get_field('sci_user_headshot', 'user_' . $obj_id); ?>">
-											</li>
 											<?php
 											// Check rows exists.
-											if( have_rows('featured_images', 'user_' . $obj_id) ):
-
-											    // Loop through rows.
-											    while( have_rows('featured_images', 'user_' . $obj_id) ) : the_row();
-
-											        // Load sub field value.
-											        $sub_value = get_sub_field('image'); ?>
-											        <li  class="splide__slide">
-											        	<img src="<?php echo $sub_value; ?>">
+											if( have_rows('sci_user_headshots', 'user_' . $obj_id) ):
+												// Loop through rows.
+												while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+													// Load sub field value.
+													$sub_value = get_sub_field('sci_user_headshot'); ?>
+													<li  class="splide__slide">
+														<img src="<?php echo $sub_value['url']; ?>">
 													</li>
-											    <?php // End loop.
-											    endwhile;
-
+												<?php // End loop.
+												endwhile;
 											// No value.
 											else :
-											    // Do something...
+												// Do something...
 											endif;
 											?>
 										</ul>
 									</div>
 								</div>
-								<?php endif ?>
+						
 								<?php 
 								// Check rows exists.
-								if( have_rows('featured_images', 'user_' . $obj_id) ): ?>
+								if( have_rows('sci_user_headshots', 'user_' . $obj_id) ): ?>
 								<div id="secondary-slider" class="splide slider_headshot_thumbnail">
 									<div class="splide__track">
 										<ul class="splide__list">
-											<li class="splide__slide">
-								     			<img src="<?php echo get_field('sci_user_headshot', 'user_' . $obj_id); ?>">
-											</li>
 											<?php
-											    // Loop through rows.
-											    while( have_rows('featured_images', 'user_' . $obj_id) ) : the_row();
-
-											        // Load sub field value.
-											        $sub_value = get_sub_field('image'); ?>
-											        <li  class="splide__slide">
-											        	<img src="<?php echo $sub_value; ?>">
+												// Loop through rows.												
+												while( have_rows('sci_user_headshots', 'user_' . $obj_id) ) : the_row();
+													// Load sub field value.
+													$sub_value = get_sub_field('sci_user_headshot'); ?>
+													<li  class="splide__slide">
+														<img src="<?php echo $sub_value['url']; ?>">
 													</li>
 											<?php // End loop.
-											    endwhile;?>
+												endwhile;?>
 										</ul>
 									</div>
 								</div>
 								<?php // No value.
 								else :
-								    // Do something...
+									// Do something...
 								endif; ?>
-	     					</div>
-	                    </div>
+							</div>
+						</div>
 	                    <div class="col-6 profile-personaldetails">
 	                        <h1>
 	                        	<?php echo $data['first_name'][0] . " " . $data['last_name'][0]; ?>	
@@ -197,35 +186,40 @@ $user_info = get_userdata($obj_id);
 	                        	<i class="fas fa-map-marker-alt pr-2"></i> 
 	                        	<?php echo get_field('sci_user_location', 'user_' . $obj_id); ?>, India
 	                        </span>
-	                        <?php endif ?>
+	                        <?php endif; ?>
 
-	                        <?php if (get_field('sci_user_mobile', 'user_' . $obj_id)): ?>
+	                        <?php if (get_field('hide_number', 'user_' . $obj_id) && get_field('sci_user_mobile', 'user_' . $obj_id)): ?>
 	                        <span>
 	                        	<i class="fas fa-phone-alt pr-2"></i> 
-	                        	+91 <?php echo get_field('sci_user_mobile', 'user_' . $obj_id); ?>
+	                        	<?php echo get_field('sci_user_mobile', 'user_' . $obj_id); ?>
 	                        </span>
-	                        <?php endif ?>
+	                        <?php endif; ?>
 
 	                        <?php if (get_field('sci_user_gender', 'user_' . $obj_id)): ?>
 	                        <span>
 	                        	<i class="fas fa-venus-mars pr-2"></i> 
 	                        	<?php echo get_field('sci_user_gender', 'user_' . $obj_id); ?>
 	                        </span>
-	                        <?php endif ?>
+	                        <?php endif; ?>
 		
 							<?php if (get_field('profession', 'user_' . $obj_id)): ?>
 	                        <div class="selectedcategories">
 								<?php
+								$parents = [];
 								foreach (get_field('profession', 'user_' . $obj_id) as $index => $key) {
-									if (get_field('category_name_singular', 'term_' . $key->term_id)) { ?>
-										<span class="badge" style="background: <?php echo get_field('badge_color', 'term_' . $key->term_id); ?>">
-											<?php echo get_field('category_name_singular', 'term_' . $key->term_id); ?>
-										</span>									
-									<?php }
+									$child = get_term($key);
+									$termParent = ($child->parent == 0) ? $child : get_term($child->parent, 'jobs');
+									array_push($parents, $termParent->term_id);
 								}
+								foreach (array_unique($parents) as $key) { ?>
+									<span class="badge mt-2" style="background: <?php echo get_field('badge_color', 'term_' . $key); ?>">
+										<?php echo get_field('category_name_singular', 'term_' . $key); ?>
+									</span>									
+								<?php }
+
 								?>
 	                        </div>
-							<?php endif ?>
+							<?php endif; ?>
 
 	                        <div class="selectedsocialmedia pt-3">
 	                        	<style type="text/css">
@@ -240,22 +234,22 @@ $user_info = get_userdata($obj_id);
 	                            <a href="<?php echo get_field('sci_user_social_links_instagram', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
 	                            	<i class="sci-icon fab fa-instagram" aria-hidden="true"></i>
 	                            </a>
-	                        	<?php endif ?>
+	                        	<?php endif; ?>
 	                        	<?php if (get_field('sci_user_social_links_facebook', 'user_' . $obj_id)): ?>
 	                            <a href="<?php echo get_field('sci_user_social_links_facebook', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
 	                            	<i class="sci-icon fab fa-facebook" aria-hidden="true"></i>
 	                            </a>
-	                        	<?php endif ?>
+	                        	<?php endif; ?>
 	                        	<?php if (get_field('sci_user_social_links_twitter', 'user_' . $obj_id)): ?>
 	                            <a href="<?php echo get_field('sci_user_social_links_twitter', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
 	                            	<i class="sci-icon fab fa-twitter" aria-hidden="true"></i>
 	                            </a>
-	                        	<?php endif ?>
+	                        	<?php endif; ?>
 	                        	<?php if (get_field('sci_user_social_links_youtube', 'user_' . $obj_id)): ?>
 	                            <a href="<?php echo get_field('sci_user_social_links_youtube', 'user_' . $obj_id); ?>" target="_blank" class="pr-1">
 	                            	<i class="sci-icon fab fa-youtube" aria-hidden="true"></i>
 	                            </a>
-	                        	<?php endif ?>
+	                        	<?php endif; ?>
 	                        </div>
 	                    </div>
 	                </div>
@@ -279,10 +273,12 @@ $user_info = get_userdata($obj_id);
 	                		.intro p {
 	                			line-height: 1.44;
 	                		}
+	                		.introvideo iframe {
+	                			max-width: 100%;
+	                		}
 	                	</style>
 	                    <div class="col-12 col-sm-6 introvideo">
-	                        <iframe width="100%" height="340px" src="<?php echo get_field('intro_to_camera', 'user_' . $obj_id); ?>">
-	                        </iframe>
+	                        <?php echo get_field('intro_to_camera', 'user_' . $obj_id); ?>
 	                    </div>
 	                    <div class="col-12 col-sm-6 intro">
 	                        <h4>Introduction</h4>
