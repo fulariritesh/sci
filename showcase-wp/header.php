@@ -99,8 +99,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               $sci_helpline_number = get_field('sci_helpline_number', 'option');
               if($sci_helpline_number){
                 ?>
-                <li class="">
-                <a href="tel:<?php echo $sci_helpline_number; ?>">
+                <li class="pr-0">
+                <a href="tel:<?php echo $sci_helpline_number; ?>" class="text-white">
                   <i class="tb-icon1 fas fa-phone-alt pr-2"></i><?php echo $sci_helpline_number; ?>
                 </a>
                 </li>
@@ -135,14 +135,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <nav class="navbar navbar-expand-md px-0">
            
             <div class="col-7 col-md-4 col-lg-3 logo px-0 px-lg-3 text-nowrap pr-3">
-            <button class="navbar-toggler px-0" type="button"
-              data-toggle="collapse"
-              data-target="#navcollpse"
-              aria-controls="navcollpse"
-              aria-expanded="false"
-              aria-label="Toggle navigation" >
-              <span class="fa fa-bars"></span>
-            </button>
+              <button class="navbar-toggler px-0" type="button"
+                data-toggle="collapse"
+                data-target="#navcollpse"
+                aria-controls="navcollpse"
+                aria-expanded="false"
+                aria-label="Toggle navigation" >
+                <span class="fa fa-bars"></span>
+              </button>
               <?php the_custom_logo(); ?>
             </div>
             <div class="collapse navbar-collapse pl-lg-5 main-menu" id="navcollpse">
@@ -168,44 +168,90 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 );
               ?>
             </div>
+
             <div class="col-5 col-md-3 px-0">
+
+              <?php if(!is_user_logged_in()): ?>
               <!-- When user not signed in -->
               <div class="navbar-btn float-right">
-                <a href="/login" class="btn btn-signIn" type="button" >
+                <a href="<?php echo get_page_link(get_page_by_path('login')); ?>" class="btn btn-signIn" type="button" >
                   Log in
                 </a>
-                <a href="/category-subcategory/" class="btn btn-join" type="button">
-                Sign up
+                <!-- Signup will automatically redirect to category subcategory --> 
+                <a href="<?php echo get_page_link(get_page_by_path('signup')); ?>" class="btn btn-join" type="button">
+                  Sign up
                 </a>
               </div>
               <!-- not signed in end -->
+              <?php else: 
+                $my_account_id = get_current_user_id();
+                $my_account = get_userdata($my_account_id);
+              ?>
               <!-- When Signed in -->
-              <!-- <div class="dropdown loginuser-DD float-right">
+              <div class="dropdown loginuser-DD float-right">
                 <button class="btn btn-add dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user-circle usericon1"></i> [User First Name]
+                <i class="fas fa-user-circle usericon1"></i> <?php echo ($my_account->first_name) ? $my_account->first_name : 'My Account'; ?>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right pb-3" aria-labelledby="dropdownMenuButton">
                   <div class="pt-5 pb-4 px-3">
-                  <h2><i class="fas fa-user-circle usericon-dd"></i> [User First Name]</h2>
-                  <h5>[User email id]</h5>
-                  
+                  <h2><i class="fas fa-user-circle usericon-dd"></i> <?php echo ($my_account->first_name) ? $my_account->first_name : 'My Account'; ?></h2>
+                  <h5><?php echo $my_account->user_email; ?></h5>                  
                   </div>
                   <hr/>
-                  <a class="dropdown-item" href="#"><i class="fas fa-unlock-alt"></i> Reset Password</a>
+                  <a class="dropdown-item" href="<?php echo get_page_link(get_page_by_path('change-password')); ?>"><i class="fas fa-unlock-alt"></i> Reset Password</a>
                   <hr>
-                  <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Edit Personal Details</a>
+                  <a class="dropdown-item" href="<?php echo get_page_link(get_page_by_path('edit-profile')); ?>"><i class="fas fa-cube"></i> Manage Profile</a>
                   <hr>
-                  <a class="dropdown-item" href="#"><i class="fas fa-cube"></i> View/Manage Profile</a>
+                  <?php               
+                    $visibility = get_field('profile_visibility_status', 'user_' . $my_account_id);
+                  ?>
+                  <a id="my_account_profile_visibility_btn" class="dropdown-item" data-toggle="modal" data-target="#my_account_toggle_profile_visibility_modal" href="">
+                    <i class="fas fa-eye<?php echo ($visibility === true) ? '-slash' : ''; ?>"></i>
+                    <?php echo ($visibility === true) ? 'Hide ' : 'Show '; ?>My Profile
+                  </a>
                   <hr>
-                  <a class="dropdown-item" href="#"><i class="fas fa-eye-slash"></i> Hide/Show Entire Profile</a>
-                  <hr>
-                  <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                  <a class="dropdown-item" href="<?php echo get_page_link(get_page_by_path('logout')); ?>"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
-              </div> -->
+              </div>
               <!-- Signed in end-->
+              <?php endif; ?>
             </div>
             <!-- <div class="overlay"></div> -->
           </nav>
         </div>
       </div>
     </header>
+
+<!-- Ask for password when toggling profile visibility -->
+<div class="modal fade" id="my_account_toggle_profile_visibility_modal" tabindex="-1" aria-labelledby="my_account_toggle_profile_visibility" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="col-9 ">
+          <h5 class="modal-title text-lg-center">Change Profile Visibility</h5>
+        </div>
+        <div class="col-3 ">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">         
+          <div class="row">
+            <div class="col-10 mx-auto px-0">
+              <label class="col-12">Please enter your password</label>
+              <div class="col-12">
+                <input type="password" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class=" text-center py-2">
+            <button class="btn btn-md btn-popup-cancel" data-dismiss="modal">Cancel</button>
+            <button id="hideshowprofilesave_submit" class="btn btn-md btn-popup-save px-4">Save</button>
+          </div>
+
+          <div id="hideshowprofileWrapper"></div>
+      </div>
+    </div>
+  </div>
+</div>

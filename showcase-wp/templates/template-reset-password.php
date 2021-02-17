@@ -15,6 +15,9 @@ get_header();
                     if( $_GET["updated"] == 'checkemail'){
                         echo 'Reset link sent!';
                     }
+                    if($_GET["updated"] == 'invalidkey'){
+                        echo 'Reset Your Password';
+                    }
                 }elseif(isset($_GET["act"])){
                     if($_GET["act"] == 'reset_password'){
                         echo 'Reset Your Password';
@@ -31,6 +34,9 @@ get_header();
                 if(isset($_GET["updated"])){
                     if( $_GET["updated"] == 'checkemail'){
                         echo 'We have sent you a password reset link to your email address. Please check your inbox and spam folders. This link is valid only for 24 hours. ';
+                    }
+                    if($_GET["updated"] == 'invalidkey'){
+                        echo 'Enter your registered email address below and we will send you a link that you can follow to reset your password.';
                     }
                 }elseif(isset($_GET["act"])){
                     if($_GET["act"] == 'reset_password'){

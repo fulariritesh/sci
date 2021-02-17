@@ -17638,6 +17638,44 @@ $(document).ready(function () {
   if (isresetpwdbtn === 'Reset my password') {
     $('input#um-submit-btn.um-button').val('Send Reset Link');
   }
+}); //sid
+
+/* Verify User Password */
+
+$(document).ready(function () {
+  $('#hideshowprofilesave_submit').click(function () {
+    var pwd = $('#my_account_toggle_profile_visibility_modal input').val();
+    var res;
+    $.ajax({
+      url: SCI_AJAX.request_url,
+      method: 'POST',
+      data: {
+        password: pwd,
+        nonce: SCI_AJAX.nonce,
+        action: 'sci_user_hide_show_profile'
+      },
+      success: function success(response, status, xhr) {
+        res = JSON.parse(response);
+        $('#hideshowprofileWrapper').empty();
+        $('#hideshowprofileWrapper').prepend('<div class="alert alert-' + res.status + ' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															' + res.msg + '. \
+														</div>');
+        $('#my_account_toggle_profile_visibility_modal input').val('');
+
+        if (res.visibility === 1) {
+          $('#my_account_profile_visibility_btn').empty();
+          $('#my_account_profile_visibility_btn').prepend('<i class="fas fa-eye-slash"></i>Hide My Profile');
+        } else {
+          $('#my_account_profile_visibility_btn').empty();
+          $('#my_account_profile_visibility_btn').prepend('<i class="fas fa-eye"></i>Show My Profile');
+        }
+      },
+      error: function error(xhr, status, _error9) {
+        console.log(xhr, status, _error9);
+      }
+    });
+  });
 });
 
 /***/ }),

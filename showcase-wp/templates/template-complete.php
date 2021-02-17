@@ -2,7 +2,7 @@
 /* Template Name: Complete Page */
 
 if (!is_user_logged_in() ) {
-  wp_redirect(home_url()); exit;
+  wp_redirect(get_page_link(get_page_by_path('login'))); exit;
 } 
 
 

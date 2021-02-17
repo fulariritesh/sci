@@ -1,6 +1,14 @@
 <?php
 /* Template Name: Signup Page */
 
+if(isset($_SESSION['user_profession'])){
+	if(count($_SESSION['user_profession']) < 1){
+		wp_redirect(get_page_link(get_page_by_path('category-subcategory'))); exit;
+	}
+}else{
+	wp_redirect(get_page_link(get_page_by_path('category-subcategory'))); exit;
+}
+
 get_header();
 
 ?>
@@ -11,22 +19,29 @@ get_header();
 			<h4 class="text-center font-weight-bold py-4">
 			Sign up for your free </br>Showcase India account!
 			</h4>
-			<button class="btn btn-signup-fb btn-block btn-lg">
-				Sign In with Facebook
-			</button>
-			<button class="btn btn-signup-gm btn-block btn-lg">
-				Sign In with Gmail
-			</button>
-			<div class="py-4">
-				<div class="or text-center">or</div>
-				<hr class="" />
+			<div class="pb-4">
+				<button class="btn btn-signup-fb btn-block btn-lg btn-xs">
+					Sign Up with Facebook
+				</button>
+				<button class="btn btn-signup-gm btn-block btn-lg btn-xs">
+					Sign Up with Gmail
+				</button>
+			</div>
+              <!-- <div class="py-4">
+                <div class="or text-center">or</div>
+                <hr class="" />
+              </div> -->
+			<div class="hr-or">
+				<span class="credit-title px-3">
+				Or
+				</span>
 			</div>
 			
 			<?php 
 				echo do_shortcode('[ultimatemember form_id="329"]'); 
 
 				/*Dev*/ 
-				//echo do_shortcode('[ultimatemember form_id="8"]');
+				// echo do_shortcode('[ultimatemember form_id="8"]');
 			?>
 
 			<p class="text-center mt-4">

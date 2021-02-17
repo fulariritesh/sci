@@ -201,7 +201,7 @@ $user_info = get_userdata($obj_id);
 													<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
 														<i class="fas fa-pen"></i>
 													</button>
-													<button class="btn btn-popup-del" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
+													<button class="btn btn-popup-del <?php echo (get_row_index() == 1) ? 'd-none' : ''; ?>" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
 														<i class="fas fa-trash-alt"></i>
 													</button>
 												</div>
@@ -2272,7 +2272,7 @@ aria-hidden="true">
 								id="sci_user_custom_hair_color_radio"
 								<?php 						
 								if($user_hair_color){
-									if(array_search($user_hair_color,array_values($acf_hair_color['choices']),true) == false){
+									if(array_search($user_hair_color,array_values($acf_hair_color['choices']),true) === false){
 										$user_hair_color_custom = true;
 									}
 									echo ($user_hair_color_custom) ? 'checked' : ''; 
@@ -2380,7 +2380,7 @@ aria-hidden="true">
 								id="sci_user_custom_ethnicity_radio"
 								<?php 						
 								if($user_ethnicity){
-									if(array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true) == false){
+									if(array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true) === false){
 										$user_ethnicity_custom = true;
 									}
 									echo ($user_ethnicity_custom) ? 'checked' : ''; 

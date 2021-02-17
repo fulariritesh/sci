@@ -158,33 +158,52 @@ function showcase_scripts() {
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
-	wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );
-	if(is_page("email-verification")){
-	wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap'), _S_VERSION, true );
+	if(is_page("add-headshot") || is_page('edit-profile')){
+		wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );
+
+		/* Add Headshot */ 
+		wp_localize_script(
+			'headshot',
+			'SCI_HEADSHOT',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'headshot_request' ),
+			)
+		);
 	}
+
+	if(is_page("email-verification")){
+		wp_enqueue_script( 'sci-um-rev', get_template_directory_uri() . '/js/sci-um-rev.js', array('bootstrap'), _S_VERSION, true );
+
+		/* Resend verification email */
+		wp_localize_script(
+			'sci-um-rev',
+			'UM_RAF',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'um_raf_nonce' ),
+			)
+		);
+	}
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
-	/* Resend verification email */
+	/* Generic Localized Script */ 
+	// currently used in manage account navigation menu which is present in all pages
 	wp_localize_script(
-		'sci-um-rev',
-		'UM_RAF',
+		'bootstrap',
+		'SCI_AJAX',
 		array(
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
-			'nonce'    => wp_create_nonce( 'um_raf_nonce' ),
+			'request_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'sci_nonce' ),
 		)
 	);
 
-	/* Add Headshot */ 
-	wp_localize_script(
-		'headshot',
-		'SCI_HEADSHOT',
-		array(
-			'request_url' => admin_url( 'admin-ajax.php' ),
-			'nonce'    => wp_create_nonce( 'headshot_request' ),
-		)
-	);
+	
+
+	
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 
@@ -277,6 +296,11 @@ require get_template_directory() . '/inc/ajax-audios.php';
  * User Physical Attributes
  */
 require get_template_directory() . '/inc/ajax-physcial-attributes.php';
+
+/**
+ * User Toggle Profile Visibility
+ */
+require get_template_directory() . '/inc/ajax-user-hide-show-profile.php';
 
 /**
  * Implement the Custom Header feature.
@@ -782,12 +806,13 @@ function my_custom_mime_types( $mimes ) {
 add_filter( 'upload_mimes', 'my_custom_mime_types' );
 
 add_action( 'template_redirect', 'redirect_to_login_page' );
-
-function redirect_to_login_page() {
+function redirect_to_login_page($original_template) {
 
 	if ( is_page('edit-profile') && ! is_user_logged_in() ) {
 
 		wp_redirect( get_site_url() . '/login', 301 ); 
   		exit;
-    }
+    }else{
+		return $original_template;
+	}
 }
