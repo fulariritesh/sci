@@ -59,7 +59,15 @@
  if($user_info->data){
     foreach($user_info->data as $key => $value){
         if($key == "display_name"){
-            $isApproved = $isModeratorApprovalRequired? get_user_meta( $user_info->data->ID, 'basic_details_are_approved', true ) : 1;
+            $approvalStatus = get_user_meta( $user_info->data->ID, 'basic_details_are_approved', true );
+             
+            $isApproved = false;
+            if($isModeratorApprovalRequired){
+                $isApproved = $approvalStatus == "Approved" ? 1 :0;
+            }else{
+                $isApproved = $approvalStatus != "Rejected" ? 1 :0;
+            }
+            
             if(!empty($value) && $isApproved){
                 $completionPercent += $weightage_basic_information;
             }
@@ -100,13 +108,29 @@ foreach($data as $key => $value){
         }
         
     }else if($key == 'intro_to_camera'){
-        $isApproved = $isModeratorApprovalRequired? get_user_meta( $user_info->data->ID, 'intro_to_camera_is_approved', true ) : 1;
         
+        $approvalStatus = get_user_meta( $user_info->data->ID, 'intro_to_camera_is_approved', true ); 
+        $isApproved = false;
+        
+        if($isModeratorApprovalRequired){
+            $isApproved = $approvalStatus == "Approved" ? 1 :0;
+        }else{
+            $isApproved = $approvalStatus != "Rejected" ? 1 :0;
+        }
+
         if(!empty($value[0]) && $isApproved){
             $completionPercent += $weightage_intro_to_camara;
         }
     }else if($key == 'intro_text'){
-        $isApproved = $isModeratorApprovalRequired? get_user_meta( $user_info->data->ID, 'intro_text_is_approved', true ) : 1;
+        $approvalStatus = get_user_meta( $user_info->data->ID, 'intro_text_is_approved', true ); 
+        $isApproved = false;
+        
+        if($isModeratorApprovalRequired){
+            $isApproved = $approvalStatus == "Approved" ? 1 :0;
+        }else{
+            $isApproved = $approvalStatus != "Rejected" ? 1 :0;
+        }
+
         if(!empty($value[0]) && $isApproved){
             $completionPercent += $weightage_self_summary;
         }
@@ -117,7 +141,14 @@ foreach($data as $key => $value){
 
             foreach($allApprovedPhotos as $key => $value){
                
-                $isThisPhotoApproved = get_post_meta( $value, 'is_approved', true );
+                $approvalStatus = get_post_meta( $value, 'is_approved', true ); 
+                $isThisPhotoApproved = false;
+                
+                if($isModeratorApprovalRequired){
+                    $isThisPhotoApproved = $approvalStatus == "Approved" ? 1 :0;
+                }else{
+                    $isThisPhotoApproved = $approvalStatus != "Rejected" ? 1 :0;
+                }
                 
                 if(!$isThisPhotoApproved){
                     unset($allApprovedPhotos[$key]);
@@ -125,23 +156,30 @@ foreach($data as $key => $value){
             }
             
         }
-        
+
         if($allApprovedPhotos && count($allApprovedPhotos) >= 3){
             $completionPercent += $weightage_minimum_photos;
         };
+
     }else if($attribute_checked == 0 && ($key == 'sci_user_eye_color' || $key == 'sci_user_skin_color' || $key == 'sci_user_chest_in' || $key == 'sci_user_weight_kg' || $key == 'sci_user_height_ft')){
         
-
         if(!empty(array_intersect($mainCategories, $categoriesrequiringAttributes))){
 
             if(!empty($value[0])){
                 $attribute_count += 1;
             }
 
-            $isApproved = $isModeratorApprovalRequired? get_user_meta( $user_info->data->ID, 'physical_attributes_are_approved', true ) : 1;
+            $approvalStatus = get_user_meta( $user_info->data->ID, 'physical_attributes_are_approved', true );
+
+            $isApproved = false;
+            if($isModeratorApprovalRequired){
+                $isApproved = $approvalStatus == "Approved" ? 1 :0;
+            }else{
+                $isApproved = $approvalStatus != "Rejected" ? 1 :0;
+            }
+
 
             if($attribute_count == 5 && $isApproved){
-                $attribute_checked = 1;
                 $completionPercent += $weightage_physical_attributes;
             }
         }
@@ -156,7 +194,15 @@ if(get_field('sci_user_headshots','user_'.$obj_id)){
         $image = $headShot["sci_user_headshot"];
 
         if(!empty($image) && $approvedHeadshotCount == 0){
-            $isApproved = $isModeratorApprovalRequired? get_post_meta( (int)$image["ID"], 'is_approved', true ) : 1;
+            
+            $approvalStatus = get_post_meta( (int)$image["ID"], 'is_approved', true );
+
+            $isApproved = false;
+            if($isModeratorApprovalRequired){
+                $isApproved = $approvalStatus == "Approved" ? 1 :0;
+            }else{
+                $isApproved = $approvalStatus != "Rejected" ? 1 :0;
+            }
 
             if($isApproved){
                 
@@ -170,12 +216,6 @@ if(get_field('sci_user_headshots','user_'.$obj_id)){
 }
 
 
-if($mainCategories && $attribute_checked == 0 && empty(array_intersect($mainCategories, $categoriesrequiringAttributes))){
-    $attribute_checked = 1;
-    $completionPercent += $weightage_physical_attributes;
-}
-
-
 if(get_field('experience','user_'.$obj_id)){
     
     $experiencesApproved = 0;
@@ -184,7 +224,17 @@ if(get_field('experience','user_'.$obj_id)){
     
     foreach(get_field('experience','user_'.$obj_id) as $experience){
         if($isModeratorApprovalRequired){
-            if($experience["sci_experience_approved"]){
+
+            $approvalStatus = $experience["sci_experience_approved"];
+
+            $isApproved = false;
+            if($isModeratorApprovalRequired){
+                $isApproved = $approvalStatus == "Approved" ? 1 :0;
+            }else{
+                $isApproved = $approvalStatus != "Rejected" ? 1 :0;
+            }
+
+            if($isApproved){
                 $experiencesApproved += 1;
             }
             
@@ -199,8 +249,7 @@ if(get_field('experience','user_'.$obj_id)){
     $completionPercent += round($experiencesApproved * $weightagePerExperience);
     
 }
-
-//var_dump($data);  
+ 
 
 
   
