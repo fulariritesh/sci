@@ -657,6 +657,10 @@ $(document).ready(function () {
 
 	if(inpFile){
 		inpFile.addEventListener("change", function () {
+			if(cropper){
+				cropper.destroy();
+				cropper = null;
+			}
 			const file = this.files[0];
 			if (file) {
 				const reader = new FileReader();
@@ -677,26 +681,32 @@ $(document).ready(function () {
 		});	
 	}
 	
-
-	if (navigator.mediaDevices.getUserMedia) {
-		navigator.mediaDevices
-		.getUserMedia({ video: true })
-		.then(function (stream) {
-		previewDefaultTxtCam.style.display = "none";
-		video.style.display = "block";
-		video.srcObject = stream;
-		})
-		.catch(function (error) {
-			console.log("Looks like your device has no camera.");
-			$('#resHeadshotWrapper').empty();
-			$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-													<button type="button" class="close" data-dismiss="alert">&times;</button> \
-													Looks like your device has no camera. \
-												</div>');
-		});
+	if (navigator.mediaDevices){
+		if (navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then(function (stream) {
+			previewDefaultTxtCam.style.display = "none";
+			video.style.display = "block";
+			video.srcObject = stream;
+			})
+			.catch(function (error) {
+				console.log("Looks like your device has no camera.");
+				$('#resHeadshotWrapper').empty();
+				$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+														<button type="button" class="close" data-dismiss="alert">&times;</button> \
+														Looks like your device has no camera. \
+													</div>');
+			});
+		}
 	}
+	
 
 	function takepicture(height,width) {
+		if(cropper){
+			cropper.destroy();
+			cropper = null;
+		}
 		var context = canvas.getContext('2d');
 		if (width && height) {
 			canvas.width = width;
@@ -1041,6 +1051,8 @@ $(document).ready(function () {
 		// fd.append('file', files);
 		// fd.append('nonce')
 		const file = $('#addaudiofile_input')[0].files[0];
+		var title = $('#addaudiotitle_input').val();
+		var description = $('#addaudiodescription_input').val();
 		var audio_src;
 		if (file) {
 			const reader = new FileReader();
@@ -1051,6 +1063,8 @@ $(document).ready(function () {
 					url: Edit.request_url,
 					method:'POST',
 					data:{
+						title: title,
+						description: description,
 						audio: audio_src,
 						nonce: Edit.nonce,
 						action:'sci_add_audio',

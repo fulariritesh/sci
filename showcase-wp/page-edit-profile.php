@@ -439,7 +439,7 @@ $user_info = get_userdata($obj_id);
 			    <?php if (get_field('photos', 'user_' . $obj_id)): ?>
 				<div class="row">
 					<div class="col-6 col-sm-6 pt-3 px-0">
-						<h4>Photos (<?php echo count(get_field('photos', 'user_' . $obj_id)); ?>)</h4>
+						<h4>Photos (<?php echo get_field('photos', 'user_' . $obj_id)?count(get_field('photos', 'user_' . $obj_id)): 0; ?>)</h4>
 					</div>
 					<div class="col-6 col-sm-6 pt-3 px-0 text-right">
 						<button class="btn btn-edit" data-toggle="modal" data-target="#managephotos">Edit</button>
@@ -1977,12 +1977,19 @@ aria-hidden="true">
 		<div class="row">
 			<div class="col-12 col-sm-10 mx-auto py-4">
 				<p class="pb-2">You can upload MP3, WAV and OGG files</p>
-				<label class="btn btn-popup-save">
-				<input id="addaudiofile_input" type="file" name="audio" accept="audio/*"/>
-				Choose file to upload
-				</label>
-				<div class="invalid-feedback">
-				Opps error!
+				<div class="form-group">
+					<label class="btn btn-popup-save">
+					<input required id="addaudiofile_input" type="file" name="audio" accept="audio/*"/>
+					Choose file to upload
+					</label>
+				</div>
+				<div class="form-group">
+					<label for="audioTitle">Title</label>
+					<input required id="addaudiotitle_input" type="text" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="audioDesp">Description</label>
+					<textarea required id="addaudiodescription_input" class="form-control justify-content-end"></textarea>
 				</div>
 				<div class="d-flex justify-content-end py-2">
 				<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
