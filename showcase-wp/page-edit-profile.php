@@ -1135,7 +1135,7 @@ $user_info = get_userdata($obj_id);
 </div>
 
 <!--Intro Modal -->
-<div class="modal fade" id="editIntro" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
+<div class="modal fade" id="manageHeadshot" tabindex="-1" aria-labelledby="editIntroModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
