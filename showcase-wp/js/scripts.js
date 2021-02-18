@@ -678,22 +678,24 @@ $(document).ready(function () {
 	}
 	
 
-	if (navigator.mediaDevices.getUserMedia) {
-		navigator.mediaDevices
-		.getUserMedia({ video: true })
-		.then(function (stream) {
-		previewDefaultTxtCam.style.display = "none";
-		video.style.display = "block";
-		video.srcObject = stream;
-		})
-		.catch(function (error) {
-			console.log("Looks like your device has no camera.");
-			$('#resHeadshotWrapper').empty();
-			$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-													<button type="button" class="close" data-dismiss="alert">&times;</button> \
-													Looks like your device has no camera. \
-												</div>');
-		});
+	if (navigator.mediaDevices) {
+		if (navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then(function (stream) {
+			previewDefaultTxtCam.style.display = "none";
+			video.style.display = "block";
+			video.srcObject = stream;
+			})
+			.catch(function (error) {
+				console.log("Looks like your device has no camera.");
+				$('#resHeadshotWrapper').empty();
+				$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+														<button type="button" class="close" data-dismiss="alert">&times;</button> \
+														Looks like your device has no camera. \
+													</div>');
+			});
+		}	
 	}
 
 	function takepicture(height,width) {
