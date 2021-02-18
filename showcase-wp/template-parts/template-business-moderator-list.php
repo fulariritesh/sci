@@ -14,6 +14,7 @@
     border-radius:8px;
     padding: 4px 15px;
     margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .btn-secondary, .btn-secondary:hover, .btn-secondary:active{
@@ -21,15 +22,30 @@
     color:#fff;
     font-weight: 600;
 }
+
+.filter-selected{
+    background: #057a65;
+}
+.filter-button{
+    cursor: pointer;
+}
     </style>
 
 <?php
 
+    $newUsers_meta_queries = array('relation' => 'OR' , 
+    array(
+        'key'     => 'profile_status',
+        'value'   => 'pending',
+        'compare' => '=',
+    ));
     $newUsersArgs = array(
         'role'          => 'subscriber',
         'fields'        => array( 'ID'),
+        'meta_query'    => $newUsers_meta_queries
     );
     $newUsers = get_users($newUsersArgs);
+
 
     $rejected_meta_queries = array('relation' => 'AND' , array(
         'key'     => 'profile_status',
@@ -43,43 +59,55 @@
     );
     $userRejected = get_users($rejectedArgs);
 
-    $meta_queries = array('relation' => 'OR' , 
-    array(
-        'key'     => 'content_approval_personal_details_updated',
-        'value'   => 1,
-        'compare' => '=',
-    ),
-    array(
-        'key'     => 'content_approval_introduction_updated',
-        'value'   => 1,
-        'compare' => '=',
-    ),
-    array(
-        'key'     => 'content_approval_headshots_updated',
-        'value'   => 1,
-        'compare' => '=',
-    ),
-    array(
-        'key'     => 'content_approval_photos_updated',
-        'value'   => 1,
-        'compare' => '=',
-    ),
-    array(
-        'key'     => 'content_approval_videos_updated',
-        'value'   => 1,
-        'compare' => '=',
-    ),
-    array(
-        'key'     => 'content_approval_audios_updated',
-        'value'   => 1,
-        'compare' => '=',
-    ),
-    array(
-        'key'     => 'content_approval_experience_updated',
-        'value'   => 1,
-        'compare' => '=',
-    )
-);
+    $meta_queries = array('relation' => 'AND' ,
+        array('relation' => 'OR' , 
+            array(
+                'key'     => 'content_approval_personal_details_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_introduction_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_headshots_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_photos_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_videos_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_audios_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_experience_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+        ),
+        array(
+            'key'     => 'profile_status',
+            'value'   => 'pending',
+            'compare' => '!=',
+        ),
+        array(
+            'key'     => 'profile_status',
+            'value'   => 'rejected',
+            'compare' => '!=',
+        )
+    );
 
     $updatedContentArgs = array(
         'role'          => 'subscriber',
@@ -97,19 +125,19 @@
         <div class="container px-0 mt-5">
             <div class="row">
                 <div class="col-4">
-                    <div class="row summaryBlock mx-3">
+                    <div data-id="new" class="row summaryBlock mx-3 filter-button">
                         <div class="col-4 text-center"><h1><?php echo !empty($newUsers) ? count($newUsers) : 0 ?></h1></div>
                         <div class="col-8 pt-2"><h4>New Profiles</h4></div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="row summaryBlock mx-3">
+                    <div data-id="updated" class="row summaryBlock mx-3 filter-default filter-button filter-selected">
                         <div class="col-4 text-center"><h1><?php echo !empty($userWithUpdatedContent) ? count($userWithUpdatedContent) : 0 ?></h1></div>
                         <div class="col-8 pt-2"><h4>New Updates</h4></div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="row summaryBlock mx-3">
+                    <div data-id="rejected" class="row summaryBlock mx-3 filter-button">
                         <div class="col-4 text-center"><h1><?php echo !empty($userRejected) ? count($userRejected) : 0 ?></h1></div>
                         <div class="col-8 pt-2"><h4>Profiles Rejected</h4></div>
                     </div>
@@ -117,7 +145,7 @@
             </div>
             <div class="row pt-5">
                 <div class="col-12">
-                    <table class="table">
+                    <table id="user-list" class="table">
                         <tr>
                             <th>Job Seeker</th>
                             <th>Content Updated on</th>
@@ -127,7 +155,7 @@
                         <?php
                             if(!empty($userWithUpdatedContent)){
                                 foreach($userWithUpdatedContent as $updatedUser){ ?>
-                                    <tr>
+                                    <tr class="user-list">
                                         <td><?php echo $updatedUser->display_name ?></td>
                                         <?php
                                             $dateupdatedOn = date_create(get_user_meta($updatedUser->ID, 'content_approval_content_updated_date', true ));
@@ -227,20 +255,16 @@
                                         </td>
                                     </tr> 
                                 <?php }
-                            }
-                        ?>
+                            } 
+                            else{ ?>
+                                <tr class="user-list"><td colspan="4">Sorry! There are no records to show. </td></tr>
+                            <?php } ?>
                     </table>
                 </div>
             </div>
         </div>
     </section>  
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

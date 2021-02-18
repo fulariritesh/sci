@@ -748,7 +748,8 @@ $user_info = get_userdata($obj_id);
 											<div class="col-sm-12 loadMore text-center py-3"><button class="btn btn-md btn-full btn-primary px-5">Show More</button></div>
 										</div>
 									</div>
-								<?php } ?>								
+								<?php } ?>
+						<?php endif ?>								
 
 								<?php 
 									$allCategories = array();
@@ -911,7 +912,7 @@ $user_info = get_userdata($obj_id);
 
 								<?php
 								foreach($allCategories as $category)
-									if(!in_array($category, $categoriesWithProfession) && !in_array($category, $categoriesWithSubcategories)){?>
+									if(!in_array($category, $categoriesWithProfession)){?>
 										<!--empty Block-->
 										<div class="row mt-3 blockBG p-3 emptyblock">
 											<div class="col-12 pt-3 text-center">
@@ -925,7 +926,7 @@ $user_info = get_userdata($obj_id);
 											</div>
 									<?php }
 								?>
-							<?php endif ?>
+							
 					
 						<!-- ///////////////////////EXPERIENCE BLOCK//////////////////////////// -->
 
