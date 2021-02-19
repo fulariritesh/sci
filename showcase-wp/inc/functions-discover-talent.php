@@ -5,6 +5,13 @@ function discover_talent_scripts() {
     if(is_page('discover-talent-2')){
         wp_enqueue_script('discover-talent-script'); 
     }
+    wp_localize_script(
+		'discover-talent-script',
+		'DISCOVER',
+		array(
+			'url' => rest_url(),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'discover_talent_scripts' );
 

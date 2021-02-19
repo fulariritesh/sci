@@ -20,7 +20,7 @@ get_header();
 			<div class="page-content four-o-four">
 				<h1 class="text-center mb-5">404</h1>
 				<div class="text-center mb-5">
-				<a class="btn btn-outline-primary btn-lg btn-xs text-center" href="<?php echo get_page_link(get_page_by_path('homepage'))?>">Go to Homepage</a>
+				<a class="btn btn-outline-primary btn-lg btn-xs text-center" href="<?php echo get_site_url(); ?>">Go to Homepage</a>
 				</div>
 			</div><!-- .page-content -->
 		</section><!-- .error-404 -->
