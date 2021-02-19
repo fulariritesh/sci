@@ -1,6 +1,5 @@
 jQuery(function($) {
-    // const baseUrl = '/wp-json/sci/v1/';
-    const baseUrl = '/sci/wp-json/sci/v1/';
+    const baseUrl = '/wp-json/sci/v1/';
     const endpoint = 'talent-data';
     let pageNumber = 1;
     let pageSize = 6;
