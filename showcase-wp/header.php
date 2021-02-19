@@ -193,9 +193,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <i class="fas fa-user-circle usericon1"></i> <?php echo ($my_account->first_name) ? $my_account->first_name : 'My Account'; ?>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right pb-3" aria-labelledby="dropdownMenuButton">
-                  <div class="pt-5 pb-4 px-3">
+                  <div class="py-2 px-3">
                   <h2><i class="fas fa-user-circle usericon-dd"></i> <?php echo ($my_account->first_name) ? $my_account->first_name : 'My Account'; ?></h2>
-                  <h5><?php echo $my_account->user_email; ?></h5>                  
+                  <h5 class="text-truncate"><?php echo $my_account->user_email; ?></h5>                  
                   </div>
                   <hr/>
                   <a class="dropdown-item" href="<?php echo get_page_link(get_page_by_path('change-password')); ?>"><i class="fas fa-unlock-alt"></i> Reset Password</a>
