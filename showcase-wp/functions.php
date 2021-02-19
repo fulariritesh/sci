@@ -813,3 +813,53 @@ function redirect_to_login_page($original_template) {
 		return $original_template;
 	}
 }
+
+//check minimum profile completion
+// params: user ID
+// return: boolean
+function check_user_minimum_profile_completion($user_id){
+	$userMinimumProfileComplete = false;
+			
+	$user_profile_details_complete = false;
+	$user_headshot_complete = false;
+
+	$fn_exist = get_user_meta( $user_id, 'first_name', true);
+	$ln_exist = get_user_meta( $user_id, 'last_name', true);
+	$dob_exist = get_field('sci_user_dob','user_'.$user_id);
+	$gender_exist = get_field('sci_user_gender','user_'.$user_id);
+	$mobile_exist = get_field('sci_user_mobile','user_'.$user_id);
+	$location_exist = get_field('sci_user_location','user_'.$user_id);
+
+	//all profile details
+	if($fn_exist && $ln_exist && $dob_exist && $gender_exist && $mobile_exist && $location_exist){
+		$user_profile_details_complete = true;
+	}
+	
+	//atleast one headshot
+	if(have_rows('sci_user_headshots', 'user_' . $user_id)){
+		$user_headshot_complete = true;
+	}
+
+	if($user_profile_details_complete && $user_headshot_complete){
+		$userMinimumProfileComplete = true;
+	}
+
+	return $userMinimumProfileComplete;
+}
+
+add_action( 'template_redirect', 'redirect_incomplete_profile' );
+function redirect_incomplete_profile($original_template) {
+
+	if ( is_page('edit-profile') && is_user_logged_in() ) {
+		$user_id = get_current_user_id();
+		$complete = check_user_minimum_profile_completion($user_id);
+
+		if($complete){
+			return $original_template;
+		}
+		wp_redirect(get_page_link(get_page_by_path('welcome'))); 
+		exit;
+    }else{
+		return $original_template;
+	}
+}

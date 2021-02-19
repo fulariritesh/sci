@@ -202,14 +202,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <hr>
                   <a class="dropdown-item" href="<?php echo get_page_link(get_page_by_path('edit-profile')); ?>"><i class="fas fa-cube"></i> Manage Profile</a>
                   <hr>
-                  <?php               
+                  <?php             
                     $visibility = get_field('profile_visibility_status', 'user_' . $my_account_id);
-                  ?>
-                  <a id="my_account_profile_visibility_btn" class="dropdown-item" data-toggle="modal" data-target="#my_account_toggle_profile_visibility_modal" href="">
-                    <i class="fas fa-eye<?php echo ($visibility === true) ? '-slash' : ''; ?>"></i>
-                    <?php echo ($visibility === true) ? 'Hide ' : 'Show '; ?>My Profile
-                  </a>
-                  <hr>
+                    if(check_user_minimum_profile_completion($my_account_id)): ?>
+                      <a id="my_account_profile_visibility_btn" class="dropdown-item" data-toggle="modal" data-target="#my_account_toggle_profile_visibility_modal" href="">
+                        <i class="fas fa-eye<?php echo ($visibility === true) ? '-slash' : ''; ?>"></i>
+                        <?php echo ($visibility === true) ? 'Hide ' : 'Show '; ?>My Profile
+                      </a>
+                      <hr>
+                  <?php endif; ?>
                   <a class="dropdown-item" href="<?php echo get_page_link(get_page_by_path('logout')); ?>"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
               </div>
