@@ -544,25 +544,18 @@ $(document).ready(function(){
 /* User Profile Details and Category Subcategory */ 
 $(document).ready(function () {
 	/* Category Subcategory Page */
-	$(".card-header").click(function () {
-		$(this).toggleClass("selected");
-		$(this).children('input[type="hidden"]').prop('disabled', function(i, v) { return !v; });
+	$(".main-category-checkbox").on('change',function () {
+		if($(this).prop('checked') == true){
+			$(this).closest(".card-header").addClass("selected");
+			$(this).closest('.category-subcategory').find('.sub-category-checkbox').removeAttr('disabled');			
+		}else{
+			$(this).closest(".card-header").removeClass("selected");
+			$(this).closest('.category-subcategory').find('.sub-category-checkbox').attr('disabled','disabled');
+			$(this).closest('.category-subcategory').find('.sub-category-checkbox').prop("checked", false);
+			$(this).closest('.category-subcategory').find('label').removeClass('active');			
+		}
   	});
 
-	/* Profile details page - dynamically show custom gender text field */
-	/* 
-
-		!!! --- Use conditional fields in acf --- !!! ~ Wiseman 
-
-	*/
-	// $('input[type=radio][name=gender]').change(function (e){
-	// 	var genvalue = $("input[name='gender']:checked").val();
-	// 	if(genvalue === 'custom'){
-	// 		$('#custom_gender').removeClass('d-none');
-	// 	}else{
-	// 		$('#custom_gender').addClass('d-none');
-	// 	}
-	// });
 
 	//sync custom text field with 'other' radio value
 	$("#sci_user_custom_gender_text").keyup(function() {
