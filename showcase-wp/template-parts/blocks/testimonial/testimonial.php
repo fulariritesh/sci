@@ -15,7 +15,7 @@ $testimonials_count = get_fields()['testimonials'];
 <section class="container-fluid talent-block">
     <div class="container newjoinees text-center">
         <h4>Our Newest Members Have This To Say</h4>
-        <h1>Members Speak</h1>
+        <h2>Members Speak</h2>
 		<div class="splide slider_testimonials">
 			<div class="splide__track">
 				<ul class="splide__list">
