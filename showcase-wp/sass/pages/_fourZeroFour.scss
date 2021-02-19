@@ -1,0 +1,20 @@
+.error-404{
+    min-height: 60vh;
+    background: $gradientbg2;
+    @include media-sm{
+        h1{
+            font-size: 1.5rem;
+        }
+     }
+}
+
+.four-o-four{
+    h1{
+        font-size: 5rem;
+    }
+    @include media-sm{
+        h1{
+            font-size: 3rem;
+        }
+    }
+}
