@@ -2,7 +2,7 @@
 /* Template Name: Profile details Page */
 
 if (!is_user_logged_in() ) {
-  wp_redirect(home_url()); exit;
+	wp_redirect(get_page_link(get_page_by_path('login'))); exit;
 } 
 
 $user_id = get_current_user_id();
@@ -42,6 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (!preg_match("/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/",$dob)) {
 				$dob_er = true;
 			}
+			$today = date("Y-m-d");
+			$userdob = new DateTime($dob);
+			$today = new DateTime($today);
+			$interval = $userdob->diff($today);
+			$userage = $interval->y; 
+			if ($userage < 18){ 
+				$dob_er = true;
+			} 		
 		}
 
 		if(empty($_POST['sci_user_gender'])){
@@ -88,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$success_mob = update_field('sci_user_mobile', $mobile, 'user_'.$user_id);
 				$success_loc = update_field('sci_user_location', $location, 'user_'.$user_id);
 
-				$profile_detail_complete = update_user_meta( $user_id, 'sci_user_profile_detail_complete', true);
+				//update_user_meta( $user_id, 'sci_user_profile_details_complete', true);
 
 				wp_redirect( get_page_link(get_page_by_path('physical-attributes'))); exit;
 			}
@@ -161,7 +169,7 @@ include('join-pagination.php');
 							value="<?php echo ($user_dob) ? $user_dob : ''; ?>"
 							required 
 						/>
-						<div class="invalid-feedback">Please enter a valid date</div>
+						<div class="invalid-feedback">User must be atleast 18 years old</div>
 					</div>
 
 					<!-- GENDER -->
@@ -196,7 +204,7 @@ include('join-pagination.php');
 									id="sci_user_custom_gender_radio"
 									<?php 						
 									if($user_gender){
-										if(array_search($user_gender,array_keys($acf_gender['choices']),true) == false){
+										if(array_search($user_gender,array_keys($acf_gender['choices'])) === false){
 											$user_gender_custom = true;
 										}
 										echo ($user_gender_custom) ? 'checked' : ''; 

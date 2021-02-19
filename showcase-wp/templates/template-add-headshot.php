@@ -2,7 +2,7 @@
 /* Template Name: Add Headshot Page */
 
 if (!is_user_logged_in() ) {
-  wp_redirect(home_url()); exit;
+	wp_redirect(get_page_link(get_page_by_path('login'))); exit;
 }
 
 get_header();
@@ -48,24 +48,26 @@ include('join-pagination.php');
 					<span class="img-preview-default-txt">Image preview!</span>
 				</div>
 
-				<!-- capture btn -->
-				<div class="capture-div">
-					<button class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> 
-					Capture from Camera
-					</button>
-					<button class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+				<button class="btn btn-block btn-details-opncam btn-xs"><i class="fas fa-camera"></i> 
+					Open Camera
+				</button>
+
+				<button class="btn btn-block btn-details-cptr btn-xs"><i class="fas fa-camera"></i> 
+					Capture 
+				</button>
+
+				<button class="btn btn-block btn-details-fileup btn-xs"><i class="fas fa-upload"></i>
 					Upload from device
-					</button>
-				</div>
-
-				<!-- upload btn  -->
-				<div class="upload-div">
-					<label class="btn btn-custom-file-upload d-flex justify-content-center">
-					<input type="file" name="hsFile" id="hsFile" />
-					Choose file to upload
+				</button>
+		
+				<!-- upload input  -->
+				<div class="upload-input">
+					<label class="btn btn-custom-file-upload d-flex justify-content-center mt-4">
+						<input type="file" name="hsFile" id="hsFile" />
+						Choose file to upload
 					</label>
-				</div>
-
+				</div>	
+				
 				<!-- file-edit-btns -->
 				<div class="file-edit-btns">
 					<div class="d-flex justify-content-center py-4">			
@@ -77,6 +79,15 @@ include('join-pagination.php');
 					</button>
 					</div>
 				</div>
+
+				<!-- response message -->
+				<div class="my-2" id="resHeadshotWrapper"></div>
+				<script>
+				function headshotSuccess(){
+					console.log('Goto Complete');
+					window.location.href = "<?php echo get_page_link(get_page_by_path('complete')); ?>";
+				}
+				</script> 
 
 				<!-- preview uploaded image -->
 				<div>
@@ -92,17 +103,8 @@ include('join-pagination.php');
 					</div>	
 				</div>
 
-				<!-- response message -->
-				<div id="resHeadshotWrapper"></div>
-				<script>
-				function headshotSuccess(){
-					console.log('Goto Complete');
-					window.location.href = "<?php echo get_page_link(get_page_by_path('complete')); ?>";
-				}
-				</script> 
-
 				<!-- back-save-btns -->
-				<div class="d-flex justify-content-between pt-5 pb-3">				
+				<div class="d-flex justify-content-between py-2">				
 					<a 
 					class="btn btn-lg btn-details-bck btn-xs px-md-5"
 					href="<?php echo get_page_link(get_page_by_path('physical-attributes')); ?>">

@@ -86,6 +86,23 @@ function sci_change_gender() {
 
 }
 
+add_action("wp_ajax_sci_change_dob", "sci_change_dob");
+function sci_change_dob() {
+
+   $current_user = wp_get_current_user();
+   
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
+      exit("No naughty business please");
+   }   
+
+   if (!!$_REQUEST["dob"]) {
+      update_field(__sci_s("USER: Profile details", 'sci_user_dob')['key'], $_REQUEST["dob"], 'user_' . $current_user->ID);
+      echo "ok";
+   }
+   wp_die();
+
+}
+
 add_action("wp_ajax_sci_change_category", "sci_change_category");
 function sci_change_category() {
 

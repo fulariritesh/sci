@@ -201,7 +201,7 @@ $user_info = get_userdata($obj_id);
 													<button class="btn btn-popup-edit" type="button" data-toggle="modal" data-target="#editheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
 														<i class="fas fa-pen"></i>
 													</button>
-													<button class="btn btn-popup-del" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
+													<button class="btn btn-popup-del <?php echo (get_row_index() == 1) ? 'd-none' : ''; ?>" type="button"  data-toggle="modal" data-target="#deleteheadshot" data-indexheadshot=<?php echo get_row_index(); ?>>
 														<i class="fas fa-trash-alt"></i>
 													</button>
 												</div>
@@ -287,6 +287,16 @@ $user_info = get_userdata($obj_id);
 		                    </h5>
 		                	<?php endif; ?>
 		                </div>
+						<?php if (get_field('sci_user_dob', 'user_' . $obj_id)): ?>
+							<div class="form-group row"> 
+								<h5>
+									<i class="fas fa-birthday-cake"></i> 
+									<a href="#" id="dob" data-type="date" data-pk="1" data-title="Select Birthday" class="editable editable-click" data-abc="true">
+										<?php echo get_field('sci_user_dob', 'user_' . $obj_id); ?>
+									</a> 
+								</h5>
+							</div>
+						<?php endif; ?>
 		            </div>
 		        	<div class="text-right">
 		        		<button class="btn btn-edit" data-toggle="modal" data-target="#editCat">
@@ -442,7 +452,7 @@ $user_info = get_userdata($obj_id);
 			    <?php if (get_field('photos', 'user_' . $obj_id)): ?>
 				<div class="row">
 					<div class="col-6 col-sm-6 pt-3 px-0">
-						<h4>Photos (<?php echo count(get_field('photos', 'user_' . $obj_id)); ?>)</h4>
+						<h4>Photos (<?php echo get_field('photos', 'user_' . $obj_id)?count(get_field('photos', 'user_' . $obj_id)): 0; ?>)</h4>
 					</div>
 					<div class="col-6 col-sm-6 pt-3 px-0 text-right">
 						<button class="btn btn-edit" data-toggle="modal" data-target="#managephotos">Edit</button>
@@ -1060,42 +1070,47 @@ $user_info = get_userdata($obj_id);
 					<img src="" alt="img-preview" class="img-preview-img">
 					<span class="img-preview-default-txt">Image preview!</span>
 				</div>
-				<div class="invalid-feedback">
-					Opps error!
-				</div>
-				<!-- capture btn -->
-				<div class="capture-div">
-					<a type="button" class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
-					Camera</a>
-					<button type="button" class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+			
+				<button class="btn btn-block btn-details-opncam btn-xs"><i class="fas fa-camera"></i> 
+					Open Camera
+				</button>
+
+				<button class="btn btn-block btn-details-cptr btn-xs"><i class="fas fa-camera"></i> 
+					Capture 
+				</button>
+
+				<button class="btn btn-block btn-details-fileup btn-xs"><i class="fas fa-upload"></i>
 					Upload from device
-					</button>
-				</div>
-				<!-- upload btn  -->
-				<div class="upload-div">
-					<label class="btn btn-custom-file-upload d-flex justify-content-center">
-					<input type="file" name="hsFile" id="hsFile" />
-					Choose file to upload
+				</button>
+		
+				<!-- upload input  -->
+				<div class="upload-input">
+					<label class="btn btn-custom-file-upload d-flex justify-content-center mt-4">
+						<input type="file" name="hsFile" id="hsFile" />
+						Choose file to upload
 					</label>
-				</div>
+				</div>	
+				
 				<!-- file-edit-btns -->
 				<div class="file-edit-btns">
-					<div class="d-flex justify-content-center py-4">
-					<button type="button" id="rotate-anticlock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+					<div class="d-flex justify-content-center py-4">			
+					<button id="rotate-anticlock" class="btn btn-details-uphs btn-xs mx-2 px-4">
 						<i class="fas fa-undo"></i>
 					</button>
-					<button type="button" id="rotate-clock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+					<button id="rotate-clock" class="btn btn-details-uphs btn-xs mx-2 px-4">
 						<i class="fas fa-undo fa-flip-horizontal"></i>
 					</button>
 					</div>
 				</div>
+
+				<!-- back-save-btns -->
 				<div class="d-flex justify-content-around py-4">
 					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
 					<button id="saveHeadshot" class="btn btn-lg btn-popup-save px-4">Save</button>
 				</div>
 
 				<!-- response message -->
-				<div id="resHeadshotWrapper" class="m-2"></div>
+				<div id="resHeadshotWrapper" class="my-2"></div>
 				<script>
 				function headshotSuccess(){
 					console.log('Refresh');
@@ -1980,12 +1995,19 @@ aria-hidden="true">
 		<div class="row">
 			<div class="col-12 col-sm-10 mx-auto py-4">
 				<p class="pb-2">You can upload MP3, WAV and OGG files</p>
-				<label class="btn btn-popup-save">
-				<input id="addaudiofile_input" type="file" name="audio" accept="audio/*"/>
-				Choose file to upload
-				</label>
-				<div class="invalid-feedback">
-				Opps error!
+				<div class="form-group">
+					<label class="btn btn-popup-save">
+					<input required id="addaudiofile_input" type="file" name="audio" accept="audio/*"/>
+					Choose file to upload
+					</label>
+				</div>
+				<div class="form-group">
+					<label for="audioTitle">Title</label>
+					<input required id="addaudiotitle_input" type="text" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="audioDesp">Description</label>
+					<textarea required id="addaudiodescription_input" class="form-control justify-content-end"></textarea>
 				</div>
 				<div class="d-flex justify-content-end py-2">
 				<button class="btn btn-lg btn-popup-cancel mr-4" data-dismiss="modal">Cancel</button>
@@ -2275,7 +2297,7 @@ aria-hidden="true">
 								id="sci_user_custom_hair_color_radio"
 								<?php 						
 								if($user_hair_color){
-									if(array_search($user_hair_color,array_values($acf_hair_color['choices']),true) == false){
+									if(array_search($user_hair_color,array_values($acf_hair_color['choices']),true) === false){
 										$user_hair_color_custom = true;
 									}
 									echo ($user_hair_color_custom) ? 'checked' : ''; 
@@ -2383,7 +2405,7 @@ aria-hidden="true">
 								id="sci_user_custom_ethnicity_radio"
 								<?php 						
 								if($user_ethnicity){
-									if(array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true) == false){
+									if(array_search($user_ethnicity,array_values($acf_ethnicity['choices']),true) === false){
 										$user_ethnicity_custom = true;
 									}
 									echo ($user_ethnicity_custom) ? 'checked' : ''; 

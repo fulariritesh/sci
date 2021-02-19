@@ -116,6 +116,9 @@
             <button class="btn btn-lg btn-details-nxt btn-xs px-md-5">
               Save
             </button>
+            <button id="test" class="btn btn-lg btn-details-nxt btn-xs px-md-5">
+              TEST
+            </button>
           </div>
         </div>
       </div>
@@ -131,6 +134,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
+
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
   <script>
     var video = document.querySelector("#videoElement");
     const inpFile = document.getElementById("hsFile");
@@ -154,18 +160,64 @@
       }
     })
 
-    if (navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(function (stream) {
-          previewDefaultTxtCam.style.display = "none";
-          video.style.display = "block";
-          video.srcObject = stream;
-        })
-        .catch(function (err0r) {
-          console.log("Something went wrong!");
-        });
+    // if (navigator.mediaDevices.getUserMedia) {
+    //   navigator.mediaDevices
+    //     .getUserMedia({ video: true })
+    //     .then(function (stream) {
+    //       previewDefaultTxtCam.style.display = "none";
+    //       video.style.display = "block";
+    //       video.srcObject = stream;
+    //     })
+    //     .catch(function (err0r) {
+    //       console.log("Something went wrong!");
+    //     });
+    // }
+  //   var constraints = { video: true, audio: true };
+
+  //   navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+  //   var videoTracks = stream.getVideoTracks();
+  //   console.log('Got stream with constraints:', constraints);
+  //   console.log('Using video device: ' + videoTracks[0].label);
+  //   stream.onended = function() {
+  //     console.log('Stream ended');
+  //   };
+  //   window.stream = stream; // make variable available to console
+  //   video.srcObject = stream;
+  // }).catch(function(error) {
+  //   console.log('error');
+  // });
+
+  // Put variables in global scope to make them available to the browser console.
+  const constraints = window.constraints = {
+    audio: false,
+    video: true
+  };
+
+  function handleSuccess(stream) {
+    const video = document.querySelector('video');
+    const videoTracks = stream.getVideoTracks();
+    // console.log('Got stream with constraints:', constraints);
+    // console.log(`Using video device: ${videoTracks[0].label}`);
+    window.stream = stream; // make variable available to browser console
+    video.srcObject = stream;
+    previewDefaultTxt.style.display = "none";
+    video.style.display = "block";
+  }
+
+  async function init() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      handleSuccess(stream); 
+    } catch (e) {
+      console.log('looks like ur device has no camera');
     }
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+    init();
+  });
+// document.querySelector('#test').addEventListener('click', e => init(e));
+
+    
   </script>
   <script>
     $(document).ready(function () {

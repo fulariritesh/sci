@@ -1,6 +1,6 @@
 import Splide from '@splidejs/splide';
 import Lightbox from 'lightbox2';
-import Cropper from 'cropperjs'; //sid
+import Cropper from 'cropperjs'; 
 
 // Edit Profile scripts
 require("./bootstrap-editable.min.js");
@@ -90,6 +90,19 @@ $(document).ready(function(){
 				return data;
 			}
 		});
+		$('#dob').editable({
+			type: 'date',
+		   	url: Edit.request_url,    
+		   	send: "always",
+			params: function(params) { 
+			   var data = {};
+			   data['id'] = params.pk;
+			   data['dob'] = params.value;
+			   data['action'] = 'sci_change_dob';
+			   data['nonce'] = Edit.nonce;
+			   return data;
+		   }
+	   });
 		$('#editCat').on('show.bs.modal', function (e) {
 			if (Edit.categories) JSON.parse(Edit.categories).map(function(item, index){
 				let sci = document.querySelector("#editCat label[data-category='" + item + "']");
@@ -447,53 +460,6 @@ $(document).ready(function(){
 	}
 });
 
-// $(".card-header").click(function () {
-// 	$(this).toggleClass("selected");
-// });
-// var video = document.querySelector("#videoElement");
-// const inpFile = document.getElementById("hsFile");
-// const previewContainer = document.getElementById("img-preview");
-// const previewImg = document.querySelector(".img-preview-img");
-// const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
-// const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
-
-// if (inpFile) inpFile.addEventListener("change", function () {
-//   const file = this.files[0];
-//   if (file) {
-//     const reader = new FileReader();
-//     previewDefaultTxt.style.display = "none";
-//     previewImg.style.display = "block";
-
-//     reader.addEventListener("load", function () {
-//       console.log(this);
-//       previewImg.setAttribute("src", this.result);
-//     });
-//     reader.readAsDataURL(file);
-//   }
-// })
-
-// if (navigator.mediaDevices) {
-//   navigator.mediaDevices
-//     .getUserMedia({ video: true })
-//     .then(function (stream) {
-//       previewDefaultTxtCam.style.display = "none";
-//       video.style.display = "block";
-//       video.srcObject = stream;
-//     })
-//     .catch(function (err0r) {
-//       console.log("Something went wrong!");
-//     });
-// }
-// $(document).ready(function () {
-// 	$(".upload-div").hide();
-// 	$(".file-edit-btns").hide();
-// 	$(".btn-details-fileup").click(function () {
-// 		$(".capture-div").hide();
-// 		$(".upload-div").show();
-// 		$(".file-edit-btns").show();
-// 	});
-// });
-
 $(document).ready(function(){
 	// Check if element exists
 	if (!!$('.slider_headshot').length) {
@@ -574,29 +540,21 @@ $(document).ready(function(){
 	}
 });
 
-//sid
 /* User Profile Details and Category Subcategory */ 
 $(document).ready(function () {
 	/* Category Subcategory Page */
-	$(".card-header").click(function () {
-		$(this).toggleClass("selected");
-		$(this).children('input[type="hidden"]').prop('disabled', function(i, v) { return !v; });
+	$(".main-category-checkbox").on('change',function () {
+		if($(this).prop('checked') == true){
+			$(this).closest(".card-header").addClass("selected");
+			$(this).closest('.category-subcategory').find('.sub-category-checkbox').removeAttr('disabled');			
+		}else{
+			$(this).closest(".card-header").removeClass("selected");
+			$(this).closest('.category-subcategory').find('.sub-category-checkbox').attr('disabled','disabled');
+			$(this).closest('.category-subcategory').find('.sub-category-checkbox').prop("checked", false);
+			$(this).closest('.category-subcategory').find('label').removeClass('active');			
+		}
   	});
 
-	/* Profile details page - dynamically show custom gender text field */
-	/* 
-
-		!!! --- Use conditional fields in acf --- !!! ~ Wiseman 
-
-	*/
-	// $('input[type=radio][name=gender]').change(function (e){
-	// 	var genvalue = $("input[name='gender']:checked").val();
-	// 	if(genvalue === 'custom'){
-	// 		$('#custom_gender').removeClass('d-none');
-	// 	}else{
-	// 		$('#custom_gender').addClass('d-none');
-	// 	}
-	// });
 
 	//sync custom text field with 'other' radio value
 	$("#sci_user_custom_gender_text").keyup(function() {
@@ -615,38 +573,33 @@ $(document).ready(function () {
 
 });
 
-// sid
+
 /* Add Headshot(s) */ 
 $(document).ready(function () {
-	$(".upload-div").hide();
 	$(".file-edit-btns").hide();
+	$(".btn-details-cptr").hide();
+	$('.upload-input').hide();
+	$('.capture-div').show();
+	$('.upload-div').hide();
 
-	$(".btn-details-fileup").click(function () {
-		$(".capture-div").hide();
-		$(".upload-div").show();
-		$(".file-edit-btns").show();
-	});
-
-	var cropper;
+	var cropper = null;
+	var stream = null;
 	var data;
 	var res;
+	const constraints = window.constraints = {
+		audio: false,
+		video: true
+	};
 	var redirectFunction = '';
 	var indexHeadshot = 1;
 	var canvas = document.querySelector("#canvas");
 	var video = document.querySelector("#videoElement");
 	const inpFile = document.getElementById("hsFile");
-	const previewContainer = document.getElementById("img-preview");
+	// const previewContainer = document.getElementById("img-preview");
 	const previewImg = document.querySelector(".img-preview-img");
-	const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
+	// const previewDefaultTxtCam = document.querySelector(".img-preview-default-txtCam");
 	const previewDefaultTxt = document.querySelector(".img-preview-default-txt");
 
-	// $('li.splide__slide').click(function () {
-	// 	var index = $(this).attr("data-index");
-	// 	if(index){
-	// 		indexHeadshot = index;
-	// 		console.log('Headshot: '+indexHeadshot);
-	// 	}	
-	// });
 	$(".manageHeadshot").find("button").click(function(){
 		var index = $(this).attr("data-indexheadshot");
 		if(index){
@@ -655,12 +608,46 @@ $(document).ready(function () {
 		}
 	});
 
+	$(".btn-details-fileup").click(function () {
+		if(cropper){
+			cropper.destroy();
+			cropper = null;
+		}
+		if(stream){
+			var tracks = stream.getTracks();
+			tracks.forEach(function(track) {
+				// stop video streaming
+				track.stop();
+			});
+			stream = null;
+		}
+		$('.capture-div').show();
+		$('.upload-div').hide();
+		// $('.img-preview-img').show();
+		$(".btn-details-cptr").hide();
+		$(".btn-details-opncam").show();
+		$('.btn-details-fileup').hide();
+		$(".file-edit-btns").hide();
+		$('.upload-input').show();
+	});
+
 	if(inpFile){
 		inpFile.addEventListener("change", function () {
+			if(cropper){
+				cropper.destroy();
+				cropper = null;
+			}
+			if(stream){
+				var tracks = stream.getTracks();
+				tracks.forEach(function(track) {
+					// stop video streaming
+					track.stop();
+				});
+				stream = null;
+			}
 			const file = this.files[0];
 			if (file) {
-				const reader = new FileReader();
-				
+				const reader = new FileReader();				
 				reader.addEventListener("load", function () {
 					//console.log(this);
 					previewDefaultTxt.style.display = "none";
@@ -672,34 +659,61 @@ $(document).ready(function () {
 							initialAspectRatio: 1
 						});
 					});
+					$('.img-preview-img').show();
+					$('.capture-div').hide();
+					$('.upload-div').show();
+					$(".file-edit-btns").show();
+					$('.upload-input').hide();
+					$('.btn-details-fileup').show();
 				reader.readAsDataURL(file);	
 			}
 		});	
 	}
 	
-
-	if (navigator.mediaDevices) {
-		if (navigator.mediaDevices.getUserMedia) {
-			navigator.mediaDevices
-			.getUserMedia({ video: true })
-			.then(function (stream) {
-			previewDefaultTxtCam.style.display = "none";
-			video.style.display = "block";
-			video.srcObject = stream;
-			})
-			.catch(function (error) {
-				console.log("Looks like your device has no camera.");
-				$('#resHeadshotWrapper').empty();
-				$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
-														<button type="button" class="close" data-dismiss="alert">&times;</button> \
-														Looks like your device has no camera. \
-													</div>');
-			});
-		}	
+	function streamCamera(stream) {
+		if(cropper){
+			cropper.destroy();
+			cropper = null;
+		}
+		window.stream = stream; 
+		video.srcObject = stream;
+		previewDefaultTxt.style.display = "none";
+		video.style.display = "block";
+	}
+	
+	async function initCam() {
+		try {
+		  	stream = await navigator.mediaDevices.getUserMedia(constraints);
+		  	streamCamera(stream);
+			$('.img-preview-img').hide();
+			$('.capture-div').show();
+			$('.upload-div').hide();
+			$(".btn-details-opncam").hide();
+			$(".btn-details-cptr").show();
+			$('.btn-details-fileup').show();
+			$('.upload-input').hide();
+			$(".file-edit-btns").hide();
+		} catch (e) {
+			if(cropper){
+				cropper.destroy();
+				cropper = null;
+			}
+			console.log('looks like ur device has no camera');
+			$('#resHeadshotWrapper').empty();
+			$('#resHeadshotWrapper').prepend('<div class="alert alert-warning alert-dismissible"> \
+													<button type="button" class="close" data-dismiss="alert">&times;</button> \
+													Looks like your device has no camera. \
+												</div>');
+		}
 	}
 
 	function takepicture(height,width) {
+		if(cropper){
+			cropper.destroy();
+			cropper = null;
+		}		
 		var context = canvas.getContext('2d');
+		video.style.display = "none";
 		if (width && height) {
 			canvas.width = width;
 			canvas.height = height;
@@ -714,17 +728,52 @@ $(document).ready(function () {
 						initialAspectRatio: 1
 					});
 			//console.log(data);
+			if(stream){
+				var tracks = stream.getTracks();
+				tracks.forEach(function(track) {
+					// stop video streaming
+					track.stop();
+				});
+				stream = null;
+			}
+			$('.img-preview-img').show();
+			$('.capture-div').hide();
+			$('.upload-div').show();
+			$(".file-edit-btns").show();
+			$('.upload-input').hide();
+			$('.btn-details-fileup').show();
+			$(".btn-details-opncam").show();
+			$(".btn-details-cptr").hide();					
 		} 
 	}
 
-	$(".btn-details-cptr").click(function (e) {
+	$(".btn-details-opncam").click(function (e) {
 		e.preventDefault();
+		if(cropper){
+			cropper.destroy();
+			cropper = null;
+		}
+		if(stream){
+			var tracks = stream.getTracks();
+			tracks.forEach(function(track) {
+				// stop video streaming
+				track.stop();
+			});
+			stream = null;
+		}
+		$('.img-preview-img').hide();
+		$('.capture-div').show();
+		$('.upload-div').hide();
+		$('.btn-details-fileup').show();
+		$('.upload-input').hide();
+		$(".file-edit-btns").hide();
+		initCam();
+	});
+
+	$(".btn-details-cptr").on('click',function (e) {
 		console.log('capturing...');
-		$(".upload-div").show();
-		$(".file-edit-btns").show();
 		//console.log(video.offsetHeight,video.offsetWidth);
 		takepicture(video.offsetHeight,video.offsetWidth);
-		$(".capture-div").hide();
 	});
 
 	$('#rotate-anticlock').on('click', function(){
@@ -823,6 +872,7 @@ $(document).ready(function () {
 	});
 
 });
+
 //Spotlight toggle
 $(document).ready(function(){
 	$(".switch.toggle-spotlight input[type='checkbox']").on("change", function(){
@@ -878,7 +928,7 @@ $(document).ready(function(){
 	});
 });
 
-//sid
+
 /* User Videos */
 $(document).ready(function () {
 
@@ -1006,8 +1056,6 @@ $(document).ready(function(){
     });
 });
 
-
-//sid
 /* User Audios */
 $(document).ready(function () {
 
@@ -1043,6 +1091,8 @@ $(document).ready(function () {
 		// fd.append('file', files);
 		// fd.append('nonce')
 		const file = $('#addaudiofile_input')[0].files[0];
+		var title = $('#addaudiotitle_input').val();
+		var description = $('#addaudiodescription_input').val();
 		var audio_src;
 		if (file) {
 			const reader = new FileReader();
@@ -1053,6 +1103,8 @@ $(document).ready(function () {
 					url: Edit.request_url,
 					method:'POST',
 					data:{
+						title: title,
+						description: description,
 						audio: audio_src,
 						nonce: Edit.nonce,
 						action:'sci_add_audio',
@@ -1138,7 +1190,6 @@ $(document).ready(function () {
 	});
 });
 
-//sid
 /* User Physical Attributes */
 $(document).ready(function () {
 
@@ -1268,7 +1319,6 @@ $(document).ready(function () {
 	
 });
 
-//sid
 /* UM Form Override css */
 $(document).ready(function () {
 	//login
@@ -1284,6 +1334,43 @@ $(document).ready(function () {
 		$('input#um-submit-btn.um-button').val('Send Reset Link');
 	}
 
+});
+
+/* Verify User Password */
+$(document).ready(function () {
+	$('#hideshowprofilesave_submit').click(function () {
+		var pwd = $('#my_account_toggle_profile_visibility_modal input').val();
+		var res;
+		$.ajax({
+			url: SCI_AJAX.request_url,
+			method:'POST',
+			data:{
+				password: pwd,
+				nonce: SCI_AJAX.nonce,
+				action:'sci_user_hide_show_profile',
+			},
+			success: function(response, status, xhr){
+				res = JSON.parse(response);
+				$('#hideshowprofileWrapper').empty();
+				$('#hideshowprofileWrapper').prepend('<div class="alert alert-'+res.status+' alert-dismissible"> \
+															<button type="button" class="close" data-dismiss="alert">&times;</button> \
+															'+ res.msg +'. \
+														</div>');
+				$('#my_account_toggle_profile_visibility_modal input').val('');
+				if(res.visibility === 1){
+					$('#my_account_profile_visibility_btn').empty();
+					$('#my_account_profile_visibility_btn').prepend('<i class="fas fa-eye-slash"></i>Hide My Profile');
+				}else{
+					$('#my_account_profile_visibility_btn').empty();
+					$('#my_account_profile_visibility_btn').prepend('<i class="fas fa-eye"></i>Show My Profile');
+				}	
+
+			},
+			error :function(xhr,status,error){
+				console.log(xhr,status,error);
+			},
+		});
+	});
 });
 
 // Spotlight search

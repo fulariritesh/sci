@@ -7,9 +7,23 @@ function sci_add_audio() {
    	if(!wp_verify_nonce( $_REQUEST['nonce'], "edit_request")) {
 		echo json_encode(array('status' => 'danger','msg' => "No naughty business please"));
       	exit();
-   	}   
+   	}
 
-   	if(isset($_REQUEST["audio"])) {
+	if(!empty($_REQUEST["title"])){
+		$audio_title = sanitize_text_field($_REQUEST["title"]);
+	}else{
+		echo json_encode(array('status' => 'danger','msg' => "Please enter title"));
+      	exit();
+	}
+
+	if(!empty($_REQUEST["description"])){
+		$audio_description = sanitize_text_field($_REQUEST["description"]);
+	}else{
+		echo json_encode(array('status' => 'danger','msg' => "Please enter description"));
+      	exit();
+	}
+
+   	if(!empty($_REQUEST["audio"])) {
     
 		$success = false;
 		$data = $_POST['audio'];
@@ -59,9 +73,12 @@ function sci_add_audio() {
 
 		if((!is_wp_error($upload_id)) || ($upload_id !== 0)){		
 		
-			$row = array('audio_file' => $upload_id);
-			$success = add_row('audios', $row, 'user_'.$user_id);
-			
+			$row = array(
+				'audio_file' => $upload_id,
+				'audio_title' => $audio_title,
+				'audio_description' => $audio_description
+				);
+			$success = add_row('audios', $row, 'user_'.$user_id);			
 			
 			if($success){
 				echo json_encode(array('status' => 'success','msg' => "Success"));
@@ -74,9 +91,11 @@ function sci_add_audio() {
 		echo json_encode(array('status' => 'danger','msg' => "Something went wrong"));
 		exit();	
 	}else{
-		echo json_encode(array('status' => 'danger','msg' => "Bad Request :("));
+		echo json_encode(array('status' => 'danger','msg' => "Please enter audio file"));
 		exit();
    	}
+
+	
     wp_die();
 }
 

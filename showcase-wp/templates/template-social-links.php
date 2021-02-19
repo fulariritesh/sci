@@ -1,6 +1,14 @@
 <?php
 /* Template Name: Social Links Page */
 
+if(isset($_SESSION['user_profession'])){
+	if(count($_SESSION['user_profession']) < 1){
+		wp_redirect(get_page_link(get_page_by_path('category-subcategory'))); exit;
+	}
+}else{
+	wp_redirect(get_page_link(get_page_by_path('category-subcategory'))); exit;
+}
+
 $ig_error = $fb_error = $tw_error = $yt_error = NULL;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

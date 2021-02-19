@@ -31,7 +31,7 @@ get_header();
             <p class="col-12 col-md-6">
                 <a href="<?php echo get_page_link(get_page_by_path('reset-password')); ?>">Forgot password?</a>
             </p>
-            <p class="col-12 col-md-6">
+            <p class="col-12 col-md-6 ">
                 Not a member? <a href="<?php echo get_page_link(get_page_by_path('signup')); ?>">Sign Up</a>
             </p>
             </div>
