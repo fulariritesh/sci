@@ -1011,7 +1011,6 @@ $user_info = get_userdata($obj_id);
     </div>
 </div>
 
-<!-- HEADSHOT -->
 <!-- Add/Edit Headshot Modal -->
 <div class="modal fade" id="editheadshot" tabindex="-1" aria-labelledby="editHeadshotModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
