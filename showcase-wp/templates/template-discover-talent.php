@@ -50,18 +50,19 @@ $genderSelected;
 
         <div class="searchFilters mt-2">
           <div class="p-3 d-block d-md-none">
-            <span class="d-block d-md-none float-left">Advance Filter</span>
-            <button class="btn btn-primary btn-sm d-block d-md-none float-right" type="button" data-toggle="collapse"
-              data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <span class="d-block d-md-none float-left pt-2">Advance Filter</span>
+            <button class="btn btn-primary btn-sm d-block d-md-none float-right pb-1" type="button" data-toggle="collapse"
+              data-target="#collapseAdvance" aria-expanded="false" aria-controls="collapseAdvance">
               <i class="fas fa-filter"></i>
             </button>
             <div class="clear"></div>
           </div>
 
-          <div class="searchparam shadow-sm collapse dont-collapse-sm " id="collapseExample">
+          <div class="searchparam shadow-sm collapse dont-collapse-sm " id="collapseAdvance">
             <div class=" row well px-3">
               <!-- Collapse Panel -->
-              <div class="col-12 col-sm-6 col-md-3 py-3">
+              <div class="col-12 col-sm-6 col-md-4 py-1 py-md-3 px-3 pr-md-0">
+               
                 <select placeholder="Select Location" class="form-control" id="loaction">
                   <option value="-1">Select Location</option>
                   <?php
@@ -74,8 +75,10 @@ $genderSelected;
                     }
                   ?>
                 </select>
+                 
               </div>
-              <div class="col-12 col-sm-6 col-md-2 py-3"> 
+              <div class="col-12 col-sm-6 col-md-2 py-1 py-md-3 px-3 pr-md-0"> 
+              
                 <select placeholder="Select Gender" class="form-control" id="gender">
                   <option value="-1">Gender</option>
                   <?php
@@ -88,7 +91,8 @@ $genderSelected;
                     }
                   ?>
                 </select></div>
-              <div class="col-12 col-sm-6 col-md-2 py-3">
+              <div class="col-12 col-sm-6 col-md-2 py-1 py-md-3 px-3 pr-md-0">
+              
                 <select placeholder="Select Location" class="form-control" id="age">
                   <option value="-1">Age</option>
                   <?php
@@ -101,16 +105,19 @@ $genderSelected;
                     }
                   ?>
                 </select>
+                  
               </div>
-              <div class="col-12 col-sm-6 col-md-2 py-3">
+              <div class="col-12 col-sm-6 col-md-2 py-1 py-md-3 px-3 pr-md-0">
+              
                 <select placeholder="Select Location" class="form-control">
                   <option value="-1">Experience</option>
                   <option value="value1">A</option>
                   <option value="value2">B</option>
                 </select>
+                  
               </div>
-              <div class="col-12 col-sm-6 col-md-2 py-3">
-                <button class="btn btn-md btn-primary form-control" id="advance-search">Search</button>
+              <div class="col-12 col-sm-12 col-md-2 py-1 pb-3 py-md-3 text-right text-md-left">
+                <button class="btn btn-sm btn-add px-2" id="advance-search">Search</button>
               </div>
             </div>
           </div>
@@ -119,7 +126,7 @@ $genderSelected;
     </div>
   </section>
 
-  <section class="searchResults my-3">
+  <section class="searchResults mt-3">
 
     <div class="container" id="no-search-results">
       <div class="row noResults  p-0 shadow-sm ">
@@ -138,12 +145,12 @@ $genderSelected;
       </div>
     </div>
 
-    <div class="container resultlisting my-4">
-      <div class="row">
-      <div class="col-6 px-md-0">Showcasing India’s Talent Nationwide</div>
-        <div class="col-6 px-md-0 text-right"><span class="totalCount">0</span> Results</div>
+    <div class="container resultlisting py-4">
+      <div class="row px-3 px-lg-0">
+      <div class="col-6 px-0 px-md-0">Showcasing India’s Talent Nationwide</div>
+      <div class="col-6 px-0 px-md-0 text-right"><span class="totalCount">0</span> Results</div>
       </div>
-      <div class="row py-3 displayList">
+      <div class="row py-3 px-3 px-lg-0 displayList">
         
                 
       </div>
