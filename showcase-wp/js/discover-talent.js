@@ -1,5 +1,6 @@
 jQuery(function($) {
-    const baseUrl = '/wp-json/sci/v1/';
+    // const baseUrl = '/wp-json/sci/v1/';
+    const baseUrl = '/showcase/wp-json/sci/v1/';
     const endpoint = 'talent-data';
     let pageNumber = 1;
     let pageSize = 6;
@@ -224,11 +225,11 @@ jQuery(function($) {
     function CategoryBlocks(categories){
         $('.category-blocks').empty();
         categories.forEach(category => {
-            let listHtml = `<div class="col-6 col-lg-3 mb-2  px-0">
+            let listHtml = `<div class="col-6 col-md-4 col-lg-3 mb-2  px-0">
             <a href="#" class="actorCategory" id="${category.id}" data-singular-name="${category.singularName}">
             <div class="row mx-1 shadow-sm ">
-              <div class="col-4 py-2"><img src="${category.image}" alt="${category.name} Category" class="img-fluid" /></div>
-              <div class="col-8 py-2 px-0">
+              <div class="col-12 col-sm-4 pt-2 py-sm-2 text-center text-sm-left"><img src="${category.image}" alt="${category.name} Category" class="img-fluid" /></div>
+              <div class="col-12 col-sm-8 pb-2 py-sm-2 px-0 text-center text-sm-left">
                 <span class="text-uppercase d-block">${category.name}</span>
                 <span class="d-block cat-num">(${category.count})</span>
               </div>
@@ -243,11 +244,11 @@ jQuery(function($) {
     function SubCategoryBlocks(subcategories){
         $('.sub-category-blocks').empty();
         subcategories.forEach(subcategory => {
-            let listHtml = `<div class="col-6 col-lg-3 mb-2  px-0">
+            let listHtml = `<div class="col-6 col-md-4 col-lg-3 mb-2  px-0">
             <a href="#" class="actorSubCategory" id="${subcategory.id}">
             <div class="row mx-1 shadow-sm ">
-              <div class="col-4 py-2"><img src="${subcategory.image}" alt="${subcategory.name} Category" class="img-fluid" /></div>
-              <div class="col-8 py-2 px-0 pt-4">
+              <div class="col-12 col-sm-4 pt-2 py-sm-2 text-center text-sm-left"><img src="${subcategory.image}" alt="${subcategory.name} Category" class="img-fluid" /></div>
+              <div class="col-12 col-sm-8 pb-2 py-sm-2 text-center text-sm-left px-0 pt-sm-3">
                 <span class="text-uppercase">${subcategory.name}</span>
                 <span class="cat-num"> (${subcategory.count})</span>
               </div>
@@ -279,11 +280,11 @@ jQuery(function($) {
                         isProffessionCountMore = true;
                         return;
                     }
-                    listHtml = listHtml + `<span class="badge categorybadge" style="background-color: ${profession.badgeColour};">`+profession.singularName+`</span>`;
+                    listHtml = listHtml + `<span class="badge categorybadge-DT" style="background-color: ${profession.badgeColour};">`+profession.singularName+`</span>`;
                 });
                 
                 if(isProffessionCountMore){
-                    listHtml = listHtml + `<span class="badge categorybadge c-more">+${profile.professions.length - 4}</span>`;
+                    listHtml = listHtml + `<span class="badge categorybadge-DT c-more">+${profile.professions.length - 4}</span>`;
                 }
 
                 listHtml = listHtml + `</p>

@@ -101,7 +101,7 @@ $user_info = get_userdata($obj_id);
 							background-position: top center !important;
 						}
 						.slider_headshot_thumbnail, .slider_headshot {
-							margin-bottom: 2rem;
+							margin-bottom: 1rem;
 						}
 						#image-slider .splide__slide {
 							width: 42.7vw;
@@ -228,6 +228,9 @@ $user_info = get_userdata($obj_id);
 						else :
 						    // Do something...
 						endif; ?>
+					</div>
+					<div class="col-12 text-center pb-2 bestHeadshot">
+					<span class=""  data-toggle="tooltip" data-placement="top" title="Best Headshot Examples" > <i class="fas fa-info-circle"></i></span> <a href="#" data-toggle="modal" data-target="#bestheadshot" >Examples</a> of best headshot images
 					</div>
 			    </div>
 			    <div class="col-12 col-sm-6 profile-personaldetails pt-5">
@@ -2419,6 +2422,73 @@ aria-hidden="true">
 		</div>
 	</div>
 	</div>
+</div>
+
+<!--Best Headshot Modal -->
+<div class="modal fade" id="bestheadshot" tabindex="-1" aria-labelledby="bestheadshotLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+		<div class="modal-header">
+			<div class="col-md-3 d-none d-lg-block">
+			  <img src="/images/footer-logo-grey.png" alt="logo">
+			</div>
+			<div class="col-10 col-md-6">
+			  <h5 class="modal-title text-lg-center" id="bestheadshotLabel">Examples of Good Headshots</h5>
+			</div>
+			<div class="col-2 col-md-3">
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+			  <div class=" col-12 col-lg-10 mx-auto  mb-4">
+			    <div class="card-body">
+			      <form id="bestHeadshots">
+			       <div class="container-fluid pt-2 px-0 ">
+					<div class="row">
+						<div class="col-12 col-md-4 headshotcol1 text-center p-4">
+							<div class="iconarea py-5">
+								<i class="fas fa-camera-retro fa-4x"></i>
+							</div>
+							<div class="headshotpoints py-3">
+								<h2>[ 1 ]</h2>
+								<p>Pay attention to framing, lighting, and background in your headshot.</p>
+							</div>
+							<div class="headshotpoints py-3">
+								<h2>[ 2 ]</h2>
+								<p>Go easy with the makeup, you want to look natural. Take your headshot during the day so you can use natural light over artificial light.</p>
+							</div>
+							<div class="headshotpoints py-3">
+								<h2>[ 3 ]</h2>
+								<p>Skip the sunglasses, hats, filters and special effects. This is business!</p>
+							</div>
+						</div>
+						<div class="col-12 col-md-8  pt-3 pl-5">
+							<div class="row">
+								<div class="col-12">
+									<h5>What makes a great headshot?</h5>
+									<p>A headshot is your first impression and a good headshot is very crucial to your chances of being scouted. Having a good headshot is an investment in your career as an artist or performer. Follow the guidelines and examples below to make sure your headshot is an accurate reflection of you </p>
+								</div>
+								<?php if( have_rows('best_headshots', 'options') ){ ?>
+								<?php while ( have_rows('best_headshots', 'options') ) : the_row(); ob_start(); $i++; ?>
+								<div class="col-6 pt-3 pr-3">
+									<img src="<?php echo get_sub_field('best_headshot'); ?>" alt="Best Headshot" class="img-fluid" />
+								</div>
+								<?php  endwhile; ?>
+								<?php } ?>
+							</div>
+						</div>
+					</div>
+			        </div>			      
+			      </form>
+			    </div>
+			  </div>
+			</div>
+		</div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
