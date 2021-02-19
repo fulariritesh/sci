@@ -154,13 +154,14 @@ function showcase_scripts() {
 	wp_enqueue_style( 'showcase-style', get_stylesheet_uri(), array(), _S_VERSION );
   	wp_style_add_data( 'showcase-style', 'rtl', 'replace' );
 
+	wp_enqueue_script( 'webrtc-adapter', 'https://webrtc.github.io/adapter/adapter-latest.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'showcase-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap-scripts.js', array(), _S_VERSION, false );
 	wp_enqueue_script( 'footawesome', 'https://kit.fontawesome.com/f5515e915e.js', array(), false, true );
 
 	if(is_page("add-headshot") || is_page('edit-profile')){
-		wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );
-
+		wp_enqueue_script( 'headshot', get_template_directory_uri() . '/js/headshot.js', array(), _S_VERSION, false );		
+		
 		/* Add Headshot */ 
 		wp_localize_script(
 			'headshot',
@@ -199,11 +200,7 @@ function showcase_scripts() {
 			'request_url' => admin_url( 'admin-ajax.php' ),
 			'nonce'    => wp_create_nonce( 'sci_nonce' ),
 		)
-	);
-
-	
-
-	
+	);	
 }
 add_action( 'wp_enqueue_scripts', 'showcase_scripts' );
 

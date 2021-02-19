@@ -10561,6 +10561,18 @@ hr.new2 {
   color: #ffff;
 }
 
+.btn-details-opncam {
+  background: #ffff;
+  color: #444;
+  text-transform: capitalize;
+  border: 1px solid #28388d;
+}
+
+.btn-details-opncam:hover {
+  background: #28388d;
+  color: #ffff;
+}
+
 .btn-custom-file-upload {
   background: #ffff;
   color: #444;

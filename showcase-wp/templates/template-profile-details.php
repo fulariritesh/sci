@@ -42,6 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (!preg_match("/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/",$dob)) {
 				$dob_er = true;
 			}
+			$today = date("Y-m-d");
+			$userdob = new DateTime($dob);
+			$today = new DateTime($today);
+			$interval = $userdob->diff($today);
+			$userage = $interval->y; 
+			if ($userage < 18){ 
+				$dob_er = true;
+			} 		
 		}
 
 		if(empty($_POST['sci_user_gender'])){
@@ -161,7 +169,7 @@ include('join-pagination.php');
 							value="<?php echo ($user_dob) ? $user_dob : ''; ?>"
 							required 
 						/>
-						<div class="invalid-feedback">Please enter a valid date</div>
+						<div class="invalid-feedback">User must be atleast 18 years old</div>
 					</div>
 
 					<!-- GENDER -->

@@ -284,6 +284,16 @@ $user_info = get_userdata($obj_id);
 		                    </h5>
 		                	<?php endif; ?>
 		                </div>
+						<?php if (get_field('sci_user_dob', 'user_' . $obj_id)): ?>
+							<div class="form-group row"> 
+								<h5>
+									<i class="fas fa-birthday-cake"></i> 
+									<a href="#" id="dob" data-type="date" data-pk="1" data-title="Select Birthday" class="editable editable-click" data-abc="true">
+										<?php echo get_field('sci_user_dob', 'user_' . $obj_id); ?>
+									</a> 
+								</h5>
+							</div>
+						<?php endif; ?>
 		            </div>
 		        	<div class="text-right">
 		        		<button class="btn btn-edit" data-toggle="modal" data-target="#editCat">
@@ -1057,42 +1067,47 @@ $user_info = get_userdata($obj_id);
 					<img src="" alt="img-preview" class="img-preview-img">
 					<span class="img-preview-default-txt">Image preview!</span>
 				</div>
-				<div class="invalid-feedback">
-					Opps error!
-				</div>
-				<!-- capture btn -->
-				<div class="capture-div">
-					<a type="button" class="btn btn-block btn-details-cptr btn-xs py-3" href=""><i class="fas fa-camera"></i> Capture from
-					Camera</a>
-					<button type="button" class="btn btn-block btn-details-fileup btn-xs py-3"><i class="fas fa-upload"></i>
+			
+				<button class="btn btn-block btn-details-opncam btn-xs"><i class="fas fa-camera"></i> 
+					Open Camera
+				</button>
+
+				<button class="btn btn-block btn-details-cptr btn-xs"><i class="fas fa-camera"></i> 
+					Capture 
+				</button>
+
+				<button class="btn btn-block btn-details-fileup btn-xs"><i class="fas fa-upload"></i>
 					Upload from device
-					</button>
-				</div>
-				<!-- upload btn  -->
-				<div class="upload-div">
-					<label class="btn btn-custom-file-upload d-flex justify-content-center">
-					<input type="file" name="hsFile" id="hsFile" />
-					Choose file to upload
+				</button>
+		
+				<!-- upload input  -->
+				<div class="upload-input">
+					<label class="btn btn-custom-file-upload d-flex justify-content-center mt-4">
+						<input type="file" name="hsFile" id="hsFile" />
+						Choose file to upload
 					</label>
-				</div>
+				</div>	
+				
 				<!-- file-edit-btns -->
 				<div class="file-edit-btns">
-					<div class="d-flex justify-content-center py-4">
-					<button type="button" id="rotate-anticlock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+					<div class="d-flex justify-content-center py-4">			
+					<button id="rotate-anticlock" class="btn btn-details-uphs btn-xs mx-2 px-4">
 						<i class="fas fa-undo"></i>
 					</button>
-					<button type="button" id="rotate-clock" class="btn btn-details-uphs btn-xs mx-2 px-4">
+					<button id="rotate-clock" class="btn btn-details-uphs btn-xs mx-2 px-4">
 						<i class="fas fa-undo fa-flip-horizontal"></i>
 					</button>
 					</div>
 				</div>
+
+				<!-- back-save-btns -->
 				<div class="d-flex justify-content-around py-4">
 					<button class="btn btn-lg btn-popup-cancel" data-dismiss="modal">Cancel</button>
 					<button id="saveHeadshot" class="btn btn-lg btn-popup-save px-4">Save</button>
 				</div>
 
 				<!-- response message -->
-				<div id="resHeadshotWrapper" class="m-2"></div>
+				<div id="resHeadshotWrapper" class="my-2"></div>
 				<script>
 				function headshotSuccess(){
 					console.log('Refresh');

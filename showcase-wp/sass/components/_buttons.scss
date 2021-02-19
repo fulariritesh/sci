@@ -251,6 +251,17 @@
   );
 }
 
+.btn-details-opncam {
+  @include buttonstyle(
+    $btn_details-cpt-bg,
+    $btn_details-cpt-color,
+    $btntexttransform: capitalize,
+    $btnbordercolor: $btn_details-cpt-hoverbg,
+    $btnhoverbg: $btn_details-cpt-hoverbg,
+    $btnhovercolor: $btn_details-cpt-bg
+  );
+}
+
 .btn-custom-file-upload {
   @include buttonstyle(
     $btn_details-brw-bg,
