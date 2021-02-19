@@ -1,6 +1,6 @@
 import Splide from '@splidejs/splide';
 import Lightbox from 'lightbox2';
-import Cropper from 'cropperjs'; //sid
+import Cropper from 'cropperjs'; 
 
 // Edit Profile scripts
 require("./bootstrap-editable.min.js");
@@ -540,7 +540,6 @@ $(document).ready(function(){
 	}
 });
 
-//sid
 /* User Profile Details and Category Subcategory */ 
 $(document).ready(function () {
 	/* Category Subcategory Page */
@@ -574,7 +573,7 @@ $(document).ready(function () {
 
 });
 
-// sid
+
 /* Add Headshot(s) */ 
 $(document).ready(function () {
 	$(".file-edit-btns").hide();
@@ -929,7 +928,7 @@ $(document).ready(function(){
 	});
 });
 
-//sid
+
 /* User Videos */
 $(document).ready(function () {
 
@@ -1057,8 +1056,6 @@ $(document).ready(function(){
     });
 });
 
-
-//sid
 /* User Audios */
 $(document).ready(function () {
 
@@ -1193,7 +1190,6 @@ $(document).ready(function () {
 	});
 });
 
-//sid
 /* User Physical Attributes */
 $(document).ready(function () {
 
@@ -1323,7 +1319,6 @@ $(document).ready(function () {
 	
 });
 
-//sid
 /* UM Form Override css */
 $(document).ready(function () {
 	//login
@@ -1341,7 +1336,6 @@ $(document).ready(function () {
 
 });
 
-//sid
 /* Verify User Password */
 $(document).ready(function () {
 	$('#hideshowprofilesave_submit').click(function () {

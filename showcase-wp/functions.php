@@ -859,7 +859,24 @@ function redirect_incomplete_profile($original_template) {
 		}
 		wp_redirect(get_page_link(get_page_by_path('welcome'))); 
 		exit;
-    }else{
-		return $original_template;
-	}
+    }
+		
+	return $original_template;
+}
+
+//redirect loggedin users
+add_action( 'template_redirect', 'redirect_loggedin_user' );
+function redirect_loggedin_user($original_template) {
+
+	if ( is_page('login') && is_user_logged_in() ) {
+		wp_redirect(get_page_link(get_page_by_path('edit-profile'))); 
+		exit;
+    }
+
+	if ( is_page('signup') && is_user_logged_in() ) {
+		wp_redirect(get_page_link(get_page_by_path('edit-profile'))); 
+		exit;
+    }
+
+	return $original_template;
 }
