@@ -46,6 +46,11 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
       'key'     => 'profile_visibility_status',
       'value'   => 1,
       'compare' => '=',
+    ),
+    array(
+      'key'     => 'profile_status',
+      'value'   => "Pending",
+      'compare' => '!=',
     ));
 
     
@@ -109,51 +114,69 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
         'meta_query'    => $meta_queries
     );
     $userList = get_users($args);
+    $data = new stdClass();
 
     if( !empty( $userList ) ){
       
  
 
-    foreach($userList as $user){
+      foreach($userList as $user){
 
-        $termIds = get_user_meta($user->ID, 'profession',true);
-       
-        $userProfessions = get_terms( array(
-            'include'       => $termIds,
-            'hide_empty'    => false,
-            'parent'        => 0,
-            'fields'        => 'ids'
-        ) );
-
-        $user->professions = array();
-        foreach($userProfessions as $profession){
-            $professionDetails = new stdClass();
-            $professionDetails->singularName = get_term_meta( $profession, 'category_name_singular', true );
-            $professionDetails->badgeColour = get_term_meta( $profession, 'badge_color', true );
-
-            array_push($user->professions, $professionDetails);
-        }
-
-        $user->href = get_author_posts_url($user->ID);
+          $termIds = get_user_meta($user->ID, 'profession',true);
         
-        $user->headshot = home_url() . "/wp-content/uploads/2021/02/unkown-1.jpg";
-        if( have_rows('sci_user_headshots', 'user_' . $user->ID) ): ;
-					while ( have_rows('sci_user_headshots', 'user_' . $user->ID) ) : the_row();
-            $imageId = get_sub_field('sci_user_headshot');
-              if(get_post_meta( $imageId['id'], 'is_approved', true )){
-                $user->headshot =  $imageId['url'];
-                break;
-              }
-					endwhile;
-				endif;
-        
-        $user->location = get_field('sci_user_location', 'user_' . $user->ID)['label'];  
-    }
+          $userProfessions = get_terms( array(
+              'include'       => $termIds,
+              'hide_empty'    => false,
+              'parent'        => 0,
+              'fields'        => 'ids'
+          ) );
+
+          $user->professions = array();
+          foreach($userProfessions as $profession){
+              $professionDetails = new stdClass();
+              $professionDetails->singularName = get_term_meta( $profession, 'category_name_singular', true );
+              $professionDetails->badgeColour = get_term_meta( $profession, 'badge_color', true );
+
+              array_push($user->professions, $professionDetails);
+          }
+
+          $user->href = get_author_posts_url($user->ID);
+          
+          $user->headshot = home_url() . "/wp-content/uploads/2021/02/unkown-1.jpg";
+          if( have_rows('sci_user_headshots', 'user_' . $user->ID) ): ;
+            while ( have_rows('sci_user_headshots', 'user_' . $user->ID) ) : the_row();
+              $imageId = get_sub_field('sci_user_headshot');
+                if(get_post_meta( $imageId['id'], 'is_approved', true )){
+                  $user->headshot =  $imageId['url'];
+                  break;
+                }
+            endwhile;
+          endif;
+          
+          $user->location = get_field('sci_user_location', 'user_' . $user->ID)['label'];  
+          $user->accountIsActive =  get_user_meta($user->ID, 'profile_status',true) != "Rejected" ? 1 : 0;
+      }
     
-    $data = new stdClass();
-    $data->userList = array($userList);
+      
+      $data->userList = array($userList);
+      $data->result = 0;
+      
 
-    if($pageNumber == 1){
+      
+    }else{
+      $data = new stdClass();
+      if(($location && $location != "-1") || ($gender && $gender != '-1') || ($age && $age != '-1')){
+        $data->result = 1;
+        
+      }else{
+        $data->result = 2;
+        $data->text = get_field('sci_no_users_in_category', 'option');
+        
+      }
+      
+    }
+
+      if($pageNumber == 1){
         $totalUsersArgs = array(
             'role'          => 'subscriber',
             'orderby'       => 'user_registered',
@@ -198,29 +221,27 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
                     'value'   => sprintf(':"%s";', $key),
                     'compare' => 'LIKE',
                 ],
+                [
+                    'key'     => 'profile_visibility_status',
+                    'value'   => 1, 
+                    'compare' => '=',
+                ],
+                [
+                    'key'     => 'profile_status',
+                    'value'   => "Pending", 
+                    'compare' => '!=',
+                ]
             ],
           );
           $category->count = count(get_users($args));
 
             array_push($categories, $category);
         }
-        $data->result = 0;
+        
         $data->categories = $categories;
-    }
-
-    return $data;
-    }else{
-      $data = new stdClass();
-      if(($location && $location != "-1") || ($gender && $gender != '-1') || ($age && $age != '-1')){
-        $data->result = 1;
-        return $data;
-      }else{
-        $data->result = 2;
-        $data->text = get_field('sci_no_users_in_category', 'option');
-        return $data;
       }
-      
-    }
+
+      return $data;
   }
  
 }

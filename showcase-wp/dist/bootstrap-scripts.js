@@ -16455,8 +16455,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
- //sid
-// Edit Profile scripts
+ // Edit Profile scripts
 
 __webpack_require__(/*! ./bootstrap-editable.min.js */ "./js/bootstrap-editable.min.js");
 
@@ -16933,8 +16932,7 @@ $(document).ready(function () {
       }
     }).mount();
   }
-}); //sid
-
+});
 /* User Profile Details and Category Subcategory */
 
 $(document).ready(function () {
@@ -16963,8 +16961,7 @@ $(document).ready(function () {
       $("#sci_user_custom_gender_wapper").addClass('d-none');
     }
   });
-}); // sid
-
+});
 /* Add Headshot(s) */
 
 $(document).ready(function () {
@@ -17352,8 +17349,7 @@ $(document).ready(function () {
       }
     });
   });
-}); //sid
-
+});
 /* User Videos */
 
 $(document).ready(function () {
@@ -17480,8 +17476,7 @@ $(document).ready(function () {
     $(".main-menu").removeClass("show");
     $(".main-menu").addClass("hide");
   });
-}); //sid
-
+});
 /* User Audios */
 
 $(document).ready(function () {
@@ -17617,8 +17612,7 @@ $(document).ready(function () {
       }
     });
   });
-}); //sid
-
+});
 /* User Physical Attributes */
 
 $(document).ready(function () {
@@ -17738,8 +17732,7 @@ $(document).ready(function () {
       }
     });
   });
-}); //sid
-
+});
 /* UM Form Override css */
 
 $(document).ready(function () {
@@ -17754,8 +17747,7 @@ $(document).ready(function () {
   if (isresetpwdbtn === 'Reset my password') {
     $('input#um-submit-btn.um-button').val('Send Reset Link');
   }
-}); //sid
-
+});
 /* Verify User Password */
 
 $(document).ready(function () {
@@ -17789,6 +17781,23 @@ $(document).ready(function () {
       },
       error: function error(xhr, status, _error9) {
         console.log(xhr, status, _error9);
+      }
+    });
+  });
+}); // Spotlight search
+
+$(document).ready(function () {
+  $('[aria-label="Search Spotlight"]').keyup(function () {
+    // console.log($(this).val());
+    var $search = $(this).val();
+    $('.profile-personaldetails h1').each(function () {
+      var parent = $(this).parent().parent().parent();
+      var name = $(this).text();
+
+      if ($search.toUpperCase() == name.toUpperCase().slice(0, $search.length)) {
+        parent.show();
+      } else {
+        parent.hide();
       }
     });
   });

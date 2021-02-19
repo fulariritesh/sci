@@ -49,7 +49,8 @@ function sci_updated_content_page() {
 
 function sci_moderator_scripts() {
     $page = isset($_REQUEST['page']) && $_REQUEST['page']!=""? $_REQUEST["page"] : '';
-    if ($page == 'updated_content'){
+    
+    if ($page == 'updated_content' || $page == 'authorize-content'){
         wp_register_script( 'moderator-script', get_stylesheet_directory_uri(). '/js/moderator.js', array('jquery'), false, true );
     
         $script_data_array = array(
@@ -203,24 +204,29 @@ function action_introduction_callback() {
     $introtext = trim($_REQUEST["introtext"]);
     $intro_camara = $_REQUEST["intro_camara"];
 
-    if($introtext != ''){
-        update_user_meta($user_id, 'intro_text_is_approved', $status);
-    }
-
-    if($intro_camara != ''){
-        update_user_meta($user_id, 'intro_to_camera_is_approved', $status);
-    }
+    $introTextHasValue = false;
+    $introCamaraHasValue = false;
 
     $value = "";
-    if($introtext != ''){
+    if($introtext != '' && $introtext != 'notset'){
+        update_user_meta($user_id, 'intro_text_is_approved', $status);
         $value =  $value ."Text : " . $introtext . "; ";
+        $introTextHasValue = true;
     }
-    if($intro_camara != ''){
+
+    if($intro_camara != '' && $intro_camara != 'notset'){
+        update_user_meta($user_id, 'intro_to_camera_is_approved', $status);
         $value = $value . "Camara : " . $intro_camara;
+        $introCamaraHasValue = true;
     }
     
     AddLog('Introduction', $status, $value, $user_id);
-    update_user_meta($user_id, 'content_approval_introduction_updated', false);
+    
+    if(($introTextHasValue && $introCamaraHasValue) 
+        || ($introTextHasValue && $intro_camara == 'notset')
+        || ($introCamaraHasValue && $introtext == 'notset')){
+        update_user_meta($user_id, 'content_approval_introduction_updated', false);
+    }
 
     wp_die();
 }
@@ -500,8 +506,8 @@ function history_tab_callback() {
         }
     }
 
-    //var_dump($datewiseArray);
-    //wp_die();
+    krsort($datewiseArray);
+
     ?>
         <?php foreach($datewiseArray as $key => $data){
             $approvedWhat = '';
@@ -823,7 +829,7 @@ function history_tab_callback() {
 
 
 function AddLog($what, $status, $value, $user_id){
-    $log = get_field('content_log', 'user_' . $user_id);
+    $log = get_field('content_log', 'user_' . $user_id) ? get_field('content_log', 'user_' . $user_id) : array();
 
     $newRow = array();
 
@@ -837,5 +843,214 @@ function AddLog($what, $status, $value, $user_id){
     update_field(__sci_s("USER: Profile details", 'content_log')['key'],  $log , 'user_' . $user_id );
 }
 
+
+
+//listing
+add_action('wp_ajax_get_profiles_list', 'get_profiles_list_callback');
+function get_profiles_list_callback() {
+    check_ajax_referer('approve content', 'security');
+    $typeId = $_REQUEST["typeId"];
+
+    $userList = array();
+    if($typeId == 'new'){
+        $newUsers_meta_queries = array('relation' => 'OR' , 
+        array(
+            'key'     => 'profile_status',
+            'value'   => 'pending',
+            'compare' => '=',
+        ));
+        $newUsersArgs = array(
+            'role'          => 'subscriber',
+            'fields'        => array( 'ID'),
+            'meta_query'    => $newUsers_meta_queries
+        );
+        $userList = get_users($newUsersArgs);
+    }else if($typeId == 'updated'){
+        $meta_queries = array('relation' => 'AND' ,
+        array('relation' => 'OR' , 
+            array(
+                'key'     => 'content_approval_personal_details_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_introduction_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_headshots_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_photos_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_videos_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_audios_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+            array(
+                'key'     => 'content_approval_experience_updated',
+                'value'   => 1,
+                'compare' => '=',
+            ),
+        ),
+        array(
+            'key'     => 'profile_status',
+            'value'   => 'pending',
+            'compare' => '!=',
+        ),
+        array(
+            'key'     => 'profile_status',
+            'value'   => 'rejected',
+            'compare' => '!=',
+        )
+    );
+
+    $updatedContentArgs = array(
+        'role'          => 'subscriber',
+        'number'        => -1,
+        'meta_key'       => 'content_approval_content_updated_date',
+        'orderby'       => array( 'meta_value' => 'ASC' ), 
+        'offset'        => 0,
+        'fields'        => array( 'ID','display_name' ),
+        'meta_query'    => $meta_queries
+    );
+    $userList = get_users($updatedContentArgs);
+
+    }else if($typeId == 'rejected'){
+        $rejected_meta_queries = array('relation' => 'AND' , array(
+            'key'     => 'profile_status',
+            'value'   => 'Rejected',
+            'compare' => '=',
+        ));
+        $rejectedArgs = array(
+            'role'          => 'subscriber',
+            'fields'        => array( 'ID' ),
+            'meta_query'    => $rejected_meta_queries
+        );
+        $userList = get_users($rejectedArgs);
+    }
+
+
+        if(!empty($userList)){
+            foreach($userList as $updatedUser){ ?>
+                <tr class="user-list">
+                    <td><?php echo get_user_by('ID',$updatedUser->ID)->display_name ?></td>
+                    <?php
+                        $dateupdatedOn = date_create(get_user_meta($updatedUser->ID, 'content_approval_content_updated_date', true ));
+                    ?>
+                    <td><?php echo date_format($dateupdatedOn,"d-M-Y") ?></td>
+                    <td>
+                        <?php
+                            $basicDetailsStatus = get_user_meta($updatedUser->ID, 'basic_details_are_approved',true);
+                            $location = get_user_meta($updatedUser->ID, 'sci_user_location',true);
+                            $dob = get_user_meta($updatedUser->ID, 'sci_user_dob',true);
+                            $gender = get_user_meta($updatedUser->ID, 'sci_user_gender',true);
+                            $mobile = get_user_meta($updatedUser->ID, 'sci_user_mobile',true);
+
+                            if(($basicDetailsStatus == "" || $basicDetailsStatus == 'Updated') && 
+                                ($location != "" || $dob != "" ||$gender != "" ||$mobile != "") ){
+                                ?><span class="badge bm-badge">Basic Details</span><?php
+                            }
+
+
+                            if( have_rows('sci_user_headshots', 'user_' . $updatedUser->ID) ): ;
+                                while ( have_rows('sci_user_headshots', 'user_' . $updatedUser->ID) ) : the_row();
+                                    $imageId = get_sub_field('sci_user_headshot');
+                                    $status = get_post_meta( $imageId['id'], 'is_approved', true );
+                                    if($status == "" || $status == "Updated"){
+                                        ?><span class="badge bm-badge">Heashots</span><?php
+                                        break;
+                                    }
+                                endwhile;
+                            endif;
+
+                            $introTocamaraStatus = get_user_meta($updatedUser->ID, 'intro_to_camera_is_approved',true);
+                            $introUrl = get_user_meta($updatedUser->ID, 'intro_to_camera',true);
+                            if($introUrl!= "" && ($introTocamaraStatus == "" ||  $introTocamaraStatus == 'Updated') ){
+                                ?><span class="badge bm-badge">Intro to camara</span><?php
+                            }
+
+                            $introTextStatus = get_user_meta($updatedUser->ID, 'intro_text_is_approved',true);
+                            $introTest = get_user_meta($updatedUser->ID, 'intro_text',true);
+                            if($introTest != "" && ($introTextStatus == "" ||  $introTextStatus == 'Updated') ){
+                                ?><span class="badge bm-badge">Intro text</span><?php
+                            }
+
+                            $photos = get_field('photos', 'user_' . $updatedUser->ID);
+                            if( $photos ):
+                                foreach( $photos as $photo ):
+                                    $status = get_post_meta( $photo["ID"], 'is_approved', true );
+                                    if($status == "" || $status == "Updated"){
+                                        ?><span class="badge bm-badge">Photos</span><?php
+                                        break;
+                                    }
+                                endforeach;
+                            endif; 
+
+
+                            if( have_rows('videos', 'user_' . $updatedUser->ID) ): ;
+                                while ( have_rows('videos', 'user_' . $updatedUser->ID) ) : the_row();
+                                    $videoStatus = get_sub_field('is_approved')["value"];
+                                    if($videoStatus == "" || $videoStatus == "Updated"){
+                                        ?><span class="badge bm-badge">Video</span><?php
+                                        break;
+                                    }
+                                endwhile;
+                            endif;
+
+                            if( have_rows('audios', 'user_' . $updatedUser->ID) ): ;
+                                while ( have_rows('audios', 'user_' . $updatedUser->ID) ) : the_row();
+                                    $audio = get_sub_field('audio_file');
+                                    $audioStatus = get_post_meta( $audio["ID"], 'is_approved', true );
+                                    if($audioStatus == "" || $audioStatus == "Updated"){
+                                        ?><span class="badge bm-badge">Audio</span><?php
+                                        break;
+                                    }
+                                endwhile;
+                            endif;
+
+                            $experienceCounter = 0;
+                            if( have_rows('experience', 'user_' . $updatedUser->ID) ): ;
+                                while ( have_rows('experience', 'user_' . $updatedUser->ID) && $experienceCounter == 0 ) : the_row();
+                                    $experienceStatus = get_sub_field('sci_experience_approved');
+                                    if($experienceStatus == "" || $experienceStatus == "Updated"){
+
+                                        if( have_rows('sections') ):
+                                            while ( have_rows('sections') ) : the_row();
+                                                $experienceCounter += 1;
+                                                ?><span class="badge bm-badge">Experience</span><?php
+                                                break;
+                                            endwhile;
+                                            endif; 
+                                        
+                                    }
+                                endwhile;
+                            endif;
+                        ?>                                      
+                    </td>
+                    <td>
+                    <a href=<?php echo admin_url() . 'admin.php?page=updated_content&ID=' . $updatedUser->ID ?> class="btn btn-secondary">View</a>
+                    </td>
+                </tr> 
+            <?php } 
+        } else { ?>
+            <tr class="user-list"><td colspan="4">Sorry! There are no records to show. </td></tr>
+        <?php }
+
+
+    echo json_encode($visibilityArray);
+    wp_die();
+}
 
 ?>

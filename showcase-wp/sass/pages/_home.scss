@@ -22,7 +22,7 @@
   }
   
   .banner-btn {
-    background: $navbar-bg !important;
+    background: $primary-color !important;
     color: $light-color;
     text-transform: uppercase;
   }
@@ -461,41 +461,41 @@
 }
 
 
-#imageBlock {
-  display: block;
-  // width:780px;
-  // height: 730px;
-  // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
-  // border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
-  position: absolute;
-  z-index: 5;
-  left: 0;
-  top:0;
-  clip-path: ellipse(34% 33% at 35% 33%);
-  @include media-lg{
-    width:630px;
-    height: 560px;
-    clip-path: ellipse(35% 32% at 35% 33%);
-  }
-  @include media-md{
-    width:460px;
-    height: 480px;
-    clip-path: ellipse(34% 29% at 35% 33%);
-  }
-  @include media-sm{
-    width:460px;
-    height: 480px;
-    clip-path: ellipse(44% 34% at 56% 35%);
-  }
-  @include media-xs{
-     width:410px;
-    height: 480px;
-    clip-path: ellipse(43% 32% at 42% 35%);
-  }
+// #imageBlock {
+//   display: block;
+//   // width:780px;
+//   // height: 730px;
+//   // background-image: linear-gradient($profile-gradient1, $profile-gradient2);
+//   // border-radius:  40% 61% 50% 68% / 60% 60% 40% 40%;
+//   position: absolute;
+//   z-index: 5;
+//   left: 0;
+//   top:0;
+//   clip-path: ellipse(34% 33% at 35% 33%);
+//   @include media-lg{
+//     width:630px;
+//     height: 560px;
+//     clip-path: ellipse(35% 32% at 35% 33%);
+//   }
+//   @include media-md{
+//     width:460px;
+//     height: 480px;
+//     clip-path: ellipse(34% 29% at 35% 33%);
+//   }
+//   @include media-sm{
+//     width:460px;
+//     height: 480px;
+//     clip-path: ellipse(44% 34% at 56% 35%);
+//   }
+//   @include media-xs{
+//      width:410px;
+//     height: 480px;
+//     clip-path: ellipse(43% 32% at 42% 35%);
+//   }
  
-}
+// }
 
-#imageBlock-influencers, #imageBlock-profile {
+#imageBlock-influencers, #imageBlock-profile, #imageBlock {
   display: block;
   // width:705px;
   // height: 730px;
@@ -505,7 +505,7 @@
   z-index: 5;
  
   top:0;
-  clip-path: ellipse(42% 35% at 43% 34%);
+  clip-path: ellipse(42% 34% at 43% 34%);
   @include media-lg{
     width: 440px;
     height: 560px;
@@ -523,7 +523,7 @@
     width:410px;
     height: 420px;
     right: 0;
-    clip-path: ellipse(42% 35% at 58% 34%);
+    clip-path: ellipse(42% 32% at 58% 34%);
   }
 }
 

@@ -1,4 +1,39 @@
+
 jQuery(function($) {
+     //moderator list
+
+    $('.filter-button').on('click', function(){
+        if($(this).hasClass('filter-selected')){
+            $('.filter-button').removeClass('filter-selected');
+            $(this).removeClass('filter-selected')
+        }else{
+            $('.filter-button').removeClass('filter-selected');
+            $(this).addClass('filter-selected');
+        }
+
+        let typeId = $(this).data('id');
+
+        var data = {
+            'action': 'get_profiles_list',
+            'security': moderator.security,
+            'typeId' : typeId
+        }
+    
+       $.ajax({
+            type:"GET",
+            url: moderator.ajaxurl,
+            data: data,
+            success:function(res){
+                $('#user-list tbody').children('.user-list').remove();
+                $('#user-list tbody').append(res);
+            },
+            error: function(errorThrown){
+                alert(errorThrown);
+            } 
+
+        });
+    });
+
     let userId = jQuery('#user-id').data('id');
     let $profileVisibility = jQuery('#tog-btn-profile-visibility');
     let $profileStatusApproved = jQuery('#profile_status_approved');
@@ -26,7 +61,6 @@ jQuery(function($) {
     url: moderator.ajaxurl,
     data: data,
     success:function(res){
-        console.log(res);
         let data = JSON.parse(res);
         if(data.profile == 1){
             $profileVisibility.prop('checked', true);
@@ -348,8 +382,8 @@ $selectAll.on('click', function(){
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
         let $checked = $(this).closest('.details-block').find('.checkbox');
 
-        let introtext = '';
-        let intro_camara = '';
+        let introtext = $('#introText').length > 0 ? '' : 'notset';
+        let intro_camara =  $('#introToCamara').length > 0 ? '' : 'notset';
 
         $checked.map(function(elem){
             if($(this).is(":checked") && $(this).data('value') == 'text'){

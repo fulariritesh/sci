@@ -1372,3 +1372,21 @@ $(document).ready(function () {
 		});
 	});
 });
+
+// Spotlight search
+$(document).ready(function(){
+	$('[aria-label="Search Spotlight"]').keyup(function(){
+		// console.log($(this).val());
+		var $search = $(this).val();
+		$('.profile-personaldetails h1').each(function(){
+			var parent = $(this).parent().parent().parent();
+			var name = $(this).text();
+			if ($search.toUpperCase() == (name.toUpperCase().slice(0, $search.length))) {
+				parent.show();
+			}
+			else{
+				parent.hide();
+			}
+		})
+	})
+});

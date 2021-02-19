@@ -10,6 +10,9 @@
       color: $light-color;
       list-style: none;
       display: inline;
+      a{
+        color: $light-color;
+      }
     }
 
     @include media-sm{
