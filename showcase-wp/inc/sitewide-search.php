@@ -260,20 +260,25 @@ function GetList($offset, $pageSize, $rejected, $findTotal){
             'key'     => 'profile_status',
             'value'   => "Pending",
             'compare' => '!=',
+        ),
+        array(
+            'key'     => 'profile_status',
+            'value'   => "Rejected",
+            'compare' => '!=',
         )
     );
     
     if($rejected){
         array_push($meta_query, array(
-            'key'     => 'profile_status',
-            'value'   => "Rejected",
+            'key'     => 'account_status',
+            'value'   => "inactive",
             'compare' => '=',
         ));
     }else{
         array_push($meta_query, array(
-            'key'     => 'profile_status',
-            'value'   => "Rejected",
-            'compare' => '!=',
+            'key'     => 'account_status',
+            'value'   => "approved",
+            'compare' => '=',
         )); 
     }
 
