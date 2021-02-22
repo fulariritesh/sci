@@ -3,13 +3,8 @@ jQuery(function($) {
      //moderator list
 
     $('.filter-button').on('click', function(){
-        if($(this).hasClass('filter-selected')){
-            $('.filter-button').removeClass('filter-selected');
-            $(this).removeClass('filter-selected')
-        }else{
-            $('.filter-button').removeClass('filter-selected');
-            $(this).addClass('filter-selected');
-        }
+        $('.filter-button').removeClass('filter-selected');
+        $(this).addClass('filter-selected');
 
         let typeId = $(this).data('id');
 
@@ -75,7 +70,6 @@ jQuery(function($) {
         }else if(data.profileStatus == 'Approved'){
             $profileStatusApproved.attr('checked', true);
         }else if(data.profileStatus == 'Rejected'){
-            console.log('d');
             $profileStatusRejected.attr('checked', true);
         }
 
@@ -349,11 +343,16 @@ $selectAll.on('click', function(){
       });
   });
 
-  $('.actionTaken').hide();
+  //$('.actionTaken').hide();
   let $personalDetailsControls = jQuery('.action-personal-details');
   $personalDetailsControls.on('click', function(){
     let actionTaken = $(this).data('status');
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
+
+    $personalDetailsControls.prop('disabled', true);
+    statusLabel.text('');
+    statusLabel.addClass('editableform-loading');
+    
     var data = {
         'action': 'action_personal_details',
         'security': moderator.security,
@@ -367,7 +366,9 @@ $selectAll.on('click', function(){
         url: moderator.ajaxurl,
         data: data,
         success:function(res){
-            statusLabel.text(actionTaken).show();
+            $personalDetailsControls.prop('disabled', false);
+            statusLabel.removeClass('editableform-loading');
+            statusLabel.text(actionTaken);
         },
         error: function(errorThrown){
             alert(errorThrown);
@@ -380,10 +381,15 @@ $selectAll.on('click', function(){
   $introductionControls.on('click', function(){
     let actionTaken = $(this).data('status');
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
-        let $checked = $(this).closest('.details-block').find('.checkbox');
 
-        let introtext = $('#introText').length > 0 ? '' : 'notset';
-        let intro_camara =  $('#introToCamara').length > 0 ? '' : 'notset';
+    $introductionControls.prop('disabled', true);
+    statusLabel.text('');
+    statusLabel.addClass('editableform-loading');
+
+    let $checked = $(this).closest('.details-block').find('.checkbox');
+
+    let introtext = $('#introText').length > 0 ? '' : 'notset';
+    let intro_camara =  $('#introToCamara').length > 0 ? '' : 'notset';
 
         $checked.map(function(elem){
             if($(this).is(":checked") && $(this).data('value') == 'text'){
@@ -394,7 +400,9 @@ $selectAll.on('click', function(){
             }
         });
 
-        if(introtext != '' || intro_camara != ''){
+        if((introtext != '' && intro_camara != '') || 
+            (introtext != '' && (intro_camara == '' || intro_camara == 'notset')) || 
+            (intro_camara != '' && (introtext == '' || introtext == 'notset' ))){
             var data = {
                 'action': 'action_introduction',
                 'security': moderator.security,
@@ -409,6 +417,8 @@ $selectAll.on('click', function(){
                 url: moderator.ajaxurl,
                 data: data,
                 success:function(res){
+                    $introductionControls.prop('disabled', false);
+                    statusLabel.removeClass('editableform-loading');
                     statusLabel.text(actionTaken).show();
                 },
                 error: function(errorThrown){
@@ -417,7 +427,9 @@ $selectAll.on('click', function(){
             
             });
         }else{
-            console.log("Nothing selected"); //Show message here
+            $introductionControls.prop('disabled', false);
+            statusLabel.removeClass('editableform-loading');
+            statusLabel.text("Nothing selected");
         }
     });
 
@@ -426,6 +438,11 @@ $selectAll.on('click', function(){
     $headshotsControls.on('click', function(){
     let actionTaken = $(this).data('status');
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
+
+    $headshotsControls.prop('disabled', true);
+    statusLabel.text('');
+    statusLabel.addClass('editableform-loading');
+
     let $checked = $(this).closest('.details-block').find('.checkbox');
 
     headshots = [];
@@ -435,26 +452,35 @@ $selectAll.on('click', function(){
         }
     });
 
-    var data = {
-        'action': 'action_headshot_details',
-        'security': moderator.security,
-        'user_id' : userId,
-        'status': $(this).data('status'),
-        'value' : headshots
+    if(headshots.length > 0){
+        var data = {
+            'action': 'action_headshot_details',
+            'security': moderator.security,
+            'user_id' : userId,
+            'status': $(this).data('status'),
+            'value' : headshots
+        }
+    
+        jQuery.ajax({
+            type:"POST",
+            url: moderator.ajaxurl,
+            data: data,
+            success:function(res){
+                $headshotsControls.prop('disabled', false);
+                statusLabel.removeClass('editableform-loading');
+                statusLabel.text(actionTaken).show();
+            },
+            error: function(errorThrown){
+                alert(errorThrown);
+            } 
+          
+          });
+    }else{
+        $headshotsControls.prop('disabled', false);
+        statusLabel.removeClass('editableform-loading');
+        statusLabel.text("Nothing selected");
     }
-
-    jQuery.ajax({
-        type:"POST",
-        url: moderator.ajaxurl,
-        data: data,
-        success:function(res){
-            statusLabel.text(actionTaken).show();
-        },
-        error: function(errorThrown){
-            alert(errorThrown);
-        } 
-      
-      });
+    
   });
 
 
@@ -463,6 +489,11 @@ $selectAll.on('click', function(){
     $photosControls.on('click', function(){
     let actionTaken = $(this).data('status');
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
+
+    $photosControls.prop('disabled', true);
+    statusLabel.text('');
+    statusLabel.addClass('editableform-loading');
+
     let $checked = $(this).closest('.details-block').find('.checkbox');
 
     photos = [];
@@ -472,26 +503,35 @@ $selectAll.on('click', function(){
         }
     });
 
-    var data = {
-        'action': 'action_photos',
-        'security': moderator.security,
-        'user_id' : userId,
-        'status': $(this).data('status'),
-        'value' : photos
+    if(photos.length > 0){
+        var data = {
+            'action': 'action_photos',
+            'security': moderator.security,
+            'user_id' : userId,
+            'status': $(this).data('status'),
+            'value' : photos
+        }
+    
+        jQuery.ajax({
+            type:"POST",
+            url: moderator.ajaxurl,
+            data: data,
+            success:function(res){
+                $photosControls.prop('disabled', false);
+                statusLabel.removeClass('editableform-loading');
+                statusLabel.text(actionTaken).show();
+            },
+            error: function(errorThrown){
+                alert(errorThrown);
+            } 
+          
+          });
+    }else{
+        $photosControls.prop('disabled', false);
+        statusLabel.removeClass('editableform-loading');
+        statusLabel.text("Nothing selected");
     }
-
-    jQuery.ajax({
-        type:"POST",
-        url: moderator.ajaxurl,
-        data: data,
-        success:function(res){
-            statusLabel.text(actionTaken).show();
-        },
-        error: function(errorThrown){
-            alert(errorThrown);
-        } 
-      
-      });
+    
   });
 
   //videos
@@ -499,6 +539,10 @@ $selectAll.on('click', function(){
     $videosControls.on('click', function(){
     let actionTaken = $(this).data('status');
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
+    $videosControls.prop('disabled', true);
+    statusLabel.text('');
+    statusLabel.addClass('editableform-loading');
+
     let $checked = $(this).closest('.details-block').find('.checkbox');
 
     videos = [];
@@ -508,26 +552,35 @@ $selectAll.on('click', function(){
         }
     });
 
-    var data = {
-        'action': 'action_videos',
-        'security': moderator.security,
-        'user_id' : userId,
-        'status': $(this).data('status'),
-        'value' : videos
+    if(videos.length > 0){
+        var data = {
+            'action': 'action_videos',
+            'security': moderator.security,
+            'user_id' : userId,
+            'status': $(this).data('status'),
+            'value' : videos
+        }
+    
+        jQuery.ajax({
+            type:"POST",
+            url: moderator.ajaxurl,
+            data: data,
+            success:function(res){
+                $videosControls.prop('disabled', false);
+                statusLabel.removeClass('editableform-loading');
+                statusLabel.text(actionTaken).show();
+            },
+            error: function(errorThrown){
+                alert(errorThrown);
+            } 
+          
+          });
+    }else{
+        $videosControls.prop('disabled', false);
+        statusLabel.removeClass('editableform-loading');
+        statusLabel.text("Nothing selected");
     }
-
-    jQuery.ajax({
-        type:"POST",
-        url: moderator.ajaxurl,
-        data: data,
-        success:function(res){
-            statusLabel.text(actionTaken).show();
-        },
-        error: function(errorThrown){
-            alert(errorThrown);
-        } 
-      
-      });
+    
   });
 
   //audio
@@ -535,6 +588,10 @@ $selectAll.on('click', function(){
     $audiosControls.on('click', function(){
     let actionTaken = $(this).data('status');
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
+    $audiosControls.prop('disabled', true);
+    statusLabel.text('');
+    statusLabel.addClass('editableform-loading');
+
     let $checked = $(this).closest('.details-block').find('.checkbox');
 
     audios = [];
@@ -544,26 +601,35 @@ $selectAll.on('click', function(){
         }
     });
 
-    var data = {
-        'action': 'action_audios',
-        'security': moderator.security,
-        'user_id' : userId,
-        'status': $(this).data('status'),
-        'value' : audios
+    if(audios.length > 0){
+        var data = {
+            'action': 'action_audios',
+            'security': moderator.security,
+            'user_id' : userId,
+            'status': $(this).data('status'),
+            'value' : audios
+        }
+    
+        jQuery.ajax({
+            type:"POST",
+            url: moderator.ajaxurl,
+            data: data,
+            success:function(res){
+                $audiosControls.prop('disabled', false);
+                statusLabel.removeClass('editableform-loading');
+                statusLabel.text(actionTaken).show();
+            },
+            error: function(errorThrown){
+                alert(errorThrown);
+            } 
+          
+          });
+    }else{
+        $audiosControls.prop('disabled', false);
+        statusLabel.removeClass('editableform-loading');
+        statusLabel.text("Nothing selected");
     }
-
-    jQuery.ajax({
-        type:"POST",
-        url: moderator.ajaxurl,
-        data: data,
-        success:function(res){
-            statusLabel.text(actionTaken).show();
-        },
-        error: function(errorThrown){
-            alert(errorThrown);
-        } 
-      
-      });
+    
   });
 
   //experience
@@ -571,6 +637,10 @@ $selectAll.on('click', function(){
     $experiencesControls.on('click', function(){
     let actionTaken = $(this).data('status');
     let statusLabel = $(this).closest('.details-block').find('.actionTaken');
+    $experiencesControls.prop('disabled', true);
+    statusLabel.text('');
+    statusLabel.addClass('editableform-loading');
+
     let $checked = $(this).closest('.details-block').find('.checkbox');
 
     experiences = [];
@@ -579,33 +649,41 @@ $selectAll.on('click', function(){
             experiences.push($(this).attr('id'));
         }
     });
-    console.log(experiences);
-    var data = {
-        'action': 'action_experiences',
-        'security': moderator.security,
-        'user_id' : userId,
-        'status': $(this).data('status'),
-        'value' : experiences
+    
+    if(experiences.length > 0){
+        var data = {
+            'action': 'action_experiences',
+            'security': moderator.security,
+            'user_id' : userId,
+            'status': $(this).data('status'),
+            'value' : experiences
+        }
+    
+        jQuery.ajax({
+            type:"POST",
+            url: moderator.ajaxurl,
+            data: data,
+            success:function(res){
+                $experiencesControls.prop('disabled', false);
+                statusLabel.removeClass('editableform-loading');
+                statusLabel.text(actionTaken).show();
+            },
+            error: function(errorThrown){
+                alert(errorThrown);
+            } 
+          
+          });
+    }else{
+        $experiencesControls.prop('disabled', false);
+        statusLabel.removeClass('editableform-loading');
+        statusLabel.text("Nothing selected");
     }
-
-    jQuery.ajax({
-        type:"POST",
-        url: moderator.ajaxurl,
-        data: data,
-        success:function(res){
-            statusLabel.text(actionTaken).show();
-        },
-        error: function(errorThrown){
-            alert(errorThrown);
-        } 
-      
-      });
+    
   });
 
 
   //History tab
   jQuery('#history-tab').on('click', function(){
-      console.log('clicked')
     var data = {
         'action': 'history_tab',
         'security': moderator.security,

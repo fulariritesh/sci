@@ -550,6 +550,9 @@ function sci_experience_form_submit() {
          
          if($experience['category']->term_id == $categoryId){
             $categoryExperiencePresent = true;
+            $isExperienceEditedinThiscategory = false;
+
+            $editedExperiencesCount = 0;
 
             $sectionRow = 0;
             $newSections = array();
@@ -564,27 +567,38 @@ function sci_experience_form_submit() {
 
                }
 
-               foreach($experiences as $experience){
-                  if($experience->rowNumber != "-1"){
+               foreach($experiences as $thisExperience){
+                  if($thisExperience->rowNumber != "-1"){
                      $newSection = array(
-                        "content" => $experience->content,
-                        "year" => (string)$experience->year
+                        "content" => $thisExperience->content,
+                        "year" => (string)$thisExperience->year
                      );
-                     $newSections[$experience->rowNumber-1] = $newSection;
+
+                     if(str_replace("\n", "", strip_tags($newSections[$thisExperience->rowNumber-1]["content"])) != $thisExperience->content){
+                        $isExperienceEditedinThiscategory = true;
+                     }
+
+                     $newSections[$thisExperience->rowNumber-1] = $newSection;
                   }
                }
             }
             
-            foreach($experiences as $experience){
-                if($experience->rowNumber == "-1"){
+            
+            foreach($experiences as $thisExperience){
+                if($thisExperience->rowNumber == "-1"){
                   $newSection = array(
-                     "content" => $experience->content,
-                     "year" => (string)$experience->year
+                     "content" => $thisExperience->content,
+                     "year" => (string)$thisExperience->year
                   );
                   $newSections[count($newSections)] = $newSection;
+                  $isExperienceEditedinThiscategory = true;
                 }
             }
             $experienceField[$experienceRow]['sections'] = $newSections;
+            if($isExperienceEditedinThiscategory){
+               $experienceField[$experienceRow]['sci_experience_approved'] = "Updated";
+               update_user_meta($current_user->ID, 'content_approval_experience_updated', true);
+            }
 
 
             //////////////////////////////

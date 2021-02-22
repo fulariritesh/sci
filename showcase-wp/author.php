@@ -190,7 +190,8 @@ get_header();
 						<?php
 							$isPersonalDetailsUpdated = get_user_meta($obj_id, 'content_approval_personal_details_updated', true);
 							$personalInfoVisible = get_user_meta($obj_id, 'sections_visibility_personal_details', true);
-							if($personalInfoVisible && !$isPersonalDetailsUpdated){
+							$approvalStatus = get_user_meta($obj_id, 'basic_details_are_approved', true);
+							if($personalInfoVisible && !$isPersonalDetailsUpdated && $approvalStatus == "Approved"){
 						?>
 							<div class="col-6 profile-personaldetails">
 								<div class="row justify-content-end pr-md-4">
@@ -290,10 +291,12 @@ get_header();
 	                </div>
 	                <!-- Introdustion  Block-->
 	                <?php 
-					$IntroductionUpdated = get_user_meta($obj_id, 'content_approval_introduction_updated', true);
 					$IntroductionVisible = get_user_meta($obj_id, 'sections_visibility_introduction', true);
+					$camaraIntroApprovalStatus = get_user_meta($obj_id, 'intro_to_camera_is_approved', true);
+					$textApprovalStatus = get_user_meta($obj_id, 'intro_text_is_approved', true);
 					
-					if (get_field('intro_text', 'user_' . $obj_id) && $IntroductionVisible && !$IntroductionUpdated): ?>
+					
+					if (get_field('intro_text', 'user_' . $obj_id) && $IntroductionVisible && ($textApprovalStatus == 'Approved' || $camaraIntroApprovalStatus == 'Approved')): ?>
 	                <div class="row mb-3 p-3 blockBG">
 	                	<style type="text/css">
 	                		.introvideo {
@@ -316,13 +319,19 @@ get_header();
 	                			max-width: 100%;
 	                		}
 	                	</style>
-	                    <div class="col-12 col-sm-6 introvideo">
-	                        <?php echo get_field('intro_to_camera', 'user_' . $obj_id); ?>
-	                    </div>
-	                    <div class="col-12 col-sm-6 intro">
-	                        <h4>Introduction</h4>
-	                        <p><?php echo get_field('intro_text', 'user_' . $obj_id); ?></p>
-	                    </div>
+						<?php
+							$approvalStatus = get_user_meta($obj_id, 'intro_to_camera_is_approved', true);
+							if($camaraIntroApprovalStatus == "Approved"){ ?>
+								<div class="col-12 col-sm-6 introvideo">
+									<?php echo get_field('intro_to_camera', 'user_' . $obj_id); ?>
+								</div>
+							<?php } 
+							if($textApprovalStatus == "Approved"){ ?>
+								<div class="col-12 col-sm-6 intro">
+									<h4>Introduction</h4>
+									<p><?php echo get_field('intro_text', 'user_' . $obj_id); ?></p>
+								</div>
+							<?php } ?>
 	                </div>
 	                <?php endif ?>
 	                <?php if (get_field('photos', 'user_' . $obj_id) || get_field('videos', 'user_' . $obj_id) || get_field('audios', 'user_' . $obj_id) || get_field('experience', 'user_' . $obj_id)): ?>

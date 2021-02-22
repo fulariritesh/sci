@@ -34,6 +34,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       align-items: center;
       color: white;
     } */
+
+    .icon-submit-btn{
+      background: none;
+      padding: 0px;
+      border: none;
+    }
   </style>
 	<link rel="profile" href="https://gmpg.org/xfn/11">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -81,9 +87,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               ></a>
             </li>
             <li class="nav-item pl-4 pt-2 d-none d-lg-block">
-              <form class="tb-search-bg px-3">
-                <input class="tb-search-bg searchBox " type="" placeholder="search..." />
-                <i class="tb-icon1 fa fa-search"></i>
+              <form name="sitewide-search" data-id="sitewide-search" action=<?php echo site_url() . '\sitewide-search' ?> method="post" class="tb-search-bg px-3">
+                <input name="search" class="tb-search-bg searchBox text-sitewide-search" type="" placeholder="search..." />
+                 <button class="icon-submit-btn" type="submit"><i class="tb-icon1 fa fa-search"></i></button>
               </form>
             </li>
           </ul>
@@ -151,9 +157,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </div>
              
               <div class="pt-4 px-3 d-clock d-md-none pb-4">
-                <form class="tb-search-bg px-3">
-                  <input class="tb-search-bg searchBox " type="text" placeholder="search..." />
-                  <i class="tb-icon1 fa fa-search"></i>
+                <form name="sitewide-search" data-id="sitewide-search" action=<?php echo site_url() . '\sitewide-search' ?> method="post" class="tb-search-bg px-3">
+                  <input name="search" class="tb-search-bg searchBox text-sitewide-search" type="" placeholder="search..." />
+                  <button class="icon-submit-btn" type="submit"><i class="tb-icon1 fa fa-search"></i></button>
                 </form>
               </div>
               

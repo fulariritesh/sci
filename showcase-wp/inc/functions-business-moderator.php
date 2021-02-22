@@ -192,6 +192,12 @@ function action_personal_details_callback() {
     AddLog('Personal details', $status, $value, $user_id);
     
     update_user_meta($user_id, 'content_approval_personal_details_updated', false);
+
+    if($status == 'Approved'){
+        update_user_meta( $user_id, 'tag_visibility_is_basic_details_tag_viewed', false );
+    }else{
+        update_user_meta( $user_id, 'tag_visibility_is_basic_details_tag_viewed', true );
+    }
     echo update_user_meta($user_id, 'basic_details_are_approved', $status);
     wp_die();
 }
@@ -210,12 +216,22 @@ function action_introduction_callback() {
     $value = "";
     if($introtext != '' && $introtext != 'notset'){
         update_user_meta($user_id, 'intro_text_is_approved', $status);
+        if($status == 'Approved'){
+            update_user_meta( $user_id, 'tag_visibility_is_intro_to_camara_tag_viewed', false );
+        }else{
+            update_user_meta( $user_id, 'tag_visibility_is_intro_to_camara_tag_viewed', true );
+        }
         $value =  $value ."Text : " . $introtext . "; ";
         $introTextHasValue = true;
     }
 
     if($intro_camara != '' && $intro_camara != 'notset'){
         update_user_meta($user_id, 'intro_to_camera_is_approved', $status);
+        if($status == 'Approved'){
+            update_post_meta( $user_id, 'tag_visibility_is_intro_text_tag_viewed', false );
+        }else{
+            update_user_meta( $user_id, 'tag_visibility_is_intro_to_camara_tag_viewed', true );
+        }
         $value = $value . "Camara : " . $intro_camara;
         $introCamaraHasValue = true;
     }
@@ -241,6 +257,11 @@ function action_headshot_details_callback() {
 
     foreach($value as $headshot){
         update_post_meta( $headshot, 'is_approved', $status );
+        if($status == 'Approved'){
+            update_post_meta( $headshot, 'is_status_tag_viewed', false );
+        }else{
+            update_post_meta( $headshot, 'is_status_tag_viewed', true );
+        }
     }
 
     AddLog('Headshots', $status, json_encode($value), $user_id);
@@ -259,6 +280,11 @@ function action_photos_callback() {
 
     foreach($value as $photo){
         update_post_meta( $photo, 'is_approved', $status );
+        if($status == 'Approved'){
+            update_post_meta( $photo, 'is_status_tag_viewed', false );
+        }else{
+            update_post_meta( $photo, 'is_status_tag_viewed', true );
+        }
     }
 
     AddLog('Photos', $status, json_encode($value), $user_id);
@@ -280,6 +306,11 @@ function action_videos_callback() {
             $row = get_row_index();
             if(in_array($row, $value)){
                 update_sub_field('is_approved', $status);
+                if($status == 'Approved'){
+                    update_sub_field('is_status_tag_viewed', false);
+                }else{
+                    update_sub_field('is_status_tag_viewed', true);
+                }
             }
         endwhile;
     endif; 
@@ -301,6 +332,11 @@ function action_audios_callback() {
 
     foreach($value as $audio){
         update_post_meta( $audio, 'is_approved', $status );
+        if($status == 'Approved'){
+            update_post_meta( $audio, 'is_status_tag_viewed', false );
+        }else{
+            update_post_meta( $audio, 'is_status_tag_viewed', true );
+        }
     } 
 
     AddLog('Audios', $status, json_encode($value), $user_id);
@@ -324,6 +360,11 @@ function action_experiences_callback() {
 
             if((string)in_array(get_sub_field('category')->term_id, $value)){
                 update_sub_field('sci_experience_approved', $status);
+                if($status == 'Approved'){
+                    update_sub_field('is_status_tag_viewed', false);
+                }else{
+                    update_sub_field('is_status_tag_viewed', true);
+                }
             }
         endwhile;
     endif;
@@ -834,7 +875,7 @@ function AddLog($what, $status, $value, $user_id){
     $newRow = array();
 
     $newRow["what_changed"] = array('value' => $what, 'label' => $what);
-    $newRow["when_changed"] = date("Y/m/d h:i:s A");
+    $newRow["when_changed"] = date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) );
     $newRow["value"] = $value;
     $newRow["status"] = array('value' => $status, 'label' => $status);
 
