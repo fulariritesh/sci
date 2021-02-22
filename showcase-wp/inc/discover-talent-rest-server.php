@@ -153,7 +153,7 @@ class Discover_Talent_Rest_Server extends WP_REST_Controller {
             endwhile;
           endif;
           
-          $user->location = get_field('sci_user_location', 'user_' . $user->ID)['label'];  
+          $user->location = get_field('sci_user_location', 'user_' . $user->ID)? get_field('sci_user_location', 'user_' . $user->ID)['label']:"";  
           $user->accountIsActive =  get_user_meta($user->ID, 'profile_status',true) != "Rejected" ? 1 : 0;
       }
     
