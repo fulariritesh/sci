@@ -7,6 +7,18 @@ require("./bootstrap-editable.min.js");
 
 $(document).ready(function(){
 
+	$(document).on("keydown", "form", function(event) { 
+		if(event.key == 'Enter'){
+			let formId = $(this).data('id') ? $(this).data('id') : '';
+			let seachText = $(this).find('.text-sitewide-search') ? $(this).find('.text-sitewide-search').val() : '';
+			if(formId == 'sitewide-search' && seachText ==''){
+				event.preventDefault();
+				return false;
+			}
+		}
+	});
+
+
 	$('[data-toggle="tooltip"]').tooltip();
 
 	$.fn.editable.defaults.mode = 'inline';
@@ -380,7 +392,7 @@ $(document).ready(function(){
 					let experience = $();
 					experience.year = thisYear;
 					experience.rowNumber = $(this).data('row')?$(this).data('row'):'-1';
-					experience.content = $(this).find('span').text();
+					experience.content = $(this).find('span').text().replace(/\n/g, "");
 
 					experienceDetails.push(experience);
 				});
@@ -391,7 +403,7 @@ $(document).ready(function(){
 
 
 			let dataStringified = JSON.stringify({subCats : subCatsIds, additionalFields : fields, website : experienceWebsite, fieldOtherSpecifications : otherFields, experiences : experienceDetails, deleted : deletedExperiences });
-			console.log(dataStringified);
+
 			$.post({
 			    url: Edit.request_url,
 			    data: {

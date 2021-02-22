@@ -248,6 +248,18 @@ input:checked + .slider .off
     margin-bottom: 20px;
     border-bottom: 2px solid #dee2e6;
   }
+
+  .editableform-loading {
+    background: url(<?php echo get_stylesheet_directory_uri() . '/sass/img/loading.gif' ?>) center center no-repeat;  
+    height: 25px;
+    width: auto; 
+    min-width: 25px; 
+    
+}
+
+.actionTaken{
+    display: inline-block;
+}
 </style>
 
 <?php
@@ -320,7 +332,7 @@ input:checked + .slider .off
                                     <div class="col-12 text-right pt-3 px-0">
                                         <button data-status="Rejected" class="btn btn-danger btn-sm action-personal-details">Reject</button>
                                         <button data-status="Approved" class="btn btn-add btn-sm action-personal-details">Approve</button>
-                                        <span class="actionTaken"></span>
+                                        <div class="actionTaken"></div>
                                     </div>
                                 <div class="row pt-3">
                                 <div class="col-12 row">
@@ -349,10 +361,10 @@ input:checked + .slider .off
                                             </span>
                                         </div>
                                         <div class="col-12 text-right pt-3 px-0">
-                                            <button class="btn btn-edit btn-sm selectAll selectAll">Select All</button>
+                                            <button class="btn btn-edit btn-sm selectAll">Select All</button>
                                             <button data-status="Rejected" class="btn btn-danger btn-sm action-introduction">Reject</button>
                                             <button  data-status="Approved" class="btn btn-add btn-sm action-introduction">Approve</button>
-                                            <span class="actionTaken"></span>
+                                            <div class="actionTaken"></div>
                                         </div>
                                         <div class="row pt-3">
                                             <?php
@@ -363,7 +375,7 @@ input:checked + .slider .off
                                                         </iframe>
                                                         <div class="statusselect-radio pb-4 pl-3 pt-1 mb-2">
                                                             <div class="form-check">
-                                                                <input class="form-check-input checkbox" type="checkbox" value="" data-value="camara">
+                                                                <input class="form-check-input checkbox" type="checkbox" value="" data-value="camara"></input>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -376,7 +388,7 @@ input:checked + .slider .off
                                                         <div class="col-1">
                                                             <div class="statusselect-radio pb-4 pl-3 pt-1 mb-2">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input checkbox" type="checkbox" value="" data-value="text">
+                                                                    <input class="form-check-input checkbox" type="checkbox" value="" data-value="text"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -423,7 +435,7 @@ input:checked + .slider .off
                                         <button class="btn btn-edit btn-sm selectAll">Select All</button>
                                         <button data-status="Rejected" class="btn btn-danger btn-sm action-headshots">Reject</button>
                                         <button data-status="Approved" class="btn btn-add btn-sm action-headshots">Approve</button>
-                                        <span class="actionTaken"></span>
+                                        <div class="actionTaken"></div>
                                     </div>
                                     <!-- Photo Grid  -->
                                     <div class="photo-grid pt-3">
@@ -476,7 +488,7 @@ input:checked + .slider .off
                                         <button class="btn btn-edit btn-sm selectAll">Select All</button>
                                         <button data-status="Rejected" class="btn btn-danger btn-sm action-photos">Reject</button>
                                         <button data-status="Approved" class="btn btn-add btn-sm action-photos">Approve</button>
-                                        <span class="actionTaken"></span>
+                                        <div class="actionTaken"></div>
                                     </div>
                                     <!-- Photo Grid  -->
                                     <div class="photo-grid pt-3">
@@ -524,7 +536,7 @@ input:checked + .slider .off
                                         <button class="btn btn-edit btn-sm selectAll">Select All</button>
                                         <button data-status="Rejected" class="btn btn-danger btn-sm action-videos">Reject</button>
                                         <button data-status="Approved" class="btn btn-add btn-sm action-videos">Approve</button>
-                                        <span class="actionTaken"></span>
+                                        <div class="actionTaken"></div>
                                     </div>
                                 <div class="row pt-3 details-block">
                                     <?php foreach($videosToApprove as $video){ ?>
@@ -574,7 +586,7 @@ input:checked + .slider .off
                                         <button class="btn btn-edit btn-sm selectAll">Select All</button>
                                         <button data-status="Rejected" class="btn btn-danger btn-sm action-audios">Reject</button>
                                         <button data-status="Approved" class="btn btn-add btn-sm action-audios">Approve</button>
-                                        <span class="actionTaken"></span>
+                                        <div class="actionTaken"></div>
                                     </div>
                                     <div class="row pt-3 audio-block">
                                         <?php foreach($audiosToApprove as $audio) {  ?>
@@ -637,7 +649,7 @@ input:checked + .slider .off
                                         <button class="btn btn-edit btn-sm selectAll">Select All</button>
                                         <button data-status="Rejected" class="btn btn-danger btn-sm action-experience">Reject</button>
                                         <button data-status="Approved" class="btn btn-add btn-sm action-experience">Approve</button>
-                                        <span class="actionTaken"></span>
+                                        <div class="actionTaken"></div>
                                     </div>
                                     <div class="row pt-3">
                                         <?php foreach($experiencesToApprove as $key => $experience){ 
@@ -683,7 +695,7 @@ input:checked + .slider .off
                                             <label class="btn btn-plain btn-rejected ">
                                               <input class="profile_status_radio" type="radio" name="profile_status" data-value="Rejected" id="profile_status_rejected" autocomplete="off"> Rejected
                                             </label>
-                                            <label class="btn btn-plain btn-pending active">
+                                            <label class="btn btn-plain btn-pending">
                                               <input class="profile_status_radio" type="radio" name="profile_status" data-value="Pending" id="profile_status_pending" autocomplete="off"> Pending
                                             </label>
                                           </div>

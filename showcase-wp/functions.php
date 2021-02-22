@@ -263,6 +263,17 @@ function custom_page_scripts(){
 			)
 		);
 	}
+	if (is_page( 'sitewide-search' )){
+		wp_enqueue_script( 'sitewide-search', get_template_directory_uri() . '/js/sitewide-search.js', array('jquery'), _S_VERSION, false );
+		wp_localize_script(
+			'sitewide-search',
+			'SEARCH_TALENT',
+			array(
+				'request_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'sitewide_search' )
+			)
+		);
+	}
 }
 add_action('wp_head','custom_page_scripts');
 
@@ -313,6 +324,11 @@ require get_template_directory() . '/inc/edit-page.php';
  * Edit profile likes
  */
 require get_template_directory() . '/inc/ajax-like.php';
+
+/**
+ * Sitewide search page
+ */
+require get_template_directory() . '/inc/sitewide-search.php';
 
 /**
  * Implement the Custom Nav Walker feature.

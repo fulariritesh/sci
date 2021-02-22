@@ -171,6 +171,20 @@ $user_info = get_userdata($obj_id);
 									        $sub_value = get_sub_field('sci_user_headshot'); ?>
 									        <li  class="splide__slide">
 									        	<img src="<?php echo $sub_value['url']; ?>">
+												<?php 
+													$approvalStatus = get_post_meta( $sub_value['ID'], 'is_approved', true );
+													if($approvalStatus == "Updated"){
+														?><span class="headshotpending-status"><i class="fas fa-question"></i></span> <?php
+													}else if($approvalStatus == "Approved"){
+														
+														if(!get_post_meta( $sub_value['ID'], 'is_status_tag_viewed', false )[0]){
+															update_post_meta( $sub_value['ID'], 'is_status_tag_viewed', true );
+															?><span class="headshotapproved-status"><i class="fas fa-check" aria-hidden="true"></i></span> <?php
+														}
+													}else if($approvalStatus == "Rejected"){
+														?><span class="headshotrejected-status"><i class="fas fa-exclamation"></i></span> <?php
+													}
+												?>
 											</li>
 									    <?php // End loop.
 									    endwhile;
@@ -194,6 +208,20 @@ $user_info = get_userdata($obj_id);
 									        $sub_value = get_sub_field('sci_user_headshot'); ?>
 									        <li  class="splide__slide" >
 												<img src="<?php echo $sub_value['url']; ?>">
+												<?php 
+													$approvalStatus = get_post_meta( $sub_value['ID'], 'is_approved', true );
+													if($approvalStatus == "Updated"){
+														?><span class="headshotpending-status"><i class="fas fa-question"></i></span> <?php
+													}else if($approvalStatus == "Approved"){
+														if(!get_post_meta( $sub_value['ID'], 'is_status_tag_viewed', false )[0]){
+															update_post_meta( $sub_value['ID'], 'is_status_tag_viewed', true );
+															?><span class="headshotapproved-status"><i class="fas fa-check" aria-hidden="true"></i></span> <?php
+														}
+														
+													}else if($approvalStatus == "Rejected"){
+														?><span class="headshotrejected-status"><i class="fas fa-exclamation"></i></span> <?php
+													}
+												?>
 												<div class="float-left">
 													<?php echo (get_row_index() == 1) ? '<span class="text-primary m-2"  data-toggle="tooltip" data-placement="left" title="This is your profile picture." > <i class="fas fa-info-circle"></i></span>' : ''; ?>
 												</div>
@@ -235,6 +263,22 @@ $user_info = get_userdata($obj_id);
 			    </div>
 			    <div class="col-12 col-sm-6 profile-personaldetails pt-5">
 		            <div id="editable-form" class="editable-form">
+						<div class="form-group row"> 
+							<?php 
+								$approvalStatus = get_user_meta( $obj_id, 'basic_details_are_approved', true );
+								if($approvalStatus == "Updated"){
+									?><span class="textpending-status">Pending</span><?php
+								}else if($approvalStatus == "Approved"){
+									if(!get_user_meta( $obj_id, 'tag_visibility_is_basic_details_tag_viewed', true )){
+										update_post_meta( $obj_id, 'tag_visibility_is_basic_details_tag_viewed', true );
+										?><span class="textapproved-status"><i class="fas fa-check"></i></span> <?php
+									}
+									
+								}else if($approvalStatus == "Rejected"){
+									?><span class="textrejected-status">Rejected</span> <?php
+								}
+							?>
+						</div>	
 		                <div class="form-group row"> 
 		                     <h1>
 		                     	<a id="name" data-type="text" data-pk="1" class="editable editable-click" data-abc="true" >
@@ -370,6 +414,20 @@ $user_info = get_userdata($obj_id);
 	        	<?php if (get_field('intro_to_camera', 'user_' . $obj_id)): ?>
 	            <div class="col-12 col-sm-6 introvideo">
 	                <?php echo get_field('intro_to_camera', 'user_' . $obj_id); ?>
+					<?php 
+						$approvalStatus = get_user_meta( $obj_id, 'intro_to_camera_is_approved', true );
+						if($approvalStatus == "Updated"){
+							?><span class="textpending-status">Pending</span><?php
+						}else if($approvalStatus == "Approved"){
+							if(!get_user_meta( $obj_id, 'tag_visibility_is_intro_to_camara_tag_viewed', true )){
+								update_post_meta( $obj_id, 'tag_visibility_is_intro_to_camara_tag_viewed', true );
+								?><span class="textapproved-status"><i class="fas fa-check"></i></span> <?php
+							}
+							
+						}else if($approvalStatus == "Rejected"){
+							?><span class="textrejected-status">Rejected</span> <?php
+						}
+					?>
 	            </div>
 	        	<?php else : ?>
 	        	<div class="col-sm-6 cameraIntro py-3">
@@ -386,7 +444,24 @@ $user_info = get_userdata($obj_id);
 	        	<?php if (get_field('intro_text', 'user_' . $obj_id)): ?>
 	            <div class="col-12 col-sm-6 intro">
 	                <div class="row">
-	                    <div class="col-6 col-sm-6 "> <h4>Introduction</h4></div>
+	                    <div class="col-6 col-sm-6 "> 
+							<h4>Introduction  
+								<?php 
+									$approvalStatus = get_user_meta( $obj_id, 'intro_text_is_approved', true );
+									if($approvalStatus == "Updated"){
+										?><span class="textpending-status">Pending</span><?php
+									}else if($approvalStatus == "Approved"){
+										if(!get_user_meta( $obj_id, 'tag_visibility_is_intro_text_tag_viewed', true )){
+											update_post_meta( $obj_id, 'tag_visibility_is_intro_text_tag_viewed', true );
+											?><span class="textapproved-status"><i class="fas fa-check"></i></span> <?php
+										}
+										
+									}else if($approvalStatus == "Rejected"){
+										?><span class="textrejected-status">Rejected</span> <?php
+									}
+								?>
+							</h4>
+						</div>
 	                    <div class="col-6 col-sm-6 px-0 text-right">
 	                        <button class="btn btn-edit" data-toggle="modal" data-target="#editIntro">Edit</button>
 	                    </div>
@@ -466,21 +541,19 @@ $user_info = get_userdata($obj_id);
 						<a href="<?php echo $obj['url']; ?>" data-lightbox="roadtrip">
 							<img src="<?php echo $obj['url']; ?>">					
 							<?php 
-		                    if (get_field('moderated', 'attachment_' . $obj["ID"])) {
-		    					switch (get_field('moderated', 'attachment_' . $obj["ID"])['value']) {
-		    						case 'pending':
-		    							echo "<div class='pending-status'>Pending</div>";
-		    							break;
-		    						case 'approved':
-		    							echo "<div class='approved-status'><i class='fas fa-check'></i></div>";
-		    							break;
-		    						case 'rejected':
-		    							echo "<div class='rejected-status'>Rejected</div>";
-		    							break;
-		    						default:
-		    							break;
-		                        }
-							} ?>				
+								$approvalStatus = get_post_meta( $obj['ID'], 'is_approved', true );
+								if($approvalStatus == "Updated"){
+									?><span class="headshotpending-status"><i class="fas fa-question"></i></span> <?php
+								}else if($approvalStatus == "Approved"){
+									if(!get_post_meta( $obj['ID'], 'is_status_tag_viewed', false )[0]){
+										update_post_meta( $obj['ID'], 'is_status_tag_viewed', true );
+										?><span class="headshotapproved-status"><i class="fas fa-check" aria-hidden="true"></i></span> <?php
+									}
+									
+								}else if($approvalStatus == "Rejected"){
+									?><span class="headshotrejected-status"><i class="fas fa-exclamation"></i></span> <?php
+								}
+							?>				
 						</a>
 					</div>
 					<?php endforeach;?>
@@ -515,7 +588,22 @@ $user_info = get_userdata($obj_id);
 					<?php while ( have_rows('videos', 'user_' . $obj_id) ) : the_row(); ob_start(); $i++; ?>
 						<div class="iframe-container profilevideos <?php echo get_row_index() == count(get_field('videos', 'user_' . $obj_id)) ? 'col-12 mt-2' : 'col-sm-4 pt-3'; ?>">
 							<?php echo get_sub_field('video_link'); ?>
-							<h5 class="pt-2 text-center"><?php echo get_sub_field('video_caption'); ?></h5>	                				
+							<h5 class="pt-2 text-center"><?php echo get_sub_field('video_caption'); ?> 
+							<?php 
+									$approvalStatus = get_sub_field('is_approved')['value'];
+									if($approvalStatus == "Updated"){
+										?><span class="textpending-status">Pending</span><?php
+									}else if($approvalStatus == "Approved"){
+										if(!get_sub_field('is_status_tag_viewed')){
+											update_sub_field('is_status_tag_viewed', true);
+											?><span class="textapproved-status"><i class="fas fa-check"></i></span> <?php
+										}
+										
+									}else if($approvalStatus == "Rejected"){
+										?><span class="textrejected-status">Rejected</span> <?php
+									}
+								?>
+							</h5>	                				
 						</div>
 					<?php $display_videos[] = ob_get_clean(); endwhile; ?>
 				<?php endif;
@@ -537,8 +625,25 @@ $user_info = get_userdata($obj_id);
 						<?php while ( have_rows('audios', 'user_' . $obj_id) ) : the_row(); ob_start(); $a++; ?>
 							<div class="col-12 pt-1  row">
 								<div class="col-sm-6">
-									<h5 class="pt-2"><?php echo get_sub_field('audio_title'); ?></h5>
-									<h6><?php echo get_sub_field('audio_description'); ?></h6>														
+									
+									<h5 class="pt-2"><?php echo get_sub_field('audio_title'); ?>
+										<?php 
+											$audioId = get_sub_field('audio_file')['ID'];
+											$approvalStatus = get_post_meta( $audioId, 'is_approved', true );
+											if($approvalStatus == "Updated"){
+												?><span class="textpending-status">Pending</span><?php
+											}else if($approvalStatus == "Approved"){
+												if(!get_post_meta( $audioId, 'is_status_tag_viewed', false )[0]){
+													update_post_meta( $audioId, 'is_status_tag_viewed', true );
+													?><span class="textapproved-status"><i class="fas fa-check"></i></span> <?php
+												}
+												
+											}else if($approvalStatus == "Rejected"){
+												?><span class="textrejected-status">Rejected</span> <?php
+											}
+										?>
+									</h5>
+									<h6><?php echo get_sub_field('audio_description'); ?></h6>													
 								</div>
 								<div class="col-sm-6 pt-3">
 									<audio controls preload="metadata">
@@ -671,11 +776,24 @@ $user_info = get_userdata($obj_id);
 														if(!array_key_exists($catKey,$arrCategory)){
 															$arrCategory[$catKey] = array();
 														}
+
+														$experienceApproved = get_sub_field('sci_experience_approved');
+														$tagVisible = false;
+														if($experienceApproved == 'Approved'){
+															if(!get_sub_field('is_status_tag_viewed')){
+																$tagVisible = true;
+																update_sub_field('is_status_tag_viewed', true);
+															}
+															
+														}
+														
 														if( have_rows('sections') ){
 															while ( have_rows('sections') ) : the_row();
 																$experience = new stdClass();
 																$experience->content = strip_tags(get_sub_field('content'));
 																$experience->year = get_sub_field('year');
+																$experience->status = $experienceApproved;
+																$experience->tagVisible = $tagVisible;
 																array_push($arrCategory[$catKey], $experience);
 															endwhile;
 
@@ -700,6 +818,8 @@ $user_info = get_userdata($obj_id);
 											$experience = new stdClass();
 											$experience->content = $value->content;
 											$experience->category = $key;
+											$experience->status = $value->status;
+											$experience->tagVisible = $value->tagVisible;
 											array_push($arrYear[$value->year], $experience);
 										}
 									}
@@ -736,7 +856,18 @@ $user_info = get_userdata($obj_id);
 														</div>
 														<ul>
 															<?php foreach($credits as $credit){ ?>
-																<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo $credit->year ?></span></li>
+																<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo $credit->year ?></span>
+																	<?php
+																		if($credit->status == "Updated"){
+																			?><span class="textpending-status">Pending</span><?php
+																		}else if($credit->status == "Approved" && $credit->tagVisible){
+																			?><span class="textapproved-status"><i class="fas fa-check"></i></span> <?php
+																			
+																		}else if($credit->status == "Rejected"){
+																			?><span class="textrejected-status">Rejected</span> <?php
+																		}
+																	?>
+																</li>
 															<?php } ?>
 														</ul>
 													<?php }
@@ -752,7 +883,17 @@ $user_info = get_userdata($obj_id);
 													</div>
 													<ul>
 														<?php foreach($credits as $credit){ ?>
-															<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo get_field('category_name_singular', 'term_' . $credit->category); ?></span></li>
+															<li><?php echo $credit->content ?><span class="badge categorybadge"><?php echo get_field('category_name_singular', 'term_' . $credit->category); ?></span>
+																<?php
+																	if($credit->status == "Updated"){
+																		?><span class="textpending-status">Pending</span><?php
+																	}else if($credit->status == "Approved" && $credit->tagVisible){
+																		?><span class="textapproved-status"><i class="fas fa-check"></i></span> <?php
+																	}else if($credit->status == "Rejected"){
+																		?><span class="textrejected-status">Rejected</span> <?php
+																	}
+																?>
+															</li>
 														<?php } ?>
 													</ul>
 												<?php } ?>	

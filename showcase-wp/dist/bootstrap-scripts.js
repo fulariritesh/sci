@@ -16460,6 +16460,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__(/*! ./bootstrap-editable.min.js */ "./js/bootstrap-editable.min.js");
 
 $(document).ready(function () {
+  $(document).on("keydown", "form", function (event) {
+    if (event.key == 'Enter') {
+      var formId = $(this).data('id') ? $(this).data('id') : '';
+      var seachText = $(this).find('.text-sitewide-search') ? $(this).find('.text-sitewide-search').val() : '';
+
+      if (formId == 'sitewide-search' && seachText == '') {
+        event.preventDefault();
+        return false;
+      }
+    }
+  });
   $('[data-toggle="tooltip"]').tooltip();
   $.fn.editable.defaults.mode = 'inline';
   $.fn.editableform.buttons = '<button type="submit" class="btn btn-primary btn-sm editable-submit">' + '<i class="fa fa-fw fa-check"></i>' + '</button>' + '<button type="button" class="btn btn-warning btn-sm editable-cancel">' + '<i class="fa fa-fw fa-times"></i>' + '</button>';
@@ -16799,7 +16810,7 @@ $(document).ready(function () {
           var experience = $();
           experience.year = thisYear;
           experience.rowNumber = $(this).data('row') ? $(this).data('row') : '-1';
-          experience.content = $(this).find('span').text();
+          experience.content = $(this).find('span').text().replace(/\n/g, "");
           experienceDetails.push(experience);
         });
       }); /////experiences
@@ -16812,7 +16823,6 @@ $(document).ready(function () {
         experiences: experienceDetails,
         deleted: deletedExperiences
       });
-      console.log(dataStringified);
       $.post({
         url: Edit.request_url,
         data: {
